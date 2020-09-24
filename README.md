@@ -14,5 +14,4 @@ As a JSON extension, the following additions have been made:
 * Comments can be present
   * C++-style comments are supported (`//` and `/* */`)
   * A semicolon comment (`;`) extends from the semicolon to the end-of-line
-* IPv4 values are in the form (`@###.###.###.###`) where `#` indicates a decimal digit
-* File path values are in the form (`<.*>`) where the text between the `<` and `>` is arbitrary; note that these two characters cannot appear in the path
+* IPv4 values are in the form (`@###.###.###.###`) where `#` indicates a decimal digit; fewer than three digits can appear in each segment of the address
