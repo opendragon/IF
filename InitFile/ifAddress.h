@@ -94,6 +94,13 @@ namespace InitFile
 			const
             override;
 
+        /*! @brief Return @c this if this is an IPv4 address.
+         @return @c this if this is an IPv4 address. */
+		virtual AddressValue *
+		AsAddress
+			(void)
+            override;
+
         /*! @brief Return the content of this value.
          @return The content of this value. */
 		inline uint32_t
@@ -111,7 +118,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,

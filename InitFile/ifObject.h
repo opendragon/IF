@@ -112,8 +112,9 @@ namespace InitFile
         /*! @brief Add a value to the Object contents.
          @param[in] key The tag for the value being added.
          @param[in] aValue The value to be added.
-         Only non-@c nullptr values will be added and only if the key is non-empty. */
-        void
+         Only non-@c nullptr values will be added and only if the key is non-empty.
+         @return The Object that was modified. */
+        ObjectValue &
         AddValue
             (const std::string &    key,
              InitValue *            aValue);
@@ -124,6 +125,13 @@ namespace InitFile
 		AsObject
 			(void)
 			const
+            override;
+
+        /*! @brief Return @c this if this is an object.
+         @return @c this if this is an object. */
+		virtual ObjectValue *
+		AsObject
+			(void)
             override;
 
         /*! @brief Return a value from the Object contents.
@@ -158,7 +166,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,

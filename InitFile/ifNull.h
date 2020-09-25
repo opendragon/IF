@@ -93,6 +93,13 @@ namespace InitFile
 			const
             override;
 
+        /*! @brief Return @c this if this is NULL.
+         @return @c this if this is NULL. */
+		virtual NullValue *
+		AsNull
+			(void)
+            override;
+
         /*! @brief Write a human-readable representation of the value to a stream.
          @param[in,out] output The stream to be written to.
 		 @param[in] indentStep How many characters to insert at each level
@@ -100,7 +107,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,

@@ -37,7 +37,7 @@ doubleValue : nu=SIGNED_DOUBLE ;
 
 integerValue : nu=SIGNED_INTEGER ;
 
-literalValue : tv=TRUE | fv=FALSE | nv=NULL_VALUE ;
+literalValue : tv=TRUE_VALUE | fv=FALSE_VALUE | nv=NULL_VALUE ;
 
 array : OPEN_SQUARE value ( COMMA value )* COMMA? CLOSE_SQUARE  # nonEmptyArray
         | OPEN_SQUARE CLOSE_SQUARE                              # emptyArray

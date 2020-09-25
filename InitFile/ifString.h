@@ -86,7 +86,7 @@ namespace InitFile
         ~StringValue
             (void);
 
-         /*! @brief Return @c this if this is a string.
+        /*! @brief Return @c this if this is a string.
          @return @c this if this is a string. */
 		virtual const StringValue *
 		AsString
@@ -94,7 +94,14 @@ namespace InitFile
 			const
             override;
 
-       /*! @brief Return the content of this value.
+        /*! @brief Return @c this if this is a string.
+         @return @c this if this is a string. */
+		virtual StringValue *
+		AsString
+			(void)
+            override;
+
+        /*! @brief Return the content of this value.
          @return The content of this value. */
 		inline std::string
 		GetValue
@@ -111,7 +118,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,

@@ -94,18 +94,26 @@ ObjectValue::~ObjectValue
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+ObjectValue &
 ObjectValue::AddValue
 	(const std::string &    key,
 	 InitValue *            aValue)
 {
 	fValue.insert(value_type(key, aValue));
+	return *this;
 } // ObjectValue::AddValue
 
 const ObjectValue *
 ObjectValue::AsObject
 	(void)
 	const
+{
+	return this;
+} // ObjectValue::AsObject
+
+ObjectValue *
+ObjectValue::AsObject
+	(void)
 {
 	return this;
 } // ObjectValue::AsObject

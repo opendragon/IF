@@ -97,6 +97,13 @@ NullValue::AsNull
 	return this;
 } // NullValue::AsNull
 
+NullValue *
+NullValue::AsNull
+	(void)
+{
+	return this;
+} // NullValue::AsNull
+
 std::ostream &
 NullValue::Print
 	(std::ostream &	output,

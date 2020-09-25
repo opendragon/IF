@@ -100,10 +100,24 @@ InitValue::AsAddress
 	return nullptr;
 } // InitValue::AsAddress
 
+AddressValue *
+InitValue::AsAddress
+	(void)
+{
+	return nullptr;
+} // InitValue::AsAddress
+
 const ArrayValue *
 InitValue::AsArray
 	(void)
 	const
+{
+	return nullptr;
+} // InitValue::AsArray
+
+ArrayValue *
+InitValue::AsArray
+	(void)
 {
 	return nullptr;
 } // InitValue::AsArray
@@ -116,10 +130,24 @@ InitValue::AsBoolean
 	return nullptr;
 } // InitValue::AsBoolean
 
+BooleanValue *
+InitValue::AsBoolean
+	(void)
+{
+	return nullptr;
+} // InitValue::AsBoolean
+
 const DoubleValue *
 InitValue::AsDouble
 	(void)
 	const
+{
+	return nullptr;
+} // InitValue::AsDouble
+
+DoubleValue *
+InitValue::AsDouble
+	(void)
 {
 	return nullptr;
 } // InitValue::AsDouble
@@ -132,10 +160,24 @@ InitValue::AsInteger
 	return nullptr;
 } // InitValue::AsInteger
 
+IntegerValue *
+InitValue::AsInteger
+	(void)
+{
+	return nullptr;
+} // InitValue::AsInteger
+
 const NullValue *
 InitValue::AsNull
 	(void)
 	const
+{
+	return nullptr;
+} // InitValue::AsNull
+
+NullValue *
+InitValue::AsNull
+	(void)
 {
 	return nullptr;
 } // InitValue::AsNull
@@ -148,10 +190,24 @@ InitValue::AsObject
 	return nullptr;
 } // InitValue::AsObject
 
+ObjectValue *
+InitValue::AsObject
+	(void)
+{
+	return nullptr;
+} // InitValue::AsObject
+
 const StringValue *
 InitValue::AsString
 	(void)
 	const
+{
+	return nullptr;
+} // InitValue::AsString
+
+StringValue *
+InitValue::AsString
+	(void)
 {
 	return nullptr;
 } // InitValue::AsString

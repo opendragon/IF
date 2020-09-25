@@ -97,6 +97,13 @@ DoubleValue::AsDouble
 	return this;
 } // DoubleValue::AsDouble
 
+DoubleValue *
+DoubleValue::AsDouble
+	(void)
+{
+	return this;
+} // DoubleValue::AsDouble
+
 std::ostream &
 DoubleValue::Print
 	(std::ostream &	output,

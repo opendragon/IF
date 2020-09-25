@@ -10,4 +10,5 @@
 #include "ifObject.h"
 #include "ifString.h"
 #include "ifValue.h"
+#include "ifValueListener.h"
 %}

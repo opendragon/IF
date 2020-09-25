@@ -97,6 +97,13 @@ BooleanValue::AsBoolean
 	return this;
 } // BooleanValue::AsBoolean
 
+BooleanValue *
+BooleanValue::AsBoolean
+	(void)
+{
+	return this;
+} // BooleanValue::AsBoolean
+
 std::ostream &
 BooleanValue::Print
 	(std::ostream &	output,

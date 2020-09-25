@@ -105,16 +105,18 @@ namespace InitFile
         /*! @brief Add a value to the Array contents.
          @param[in] aValue The value to be added.
          Values are added to the end of the contents.
-         Only non-@c nullptr values will be added. */
-        void
+         Only non-@c nullptr values will be added.
+         @return The Array that was modified. */
+        ArrayValue &
         AddValueAtBack
             (InitValue *    aValue);
 
         /*! @brief Add a value to the Array contents.
          @param[in] aValue The value to be added.
          Values are added to the beginning of the contents.
-         Only non-@c nullptr values will be added. */
-        void
+         Only non-@c nullptr values will be added.
+         @return The Array that was modified. */
+        ArrayValue &
         AddValueAtFront
             (InitValue *    aValue);
 
@@ -124,6 +126,13 @@ namespace InitFile
 		AsArray
 			(void)
 			const
+            override;
+
+        /*! @brief Return @c this if this is an array.
+         @return @c this if this is an array. */
+		virtual ArrayValue *
+		AsArray
+			(void)
             override;
 
         /*! @brief Return a value from the Array contents.
@@ -148,7 +157,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,

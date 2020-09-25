@@ -97,6 +97,13 @@ StringValue::AsString
 	return this;
 } // StringValue::AsString
 
+StringValue *
+StringValue::AsString
+	(void)
+{
+	return this;
+} // StringValue::AsString
+
 std::ostream &
 StringValue::Print
 	(std::ostream &	output,

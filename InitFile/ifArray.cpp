@@ -94,7 +94,7 @@ ArrayValue::~ArrayValue
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+ArrayValue &
 ArrayValue::AddValueAtBack
 	(InitValue *    aValue)
 {
@@ -102,9 +102,10 @@ ArrayValue::AddValueAtBack
 	{
 		fValue.push_back(aValue);
 	}
+	return *this;
 } // ArrayValue::AddValueAtBack
 
-void
+ArrayValue &
 ArrayValue::AddValueAtFront
 	(InitValue *    aValue)
 {
@@ -112,12 +113,20 @@ ArrayValue::AddValueAtFront
 	{
 		fValue.push_front(aValue);
 	}
+	return *this;
 } // ArrayValue::AddValueAtFront
 
 const ArrayValue *
 ArrayValue::AsArray
 	(void)
 	const
+{
+	return this;
+} // ArrayValue::AsArray
+
+ArrayValue *
+ArrayValue::AsArray
+	(void)
 {
 	return this;
 } // ArrayValue::AsArray

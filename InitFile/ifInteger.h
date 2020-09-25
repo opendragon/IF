@@ -86,12 +86,19 @@ namespace InitFile
         ~IntegerValue
             (void);
 
-        /*! @brief Return @c this if this is an integer.
-         @return @c this if this is an integer. */
+        /*! @brief Return @c this if this is an integer value.
+         @return @c this if this is an integer value. */
 		virtual const IntegerValue *
 		AsInteger
 			(void)
 			const
+            override;
+
+        /*! @brief Return @c this if this is an integer value.
+         @return @c this if this is an integer value. */
+		virtual IntegerValue *
+		AsInteger
+			(void)
             override;
 
         /*! @brief Return the content of this value.
@@ -111,7 +118,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,

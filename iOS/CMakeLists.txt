@@ -71,12 +71,18 @@ set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "Always set file paths as relative")
 # Add the IF target path so that IF can be found
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 
+list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
+
+# Find ANTLR4
+find_package(antlr4-generator REQUIRED)
+find_package(antlr4-runtime REQUIRED)
+
+configure_file(${IF_CONFIG_DIR}/IFConfigVersion.cmake.in
+               ${CMAKE_CURRENT_BINARY_DIR}/IFConfigVersion.cmake @ONLY)
+configure_file("${IF_SOURCE_DIR}/ifConfig.h.in" "${IF_SOURCE_DIR}/ifConfig.h")
+
 # The following is to help CMake find ODL...
-if(WIN32)
-    set(ODL_DIR "C:/Program Files/ODL/lib")
-else()
-    set(ODL_DIR "/opt/odl/lib")
-endif()
+set(ODL_DIR "/opt/odl/lib")
 find_package(ODL 1.0.0 REQUIRED)
 if(ODL_FOUND)
     include_directories(${ODL_INCLUDE_DIRS})
@@ -98,8 +104,32 @@ endmacro(ADD_FRAMEWORK)
 
 set(TARGET initfile)
 
+# ANTLR source code generation
+set(ANTLR4_JAR_LOCATION $ENV{ANTLR4_JAR_LOCATION})
+
+antlr4_generate(init_lexer
+                ${IF_SOURCE_DIR}/InitFileLexer.g4
+                LEXER
+                FALSE
+                FALSE
+                "InitParser")
+antlr4_generate(init_parser
+                ${IF_SOURCE_DIR}/InitFileParser.g4
+                PARSER
+                TRUE
+                FALSE
+                "InitParser"
+                "${ANTLR4_TOKEN_FILES_init_lexer}"
+                "${ANTLR4_TOKEN_DIRECTORY_init_lexer}")
+
+set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+
+include_directories(${ANTLR4_INCLUDE_DIR}
+                    ${ANTLR4_INCLUDE_DIR_init_lexer}
+                    ${ANTLR4_INCLUDE_DIR_init_parser})
+
 add_library(${TARGET}
-            STATIC
+            ${DO_SHARED}
             ${IF_SOURCE_DIR}/ifAddress.cpp
             ${IF_SOURCE_DIR}/ifArray.cpp
             ${IF_SOURCE_DIR}/ifBoolean.cpp
@@ -109,7 +139,16 @@ add_library(${TARGET}
             ${IF_SOURCE_DIR}/ifNull.cpp
             ${IF_SOURCE_DIR}/ifObject.cpp
             ${IF_SOURCE_DIR}/ifString.cpp
-            ${IF_SOURCE_DIR}/ifValue.cpp)
+            ${IF_SOURCE_DIR}/ifValue.cpp
+            ${IF_SOURCE_DIR}/ifValueListener.cpp
+            "${ANTLR4_SRC_FILES_init_parser}"
+            "${ANTLR4_SRC_FILES_init_lexer}")
+
+target_link_libraries(${TARGET}
+                        ${ANTLR4_RUNTIME})
+
+add_dependencies(${TARGET}
+                    antlr4_static)
 
 target_include_directories(${TARGET} PUBLIC
                             $<BUILD_INTERFACE:${IF_SOURCE_DIR}> # for headers when building

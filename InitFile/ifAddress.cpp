@@ -97,6 +97,13 @@ AddressValue::AsAddress
 	return this;
 } // AddressValue::AsAddress
 
+AddressValue *
+AddressValue::AsAddress
+	(void)
+{
+	return this;
+} // AddressValue::AsAddress
+
 std::ostream &
 AddressValue::Print
 	(std::ostream &	output,

@@ -3,40 +3,47 @@
 
 lexer grammar InitFileLexer;
 
-TRUE : [Tt][Rr][Uu][Ee] ;
+TRUE_VALUE : [Tt][Rr][Uu][Ee] ;
 
-FALSE : [Ff][Aa][Ll][Ss][Ee] ;
+FALSE_VALUE : [Ff][Aa][Ll][Ss][Ee] ;
 
 NULL_VALUE : [Nn][Uu][Ll][Ll] ;
 
 IPV4_ADDRESS : '@' INT3 '.' INT3 '.' INT3 '.' INT3 ;
 
-fragment INT3 : [0-9]([0-9][0-9]?)? ;
+fragment INT3 : DIGIT ( DIGIT DIGIT? )? ;
 
-// ###.###[E###]
-// .####[E###]
-// ###E###
-SIGNED_DOUBLE : [-+]? UNSIGNED_DOUBLE ;
+SIGNED_DOUBLE : SIGN? UNSIGNED_DOUBLE ;
 
-UNSIGNED_DOUBLE : INT '.' [0-9]* EXP? | '.' INT EXP? | INT EXP ;
+UNSIGNED_DOUBLE : INT '.' DIGIT* EXP?
+                    | '.' INT EXP?
+                    | INT EXP ;
 
-fragment INT : [0-9]+ ;
+fragment DIGIT : [0-9] ;
 
-fragment EXP : [Ee] [+\-]? INT ;
+fragment INT : DIGIT+ ;
 
-SIGNED_INTEGER : [-+]? INT ;
+fragment EXP : [Ee] SIGN? INT ;
 
-STRING1 : '"' ( ESC1 | SAFE_CODE_POINT1 )+ '"' ;
+fragment SIGN : [+\-] ;
 
-STRING2 : '\'' ( ESC2 | SAFE_CODE_POINT2 )+ '\'';
+SIGNED_INTEGER : SIGN? INT ;
 
-STRING3 : '"' '"' ; // empty string, only legal for a value
+DOUBLE_Q : '"' ;
 
-STRING4 : '\'' '\'' ; // empty string, only legal for a value
+SINGLE_Q : '\'' ;
 
-fragment ESC1 : '\\' ( ["\\/bfnrt] | UNICODE ) ;
+STRING1 : DOUBLE_Q ( ESC1 | SAFE_CODE_POINT1 )+ DOUBLE_Q ;
 
-fragment ESC2 : '\\' ( ['\\/bfnrt] | UNICODE ) ;
+STRING2 : SINGLE_Q ( ESC2 | SAFE_CODE_POINT2 )+ SINGLE_Q ;
+
+STRING3 : DOUBLE_Q DOUBLE_Q ; // empty string, only legal for a value
+
+STRING4 : SINGLE_Q SINGLE_Q ; // empty string, only legal for a value
+
+fragment ESC1 : '\\' ( ["\\/bfnrtv] | UNICODE ) ;
+
+fragment ESC2 : '\\' ( ['\\/bfnrtv] | UNICODE ) ;
 
 fragment UNICODE : 'u' HEX HEX HEX HEX ;
 

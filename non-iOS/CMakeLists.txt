@@ -42,7 +42,7 @@ set(PROJECT_NAME "IF")
 
 if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "Build architectures for Mac OSX" FORCE)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Deployment target for Mac OSX" FORCE)
+    #set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Deployment target for Mac OSX" FORCE)
 endif()
 
 project(${PROJECT_NAME}
@@ -111,8 +111,11 @@ if(IF_DO_SWIG)
     set(CMAKE_SWIG_FLAGS "")
 endif()
 
+list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
+
 # Find ANTLR4
 find_package(antlr4-generator REQUIRED)
+find_package(antlr4-runtime REQUIRED)
 
 configure_file(${IF_CONFIG_DIR}/IFConfigVersion.cmake.in
                ${CMAKE_CURRENT_BINARY_DIR}/IFConfigVersion.cmake @ONLY)
@@ -155,6 +158,39 @@ else()
     set(DO_SHARED "")
 endif()
 
+# ANTLR source code generation
+set(ANTLR4_JAR_LOCATION $ENV{ANTLR4_JAR_LOCATION})
+
+antlr4_generate(init_lexer
+                ${IF_SOURCE_DIR}/InitFileLexer.g4
+                LEXER
+                FALSE
+                FALSE
+                "InitParser")
+antlr4_generate(init_parser
+                ${IF_SOURCE_DIR}/InitFileParser.g4
+                PARSER
+                TRUE
+                FALSE
+                "InitParser"
+                "${ANTLR4_TOKEN_FILES_init_lexer}"
+                "${ANTLR4_TOKEN_DIRECTORY_init_lexer}")
+### use $ENV{ANTLR4_INC}, $ENV{ANTLR4_JAR_LOCATION}, $ENV{ATLR4_LIB}
+
+if(WIN32)
+    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+elseif(APPLE)
+    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+elseif(LINUX)
+    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
+else()
+    set(ANTLR4_RUNTIME "TBD")
+endif()
+
+include_directories(${ANTLR4_INCLUDE_DIR}
+                    ${ANTLR4_INCLUDE_DIR_init_lexer}
+                    ${ANTLR4_INCLUDE_DIR_init_parser})
+
 add_library(${TARGET}
             ${DO_SHARED}
             ${IF_SOURCE_DIR}/ifAddress.cpp
@@ -166,7 +202,17 @@ add_library(${TARGET}
             ${IF_SOURCE_DIR}/ifNull.cpp
             ${IF_SOURCE_DIR}/ifObject.cpp
             ${IF_SOURCE_DIR}/ifString.cpp
-            ${IF_SOURCE_DIR}/ifValue.cpp)
+            ${IF_SOURCE_DIR}/ifValue.cpp
+            ${IF_SOURCE_DIR}/ifValueListener.cpp
+            "${ANTLR4_SRC_FILES_init_parser}"
+            "${ANTLR4_SRC_FILES_init_lexer}")
+
+target_link_libraries(${TARGET}
+                        ${ANTLR4_RUNTIME})
+
+add_dependencies(${TARGET}
+                    antlr4_static)
+
 target_include_directories(${TARGET} PUBLIC
                             $<BUILD_INTERFACE:${IF_SOURCE_DIR}> # for headers when building
                             $<INSTALL_INTERFACE:${INCLUDE_DEST}> # for client in install mode

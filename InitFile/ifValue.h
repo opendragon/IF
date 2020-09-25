@@ -41,6 +41,7 @@
 
 # include <ifConfig.h>
 
+# include <istream>
 # include <ostream>
 
 # if defined(__APPLE__)
@@ -87,12 +88,24 @@ namespace InitFile
 			(void)
 			const;
 
+        /*! @brief Return @c this if this is an IPv4 address.
+         @return @c this if this is an IPv4 address. */
+		virtual AddressValue *
+		AsAddress
+			(void);
+
         /*! @brief Return @c this if this is an array.
          @return @c this if this is an array. */
 		virtual const ArrayValue *
 		AsArray
 			(void)
 			const;
+
+        /*! @brief Return @c this if this is an array.
+         @return @c this if this is an array. */
+		virtual ArrayValue *
+		AsArray
+			(void);
 
         /*! @brief Return @c this if this is a boolean value.
          @return @c this if this is a boolean value. */
@@ -101,6 +114,12 @@ namespace InitFile
 			(void)
 			const;
 
+        /*! @brief Return @c this if this is a boolean value.
+         @return @c this if this is a boolean value. */
+		virtual BooleanValue *
+		AsBoolean
+			(void);
+
         /*! @brief Return @c this if this is a double value.
          @return @c this if this is a double value. */
 		virtual const DoubleValue *
@@ -108,12 +127,24 @@ namespace InitFile
 			(void)
 			const;
 
-        /*! @brief Return @c this if this is an integer.
-         @return @c this if this is an integer. */
+        /*! @brief Return @c this if this is a double value.
+         @return @c this if this is a double value. */
+		virtual DoubleValue *
+		AsDouble
+			(void);
+
+        /*! @brief Return @c this if this is an integer value.
+         @return @c this if this is an integer value. */
 		virtual const IntegerValue *
 		AsInteger
 			(void)
 			const;
+
+        /*! @brief Return @c this if this is an integer value.
+         @return @c this if this is an integer value. */
+		virtual IntegerValue *
+		AsInteger
+			(void);
 
         /*! @brief Return @c this if this is NULL.
          @return @c this if this is NULL. */
@@ -122,6 +153,12 @@ namespace InitFile
 			(void)
 			const;
 
+        /*! @brief Return @c this if this is NULL.
+         @return @c this if this is NULL. */
+		virtual NullValue *
+		AsNull
+			(void);
+
         /*! @brief Return @c this if this is an object.
          @return @c this if this is an object. */
 		virtual const ObjectValue *
@@ -129,12 +166,24 @@ namespace InitFile
 			(void)
 			const;
 
+        /*! @brief Return @c this if this is an object.
+         @return @c this if this is an object. */
+		virtual ObjectValue *
+		AsObject
+			(void);
+
         /*! @brief Return @c this if this is a string.
          @return @c this if this is a string. */
 		virtual const StringValue *
 		AsString
 			(void)
 			const;
+
+        /*! @brief Return @c this if this is a string.
+         @return @c this if this is a string. */
+		virtual StringValue *
+		AsString
+			(void);
 
         /*! @brief The destructor. */
         virtual
@@ -158,7 +207,7 @@ namespace InitFile
 		 @param[in] indentLevel The amount of indentation to apply
          @param[in] squished @c true if the output has no unnecessary characters and @c false if it
          is as readable as possible.
-		 @return The stream being written to */
+		 @return The stream being written to. */
 		virtual std::ostream &
 		Print
 			(std::ostream &	output,
@@ -181,9 +230,9 @@ namespace InitFile
 
 		/*! @brief Add multiple characters to a stream.
          @param[in,out] output The stream to be written to.
-		 @param[in] aChar The character to write
-		 @param[in] howMany The number of characters to write
-		 @return The stream being written to */
+		 @param[in] aChar The character to write.
+		 @param[in] howMany The number of characters to write.
+		 @return The stream being written to. */
 		std::ostream &
 		outputChars
 			(std::ostream &	output,
@@ -193,8 +242,8 @@ namespace InitFile
 
 		/*! @brief Add a string to a stream, with special characters escaped.
          @param[in,out] output The stream to be written to.
-		 @param[in] aString The string to write
-		 @return The stream being written to */
+		 @param[in] aString The string to write.
+		 @return The stream being written to. */
 		std::ostream &
 		outputEscapedString
 			(std::ostream &			output,

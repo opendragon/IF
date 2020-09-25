@@ -97,6 +97,13 @@ IntegerValue::AsInteger
 	return this;
 } // IntegerValue::AsInteger
 
+IntegerValue *
+IntegerValue::AsInteger
+	(void)
+{
+	return this;
+} // IntegerValue::AsInteger
+
 std::ostream &
 IntegerValue::Print
 	(std::ostream &	output,
