@@ -39,7 +39,7 @@
 #if (! defined(ifBoolean_H_))
 # define ifBoolean_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Boolean values. */
-    class BooleanValue : public InitValue
+    class BooleanValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
     public :
         // Public methods.
@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline BooleanValue
-			(InitValue *	parent,
+			(SpBase	parent,
              const bool     value) :
 				inherited(parent), fValue(value)
 			{
@@ -85,14 +85,6 @@ namespace InitFile
         virtual
         ~BooleanValue
             (void);
-
-        /*! @brief Return @c this if this is a boolean value.
-         @return @c this if this is a boolean value. */
-		virtual const BooleanValue *
-		AsBoolean
-			(void)
-			const
-            override;
 
         /*! @brief Return @c this if this is a boolean value.
          @return @c this if this is a boolean value. */

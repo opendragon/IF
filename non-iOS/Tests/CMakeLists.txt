@@ -32,7 +32,7 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2020-09-22
+#  Created:    2020-09-25
 #
 #--------------------------------------------------------------------------------------------------
 
@@ -40,4 +40,14 @@ include_directories("${IF_SOURCE_DIR}")
 
 set(THIS_SOURCE_DIR ${IF_SOURCE_DIR}/Tests)
 
+include(Test_values.txt)
 #include(Test_converters.txt)
+#include(Test_atomic.txt)
+#include(Test_container.txt)
+#include(Test_parser.txt)
+#include(Test_messageInsert.txt)
+#include(Test_messageExtract.txt)
+#include(Test_badMessage.txt)
+#include(Test_channel.txt)
+#include(Test_zeroConf.txt)
+#include(Test_argumentDescriptors.txt)

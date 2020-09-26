@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifValue.h
+//  File:       InitFile/ifBase.h
 //
 //  Project:    IF
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifValue_H_))
-# define ifValue_H_ /* Header guard */
+#if (! defined(ifBase_H_))
+# define ifBase_H_ /* Header guard */
 
 # include <ifConfig.h>
 
@@ -57,8 +57,10 @@
 
 namespace InitFile
 {
+	// Forward references:
 	class AddressValue;
 	class ArrayValue;
+	class BaseValue;
 	class BooleanValue;
 	class DoubleValue;
 	class IntegerValue;
@@ -66,8 +68,35 @@ namespace InitFile
 	class ObjectValue;
 	class StringValue;
 
+    /*! @brief A holder for a shared pointer to an IPv4 address value. */
+    using SpAddress = std::shared_ptr<AddressValue>;
+
+    /*! @brief A holder for a shared pointer to an array value. */
+    using SpArray = std::shared_ptr<ArrayValue>;
+
+    /*! @brief A holder for a shared pointer to a general value. */
+    using SpBase = std::shared_ptr<BaseValue>;
+
+    /*! @brief A holder for a shared pointer to a boolean value. */
+    using SpBoolean = std::shared_ptr<BooleanValue>;
+
+    /*! @brief A holder for a shared pointer to a double value. */
+    using SpDouble = std::shared_ptr<DoubleValue>;
+
+    /*! @brief A holder for a shared pointer to an integer value. */
+    using SpInteger = std::shared_ptr<IntegerValue>;
+
+    /*! @brief A holder for a shared pointer to a null value. */
+    using SpNull = std::shared_ptr<NullValue>;
+
+    /*! @brief A holder for a shared pointer to an object value. */
+    using SpObject = std::shared_ptr<ObjectValue>;
+
+    /*! @brief A holder for a shared pointer to a string value. */
+    using SpString = std::shared_ptr<StringValue>;
+
     /*! @brief A class to provide the base type for values. */
-    class InitValue
+    class BaseValue
     {
     public :
         // Public type definitions.
@@ -81,38 +110,17 @@ namespace InitFile
     public :
         // Public methods.
 
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
-		virtual const AddressValue *
-		AsAddress
-			(void)
-			const;
-
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
+        /*! @brief Return @c this if this is an IPv4 address value.
+         @return @c this if this is an IPv4 address value. */
 		virtual AddressValue *
 		AsAddress
 			(void);
 
-        /*! @brief Return @c this if this is an array.
-         @return @c this if this is an array. */
-		virtual const ArrayValue *
-		AsArray
-			(void)
-			const;
-
-        /*! @brief Return @c this if this is an array.
-         @return @c this if this is an array. */
+        /*! @brief Return @c this if this is an array value.
+         @return @c this if this is an array value. */
 		virtual ArrayValue *
 		AsArray
 			(void);
-
-        /*! @brief Return @c this if this is a boolean value.
-         @return @c this if this is a boolean value. */
-		virtual const BooleanValue *
-		AsBoolean
-			(void)
-			const;
 
         /*! @brief Return @c this if this is a boolean value.
          @return @c this if this is a boolean value. */
@@ -122,23 +130,9 @@ namespace InitFile
 
         /*! @brief Return @c this if this is a double value.
          @return @c this if this is a double value. */
-		virtual const DoubleValue *
-		AsDouble
-			(void)
-			const;
-
-        /*! @brief Return @c this if this is a double value.
-         @return @c this if this is a double value. */
 		virtual DoubleValue *
 		AsDouble
 			(void);
-
-        /*! @brief Return @c this if this is an integer value.
-         @return @c this if this is an integer value. */
-		virtual const IntegerValue *
-		AsInteger
-			(void)
-			const;
 
         /*! @brief Return @c this if this is an integer value.
          @return @c this if this is an integer value. */
@@ -148,23 +142,9 @@ namespace InitFile
 
         /*! @brief Return @c this if this is NULL.
          @return @c this if this is NULL. */
-		virtual const NullValue *
-		AsNull
-			(void)
-			const;
-
-        /*! @brief Return @c this if this is NULL.
-         @return @c this if this is NULL. */
 		virtual NullValue *
 		AsNull
 			(void);
-
-        /*! @brief Return @c this if this is an object.
-         @return @c this if this is an object. */
-		virtual const ObjectValue *
-		AsObject
-			(void)
-			const;
 
         /*! @brief Return @c this if this is an object.
          @return @c this if this is an object. */
@@ -174,25 +154,18 @@ namespace InitFile
 
         /*! @brief Return @c this if this is a string.
          @return @c this if this is a string. */
-		virtual const StringValue *
-		AsString
-			(void)
-			const;
-
-        /*! @brief Return @c this if this is a string.
-         @return @c this if this is a string. */
 		virtual StringValue *
 		AsString
 			(void);
 
         /*! @brief The destructor. */
         virtual
-        ~InitValue
+        ~BaseValue
             (void);
 
         /*! @brief Return the parent of this value.
          @return The parent of this value. */
-		inline InitValue *
+		inline SpBase
 		GetParent
 			(void)
 			const
@@ -222,8 +195,8 @@ namespace InitFile
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline InitValue
-			(InitValue *	parent) :
+		inline BaseValue
+			(SpBase	parent) :
 				fParent(parent)
 			{
 			} /* constructor */
@@ -260,13 +233,13 @@ namespace InitFile
         // Protected fields.
 
         /*! @brief The parent of this value. */
-		InitValue *	fParent;
+		SpBase	fParent;
 
     private :
         // Private fields.
 
-    }; // InitValue
+    }; // BaseValue
 
 } // InitFile
 
-#endif /* not ifValue_H_ */
+#endif /* not ifBase_H_ */

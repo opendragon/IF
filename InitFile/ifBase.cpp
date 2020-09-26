@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifValue.cpp
+//  File:       InitFile/ifBase.cpp
 //
 //  Project:    IF
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifValue.h>
+#include <ifBase.h>
 
 #include <fstream>
 #include <iostream>
@@ -44,16 +44,16 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
  @brief The class definition for %InitFile values. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Namespace references
@@ -81,139 +81,75 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-InitValue::~InitValue
+BaseValue::~BaseValue
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // InitValue::~InitValue
+} // BaseValue::~BaseValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const AddressValue *
-InitValue::AsAddress
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsAddress
-
 AddressValue *
-InitValue::AsAddress
+BaseValue::AsAddress
 	(void)
 {
 	return nullptr;
-} // InitValue::AsAddress
-
-const ArrayValue *
-InitValue::AsArray
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsArray
+} // BaseValue::AsAddress
 
 ArrayValue *
-InitValue::AsArray
+BaseValue::AsArray
 	(void)
 {
 	return nullptr;
-} // InitValue::AsArray
-
-const BooleanValue *
-InitValue::AsBoolean
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsBoolean
+} // BaseValue::AsArray
 
 BooleanValue *
-InitValue::AsBoolean
+BaseValue::AsBoolean
 	(void)
 {
 	return nullptr;
-} // InitValue::AsBoolean
-
-const DoubleValue *
-InitValue::AsDouble
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsDouble
+} // BaseValue::AsBoolean
 
 DoubleValue *
-InitValue::AsDouble
+BaseValue::AsDouble
 	(void)
 {
 	return nullptr;
-} // InitValue::AsDouble
-
-const IntegerValue *
-InitValue::AsInteger
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsInteger
+} // BaseValue::AsDouble
 
 IntegerValue *
-InitValue::AsInteger
+BaseValue::AsInteger
 	(void)
 {
 	return nullptr;
-} // InitValue::AsInteger
-
-const NullValue *
-InitValue::AsNull
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsNull
+} // BaseValue::AsInteger
 
 NullValue *
-InitValue::AsNull
+BaseValue::AsNull
 	(void)
 {
 	return nullptr;
-} // InitValue::AsNull
-
-const ObjectValue *
-InitValue::AsObject
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsObject
+} // BaseValue::AsNull
 
 ObjectValue *
-InitValue::AsObject
+BaseValue::AsObject
 	(void)
 {
 	return nullptr;
-} // InitValue::AsObject
-
-const StringValue *
-InitValue::AsString
-	(void)
-	const
-{
-	return nullptr;
-} // InitValue::AsString
+} // BaseValue::AsObject
 
 StringValue *
-InitValue::AsString
+BaseValue::AsString
 	(void)
 {
 	return nullptr;
-} // InitValue::AsString
+} // BaseValue::AsString
 
 std::ostream &
-InitValue::outputChars
+BaseValue::outputChars
 	(std::ostream &	output,
 	 const char		aChar,
 	 const size_t	howMany)
@@ -224,10 +160,10 @@ InitValue::outputChars
 		output << aChar;
 	}
 	return output;
-} // InitValue::outputChars
+} // BaseValue::outputChars
 
 std::ostream &
-InitValue::outputEscapedString
+BaseValue::outputEscapedString
 	(std::ostream &			output,
 	 const std::string &	aString)
 	const
@@ -306,7 +242,7 @@ InitValue::outputEscapedString
 	}
 	output << quoteChar;
 	return output;
-} // InitValue::outputEscapedString
+} // BaseValue::outputEscapedString
 
 #if defined(__APPLE__)
 # pragma mark Global functions

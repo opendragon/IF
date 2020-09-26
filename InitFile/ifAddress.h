@@ -39,7 +39,7 @@
 #if (! defined(ifAddress_H_))
 # define ifAddress_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Address values. */
-    class AddressValue : public InitValue
+    class AddressValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
     public :
         // Public methods.
@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline AddressValue
-			(InitValue *	parent,
+			(SpBase	parent,
              const uint32_t value) :
 				inherited(parent), fValue(value)
 			{
@@ -85,14 +85,6 @@ namespace InitFile
         virtual
         ~AddressValue
             (void);
-
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
-		virtual const AddressValue *
-		AsAddress
-			(void)
-			const
-            override;
 
         /*! @brief Return @c this if this is an IPv4 address.
          @return @c this if this is an IPv4 address. */

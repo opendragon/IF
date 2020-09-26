@@ -41,16 +41,16 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
  @brief The class definition for %InitFile Array values. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Namespace references
@@ -82,10 +82,6 @@ ArrayValue::~ArrayValue
     (void)
 {
     ODL_OBJENTER(); //####
-	for (auto elem : fValue)
-	{
-		delete elem;
-	}
 	fValue.clear();
     ODL_OBJEXIT(); //####
 } // ArrayValue::~ArrayValue
@@ -96,7 +92,7 @@ ArrayValue::~ArrayValue
 
 ArrayValue &
 ArrayValue::AddValueAtBack
-	(InitValue *    aValue)
+	(SpBase	aValue)
 {
 	if (aValue)
 	{
@@ -107,7 +103,7 @@ ArrayValue::AddValueAtBack
 
 ArrayValue &
 ArrayValue::AddValueAtFront
-	(InitValue *    aValue)
+	(SpBase	aValue)
 {
 	if (aValue)
 	{
@@ -116,14 +112,6 @@ ArrayValue::AddValueAtFront
 	return *this;
 } // ArrayValue::AddValueAtFront
 
-const ArrayValue *
-ArrayValue::AsArray
-	(void)
-	const
-{
-	return this;
-} // ArrayValue::AsArray
-
 ArrayValue *
 ArrayValue::AsArray
 	(void)
@@ -131,12 +119,12 @@ ArrayValue::AsArray
 	return this;
 } // ArrayValue::AsArray
 
-InitValue *
+SpBase
 ArrayValue::GetValue
 	(const size_t   index)
 	const
 {
-	InitValue *	result;
+	SpBase	result;
 
 	if (index < fValue.size())
 	{
@@ -195,7 +183,7 @@ ArrayValue::Print
 	}
 	output << ']';
 	return output;
-} // InitValue::Print
+} // BaseValue::Print
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -132,6 +132,7 @@ add_library(${TARGET}
             ${DO_SHARED}
             ${IF_SOURCE_DIR}/ifAddress.cpp
             ${IF_SOURCE_DIR}/ifArray.cpp
+            ${IF_SOURCE_DIR}/ifBase.cpp
             ${IF_SOURCE_DIR}/ifBoolean.cpp
             ${IF_SOURCE_DIR}/ifCompareWithoutCase.cpp
             ${IF_SOURCE_DIR}/ifDouble.cpp
@@ -139,7 +140,6 @@ add_library(${TARGET}
             ${IF_SOURCE_DIR}/ifNull.cpp
             ${IF_SOURCE_DIR}/ifObject.cpp
             ${IF_SOURCE_DIR}/ifString.cpp
-            ${IF_SOURCE_DIR}/ifValue.cpp
             ${IF_SOURCE_DIR}/ifValueListener.cpp
             "${ANTLR4_SRC_FILES_init_parser}"
             "${ANTLR4_SRC_FILES_init_lexer}")
@@ -163,6 +163,7 @@ install(TARGETS ${TARGET}
 install(FILES
         ${IF_SOURCE_DIR}/ifAddress.h
         ${IF_SOURCE_DIR}/ifArray.h
+        ${IF_SOURCE_DIR}/ifBase.h
         ${IF_SOURCE_DIR}/ifBoolean.h
         ${IF_SOURCE_DIR}/ifCompareWithoutCase.h
         ${IF_SOURCE_DIR}/ifConfig.h
@@ -171,7 +172,6 @@ install(FILES
         ${IF_SOURCE_DIR}/ifNull.h
         ${IF_SOURCE_DIR}/ifObject.h
         ${IF_SOURCE_DIR}/ifString.h
-        ${IF_SOURCE_DIR}/ifValue.h
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
 

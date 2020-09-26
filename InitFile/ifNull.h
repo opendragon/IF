@@ -39,7 +39,7 @@
 #if (! defined(ifNull_H_))
 # define ifNull_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for NULL values. */
-    class NullValue : public InitValue
+    class NullValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
     public :
         // Public methods.
@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline NullValue
-			(InitValue *	parent) :
+			(SpBase	parent) :
 				inherited(parent)
 			{
 			} /* constructor */
@@ -84,14 +84,6 @@ namespace InitFile
         virtual
         ~NullValue
             (void);
-
-        /*! @brief Return @c this if this is NULL.
-         @return @c this if this is NULL. */
-		virtual const NullValue *
-		AsNull
-			(void)
-			const
-            override;
 
         /*! @brief Return @c this if this is NULL.
          @return @c this if this is NULL. */

@@ -46,7 +46,7 @@
 #include <ifNull.h>
 #include <ifObject.h>
 #include <ifString.h>
-#include <ifValue.h>
+#include <ifBase.h>
 #include <iostream>
 
 //#include <odlEnable.h>
@@ -92,60 +92,59 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-InitValueListener::InitValueListener
-    (void) :
-        fCurrentContainer(nullptr), fRootObject(nullptr)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // InitValueListener::InitValueListener
-
-InitValueListener::~InitValueListener
+BaseValueListener::BaseValueListener
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // InitValueListener::~InitValueListener
+} // BaseValueListener::BaseValueListener
+
+BaseValueListener::~BaseValueListener
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // BaseValueListener::~BaseValueListener
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-InitValueListener::enterEmptyObject
+BaseValueListener::enterEmptyObject
     (InitParser::InitFileParser::EmptyObjectContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
     pushContainer(fCurrentContainer);
-    fCurrentContainer = new ObjectValue(fCurrentContainer);
+    fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
     ODL_OBJEXIT(); //####
-} // InitValueListener::enterEmptyObject
+} // BaseValueListener::enterEmptyObject
 
 void
-InitValueListener::enterNonEmptyArray
+BaseValueListener::enterNonEmptyArray
     (InitParser::InitFileParser::NonEmptyArrayContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
     pushContainer(fCurrentContainer);
-    fCurrentContainer = new ArrayValue(fCurrentContainer);
+    fCurrentContainer.reset(new ArrayValue(fCurrentContainer));
     ODL_OBJEXIT(); //####
-} // InitValueListener::enterNonEmptyArray
+} // BaseValueListener::enterNonEmptyArray
 
 void
-InitValueListener::enterNonEmptyObject
+BaseValueListener::enterNonEmptyObject
     (InitParser::InitFileParser::NonEmptyObjectContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
     pushContainer(fCurrentContainer);
-    fCurrentContainer = new ObjectValue(fCurrentContainer);
+    fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
     ODL_OBJEXIT(); //####
-} // InitValueListener::enterNonEmptyObject
+} // BaseValueListener::enterNonEmptyObject
 
 void
-InitValueListener::exitAddressValue
+BaseValueListener::exitAddressValue
     (InitParser::InitFileParser::AddressValueContext *  ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
@@ -183,43 +182,43 @@ InitValueListener::exitAddressValue
 // std::cout << address << std::dec << "<" << address << ">" << std::endl;
 // std::cout.fill(oldFill);
     }
-    pushValue(new AddressValue(fCurrentContainer, address));
+    pushValue(SpBase(new AddressValue(fCurrentContainer, address)));
     ODL_OBJEXIT(); //####
-} /// InitValueListener::exitAddressValue
+} /// BaseValueListener::exitAddressValue
 
 void
-InitValueListener::exitConfiguration
+BaseValueListener::exitConfiguration
     (InitParser::InitFileParser::ConfigurationContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
     fRootObject = popValue();
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitConfiguration
+} // BaseValueListener::exitConfiguration
 
 void
-InitValueListener::exitDoubleValue
+BaseValueListener::exitDoubleValue
     (InitParser::InitFileParser::DoubleValueContext * ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
 // std::cout << "number=" << ctx->nu->getText() << std::endl;
-    pushValue(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), NULL)));
+    pushValue(SpBase(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), NULL))));
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitDoubleValue
+} // BaseValueListener::exitDoubleValue
 
 void
-InitValueListener::exitEmptyArray
+BaseValueListener::exitEmptyArray
     (InitParser::InitFileParser::EmptyArrayContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
-    pushValue(new ArrayValue(fCurrentContainer));
+    pushValue(SpBase(new ArrayValue(fCurrentContainer)));
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitEmptyArray
+} // BaseValueListener::exitEmptyArray
 
 void
-InitValueListener::exitEmptyObject
+BaseValueListener::exitEmptyObject
     (InitParser::InitFileParser::EmptyObjectContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
@@ -227,41 +226,41 @@ InitValueListener::exitEmptyObject
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitEmptyObject
+} // BaseValueListener::exitEmptyObject
 
 void
-InitValueListener::exitIntegerValue
+BaseValueListener::exitIntegerValue
     (InitParser::InitFileParser::IntegerValueContext *  ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
-    pushValue(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), NULL)));
+    pushValue(SpBase(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), NULL))));
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitIntegerValue
+} // BaseValueListener::exitIntegerValue
 
 void
-InitValueListener::exitLiteralValue
+BaseValueListener::exitLiteralValue
     (InitParser::InitFileParser::LiteralValueContext * ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
     ODL_OBJENTER(); //####
     if (ctx->tv)
     {
-        pushValue(new BooleanValue(fCurrentContainer, true));
+        pushValue(SpBase(new BooleanValue(fCurrentContainer, true)));
     }
     else if (ctx->fv)
     {
-        pushValue(new BooleanValue(fCurrentContainer, false));
+        pushValue(SpBase(new BooleanValue(fCurrentContainer, false)));
     }
     else if (ctx->nv)
     {
-        pushValue(new NullValue(fCurrentContainer));
+        pushValue(SpBase(new NullValue(fCurrentContainer)));
     }
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitLiteralValue
+} // BaseValueListener::exitLiteralValue
 
 void
-InitValueListener::exitNonEmptyArray
+BaseValueListener::exitNonEmptyArray
     (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
@@ -273,17 +272,17 @@ InitValueListener::exitNonEmptyArray
     // Pull the number of values that were pushed and put them in the correct order.
     for (size_t ii = 0; ii < numValues; ++ii)
     {
-        InitValue * aValue = popValue();
+        SpBase aValue = popValue();
 
         currentArray->AddValueAtFront(aValue);
     }
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitNonEmptyArray
+} // BaseValueListener::exitNonEmptyArray
 
 void
-InitValueListener::exitNonEmptyObject
+BaseValueListener::exitNonEmptyObject
     (InitParser::InitFileParser::NonEmptyObjectContext * /*ctx*/)
 {
 // std::cout << __FUNCTION__ << std::endl;
@@ -292,14 +291,14 @@ InitValueListener::exitNonEmptyObject
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitNonEmptyObject
+} // BaseValueListener::exitNonEmptyObject
 
 void
-InitValueListener::exitPair
+BaseValueListener::exitPair
     (InitParser::InitFileParser::PairContext * /*ctx*/)
 {
     std::string     tag = popTag();
-    InitValue *     value = popValue();
+    SpBase          value = popValue();
     ObjectValue *   currentObject = fCurrentContainer->AsObject();
 
     ODL_OBJENTER(); //####
@@ -307,10 +306,10 @@ InitValueListener::exitPair
 // std::cout << "tag=" << tag << " : value=" << value->Describe() << std::endl;
     currentObject->AddValue(tag, value);
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitPair
+} // BaseValueListener::exitPair
 
 void
-InitValueListener::exitStringValue
+BaseValueListener::exitStringValue
     (InitParser::InitFileParser::StringValueContext * ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
@@ -332,12 +331,12 @@ InitValueListener::exitStringValue
         actualValue = ctx->na->getText();
     }
     //std::cout << "value -> " << actualValue << std::endl;
-    pushValue(new StringValue(fCurrentContainer, actualValue));
+    pushValue(SpBase(new StringValue(fCurrentContainer, actualValue)));
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitStringValue
+} // BaseValueListener::exitStringValue
 
 void
-InitValueListener::exitTag
+BaseValueListener::exitTag
     (InitParser::InitFileParser::TagContext * ctx)
 {
 // std::cout << __FUNCTION__ << std::endl;
@@ -360,16 +359,15 @@ InitValueListener::exitTag
     }
     pushTag(actualTag);
     ODL_OBJEXIT(); //####
-} // InitValueListener::exitTag
+} // BaseValueListener::exitTag
 
-InitValue *
-InitValueListener::GetValue
+SpBase
+BaseValueListener::GetValue
 	(const std::string &    input)
 {
     try
     {
-        delete fRootObject;
-        fRootObject = nullptr;
+        fRootObject.reset();
         antlr4::ANTLRInputStream                            inStream(input);
         InitParser::InitFileLexer                           lexer(&inStream);
         antlr4::CommonTokenStream                           tokens(&lexer);
@@ -388,16 +386,15 @@ InitValueListener::GetValue
         std::cerr << ee.what() << std::endl;
     }
 	return fRootObject;
-} // InitValueListener::GetValue
+} // BaseValueListener::GetValue
 
-InitValue *
-InitValueListener::GetValue
+SpBase
+BaseValueListener::GetValue
 	(std::istream & input)
 {
     try
     {
-        delete fRootObject;
-        fRootObject = nullptr;
+        fRootObject.reset();
         antlr4::ANTLRInputStream                            inStream(input);
         InitParser::InitFileLexer                           lexer(&inStream);
         antlr4::CommonTokenStream                           tokens(&lexer);
@@ -416,17 +413,17 @@ InitValueListener::GetValue
         std::cerr << ee.what() << std::endl;
     }
 	return fRootObject;
-} // InitValueListener::GetValue
+} // BaseValueListener::GetValue
 
-InitValue *
-InitValueListener::popContainer
+SpBase
+BaseValueListener::popContainer
     (void)
 {
-    InitValue * result;
+    SpBase result;
 
     if (fContainerStack.empty())
     {
-        result = NULL;
+        //result.reset();
     }
     else
     {
@@ -434,10 +431,10 @@ InitValueListener::popContainer
         fContainerStack.pop_back();
     }
     return result;
-} // InitValueListener::popContainer
+} // BaseValueListener::popContainer
 
 std::string
-InitValueListener::popTag
+BaseValueListener::popTag
     (void)
 {
   std::string result;
@@ -448,17 +445,17 @@ InitValueListener::popTag
     fTagStack.pop_back();
   }
   return result;
-} // InitValueListener::popTag
+} // BaseValueListener::popTag
 
-InitValue *
-InitValueListener::popValue
+SpBase
+BaseValueListener::popValue
     (void)
 {
-    InitValue * result;
+    SpBase result;
 
     if (fValueStack.empty())
     {
-        result = NULL;
+        //result = NULL;
     }
     else
     {
@@ -466,31 +463,31 @@ InitValueListener::popValue
         fValueStack.pop_back();
     }
     return result;
-} // InitValueListener::popValue
+} // BaseValueListener::popValue
 
-InitValueListener &
-InitValueListener::pushContainer
-    (InitValue *  value)
+BaseValueListener &
+BaseValueListener::pushContainer
+    (SpBase  value)
 {
     fContainerStack.push_back(value);
     return *this;
-} // InitValueListener::pushContainer
+} // BaseValueListener::pushContainer
 
-InitValueListener &
-InitValueListener::pushTag
+BaseValueListener &
+BaseValueListener::pushTag
     (const std::string  tag)
 {
 	fTagStack.push_back(tag);
     return *this;
 } /* pushTag */
 
-InitValueListener &
-InitValueListener::pushValue
-    (InitValue *  value)
+BaseValueListener &
+BaseValueListener::pushValue
+    (SpBase  value)
 {
     fValueStack.push_back(value);
     return *this;
-} // InitValueListener::pushValue
+} // BaseValueListener::pushValue
 
 #if defined(__APPLE__)
 # pragma mark Global functions

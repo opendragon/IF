@@ -41,16 +41,16 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
  @brief The class definition for %InitFile Address values. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Namespace references
@@ -89,14 +89,6 @@ AddressValue::~AddressValue
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const AddressValue *
-AddressValue::AsAddress
-	(void)
-	const
-{
-	return this;
-} // AddressValue::AsAddress
-
 AddressValue *
 AddressValue::AsAddress
 	(void)
@@ -114,7 +106,7 @@ AddressValue::Print
 	const
 {
 	return (output << ((fValue >> 24) & 0x0FF) << '.' << ((fValue >> 16) & 0x0FF) << '.' << ((fValue >> 8) & 0x0FF) << '.' << (fValue & 0x0FF));
-} // InitValue::Print
+} // BaseValue::Print
 
 #if defined(__APPLE__)
 # pragma mark Global functions

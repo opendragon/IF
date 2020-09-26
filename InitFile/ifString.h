@@ -39,7 +39,7 @@
 #if (! defined(ifString_H_))
 # define ifString_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for String values. */
-    class StringValue : public InitValue
+    class StringValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
     public :
         // Public methods.
@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline StringValue
-			(InitValue *	        parent,
+			(SpBase	        parent,
              const std::string &    value) :
 				inherited(parent), fValue(value)
 			{
@@ -85,14 +85,6 @@ namespace InitFile
         virtual
         ~StringValue
             (void);
-
-        /*! @brief Return @c this if this is a string.
-         @return @c this if this is a string. */
-		virtual const StringValue *
-		AsString
-			(void)
-			const
-            override;
 
         /*! @brief Return @c this if this is a string.
          @return @c this if this is a string. */

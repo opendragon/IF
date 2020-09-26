@@ -39,7 +39,7 @@
 #if (! defined(ifObject_H_))
 # define ifObject_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 # include <ifCompareWithoutCase.h>
 
 # include <map>
@@ -58,7 +58,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Object values. */
-    class ObjectValue : public InitValue
+    class ObjectValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -70,10 +70,10 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
         /*! @brief The internal storage structure for Object values. */
-        using ValueMap = std::map<std::string, InitValue *, CompareWithoutCase>;
+        using ValueMap = std::map<std::string, SpBase, CompareWithoutCase>;
 
         /*! @brief A shortcut name for a constant iterator over the Object contents. */
         using const_iterator = ValueMap::const_iterator;
@@ -99,7 +99,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline ObjectValue
-			(InitValue *    parent) :
+			(SpBase    parent) :
 				inherited(parent)
 			{
 			} /* constructor */
@@ -117,15 +117,7 @@ namespace InitFile
         ObjectValue &
         AddValue
             (const std::string &    key,
-             InitValue *            aValue);
-
-        /*! @brief Return @c this if this is an object.
-         @return @c this if this is an object. */
-		virtual const ObjectValue *
-		AsObject
-			(void)
-			const
-            override;
+             SpBase            aValue);
 
         /*! @brief Return @c this if this is an object.
          @return @c this if this is an object. */
@@ -138,7 +130,7 @@ namespace InitFile
          @param[in] key The key for the desired value.
          @return The value in the contents corresponding to the key.
          @c nullptr is returned if the key is empty or not found in the contents. */
-        InitValue *
+        SpBase
         GetValue
             (const std::string &    key)
             const;

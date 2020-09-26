@@ -39,7 +39,7 @@
 #if (! defined(ifArray_H_))
 # define ifArray_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 
 # include <deque>
 
@@ -57,7 +57,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Array values. */
-    class ArrayValue : public InitValue
+    class ArrayValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -69,10 +69,10 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
         /*! @brief The internal storage structure for Array values. */
-        using ValueQueue = std::deque<InitValue *>;
+        using ValueQueue = std::deque<SpBase>;
 
         /*! @brief A shortcut name for a constant iterator over the Array contents. */
         using const_iterator = ValueQueue::const_iterator;
@@ -92,7 +92,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline ArrayValue
-			(InitValue *    parent) :
+			(SpBase    parent) :
 				inherited(parent)
 			{
 			} /* constructor */
@@ -109,7 +109,7 @@ namespace InitFile
          @return The Array that was modified. */
         ArrayValue &
         AddValueAtBack
-            (InitValue *    aValue);
+            (SpBase aValue);
 
         /*! @brief Add a value to the Array contents.
          @param[in] aValue The value to be added.
@@ -118,15 +118,7 @@ namespace InitFile
          @return The Array that was modified. */
         ArrayValue &
         AddValueAtFront
-            (InitValue *    aValue);
-
-        /*! @brief Return @c this if this is an array.
-         @return @c this if this is an array. */
-		virtual const ArrayValue *
-		AsArray
-			(void)
-			const
-            override;
+            (SpBase aValue);
 
         /*! @brief Return @c this if this is an array.
          @return @c this if this is an array. */
@@ -138,7 +130,7 @@ namespace InitFile
         /*! @brief Return a value from the Array contents.
          @param[in] index The index (zero-origin) of the desired value.
          @return The value in the contents corresponding to the index. */
-        InitValue *
+        SpBase
         GetValue
             (const size_t   index)
             const;

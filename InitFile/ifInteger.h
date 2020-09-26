@@ -39,7 +39,7 @@
 #if (! defined(ifInteger_H_))
 # define ifInteger_H_ /* Header guard */
 
-# include <ifValue.h>
+# include <ifBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Integer values. */
-    class IntegerValue : public InitValue
+    class IntegerValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -67,7 +67,7 @@ namespace InitFile
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = InitValue;
+        using inherited = BaseValue;
 
     public :
         // Public methods.
@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline IntegerValue
-			(InitValue *	parent,
+			(SpBase	parent,
              const int64_t  value) :
 				inherited(parent), fValue(value)
 			{
@@ -85,14 +85,6 @@ namespace InitFile
         virtual
         ~IntegerValue
             (void);
-
-        /*! @brief Return @c this if this is an integer value.
-         @return @c this if this is an integer value. */
-		virtual const IntegerValue *
-		AsInteger
-			(void)
-			const
-            override;
 
         /*! @brief Return @c this if this is an integer value.
          @return @c this if this is an integer value. */

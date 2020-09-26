@@ -41,16 +41,16 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
  @brief The class definition for %InitFile Object values. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Namespace references
@@ -82,10 +82,6 @@ ObjectValue::~ObjectValue
     (void)
 {
 	ODL_OBJENTER(); //####
-	for (iterator walker(fValue.begin()); walker != fValue.end(); ++walker)
-	{
-		delete walker->second;
-	}
 	fValue.clear();
 	ODL_OBJEXIT(); //####
 } // ObjectValue::~ObjectValue
@@ -96,20 +92,12 @@ ObjectValue::~ObjectValue
 
 ObjectValue &
 ObjectValue::AddValue
-	(const std::string &    key,
-	 InitValue *            aValue)
+	(const std::string &	key,
+	 SpBase            		aValue)
 {
 	fValue.insert(value_type(key, aValue));
 	return *this;
 } // ObjectValue::AddValue
-
-const ObjectValue *
-ObjectValue::AsObject
-	(void)
-	const
-{
-	return this;
-} // ObjectValue::AsObject
 
 ObjectValue *
 ObjectValue::AsObject
@@ -118,12 +106,12 @@ ObjectValue::AsObject
 	return this;
 } // ObjectValue::AsObject
 
-InitValue *
+SpBase
 ObjectValue::GetValue
 	(const std::string &    key)
 	const
 {
-	InitValue *		result;
+	SpBase		result;
 	const_iterator  match(fValue.find(key));
 
 	if (fValue.end() == match)
@@ -206,7 +194,7 @@ ObjectValue::Print
 	}
 	output << '}';
 	return output;
-} // InitValue::Print
+} // BaseValue::Print
 
 #if defined(__APPLE__)
 # pragma mark Global functions

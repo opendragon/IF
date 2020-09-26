@@ -41,16 +41,18 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#include <iostream>
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
  @brief The class definition for %InitFile NULL values. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Namespace references
@@ -89,14 +91,6 @@ NullValue::~NullValue
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const NullValue *
-NullValue::AsNull
-	(void)
-	const
-{
-	return this;
-} // NullValue::AsNull
-
 NullValue *
 NullValue::AsNull
 	(void)
@@ -114,7 +108,7 @@ NullValue::Print
 	const
 {
 	return (output << "null");
-} // InitValue::Print
+} // BaseValue::Print
 
 #if defined(__APPLE__)
 # pragma mark Global functions

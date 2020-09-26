@@ -41,16 +41,16 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
  @brief The class definition for %InitFile Double values. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Namespace references
@@ -89,14 +89,6 @@ DoubleValue::~DoubleValue
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-const DoubleValue *
-DoubleValue::AsDouble
-	(void)
-	const
-{
-	return this;
-} // DoubleValue::AsDouble
-
 DoubleValue *
 DoubleValue::AsDouble
 	(void)
@@ -114,7 +106,7 @@ DoubleValue::Print
 	const
 {
 	return (output << fValue);
-} // InitValue::Print
+} // BaseValue::Print
 
 #if defined(__APPLE__)
 # pragma mark Global functions

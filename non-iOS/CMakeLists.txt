@@ -195,6 +195,7 @@ add_library(${TARGET}
             ${DO_SHARED}
             ${IF_SOURCE_DIR}/ifAddress.cpp
             ${IF_SOURCE_DIR}/ifArray.cpp
+            ${IF_SOURCE_DIR}/ifBase.cpp
             ${IF_SOURCE_DIR}/ifBoolean.cpp
             ${IF_SOURCE_DIR}/ifCompareWithoutCase.cpp
             ${IF_SOURCE_DIR}/ifDouble.cpp
@@ -202,7 +203,6 @@ add_library(${TARGET}
             ${IF_SOURCE_DIR}/ifNull.cpp
             ${IF_SOURCE_DIR}/ifObject.cpp
             ${IF_SOURCE_DIR}/ifString.cpp
-            ${IF_SOURCE_DIR}/ifValue.cpp
             ${IF_SOURCE_DIR}/ifValueListener.cpp
             "${ANTLR4_SRC_FILES_init_parser}"
             "${ANTLR4_SRC_FILES_init_lexer}")
@@ -226,6 +226,7 @@ install(TARGETS ${TARGET}
 install(FILES
         ${IF_SOURCE_DIR}/ifAddress.h
         ${IF_SOURCE_DIR}/ifArray.h
+        ${IF_SOURCE_DIR}/ifBase.h
         ${IF_SOURCE_DIR}/ifBoolean.h
         ${IF_SOURCE_DIR}/ifCompareWithoutCase.h
         ${IF_SOURCE_DIR}/ifConfig.h
@@ -234,9 +235,35 @@ install(FILES
         ${IF_SOURCE_DIR}/ifNull.h
         ${IF_SOURCE_DIR}/ifObject.h
         ${IF_SOURCE_DIR}/ifString.h
-        ${IF_SOURCE_DIR}/ifValue.h
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
+
+if(WIN32)
+    set(OTHER_LIBS "ws2_32.lib")
+else()
+    set(OTHER_LIBS "")
+endif()
+
+set(IF_LINK_LIBRARIES initfile ${ODL_LIBRARY} ${OTHER_LIBS})
+
+if(LINUX)
+#    set(IF_LINK_LIBRARIES ${IF_LINK_LIBRARIES} dns_sd)
+endif()
+
+if(APPLE)
+    function(fix_dynamic_libs target)
+        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                            libinitfile.dylib "@rpath/libinitfile.dylib" ${target})
+
+        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
+                            ${ODL_LIBRARY_ROOT} "@rpath/${ODL_LIBRARY_ROOT}" ${target})
+
+    endfunction()
+else()
+# Do nothing
+    function(fix_dynamic_libs target)
+    endfunction()
+endif()
 
 install(FILES
         ${IF_CONFIG_DIR}/IFConfig.cmake
@@ -301,5 +328,6 @@ if(IF_DO_SWIG)
 endif()
 
 add_subdirectory(CPack)
+add_subdirectory(Tests)
 
 enable_testing()

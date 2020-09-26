@@ -1,0 +1,164 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_values.txt
+#
+#  Project:    IF
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-09-25
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET ifValuesTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(ifCommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/ifValuesTest.cpp
+                ${THIS_SOURCE_DIR}/ifTestSupport.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} ifCommonTestSupport ${IF_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${IF_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test that a NULL value can be created.
+add_test(NAME TestNullCreate COMMAND ${THIS_TARGET} 1 t 1)
+# Test that a NULL value describes itself correctly.
+add_test(NAME TestNullDescribe COMMAND ${THIS_TARGET} 1 t 2 "null")
+
+# Test that a Boolean value can be created and has the correct value.
+add_test(NAME TestBooleanCreateFalse COMMAND ${THIS_TARGET} 2 t 1)
+# Test that a Boolean value can be created and has the correct value.
+add_test(NAME TestBooleanCreateTrue COMMAND ${THIS_TARGET} 2 t 2)
+# Test that a Boolean value describes itself correctly.
+add_test(NAME TestBooleanFalseDescribe COMMAND ${THIS_TARGET} 2 t 3 "false")
+# Test that a Boolean value describes itself correctly.
+add_test(NAME TestBooleanTrueDescribe COMMAND ${THIS_TARGET} 2 t 4 "true")
+
+# Test that an Integer value can be created and has the correct value.
+add_test(NAME TestIntegerCreate0 COMMAND ${THIS_TARGET} 3 t 1 "0")
+# Test that an Integer value can be created and has the correct value.
+add_test(NAME TestIntegerCreate42 COMMAND ${THIS_TARGET} 3 t 1 "42")
+# Test that an Integer value can be created and has the correct value.
+add_test(NAME TestIntegerCreateMinus42 COMMAND ${THIS_TARGET} 3 t 1 "-42")
+# Test that an Integer value describes itself correctly.
+add_test(NAME TestIntegerDescribe0 COMMAND ${THIS_TARGET} 3 t 2 "0")
+# Test that an Integer value describes itself correctly.
+add_test(NAME TestIntegerDescribe42 COMMAND ${THIS_TARGET} 3 t 2 "42")
+# Test that an Integer value describes itself correctly.
+add_test(NAME TestIntegerDescribeMinus42 COMMAND ${THIS_TARGET} 3 t 2 "-42")
+
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreate0 COMMAND ${THIS_TARGET} 4 t 1 "0")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreate0_5 COMMAND ${THIS_TARGET} 4 t 1 "0.5")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreate42 COMMAND ${THIS_TARGET} 4 t 1 "42")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreateMinus42 COMMAND ${THIS_TARGET} 4 t 1 "-42")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreateMinus0_5 COMMAND ${THIS_TARGET} 4 t 1 "-0.5")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreateBig COMMAND ${THIS_TARGET} 4 t 1 "1E22")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreateSmall COMMAND ${THIS_TARGET} 4 t 1 "1E-22")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreateMinusBig COMMAND ${THIS_TARGET} 4 t 1 "-1E22")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleCreateMinusSmall COMMAND ${THIS_TARGET} 4 t 1 "-1E-22")
+# Test that a Double value describes itself correctly.
+add_test(NAME TestDoubleDescribe0 COMMAND ${THIS_TARGET} 4 t 2 "0" "0")
+# Test that a Double value describes itself correctly.
+add_test(NAME TestDoubleDescribe0_5 COMMAND ${THIS_TARGET} 4 t 2 "0.5" "0.5")
+# Test that a Double value describes itself correctly.
+add_test(NAME TestDoubleDescribe42 COMMAND ${THIS_TARGET} 4 t 2 "42" "42")
+# Test that a Double value describes itself correctly.
+add_test(NAME TestDoubleDescribeMinus42 COMMAND ${THIS_TARGET} 4 t 2 "-42" "-42")
+# Test that a Double value describes itself correctly.
+add_test(NAME TestDoubleDescribeMinus0_5 COMMAND ${THIS_TARGET} 4 t 2 "-0.5" "-0.5")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleDescribeBig COMMAND ${THIS_TARGET} 4 t 2 "1E22" "1e+22")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleDescribeSmall COMMAND ${THIS_TARGET} 4 t 2 "1E-22" "1e-22")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleDescribeMinusBig COMMAND ${THIS_TARGET} 4 t 2 "-1E22" "-1e+22")
+# Test that a Double value can be created and has the correct value.
+add_test(NAME TestDoubleDescribeMinusSmall COMMAND ${THIS_TARGET} 4 t 2 "-1E-22" "-1e-22")
+
+# Test that a String value can be created and has the correct value.
+add_test(NAME TestStringCreateEmpty COMMAND ${THIS_TARGET} 5 t 1 "")
+# Test that a String value can be created and has the correct value.
+add_test(NAME TestStringCreateShortString COMMAND ${THIS_TARGET} 5 t 1 "alpha")
+# Test that a String value can be created and has the correct value.
+add_test(NAME TestStringCreateStringWithDoubleQuotes COMMAND ${THIS_TARGET} 5 t 1 "\"")
+# Test that a String value can be created and has the correct value.
+add_test(NAME TestStringCreateStringWithSingleQuotes COMMAND ${THIS_TARGET} 5 t 1 "'")
+# Test that a String value describes itself correctly.
+add_test(NAME TestStringDescribeEmpty COMMAND ${THIS_TARGET} 5 t 2 "" "\"\"")
+# Test that a String value describes itself correctly.
+add_test(NAME TestStringDescribeShortString COMMAND ${THIS_TARGET} 5 t 2 "alpha" "\"alpha\"")
+# Test that a String value describes itself correctly.
+add_test(NAME TestStringDescribeStringWithDoubleQuotes COMMAND ${THIS_TARGET} 5 t 2 "\"" "'\"'")
+# Test that a String value describes itself correctly.
+add_test(NAME TestStringDescribeStringWithSingleQuotes COMMAND ${THIS_TARGET} 5 t 2 "'" "\"'\"")
+
+# Test that an Address value can be created and has the correct value.
+add_test(NAME TestAddressCreateSimple COMMAND ${THIS_TARGET} 6 t 1 1 2 3 4)
+# Test that an Address value can be created and has the correct value.
+add_test(NAME TestAddressCreateComplex COMMAND ${THIS_TARGET} 6 t 1 192 168 17 12)
+# Test that an Address value describes itself correctly.
+add_test(NAME TestAddressDescribeSimple COMMAND ${THIS_TARGET} 6 t 2 1 2 3 4 "1.2.3.4")
+# Test that an Address value describes itself correctly.
+add_test(NAME TestAddressDescribeComplex COMMAND ${THIS_TARGET} 6 t 2 192 168 17 12 "192.168.17.12")
+
+# Test that an Array value can be created and has the correct value.
+add_test(NAME TestArrayCreateEmpty COMMAND ${THIS_TARGET} 7 t 1)
+# Test that an Array value describes itself correctly.
+add_test(NAME TestArrayDescribeEmpty COMMAND ${THIS_TARGET} 7 t 2)
+
+# Test that an Object value can be created and has the correct value.
+add_test(NAME TestObjectCreateEmpty COMMAND ${THIS_TARGET} 8 t 1)
+# Test that an Object value describes itself correctly.
+add_test(NAME TestObjectDescribeEmpty COMMAND ${THIS_TARGET} 8 t 2)
+
