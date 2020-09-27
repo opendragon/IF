@@ -1,0 +1,146 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_containers.txt
+#
+#  Project:    IF
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-09-27
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET ifContainersTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(ifCommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/ifContainersTest.cpp
+                ${THIS_SOURCE_DIR}/ifTestSupport.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} ifCommonTestSupport ${IF_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${IF_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test that Array values are distinct from other values.
+add_test(NAME TestArrayIsDistinct COMMAND ${THIS_TARGET} 1 t 1)
+# Test that an empty Array value can be created and has the correct value.
+add_test(NAME TestArrayCreateEmpty COMMAND ${THIS_TARGET} 1 t 2)
+# Test that an empty Array value describes itself correctly.
+add_test(NAME TestArrayDescribeEmpty COMMAND ${THIS_TARGET} 1 t 3)
+# Test that an empty Array value can be cloned.
+add_test(NAME TestArrayEmptyClone COMMAND ${THIS_TARGET} 1 t 4)
+# Test that an empty Array value is considered equal to itself.
+add_test(NAME TestArrayEmptyWithItself COMMAND ${THIS_TARGET} 1 t 5)
+# Test that an empty Array value and another String value are considered equal.
+add_test(NAME TestArrayEmptyAndEmptyArrayAreEqual COMMAND ${THIS_TARGET} 1 t 6)
+# Test that an empty Array value and another value type are not considered equal.
+add_test(NAME TestArrayEmptyEqualToOtherValueType COMMAND ${THIS_TARGET} 1 f 7)
+# Test that an empty Array value and its clone are considered equal.
+add_test(NAME TestArrayEmptyEqualToClone COMMAND ${THIS_TARGET} 1 t 8)
+
+# Test that an Array value with a NULL value can be created and has the correct value.
+add_test(NAME TestArraySingletonCreateNull COMMAND ${THIS_TARGET} 1 t 9)
+# Test that an Array value with a NULL value can be created and describes itself correctly.
+add_test(NAME TestArraySingletonDescribeNull COMMAND ${THIS_TARGET} 1 t 10)
+# Test that an Array value with a Boolean value can be created and has the correct value.
+add_test(NAME TestArraySingletonCreateBoolean COMMAND ${THIS_TARGET} 1 t 11)
+# Test that an Array value with a Boolean value can be created and describes itself correctly.
+add_test(NAME TestArraySingletonDescribeBoolean COMMAND ${THIS_TARGET} 1 t 12)
+# Test that an Array value with an Integer value can be created and has the correct value.
+add_test(NAME TestArraySingletonCreateInteger COMMAND ${THIS_TARGET} 1 t 13)
+# Test that an Array value with an Integer value can be created and describes itself correctly.
+add_test(NAME TestArraySingletonDescribeInteger COMMAND ${THIS_TARGET} 1 t 14)
+# Test that an Array value with an String value can be created and has the correct value.
+add_test(NAME TestArraySingletonCreateString COMMAND ${THIS_TARGET} 1 t 15)
+# Test that an Array value with an String value can be created and describes itself correctly.
+add_test(NAME TestArraySingletonDescribeString COMMAND ${THIS_TARGET} 1 t 16)
+
+# Test that an Array value with two NULL values can be created and has the correct value.
+add_test(NAME TestArrayPairCreateNull COMMAND ${THIS_TARGET} 1 t 17)
+# Test that an Array value with two NULL values can be created and describes itself correctly.
+add_test(NAME TestArrayPairDescribeNull COMMAND ${THIS_TARGET} 1 t 18)
+# Test that an Array value with two Boolean values can be created and has the correct value.
+add_test(NAME TestArrayPairCreateBoolean COMMAND ${THIS_TARGET} 1 t 19)
+# Test that an Array value with two Boolean values can be created and describes itself correctly.
+add_test(NAME TestArrayPairDescribeBoolean COMMAND ${THIS_TARGET} 1 t 20)
+# Test that an Array value with two Integer values can be created and has the correct value.
+add_test(NAME TestArrayPairCreateInteger COMMAND ${THIS_TARGET} 1 t 21)
+# Test that an Array value with two Integer values can be created and describes itself correctly.
+add_test(NAME TestArrayPairDescribeInteger COMMAND ${THIS_TARGET} 1 t 22)
+# Test that an Array value with two String values can be created and has the correct value.
+add_test(NAME TestArrayPairCreateString COMMAND ${THIS_TARGET} 1 t 23)
+# Test that an Array value with two String values can be created and describes itself correctly.
+add_test(NAME TestArrayPairDescribeString COMMAND ${THIS_TARGET} 1 t 24)
+
+# Test that an Array value with a NULL value is different from an Array value with a Boolean value.
+add_test(NAME TestArraySingletonsNullDifferentFromBoolean COMMAND ${THIS_TARGET} 1 f 25)
+# Test that an Array value with a Boolean value is different from an Array value with an Integer value.
+add_test(NAME TestArraySingletonsBooleanDifferentFromInteger COMMAND ${THIS_TARGET} 1 f 26)
+# Test that an Array value with an Integer value is different from an Array value with a Double value.
+add_test(NAME TestArraySingletonsIntegerDifferentFromDouble COMMAND ${THIS_TARGET} 1 f 27)
+# Test that an Array value with a Double value is different from an Array value with a String value.
+add_test(NAME TestArraySingletonsDoubleDifferentFromString COMMAND ${THIS_TARGET} 1 f 28)
+# Test that an Array value with a String value is different from an Array value with an Address value.
+add_test(NAME TestArraySingletonsStringDifferentFromAddress COMMAND ${THIS_TARGET} 1 f 29)
+# Test that an Array value with an Address value is different from an Array value with a NULL value.
+add_test(NAME TestArraySingletonsAddressDifferentFromNull COMMAND ${THIS_TARGET} 1 f 30)
+
+# Test that Object values are distinct from other values.
+add_test(NAME TestObjectIsDistinct COMMAND ${THIS_TARGET} 2 t 1)
+# Test that an empty Object value can be created and has the correct value.
+add_test(NAME TestObjectCreateEmpty COMMAND ${THIS_TARGET} 2 t 2)
+# Test that an empty Object value describes itself correctly.
+add_test(NAME TestObjectDescribeEmpty COMMAND ${THIS_TARGET} 2 t 3)
+# Test that an empty Object value can be cloned.
+add_test(NAME TestObjectEmptyClone COMMAND ${THIS_TARGET} 2 t 4)
+# Test that an empty Object value is considered equal to itself.
+add_test(NAME TestObjectEmptyWithItself COMMAND ${THIS_TARGET} 2 t 5)
+# Test that an empty Object value and another empty Object value are considered equal.
+add_test(NAME TestObjectEmptyAndEmptyObjectAreEqual COMMAND ${THIS_TARGET} 2 t 6)
+# Test that an empty Object value and another value type are not considered equal.
+add_test(NAME TestObjectEmptyEqualToOtherValueType COMMAND ${THIS_TARGET} 2 f 7)
+# Test that an empty Object value and its clone are considered equal.
+add_test(NAME TestObjectEmptyEqualToClone COMMAND ${THIS_TARGET} 2 t 8)
+
+## More Object tests to follow

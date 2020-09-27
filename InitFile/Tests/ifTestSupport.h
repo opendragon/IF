@@ -55,9 +55,6 @@
 /*! @brief A simple macro to hold the pieces of a string together. */
 # define T_(xx_)            xx_
 
-/*! @brief A simple macro to hide unused parameters for a function. */
-# define NOT_USED_(var_)    /* var_ */
-
 /*! @brief A simple macro to calculate the number of elements in an array. */
 # define A_SIZE(arr_)       (sizeof(arr_) / sizeof(*arr_))
 
@@ -80,7 +77,7 @@ namespace InitFile
     std::string
     ConvertDoubleToString
         (const double   value);
-    
+
     /*! @brief Convert a string to a double value.
      @param[in] startPtr The string to be converted.
      @param[out] result The value represented by the string.
@@ -115,6 +112,15 @@ namespace InitFile
     const char *
     NameOfSignal
         (const int  theSignal);
+
+    /*! @brief Return a random number in an interval.
+    @param[in] minValue The lower bound on the result.
+    @param[in] maxValue The upper bound on the result.
+    @return A value in the range from minValue to maxValue. */
+    double
+    RandomDouble
+        (const double   minValue = 0,
+         const double   maxValue = 1);
 
     /*! @brief Connect the standard signals to a handler.
      @param[in] theHandler The new handler for the signals. */

@@ -78,6 +78,15 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+AddressValue::AddressValue
+    (const AddressValue &    other) :
+        inherited(other), fValue(other.fValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // AddressValue::AddressValue
+
 AddressValue::~AddressValue
     (void)
 {
@@ -95,6 +104,50 @@ AddressValue::AsAddress
 {
 	return this;
 } // AddressValue::AsAddress
+
+const AddressValue *
+AddressValue::AsAddress
+	(void)
+	const
+{
+	return this;
+} // AddressValue::AsAddress
+
+SpBase
+AddressValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new AddressValue(*this));	
+} // AddressValue::Clone
+
+bool
+AddressValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
+	{
+		result = true;
+	}
+	else
+	{
+		const AddressValue *	asValue = other.AsAddress();
+
+		if (asValue)
+		{
+			result = (fValue == asValue->GetValue());
+		}
+	}
+	ODL_OBJEXIT_B(result); //####
+	return result;
+} // AddressValue::operator ==
 
 std::ostream &
 AddressValue::Print

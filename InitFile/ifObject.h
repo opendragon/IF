@@ -126,6 +126,22 @@ namespace InitFile
 			(void)
             override;
 
+        /*! @brief Return @c this if this is an object.
+         @return @c this if this is an object. */
+		virtual const ObjectValue *
+		AsObject
+			(void)
+            const
+            override;
+
+		/*! @brief Return a copy of this value.
+		@return A newly allocated copy of this value. */
+		virtual SpBase
+		Clone
+			(void)
+			const
+            override;
+
         /*! @brief Return a value from the Object contents.
          @param[in] key The key for the desired value.
          @return The value in the contents corresponding to the key.
@@ -151,6 +167,15 @@ namespace InitFile
             (const std::string &    key)
             const;
 
+        /*! @brief Return @c true if the two values are equal.
+         @param[in] other The value to be compared with.
+         @return @c true if the two values are comparable and equal. */
+        virtual bool
+        operator ==
+            (const BaseValue &	other)
+			const
+            override;
+
         /*! @brief Write a human-readable representation of the value to a stream.
          @param[in,out] output The stream to be written to.
 		 @param[in] indentStep How many characters to insert at each level
@@ -174,6 +199,18 @@ namespace InitFile
 
     private :
         // Private methods.
+
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        ObjectValue
+            (const ObjectValue &	other);
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        ObjectValue &
+        operator =
+            (const ObjectValue &  other);
 
     public :
         // Public fields.

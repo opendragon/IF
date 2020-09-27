@@ -81,6 +81,15 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+BaseValue::BaseValue
+    (const BaseValue &	NOT_USED_(other)) :
+        fParent(nullptr)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // BaseValue::BaseValue
+
 BaseValue::~BaseValue
     (void)
 {
@@ -99,9 +108,25 @@ BaseValue::AsAddress
 	return nullptr;
 } // BaseValue::AsAddress
 
+const AddressValue *
+BaseValue::AsAddress
+	(void)
+	const
+{
+	return nullptr;
+} // BaseValue::AsAddress
+
 ArrayValue *
 BaseValue::AsArray
 	(void)
+{
+	return nullptr;
+} // BaseValue::AsArray
+
+const ArrayValue *
+BaseValue::AsArray
+	(void)
+	const
 {
 	return nullptr;
 } // BaseValue::AsArray
@@ -113,9 +138,25 @@ BaseValue::AsBoolean
 	return nullptr;
 } // BaseValue::AsBoolean
 
+const BooleanValue *
+BaseValue::AsBoolean
+	(void)
+	const
+{
+	return nullptr;
+} // BaseValue::AsBoolean
+
 DoubleValue *
 BaseValue::AsDouble
 	(void)
+{
+	return nullptr;
+} // BaseValue::AsDouble
+
+const DoubleValue *
+BaseValue::AsDouble
+	(void)
+	const
 {
 	return nullptr;
 } // BaseValue::AsDouble
@@ -127,9 +168,25 @@ BaseValue::AsInteger
 	return nullptr;
 } // BaseValue::AsInteger
 
+const IntegerValue *
+BaseValue::AsInteger
+	(void)
+	const
+{
+	return nullptr;
+} // BaseValue::AsInteger
+
 NullValue *
 BaseValue::AsNull
 	(void)
+{
+	return nullptr;
+} // BaseValue::AsNull
+
+const NullValue *
+BaseValue::AsNull
+	(void)
+	const
 {
 	return nullptr;
 } // BaseValue::AsNull
@@ -141,9 +198,25 @@ BaseValue::AsObject
 	return nullptr;
 } // BaseValue::AsObject
 
+const ObjectValue *
+BaseValue::AsObject
+	(void)
+	const
+{
+	return nullptr;
+} // BaseValue::AsObject
+
 StringValue *
 BaseValue::AsString
 	(void)
+{
+	return nullptr;
+} // BaseValue::AsString
+
+const StringValue *
+BaseValue::AsString
+	(void)
+	const
 {
 	return nullptr;
 } // BaseValue::AsString

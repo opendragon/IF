@@ -78,6 +78,15 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+DoubleValue::DoubleValue
+    (const DoubleValue &    other) :
+        inherited(other), fValue(other.fValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // DoubleValue::DoubleValue
+
 DoubleValue::~DoubleValue
     (void)
 {
@@ -95,6 +104,50 @@ DoubleValue::AsDouble
 {
 	return this;
 } // DoubleValue::AsDouble
+
+const DoubleValue *
+DoubleValue::AsDouble
+	(void)
+	const
+{
+	return this;
+} // DoubleValue::AsDouble
+
+SpBase
+DoubleValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new DoubleValue(*this));	
+} // DoubleValue::Clone
+
+bool
+DoubleValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
+	{
+		result = true;
+	}
+	else
+	{
+		const DoubleValue *	asValue = other.AsDouble();
+
+		if (asValue)
+		{
+			result = (fValue == asValue->GetValue());
+		}
+	}
+	ODL_OBJEXIT_B(result); //####
+	return result;
+} // DoubleValue::operator ==
 
 std::ostream &
 DoubleValue::Print

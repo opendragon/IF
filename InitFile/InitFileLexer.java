@@ -16,10 +16,10 @@ public class InitFileLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		TRUE_VALUE=1, FALSE_VALUE=2, NULL_VALUE=3, IPV4_ADDRESS=4, SIGNED_DOUBLE=5, 
-		UNSIGNED_DOUBLE=6, SIGNED_INTEGER=7, DOUBLE_Q=8, SINGLE_Q=9, STRING1=10, 
-		STRING2=11, STRING3=12, STRING4=13, NAME=14, COMMENT_POUND=15, COMMENT_SLASHES=16, 
-		COMMENT_C_STYLE=17, OPEN_CURLY=18, CLOSE_CURLY=19, OPEN_SQUARE=20, CLOSE_SQUARE=21, 
+		TRUE_VALUE=1, FALSE_VALUE=2, NULL_VALUE=3, IPV4_ADDRESS=4, SIGNED_DOUBLE=5,
+		UNSIGNED_DOUBLE=6, SIGNED_INTEGER=7, DOUBLE_Q=8, SINGLE_Q=9, STRING1=10,
+		STRING2=11, STRING3=12, STRING4=13, NAME=14, COMMENT_POUND=15, COMMENT_SLASHES=16,
+		COMMENT_C_STYLE=17, OPEN_CURLY=18, CLOSE_CURLY=19, OPEN_SQUARE=20, CLOSE_SQUARE=21,
 		COMMA=22, COLON=23, WS=24;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -31,11 +31,11 @@ public class InitFileLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "INT3", "SIGNED_DOUBLE", 
-			"UNSIGNED_DOUBLE", "DIGIT", "INT", "EXP", "SIGN", "SIGNED_INTEGER", "DOUBLE_Q", 
-			"SINGLE_Q", "STRING1", "STRING2", "STRING3", "STRING4", "ESC1", "ESC2", 
-			"UNICODE", "HEX", "SAFE_CODE_POINT1", "SAFE_CODE_POINT2", "NAME", "COMMENT_POUND", 
-			"COMMENT_SLASHES", "COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", 
+			"TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "INT3", "SIGNED_DOUBLE",
+			"UNSIGNED_DOUBLE", "DIGIT", "INT", "EXP", "SIGN", "SIGNED_INTEGER", "DOUBLE_Q",
+			"SINGLE_Q", "STRING1", "STRING2", "STRING3", "STRING4", "ESC1", "ESC2",
+			"UNICODE", "HEX", "SAFE_CODE_POINT1", "SAFE_CODE_POINT2", "NAME", "COMMENT_POUND",
+			"COMMENT_SLASHES", "COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE",
 			"CLOSE_SQUARE", "COMMA", "COLON", "WS"
 		};
 	}
@@ -43,18 +43,18 @@ public class InitFileLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, "'\"'", "'''", null, 
-			null, null, null, null, null, null, null, "'{'", "'}'", "'['", "']'", 
+			null, null, null, null, null, null, null, null, "'\"'", "'''", null,
+			null, null, null, null, null, null, null, "'{'", "'}'", "'['", "']'",
 			"','", "':'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "SIGNED_DOUBLE", 
-			"UNSIGNED_DOUBLE", "SIGNED_INTEGER", "DOUBLE_Q", "SINGLE_Q", "STRING1", 
-			"STRING2", "STRING3", "STRING4", "NAME", "COMMENT_POUND", "COMMENT_SLASHES", 
-			"COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", "CLOSE_SQUARE", 
+			null, "TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "SIGNED_DOUBLE",
+			"UNSIGNED_DOUBLE", "SIGNED_INTEGER", "DOUBLE_Q", "SINGLE_Q", "STRING1",
+			"STRING2", "STRING3", "STRING4", "NAME", "COMMENT_POUND", "COMMENT_SLASHES",
+			"COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", "CLOSE_SQUARE",
 			"COMMA", "COLON", "WS"
 		};
 	}

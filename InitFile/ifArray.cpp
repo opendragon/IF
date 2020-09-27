@@ -78,6 +78,16 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+ArrayValue::ArrayValue
+    (const ArrayValue &    other) :
+        inherited(other)//, fValue(other.fValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+	// copy elements
+    ODL_EXIT_P(this); //####
+} // ArrayValue::ArrayValue
+
 ArrayValue::~ArrayValue
     (void)
 {
@@ -119,6 +129,24 @@ ArrayValue::AsArray
 	return this;
 } // ArrayValue::AsArray
 
+const ArrayValue *
+ArrayValue::AsArray
+	(void)
+	const
+{
+	return this;
+} // ArrayValue::AsArray
+
+SpBase
+ArrayValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new ArrayValue(*this));
+} // ArrayValue::Clone
+
 SpBase
 ArrayValue::GetValue
 	(const size_t   index)
@@ -144,6 +172,44 @@ ArrayValue::HowManyValues
 {
 	return fValue.size();
 } // ArrayValue::HowManyValues
+
+bool
+ArrayValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
+	{
+		result = true;
+	}
+	else
+	{
+		const ArrayValue *	asValue = other.AsArray();
+
+		if (asValue)
+		{
+			size_t	otherSize = asValue->HowManyValues();
+
+			if (HowManyValues() == otherSize)
+			{
+				result = true;
+				for (size_t ii = 0; result && (ii < otherSize); ++ii)
+				{
+					SpBase	thisValue = GetValue(ii);
+					SpBase	otherValue = asValue->GetValue(ii);
+
+					result = (*thisValue == *otherValue);
+				}
+			}
+		}
+	}
+	ODL_OBJEXIT_B(result); //####
+	return result;
+} // ArrayValue::operator ==
 
 std::ostream &
 ArrayValue::Print

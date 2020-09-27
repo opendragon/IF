@@ -55,6 +55,9 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief A simple macro to hide unused parameters for a function. */
+# define NOT_USED_(var_)    /* var_ */
+
 namespace InitFile
 {
 	// Forward references:
@@ -116,11 +119,25 @@ namespace InitFile
 		AsAddress
 			(void);
 
+        /*! @brief Return @c this if this is an IPv4 address value.
+         @return @c this if this is an IPv4 address value. */
+		virtual const AddressValue *
+		AsAddress
+			(void)
+			const;
+
         /*! @brief Return @c this if this is an array value.
          @return @c this if this is an array value. */
 		virtual ArrayValue *
 		AsArray
 			(void);
+
+        /*! @brief Return @c this if this is an array value.
+         @return @c this if this is an array value. */
+		virtual const ArrayValue *
+		AsArray
+			(void)
+			const;
 
         /*! @brief Return @c this if this is a boolean value.
          @return @c this if this is a boolean value. */
@@ -128,11 +145,25 @@ namespace InitFile
 		AsBoolean
 			(void);
 
+        /*! @brief Return @c this if this is a boolean value.
+         @return @c this if this is a boolean value. */
+		virtual const BooleanValue *
+		AsBoolean
+			(void)
+			const;
+
         /*! @brief Return @c this if this is a double value.
          @return @c this if this is a double value. */
 		virtual DoubleValue *
 		AsDouble
 			(void);
+
+        /*! @brief Return @c this if this is a double value.
+         @return @c this if this is a double value. */
+		virtual const DoubleValue *
+		AsDouble
+			(void)
+			const;
 
         /*! @brief Return @c this if this is an integer value.
          @return @c this if this is an integer value. */
@@ -140,11 +171,25 @@ namespace InitFile
 		AsInteger
 			(void);
 
+        /*! @brief Return @c this if this is an integer value.
+         @return @c this if this is an integer value. */
+		virtual const IntegerValue *
+		AsInteger
+			(void)
+			const;
+
         /*! @brief Return @c this if this is NULL.
          @return @c this if this is NULL. */
 		virtual NullValue *
 		AsNull
 			(void);
+
+        /*! @brief Return @c this if this is NULL.
+         @return @c this if this is NULL. */
+		virtual const NullValue *
+		AsNull
+			(void)
+			const;
 
         /*! @brief Return @c this if this is an object.
          @return @c this if this is an object. */
@@ -152,16 +197,37 @@ namespace InitFile
 		AsObject
 			(void);
 
+        /*! @brief Return @c this if this is an object.
+         @return @c this if this is an object. */
+		virtual const ObjectValue *
+		AsObject
+			(void)
+			const;
+
         /*! @brief Return @c this if this is a string.
          @return @c this if this is a string. */
 		virtual StringValue *
 		AsString
 			(void);
 
+        /*! @brief Return @c this if this is a string.
+         @return @c this if this is a string. */
+		virtual const StringValue *
+		AsString
+			(void)
+			const;
+
         /*! @brief The destructor. */
         virtual
         ~BaseValue
             (void);
+
+		/*! @brief Return a copy of this value.
+		@return A newly allocated copy of this value. */
+		virtual SpBase
+		Clone
+			(void)
+			const = 0;
 
         /*! @brief Return the parent of this value.
          @return The parent of this value. */
@@ -172,6 +238,25 @@ namespace InitFile
 		{
 			return fParent;
 		} // GetParent
+
+        /*! @brief Return @c true if the two values are equal.
+         @param[in] other The value to be compared with.
+         @return @c true if the two values are comparable and equal. */
+        virtual bool
+        operator ==
+            (const BaseValue &	other)
+			const = 0;
+
+        /*! @brief Return @c true if the two values are equal.
+         @param[in] other The value to be compared with.
+         @return @c true if the two values are comparable and equal. */
+        inline bool
+        operator !=
+            (const BaseValue &	other)
+			const
+		{
+			return (! operator ==(other));
+		} // operator !=
 
         /*! @brief Write a human-readable representation of the value to a stream.
          @param[in,out] output The stream to be written to.
@@ -201,6 +286,11 @@ namespace InitFile
 			{
 			} /* constructor */
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        BaseValue
+            (const BaseValue &	other);
+
 		/*! @brief Add multiple characters to a stream.
          @param[in,out] output The stream to be written to.
 		 @param[in] aChar The character to write.
@@ -223,8 +313,26 @@ namespace InitFile
 			 const std::string &	aString)
 			const;
 
+        /*! @brief Set the parent of this value.
+		@param[in] newParent The new parent of this value.
+         @return The Value that was modified. */
+		inline BaseValue &
+		SetParent
+			(SpBase	newParent)
+		{
+			fParent = newParent;
+			return *this;
+		} // SetParent
+
     private :
         // Private methods.
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        BaseValue &
+        operator =
+            (const BaseValue &  other);
 
     public :
         // Public fields.

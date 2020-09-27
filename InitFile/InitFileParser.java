@@ -16,18 +16,18 @@ public class InitFileParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		TRUE_VALUE=1, FALSE_VALUE=2, NULL_VALUE=3, IPV4_ADDRESS=4, SIGNED_DOUBLE=5, 
-		UNSIGNED_DOUBLE=6, SIGNED_INTEGER=7, DOUBLE_Q=8, SINGLE_Q=9, STRING1=10, 
-		STRING2=11, STRING3=12, STRING4=13, NAME=14, COMMENT_POUND=15, COMMENT_SLASHES=16, 
-		COMMENT_C_STYLE=17, OPEN_CURLY=18, CLOSE_CURLY=19, OPEN_SQUARE=20, CLOSE_SQUARE=21, 
+		TRUE_VALUE=1, FALSE_VALUE=2, NULL_VALUE=3, IPV4_ADDRESS=4, SIGNED_DOUBLE=5,
+		UNSIGNED_DOUBLE=6, SIGNED_INTEGER=7, DOUBLE_Q=8, SINGLE_Q=9, STRING1=10,
+		STRING2=11, STRING3=12, STRING4=13, NAME=14, COMMENT_POUND=15, COMMENT_SLASHES=16,
+		COMMENT_C_STYLE=17, OPEN_CURLY=18, CLOSE_CURLY=19, OPEN_SQUARE=20, CLOSE_SQUARE=21,
 		COMMA=22, COLON=23, WS=24;
 	public static final int
-		RULE_configuration = 0, RULE_object = 1, RULE_pair = 2, RULE_tag = 3, 
-		RULE_value = 4, RULE_addressValue = 5, RULE_stringValue = 6, RULE_doubleValue = 7, 
+		RULE_configuration = 0, RULE_object = 1, RULE_pair = 2, RULE_tag = 3,
+		RULE_value = 4, RULE_addressValue = 5, RULE_stringValue = 6, RULE_doubleValue = 7,
 		RULE_integerValue = 8, RULE_literalValue = 9, RULE_array = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"configuration", "object", "pair", "tag", "value", "addressValue", "stringValue", 
+			"configuration", "object", "pair", "tag", "value", "addressValue", "stringValue",
 			"doubleValue", "integerValue", "literalValue", "array"
 		};
 	}
@@ -35,18 +35,18 @@ public class InitFileParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, "'\"'", "'''", null, 
-			null, null, null, null, null, null, null, "'{'", "'}'", "'['", "']'", 
+			null, null, null, null, null, null, null, null, "'\"'", "'''", null,
+			null, null, null, null, null, null, null, "'{'", "'}'", "'['", "']'",
 			"','", "':'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "SIGNED_DOUBLE", 
-			"UNSIGNED_DOUBLE", "SIGNED_INTEGER", "DOUBLE_Q", "SINGLE_Q", "STRING1", 
-			"STRING2", "STRING3", "STRING4", "NAME", "COMMENT_POUND", "COMMENT_SLASHES", 
-			"COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", "CLOSE_SQUARE", 
+			null, "TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "SIGNED_DOUBLE",
+			"UNSIGNED_DOUBLE", "SIGNED_INTEGER", "DOUBLE_Q", "SINGLE_Q", "STRING1",
+			"STRING2", "STRING3", "STRING4", "NAME", "COMMENT_POUND", "COMMENT_SLASHES",
+			"COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", "CLOSE_SQUARE",
 			"COMMA", "COLON", "WS"
 		};
 	}
@@ -173,7 +173,7 @@ public class InitFileParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_object; }
-	 
+	
 		public ObjectContext() { }
 		public void copyFrom(ObjectContext ctx) {
 			super.copyFrom(ctx);
@@ -255,7 +255,7 @@ public class InitFileParser extends Parser {
 						setState(33);
 						pair();
 						}
-						} 
+						}
 					}
 					setState(38);
 					_errHandler.sync(this);
@@ -827,7 +827,7 @@ public class InitFileParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_array; }
-	 
+	
 		public ArrayContext() { }
 		public void copyFrom(ArrayContext ctx) {
 			super.copyFrom(ctx);
@@ -909,7 +909,7 @@ public class InitFileParser extends Parser {
 						setState(87);
 						value();
 						}
-						} 
+						}
 					}
 					setState(92);
 					_errHandler.sync(this);

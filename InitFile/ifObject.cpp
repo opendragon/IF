@@ -78,6 +78,16 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+ObjectValue::ObjectValue
+    (const ObjectValue &    other) :
+        inherited(other)//, fValue(other.fValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+	// copy elements
+    ODL_EXIT_P(this); //####
+} // ObjectValue::ObjectValue
+
 ObjectValue::~ObjectValue
     (void)
 {
@@ -106,12 +116,30 @@ ObjectValue::AsObject
 	return this;
 } // ObjectValue::AsObject
 
+const ObjectValue *
+ObjectValue::AsObject
+	(void)
+	const
+{
+	return this;
+} // ObjectValue::AsObject
+
+SpBase
+ObjectValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new ObjectValue(*this));
+} // ObjectValue::Clone
+
 SpBase
 ObjectValue::GetValue
 	(const std::string &    key)
 	const
 {
-	SpBase		result;
+	SpBase			result;
 	const_iterator  match(fValue.find(key));
 
 	if (fValue.end() == match)
@@ -151,6 +179,52 @@ ObjectValue::IsKeyPresent
 	}
 	return result;
 } // ObjectValue::IsKeyPresent
+
+bool
+ObjectValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
+	{
+		result = true;
+	}
+	else
+	{
+		const ObjectValue *	asValue = other.AsObject();
+
+		if (asValue)
+		{
+			size_t	otherSize = asValue->HowManyValues();
+
+			if (HowManyValues() == otherSize)
+			{
+				result = true;
+				for (const_iterator walker(fValue.begin()); result && (walker != fValue.end()); ++walker)
+				{
+					std::string	key = walker->first;
+					SpBase		thisValue = walker->second;
+					SpBase		otherValue = asValue->GetValue(key);
+
+					if (otherValue)
+					{
+						result = (*thisValue == *otherValue);
+					}
+					else
+					{
+						result = false;
+					}
+				}
+			}
+		}
+	}
+	ODL_OBJEXIT_B(result); //####
+	return result;
+} // ObjectValue::operator ==
 
 std::ostream &
 ObjectValue::Print

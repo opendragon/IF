@@ -41,6 +41,7 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
+#include <ifBase.h>
 #include <csignal>
 #include <sstream>
 
@@ -179,7 +180,7 @@ InitFile::ConvertDoubleToString
     ODL_EXIT_s(result); //####
     return result;
 } // InitFile::ConvertDoubleToString
-    
+
 bool
 InitFile::ConvertToDouble
     (const char *   startPtr,
@@ -419,6 +420,16 @@ InitFile::NameOfSignal
 #endif // ! MAC_OR_LINUX_
     return result;
 } // InitFile::NameOfSignal
+
+double
+InitFile::RandomDouble
+    (const double   minValue,
+     const double   maxValue)
+{
+    double  zeroOne = (static_cast<double>(rand()) / RAND_MAX);
+
+    return (zeroOne * (maxValue - minValue)) + minValue;
+} // InitFile::RandomDouble
 
 void
 InitFile::SetSignalHandlers

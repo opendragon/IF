@@ -130,46 +130,101 @@ doTestNullValue
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         SpNull  aValue;
-        bool    typeOK;
+        bool    okSoFar;
 
-        // 1) test that a NULL value can be created.
-        // 2) test that a NULL value is described correctly.
+        // 1) test that NULL values are distinct.
+        // 2) test that a NULL value can be created.
+        // 3) test that a NULL value is described correctly.
+        // 4) test that a NULL value can be cloned.
+        // 5) test that a NULL value is considered equal to itself.
+        // 6) test that a NULL value and another NULL value are considered equal.
+        // 7) test that a NULL value and another value type are not considered equal.
+        // 8) test that a NULL value and its clone are considered equal.
         switch (subSelector)
         {
             case 1 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                typeOK = (aValue && aValue->AsNull() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK)
-                {
-                    result = (expected ? 0 : 1);
-                }
+                okSoFar = (aValue && aValue->AsNull() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                        (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsInteger()) &&
+                        (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
 
             case 2 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                typeOK = (aValue && aValue->AsNull() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK)
+                okSoFar = (aValue && aValue->AsNull());
+                break;
+
+            case 3 :
+                aValue.reset(new InitFile::NullValue(nullptr));
+                okSoFar = (aValue && aValue->AsNull());
+                if (okSoFar)
                 {
                     std::ostringstream  buffer;
 
                     aValue->Print(buffer);
-                    if ("null" == buffer.str())
-                    {
-                        result = (expected ? 0 : 1);
-                    }
+                    okSoFar = ("null" == buffer.str());
+                }
+                break;
+
+            case 4 :
+                aValue.reset(new InitFile::NullValue(nullptr));
+                okSoFar = (aValue && aValue->AsNull());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsNull());
+                }
+                break;
+
+            case 5 :
+                aValue.reset(new InitFile::NullValue(nullptr));
+                okSoFar = (aValue && aValue->AsNull() && (*aValue == *aValue));
+                break;
+
+            case 6 :
+                aValue.reset(new InitFile::NullValue(nullptr));
+                okSoFar = (aValue && aValue->AsNull());
+                if (okSoFar)
+                {
+                    SpNull  otherValue(new InitFile::NullValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 7 :
+                aValue.reset(new InitFile::NullValue(nullptr));
+                okSoFar = (aValue && aValue->AsNull());
+                if (okSoFar)
+                {
+                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 8 :
+                aValue.reset(new InitFile::NullValue(nullptr));
+                okSoFar = (aValue && aValue->AsNull());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsNull() && (*aValue == *otherValue));
                 }
                 break;
 
             default :
+                okSoFar = false;
                 break;
 
         }
+        result = ((expected == okSoFar) ? 0 : 1);
     }
     catch (...)
     {
@@ -204,74 +259,121 @@ doTestBooleanValue
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
         SpBoolean   aValue;
-        bool        typeOK;
+        bool        okSoFar;
 
-        // 1) test that a 'false' value can be created with the correct value.
-        // 2) test that a 'true' value can be created with the correct value.
-        // 3) test that a 'false' value is described correctly.
-        // 4) test that a 'true' value is described correctly.
+        // 1) test that boolean values are distinct.
+        // 2) test that a 'false' value can be created with the correct value.
+        // 3) test that a 'true' value can be created with the correct value.
+        // 4) test that a 'false' value is described correctly.
+        // 5) test that a 'true' value is described correctly.
+        // 6) test that a boolean value can be cloned.
+        // 7) test that a boolean value is considered equal to itself.
+        // 7) test that a boolean value and another boolean value are considered equal.
+        // 9) test that a boolean value and another value type are not considered equal.
+        // 10) test that a boolean value and its clone are considered equal.
         switch (subSelector)
         {
             case 1 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, false));
-                typeOK = (aValue && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsDouble()) &&
-                            (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK && (! aValue->GetValue()))
-                {
-                    result = (expected ? 0 : 1);
-                }
+                okSoFar = (aValue && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
+                            (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
 
             case 2 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, true));
-                typeOK = (aValue && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsDouble()) &&
-                            (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK && aValue->GetValue())
-                {
-                    result = (expected ? 0 : 1);
-                }
+                aValue.reset(new InitFile::BooleanValue(nullptr, false));
+                okSoFar = (aValue && aValue->AsBoolean() && (! aValue->GetValue()));
                 break;
 
             case 3 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, false));
-                typeOK = (aValue && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsDouble()) &&
-                            (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK)
-                {
-                    std::ostringstream  buffer;
-
-                    aValue->Print(buffer);
-                    if ("false" == buffer.str())
-                    {
-                        result = (expected ? 0 : 1);
-                    }
-                }
+                aValue.reset(new InitFile::BooleanValue(nullptr, true));
+                okSoFar = (aValue && aValue->AsBoolean() && aValue->GetValue());
                 break;
 
             case 4 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, true));
-                typeOK = (aValue && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsDouble()) &&
-                            (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK)
+                aValue.reset(new InitFile::BooleanValue(nullptr, false));
+                okSoFar = (aValue && aValue->AsBoolean());
+                if (okSoFar)
                 {
                     std::ostringstream  buffer;
 
                     aValue->Print(buffer);
-                    if ("true" == buffer.str())
-                    {
-                        result = (expected ? 0 : 1);
-                    }
+                    okSoFar = ("false" == buffer.str());
+                }
+                break;
+
+            case 5 :
+                aValue.reset(new InitFile::BooleanValue(nullptr, true));
+                okSoFar = (aValue && aValue->AsBoolean());
+                if (okSoFar)
+                {
+                    std::ostringstream  buffer;
+
+                    aValue->Print(buffer);
+                    okSoFar = ("true" == buffer.str());
+                }
+                break;
+
+            case 6 :
+                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                okSoFar = (aValue && aValue->AsBoolean());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsBoolean() &&
+                                (aValue->GetValue() == otherValue->AsBoolean()->GetValue()));
+                }
+                break;
+
+            case 7 :
+                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                okSoFar = (aValue && aValue->AsBoolean() && (*aValue == *aValue));
+                break;
+
+            case 8 :
+                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                okSoFar = (aValue && aValue->AsBoolean());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::BooleanValue(nullptr, aValue->GetValue()));
+
+                    okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
+                }
+                break;
+
+            case 9 :
+                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                okSoFar = (aValue && aValue->AsBoolean());
+                if (okSoFar)
+                {
+                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 10 :
+                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                okSoFar = (aValue && aValue->AsBoolean());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
                 }
                 break;
 
             default :
+                okSoFar = false;
                 break;
 
         }
+        result = ((expected == okSoFar) ? 0 : 1);
     }
     catch (...)
     {
@@ -306,56 +408,127 @@ doTestIntegerValue
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
-        if (1 <= argc)
-        {
-            const int64_t   inValue = strtol(*argv, NULL, 10);
-            SpInteger       aValue;
-            bool            typeOK;
+        SpInteger   aValue;
+        bool        okSoFar;
 
-            // 1) test that an integer value can be created with the correct value.
-            // 2) test that an integer value is described correctly.
-            switch (subSelector)
-            {
-                case 1 :
+        // 1) test that integer values are distinct.
+        // 2) test that an integer value can be created with the correct value.
+        // 3) test that an integer value is described correctly.
+        // 4) test that an integer value can be cloned.
+        // 5) test that an integer value is considered equal to itself.
+        // 6) test that an integer value and another integer value are considered equal.
+        // 7) test that an integer value and another value type are not considered equal.
+        // 8) test that an integer value and its clone are considered equal.
+        switch (subSelector)
+        {
+            case 1 :
+                aValue.reset(new InitFile::IntegerValue(nullptr, 42));
+                okSoFar = (aValue && aValue->AsInteger() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                            (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsNull()) &&
+                            (! aValue->AsObject()) && (! aValue->AsString()));
+                break;
+
+            case 2 :
+                if (1 <= argc)
+                {
+                    const int64_t   inValue = strtol(*argv, NULL, 10);
+
                     aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
-                    typeOK = (aValue && aValue->AsInteger() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                                (! aValue->AsDouble()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                    if (typeOK)
+                    okSoFar = (aValue && aValue->AsInteger());
+                    if (okSoFar)
                     {
                         int64_t fetched = aValue->GetValue();
-                        
-                        result = ((expected == (inValue == fetched)) ? 0 : 1);
-                    }
-                    break;
 
-                case 2 :
+                        okSoFar = (inValue == fetched);
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (1 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 3 :
+                if (1 <= argc)
+                {
+                    const int64_t   inValue = strtol(*argv, NULL, 10);
+
                     aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
-                    typeOK = (aValue && aValue->AsInteger() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                                (! aValue->AsDouble()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                    if (typeOK)
+                    okSoFar = (aValue && aValue->AsInteger());
+                    if (okSoFar)
                     {
                         std::ostringstream  buffer;
 
                         aValue->Print(buffer);
-                        if (*argv == buffer.str())
-                        {
-                            result = (expected ? 0 : 1);
-                        }
+                        okSoFar = (*argv == buffer.str());
                     }
-                    break;
+                }
+                else
+                {
+                    ODL_LOG("! (1 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
 
-                default :
-                    break;
+            case 4 :
+                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsInteger());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
 
-            }
+                    okSoFar = (otherValue && otherValue->AsInteger() && (aValue->GetValue() == otherValue->AsInteger()->GetValue()));
+                }
+                break;
+
+            case 5 :
+                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsInteger() && (*aValue == *aValue));
+                break;
+
+            case 6 :
+                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsInteger());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::IntegerValue(nullptr, aValue->GetValue()));
+
+                    okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
+                }
+                break;
+
+            case 7 :
+                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsInteger());
+                if (okSoFar)
+                {
+                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 8 :
+                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsInteger());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
+                }
+                break;
+
+            default :
+                okSoFar = false;
+                break;
+
         }
-        else
-        {
-            ODL_LOG("! (1 < argc)"); //####            
-        }
+        result = ((expected == okSoFar) ? 0 : 1);
     }
     catch (...)
     {
@@ -390,59 +563,127 @@ doTestDoubleValue
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
-        if (1 <= argc)
-        {
-            const double    dblValue = strtod(*argv, NULL);
-            SpDouble        aValue;
-            bool            typeOK;
+        SpDouble        aValue;
+        bool            okSoFar;
 
-            // 1) test that a double value can be created with the correct value.
-            // 2) test that a double value is described correctly.
-            switch (subSelector)
-            {
-                case 1 :
+        // 1) test that double values are distinct.
+        // 2) test that a double value can be created with the correct value.
+        // 3) test that a double value is described correctly.
+        // 4) test that a double value can be cloned.
+        // 5) test that a double value is considered equal to itself.
+        // 6) test that a double value and another double value are considered equal.
+        // 7) test that a double value and another value type are not considered equal.
+        // 8) test that a double value and its clone are considered equal.
+        switch (subSelector)
+        {
+            case 1 :
+                aValue.reset(new InitFile::DoubleValue(nullptr, 42));
+                okSoFar = (aValue && aValue->AsDouble() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                            (! aValue->AsBoolean()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
+                            (! aValue->AsObject()) && (! aValue->AsString()));
+                break;
+
+            case 2 :
+                if (1 <= argc)
+                {
+                    const double    dblValue = strtod(*argv, NULL);
+
                     aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
-                    typeOK = (aValue && aValue->AsDouble() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                                (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                    if (typeOK)
+                    okSoFar = (aValue && aValue->AsDouble());
+                    if (okSoFar)
                     {
                         double  fetched = aValue->GetValue();
-                        
-                        result = ((expected == (dblValue == fetched)) ? 0 : 1);
-                    }
-                    break;
 
-                case 2 :
-                    if (2 <= argc)
+                        okSoFar = (dblValue == fetched);
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (1 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 3 :
+                if (2 <= argc)
+                {
+                    const double    dblValue = strtod(*argv, NULL);
+
+                    aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
+                    okSoFar = (aValue && aValue->AsDouble());
+                    if (okSoFar)
                     {
-                        aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
-                        typeOK = (aValue && aValue->AsDouble() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                                    (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                        if (typeOK)
-                        {
-                            std::ostringstream  buffer;
+                        std::ostringstream  buffer;
 
-                            aValue->Print(buffer);
-                            if (argv[1] == buffer.str())
-                            {
-                                result = (expected ? 0 : 1);
-                            }
-                        }
+                        aValue->Print(buffer);
+                        okSoFar = (argv[1] == buffer.str());
                     }
-                    break;
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
 
-                default :
-                    break;
+            case 4 :
+                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                okSoFar = (aValue && aValue->AsDouble());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
 
-            }
+                    okSoFar = (otherValue && otherValue->AsDouble() && (aValue->GetValue() == otherValue->AsDouble()->GetValue()));
+                }
+                break;
+
+            case 5 :
+                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                okSoFar = (aValue && aValue->AsDouble() && (*aValue == *aValue));
+                break;
+
+            case 6 :
+                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                okSoFar = (aValue && aValue->AsDouble());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::DoubleValue(nullptr, aValue->GetValue()));
+
+                    okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
+                }
+                break;
+
+            case 7 :
+                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                okSoFar = (aValue && aValue->AsDouble());
+                if (okSoFar)
+                {
+                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 8 :
+                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                okSoFar = (aValue && aValue->AsDouble());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
+                }
+                break;
+
+            default :
+                okSoFar = false;
+                break;
+
         }
-        else
-        {
-            ODL_LOG("! (1 < argc)"); //####            
-        }
+        result = ((expected == okSoFar) ? 0 : 1);
     }
     catch (...)
     {
@@ -477,58 +718,123 @@ doTestStringValue
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
-        if (1 <= argc)
-        {
-            SpString    aValue;
-            bool        typeOK;
+        SpString    aValue;
+        bool        okSoFar;
 
-            // 1) test that a string value can be created with the correct value.
-            // 2) test that a string value is described correctly.
-            switch (subSelector)
-            {
-                case 1 :
+        // 1) test that string values are distinct.
+        // 2) test that a string value can be created with the correct value.
+        // 3) test that a string value is described correctly.
+        // 4) test that a string value can be cloned.
+        // 5) test that a string value is considered equal to itself.
+        // 6) test that a string value and another string value are considered equal.
+        // 7) test that a string value and another value type are not considered equal.
+        // 8) test that a string value and its clone are considered equal.
+        switch (subSelector)
+        {
+            case 1 :
+                aValue.reset(new InitFile::StringValue(nullptr, "chuckles"));
+                okSoFar = (aValue && aValue->AsString() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                            (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsInteger()) &&
+                            (! aValue->AsNull()) && (! aValue->AsObject()));
+                break;
+
+            case 2 :
+                if (1 <= argc)
+                {
                     aValue.reset(new InitFile::StringValue(nullptr, *argv));
-                    typeOK = (aValue && aValue->AsString() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                                (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()));
-                    if (typeOK)
+                    okSoFar = (aValue && aValue->AsString());
+                    if (okSoFar)
                     {
                         std::string fetched = aValue->GetValue();
 
-                        result = ((expected == (*argv == fetched)) ? 0 : 1);
+                        okSoFar = (*argv == fetched);
                     }
-                    break;
+                }
+                else
+                {
+                    ODL_LOG("! (1 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
 
-                case 2 :
-                    if (2 <= argc)
+            case 3 :
+                if (2 <= argc)
+                {
+                    aValue.reset(new InitFile::StringValue(nullptr, *argv));
+                    okSoFar = (aValue && aValue->AsString());
+                    if (okSoFar)
                     {
-                        aValue.reset(new InitFile::StringValue(nullptr, *argv));
-                        typeOK = (aValue && aValue->AsString() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                                    (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()));
-                        if (typeOK)
-                        {
-                            std::ostringstream  buffer;
+                        std::ostringstream  buffer;
 
-                            aValue->Print(buffer);
-                            if (argv[1] == buffer.str())
-                            {
-                                result = (expected ? 0 : 1);
-                            }
-                        }
+                        aValue->Print(buffer);
+                        okSoFar = (argv[1] == buffer.str());
                     }
-                    break;
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
 
-                default :
-                    break;
+            case 4 :
+                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsString());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
 
-            }
+                    okSoFar = (otherValue && otherValue->AsString() && (aValue->GetValue() == otherValue->AsString()->GetValue()));
+                }
+                break;
+
+            case 5 :
+                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsString() && (*aValue == *aValue));
+                break;
+
+            case 6 :
+                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsString());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::StringValue(nullptr, aValue->GetValue()));
+
+                    okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
+                }
+                break;
+
+            case 7 :
+                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsString());
+                if (okSoFar)
+                {
+                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 8 :
+                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                okSoFar = (aValue && aValue->AsString());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
+                }
+                break;
+
+            default :
+                okSoFar = false;
+                break;
+
         }
-        else
-        {
-            ODL_LOG("! (1 < argc)"); //####            
-        }
+        result = ((expected == okSoFar) ? 0 : 1);
     }
     catch (...)
     {
@@ -563,63 +869,163 @@ doTestAddressValue
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
     int result = 1;
-    
+
     try
     {
-        if (4 <= argc)
-        {
-            SpAddress   aValue;
-            bool        typeOK;
-            uint32_t    byte0 = strtol(*argv, NULL, 10);
-            uint32_t    byte1 = strtol(argv[1], NULL, 10);
-            uint32_t    byte2 = strtol(argv[2], NULL, 10);
-            uint32_t    byte3 = strtol(argv[3], NULL, 10);
-            uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+        SpAddress   aValue;
+        bool        okSoFar;
+        uint32_t    byte0;
+        uint32_t    byte1;
+        uint32_t    byte2;
+        uint32_t    byte3;
+        uint32_t    inValue;
 
-            // 1) test that an address value can be created with the correct value.
-            // 2) test that an address value is described correctly.
-            switch (subSelector)
-            {
-                case 1 :
+        // 1) test that address values are distinct.
+        // 2) test that an address value can be created with the correct value.
+        // 3) test that an address value is described correctly.
+        // 4) test that an address value can be cloned.
+        // 5) test that an address value is considered equal to itself.
+        // 6) test that an address value and another address value are considered equal.
+        // 7) test that an address value and another value type are not considered equal.
+        // 8) test that an address value and its clonse are considered equal.
+        switch (subSelector)
+        {
+            case 1 :
+                aValue.reset(new InitFile::AddressValue(nullptr, 1234567));
+                okSoFar = (aValue && aValue->AsAddress() && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
+                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
+                            (! aValue->AsObject()) && (! aValue->AsString()));
+                break;
+
+            case 2 :
+                if (4 <= argc)
+                {
+                    byte0 = strtol(*argv, NULL, 10);
+                    byte1 = strtol(argv[1], NULL, 10);
+                    byte2 = strtol(argv[2], NULL, 10);
+                    byte3 = strtol(argv[3], NULL, 10);
+                    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                     aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                    typeOK = (aValue && aValue->AsAddress() && (! aValue->AsArray()) && (! aValue->AsBoolean()) && (! aValue->AsDouble()) &&
-                                (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                    if (typeOK)
+                    okSoFar = (aValue && aValue->AsAddress());
+                    if (okSoFar)
                     {
                         uint32_t    fetched = aValue->GetValue();
 
-                        result = ((expected == (inValue == fetched)) ? 0 : 1);
+                        okSoFar = (inValue == fetched);
                     }
-                    break;
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
 
-                case 2 :
-                    if (5 <= argc)
+            case 3 :
+                if (5 <= argc)
+                {
+                    byte0 = strtol(*argv, NULL, 10);
+                    byte1 = strtol(argv[1], NULL, 10);
+                    byte2 = strtol(argv[2], NULL, 10);
+                    byte3 = strtol(argv[3], NULL, 10);
+                    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                    okSoFar = (aValue && aValue->AsAddress());
+                    if (okSoFar)
                     {
-                        aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                        typeOK = (aValue && aValue->AsAddress() && (! aValue->AsArray()) && (! aValue->AsBoolean()) && (! aValue->AsDouble()) &&
-                                    (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                        if (typeOK)
-                        {
-                            std::ostringstream  buffer;
+                        std::ostringstream  buffer;
 
-                            aValue->Print(buffer);
-                            if (argv[4] == buffer.str())
-                            {
-                                result = (expected ? 0 : 1);
-                            }
-                        }
+                        aValue->Print(buffer);
+                        okSoFar = (argv[4] == buffer.str());
                     }
-                    break;
+                }
+                else
+                {
+                    ODL_LOG("! (5 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
 
-                default :
-                    break;
+            case 4 :
+                byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                okSoFar = (aValue && aValue->AsAddress());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
 
-            }
+                    okSoFar = (otherValue && otherValue->AsAddress() && (aValue->GetValue() == otherValue->AsAddress()->GetValue()));
+                }
+                break;
+
+            case 5 :
+                byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                okSoFar = (aValue && aValue->AsAddress() && (*aValue == *aValue));
+                break;
+
+            case 6 :
+                byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                okSoFar = (aValue && aValue->AsAddress());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::AddressValue(nullptr, aValue->GetValue()));
+
+                    okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
+                }
+                break;
+
+            case 7 :
+                byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                okSoFar = (aValue && aValue->AsAddress());
+                if (okSoFar)
+                {
+                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (*aValue == *otherValue);
+                }
+                break;
+
+            case 8 :
+                byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                okSoFar = (aValue && aValue->AsAddress());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(aValue->Clone());
+
+                    okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
+                }
+                break;
+
+            default :
+                okSoFar = false;
+                break;
+
         }
-        else
-        {
-            ODL_LOG("! (1 < argc)"); //####            
-        }
+        result = ((expected == okSoFar) ? 0 : 1);
     }
     catch (...)
     {
@@ -629,154 +1035,6 @@ doTestAddressValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestAddressValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] launchPath The command-line name used to launch the service.
- @param[in] subSelector The subtest to perform.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used for the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestArrayValue
-    (const char *   NOT_USED_(launchPath),
-     const int      subSelector,
-     const bool     expected,
-     const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv))
-{
-    ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
-    int result = 1;
-    
-    try
-    {
-        SpArray aValue;
-        bool    typeOK;
-
-        // 1) test that an empty array value can be created.
-        // 2) test that an empty array value is described correctly.
-        switch (subSelector)
-        {
-            case 1 :
-                aValue.reset(new InitFile::ArrayValue(nullptr));
-                typeOK = (aValue && aValue->AsArray() && (! aValue->AsAddress()) && (! aValue->AsBoolean()) && (! aValue->AsDouble()) &&
-                            (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK && (0 == aValue->HowManyValues()))
-                {
-                    result = (expected ? 0 : 1);
-                }
-                break;
-
-            case 2 :
-                aValue.reset(new InitFile::ArrayValue(nullptr));
-                typeOK = (aValue && aValue->AsArray() && (! aValue->AsAddress()) && (! aValue->AsBoolean()) && (! aValue->AsDouble()) &&
-                            (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsObject()) && (! aValue->AsString()));
-                if (typeOK)
-                {
-                    std::ostringstream  buffer;
-
-                    aValue->Print(buffer);
-                    if ("[ ]" == buffer.str())
-                    {
-                        result = (expected ? 0 : 1);
-                    }
-                }
-                break;
-
-            default :
-                break;
-
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestArrayValue
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 08 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] launchPath The command-line name used to launch the service.
- @param[in] subSelector The subtest to perform.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used for the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestObjectValue
-    (const char *   NOT_USED_(launchPath),
-     const int      subSelector,
-     const bool     expected,
-     const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv))
-{
-    ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
-    int result = 1;
-    
-    try
-    {
-        SpObject    aValue;
-        bool        typeOK;
-
-        // 1) test that an empty object value can be created.
-        // 2) test that an empty object value is described correctly.
-        switch (subSelector)
-        {
-            case 1 :
-                aValue.reset(new InitFile::ObjectValue(nullptr));
-                typeOK = (aValue && aValue->AsObject() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsString()));
-                if (typeOK && (0 == aValue->HowManyValues()))
-                {
-                    result = (expected ? 0 : 1);
-                }
-                break;
-
-            case 2 :
-                aValue.reset(new InitFile::ObjectValue(nullptr));
-                typeOK = (aValue && aValue->AsObject() && (! aValue->AsAddress()) && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
-                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) && (! aValue->AsString()));
-                if (typeOK)
-                {
-                    std::ostringstream  buffer;
-
-                    aValue->Print(buffer);
-                    if ("{ }" == buffer.str())
-                    {
-                        result = (expected ? 0 : 1);
-                    }
-                }
-                break;
-
-            default :
-                break;
-
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestObjectValue
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -851,16 +1109,6 @@ main
                     case 6 :
                         // Address value
                         result = doTestAddressValue(*argv, subSelector, expected, argc - 3, argv + 4);
-                        break;
-
-                    case 7 :
-                        // Array value
-                        result = doTestArrayValue(*argv, subSelector, expected, argc - 3, argv + 4);
-                        break;
-
-                    case 8 :
-                        // Object value
-                        result = doTestObjectValue(*argv, subSelector, expected, argc - 3, argv + 4);
                         break;
 
                     default :

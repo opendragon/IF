@@ -127,6 +127,22 @@ namespace InitFile
 			(void)
             override;
 
+        /*! @brief Return @c this if this is an array.
+         @return @c this if this is an array. */
+		virtual const ArrayValue *
+		AsArray
+			(void)
+            const
+            override;
+
+		/*! @brief Return a copy of this value.
+		@return A newly allocated copy of this value. */
+		virtual SpBase
+		Clone
+			(void)
+			const
+            override;
+
         /*! @brief Return a value from the Array contents.
          @param[in] index The index (zero-origin) of the desired value.
          @return The value in the contents corresponding to the index. */
@@ -141,6 +157,15 @@ namespace InitFile
         HowManyValues
             (void)
             const;
+
+        /*! @brief Return @c true if the two values are equal.
+         @param[in] other The value to be compared with.
+         @return @c true if the two values are comparable and equal. */
+        virtual bool
+        operator ==
+            (const BaseValue &	other)
+			const
+            override;
 
         /*! @brief Write a human-readable representation of the value to a stream.
          @param[in,out] output The stream to be written to.
@@ -165,6 +190,18 @@ namespace InitFile
 
     private :
         // Private methods.
+
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        ArrayValue
+            (const ArrayValue &	other);
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        ArrayValue &
+        operator =
+            (const ArrayValue &  other);
 
     public :
         // Public fields.

@@ -78,6 +78,15 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+BooleanValue::BooleanValue
+    (const BooleanValue &    other) :
+        inherited(other), fValue(other.fValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // BooleanValue::BooleanValue
+
 BooleanValue::~BooleanValue
     (void)
 {
@@ -95,6 +104,50 @@ BooleanValue::AsBoolean
 {
 	return this;
 } // BooleanValue::AsBoolean
+
+const BooleanValue *
+BooleanValue::AsBoolean
+	(void)
+	const
+{
+	return this;
+} // BooleanValue::AsBoolean
+
+SpBase
+BooleanValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new BooleanValue(*this));	
+} // BooleanValue::Clone
+
+bool
+BooleanValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
+	{
+		result = true;
+	}
+	else
+	{
+		const BooleanValue *	asValue = other.AsBoolean();
+
+		if (asValue)
+		{
+			result = (fValue == asValue->GetValue());
+		}
+	}
+	ODL_OBJEXIT_B(result); //####
+	return result;
+} // BooleanValue::operator ==
 
 std::ostream &
 BooleanValue::Print

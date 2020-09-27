@@ -93,6 +93,22 @@ namespace InitFile
 			(void)
             override;
 
+        /*! @brief Return @c this if this is an IPv4 address.
+         @return @c this if this is an IPv4 address. */
+		virtual const AddressValue *
+		AsAddress
+			(void)
+            const
+            override;
+
+		/*! @brief Return a copy of this value.
+		@return A newly allocated copy of this value. */
+		virtual SpBase
+		Clone
+			(void)
+			const
+            override;
+
         /*! @brief Return the content of this value.
          @return The content of this value. */
 		inline uint32_t
@@ -102,6 +118,15 @@ namespace InitFile
 		{
 			return fValue;
 		} // GetValue
+
+        /*! @brief Return @c true if the two values are equal.
+         @param[in] other The value to be compared with.
+         @return @c true if the two values are comparable and equal. */
+        virtual bool
+        operator ==
+            (const BaseValue &	other)
+			const
+            override;
 
         /*! @brief Write a human-readable representation of the value to a stream.
          @param[in,out] output The stream to be written to.
@@ -126,6 +151,18 @@ namespace InitFile
 
     private :
         // Private methods.
+
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        AddressValue
+            (const AddressValue &	other);
+
+        /*! @brief The assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        AddressValue &
+        operator =
+            (const AddressValue &  other);
 
     public :
         // Public fields.

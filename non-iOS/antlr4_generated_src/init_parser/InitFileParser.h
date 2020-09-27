@@ -13,16 +13,16 @@ namespace InitParser {
 class  InitFileParser : public antlr4::Parser {
 public:
   enum {
-    TRUE_VALUE = 1, FALSE_VALUE = 2, NULL_VALUE = 3, IPV4_ADDRESS = 4, SIGNED_DOUBLE = 5, 
-    UNSIGNED_DOUBLE = 6, SIGNED_INTEGER = 7, DOUBLE_Q = 8, SINGLE_Q = 9, 
-    STRING1 = 10, STRING2 = 11, STRING3 = 12, STRING4 = 13, NAME = 14, COMMENT_POUND = 15, 
-    COMMENT_SLASHES = 16, COMMENT_C_STYLE = 17, OPEN_CURLY = 18, CLOSE_CURLY = 19, 
+    TRUE_VALUE = 1, FALSE_VALUE = 2, NULL_VALUE = 3, IPV4_ADDRESS = 4, SIGNED_DOUBLE = 5,
+    UNSIGNED_DOUBLE = 6, SIGNED_INTEGER = 7, DOUBLE_Q = 8, SINGLE_Q = 9,
+    STRING1 = 10, STRING2 = 11, STRING3 = 12, STRING4 = 13, NAME = 14, COMMENT_POUND = 15,
+    COMMENT_SLASHES = 16, COMMENT_C_STYLE = 17, OPEN_CURLY = 18, CLOSE_CURLY = 19,
     OPEN_SQUARE = 20, CLOSE_SQUARE = 21, COMMA = 22, COLON = 23, WS = 24
   };
 
   enum {
-    RuleConfiguration = 0, RuleObject = 1, RulePair = 2, RuleTag = 3, RuleValue = 4, 
-    RuleAddressValue = 5, RuleStringValue = 6, RuleDoubleValue = 7, RuleIntegerValue = 8, 
+    RuleConfiguration = 0, RuleObject = 1, RulePair = 2, RuleTag = 3, RuleValue = 4,
+    RuleAddressValue = 5, RuleStringValue = 6, RuleDoubleValue = 7, RuleIntegerValue = 8,
     RuleLiteralValue = 9, RuleArray = 10
   };
 
@@ -46,7 +46,7 @@ public:
   class DoubleValueContext;
   class IntegerValueContext;
   class LiteralValueContext;
-  class ArrayContext; 
+  class ArrayContext;
 
   class  ConfigurationContext : public antlr4::ParserRuleContext {
   public:
@@ -58,7 +58,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   ConfigurationContext* configuration();
@@ -66,14 +66,14 @@ public:
   class  ObjectContext : public antlr4::ParserRuleContext {
   public:
     ObjectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     ObjectContext() = default;
     void copyFrom(ObjectContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  NonEmptyObjectContext : public ObjectContext {
@@ -112,7 +112,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   PairContext* pair();
@@ -130,7 +130,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   TagContext* tag();
@@ -149,7 +149,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   ValueContext* value();
@@ -163,7 +163,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   AddressValueContext* addressValue();
@@ -185,7 +185,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   StringValueContext* stringValue();
@@ -199,7 +199,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   DoubleValueContext* doubleValue();
@@ -213,7 +213,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   IntegerValueContext* integerValue();
@@ -231,7 +231,7 @@ public:
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
+
   };
 
   LiteralValueContext* literalValue();
@@ -239,14 +239,14 @@ public:
   class  ArrayContext : public antlr4::ParserRuleContext {
   public:
     ArrayContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     ArrayContext() = default;
     void copyFrom(ArrayContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  NonEmptyArrayContext : public ArrayContext {

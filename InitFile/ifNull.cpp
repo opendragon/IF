@@ -80,6 +80,15 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+NullValue::NullValue
+    (const NullValue &    other) :
+        inherited(other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // NullValue::NullValue
+
 NullValue::~NullValue
     (void)
 {
@@ -97,6 +106,50 @@ NullValue::AsNull
 {
 	return this;
 } // NullValue::AsNull
+
+const NullValue *
+NullValue::AsNull
+	(void)
+	const
+{
+	return this;
+} // NullValue::AsNull
+
+SpBase
+NullValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new NullValue(*this));	
+} // NullValue::Clone
+
+bool
+NullValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
+	{
+		result = true;
+	}
+	else
+	{
+		const NullValue *	asValue = other.AsNull();
+
+		if (asValue)
+		{
+			result = true;
+		}
+	}
+	ODL_OBJEXIT_B(result); //####
+	return result;
+} // NullValue::operator ==
 
 std::ostream &
 NullValue::Print
