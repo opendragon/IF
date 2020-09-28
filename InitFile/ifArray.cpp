@@ -80,7 +80,7 @@ using namespace InitFile;
 
 ArrayValue::ArrayValue
     (const ArrayValue &    other) :
-        inherited(other)//, fValue(other.fValue)
+        inherited(other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

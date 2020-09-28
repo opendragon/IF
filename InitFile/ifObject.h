@@ -43,6 +43,7 @@
 # include <ifCompareWithoutCase.h>
 
 # include <map>
+# include <set>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -117,7 +118,7 @@ namespace InitFile
         ObjectValue &
         AddValue
             (const std::string &    key,
-             SpBase            aValue);
+             SpBase                 aValue);
 
         /*! @brief Return @c this if this is an object.
          @return @c this if this is an object. */
@@ -142,13 +143,20 @@ namespace InitFile
 			const
             override;
 
+        /*! @brief Return the set of tags for this object.
+        @return The tags for this object. */
+        std::set<std::string>
+        GetTags
+            (void)
+            const;
+
         /*! @brief Return a value from the Object contents.
-         @param[in] key The key for the desired value.
-         @return The value in the contents corresponding to the key.
-         @c nullptr is returned if the key is empty or not found in the contents. */
+         @param[in] tag The tag for the desired value.
+         @return The value in the contents corresponding to the tag.
+         @c nullptr is returned if the tag is empty or not found in the contents. */
         SpBase
         GetValue
-            (const std::string &    key)
+            (const std::string &    tag)
             const;
 
         /*! @brief Return the number of values in the Object contents.
@@ -158,13 +166,13 @@ namespace InitFile
             (void)
             const;
 
-        /*! @brief Return @c true if the Object contents includes a value with the given key.
-         @param[in] key The key to be checked.
-         @return @c true if there is a value in the contents with the given key.
-         @c false is returned if the key is empty or not found in the contents. */
+        /*! @brief Return @c true if the Object contents includes a value with the given tag.
+         @param[in] key The tag to be checked.
+         @return @c true if there is a value in the contents with the given tag.
+         @c false is returned if the tag is empty or not found in the contents. */
         bool
-        IsKeyPresent
-            (const std::string &    key)
+        IsTagPresent
+            (const std::string &    tag)
             const;
 
         /*! @brief Return @c true if the two values are equal.

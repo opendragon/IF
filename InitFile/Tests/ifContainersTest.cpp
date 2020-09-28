@@ -925,6 +925,30 @@ doTestObjectValue
         // 6) test that an empty object value and another empty object value are considered equal.
         // 7) test that an empty object value and another value type are not considered equal.
         // 8) test that an empty object value and its clone are considered equal.
+        // 9) test that an object value with a NULL value can be created and has the correct value.
+        // 10) test that an object value with a NULL value has the correct tag.
+        // 11) test that an object value with a NULL value can be created and describes itself correctly.
+        // 12) test that an object value with a Boolean value can be created and has the correct value.
+        // 13) test that an object value with a Boolean value can be created and describes itself correctly.
+        // 14) test that an object value with an integer value can be created and has the correct value.
+        // 15) test that an object value with an integer value can be created and describes itself correctly.
+        // 16) test that an object value with an string value can be created and has the correct value.
+        // 17) test that an object value with an string value can be created and describes itself correctly.
+        // 18) test that an object value with two NULL values can be created and has the correct value.
+        // 19) test that an object value with two NULL values can be created and has the correct tags.
+        // 20) test that an object value with two NULL values can be created and describes itself correctly.
+        // 21) test that an object value with two Boolean values can be created and has the correct value.
+        // 22) test that an object value with two Boolean values can be created and describes itself correctly.
+        // 23) test that an object value with two integer values can be created and has the correct value.
+        // 24) test that an object value with two integer values can be created and describes itself correctly.
+        // 25) test that an object value with two string values can be created and has the correct value.
+        // 26) test that an object value with two string values can be created and describes itself correctly.
+        // 27) test that an object value with a NULL value is different from an object value with a Boolean value.
+        // 28) test that an object value with a Boolean value is different from an object value with an integer value.
+        // 29) test that an object value with an integer value is different from an object value with a double value.
+        // 30) test that an object value with a double value is different from an object value with a string value.
+        // 31) test that an object value with a string value is different from an object value with an address value.
+        // 32) test that an object value with an address value is different from an objectvalue with a NULL value.
         switch (subSelector)
         {
             case 1 :
@@ -997,6 +1021,695 @@ doTestObjectValue
                     SpBase  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsObject() && (*aValue == *otherValue));
+                }
+                break;
+
+            case 9 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved(aValue->GetValue(tagForAdd));
+
+                        okSoFar = (valueRetrieved && valueRetrieved->AsNull() && (*valueToAdd == *valueRetrieved));
+                    }
+                }
+                break;
+
+            case 10 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        std::set<std::string>   tags(aValue->GetTags());
+
+                        if (1 == tags.size())
+                        {
+                            okSoFar = (tags.end() != tags.find(tagForAdd));
+                        }
+                    }
+                }
+                break;
+
+            case 11 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd;
+                        expected += "\" : null }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                    }
+                }
+                break;
+
+            case 12 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved(aValue->GetValue(tagForAdd));
+
+                        okSoFar = (valueRetrieved && valueRetrieved->AsBoolean() && (*valueToAdd == *valueRetrieved));
+                    }
+                }
+                break;
+
+            case 13 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd;
+                        expected += "\" : ";
+                        expected += (valueToAdd->GetValue() ? "true" : "false");
+                        expected += " }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                    }
+                }
+                break;
+
+            case 14 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved(aValue->GetValue(tagForAdd));
+
+                        okSoFar = (valueRetrieved && valueRetrieved->AsInteger() && (*valueToAdd == *valueRetrieved));
+                    }
+                }
+                break;
+
+            case 15 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd;
+                        expected += "\" : ";
+                        expected += std::to_string(valueToAdd->GetValue());
+                        expected += " }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                    }
+                }
+                break;
+
+            case 16 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved(aValue->GetValue(tagForAdd));
+
+                        okSoFar = (valueRetrieved && valueRetrieved->AsString() && (*valueToAdd == *valueRetrieved));
+                    }
+                }
+                break;
+
+            case 17 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd;
+                        expected += "\" : \"";
+                        expected += valueToAdd->GetValue();
+                        expected += "\" }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                    }
+                }
+                break;
+
+            case 18 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd1(new InitFile::NullValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved1(aValue->GetValue(tagForAdd1));
+
+                        okSoFar = (valueRetrieved1 && valueRetrieved1->AsNull() && (*valueToAdd1 == *valueRetrieved1));
+                        if (okSoFar)
+                        {
+                            SpBase  valueRetrieved2(aValue->GetValue(tagForAdd2));
+
+                            okSoFar = (valueRetrieved2 && valueRetrieved2->AsNull() && (*valueToAdd2 == *valueRetrieved2));
+                        }
+                    }
+                }
+                break;
+
+            case 19 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd1(new InitFile::NullValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        std::set<std::string>   tags(aValue->GetTags());
+
+                        if (2 == tags.size())
+                        {
+                            okSoFar = ((tags.end() != tags.find(tagForAdd1)) && (tags.end() != tags.find(tagForAdd2)));
+                        }
+                    }
+                }
+                break;
+
+            case 20 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd1(new InitFile::NullValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd1;
+                        expected += "\" : null,\n\"";
+                        expected += tagForAdd2;
+                        expected += "\" : null }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                        if (! okSoFar)
+                        {
+                            expected = "{ \"";
+                            expected += tagForAdd2;
+                            expected += "\" : null,\n\"";
+                            expected += tagForAdd1;
+                            expected += "\" : null }";
+                            okSoFar = (expected == buffer.str());
+                        }
+                    }
+                }
+                break;
+
+            case 21 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd1(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd2(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved1(aValue->GetValue(tagForAdd1));
+
+                        okSoFar = (valueRetrieved1 && valueRetrieved1->AsBoolean() && (*valueToAdd1 == *valueRetrieved1));
+                        if (okSoFar)
+                        {
+                            SpBase  valueRetrieved2(aValue->GetValue(tagForAdd2));
+
+                            okSoFar = (valueRetrieved2 && valueRetrieved2->AsBoolean() && (*valueToAdd2 == *valueRetrieved2));
+                        }
+                    }
+                }
+                break;
+
+            case 22 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd1(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd2(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd1;
+                        expected += "\" : ";
+                        expected += (valueToAdd1->GetValue() ? "true" : "false");
+                        expected += ",\n\"";
+                        expected += tagForAdd2;
+                        expected += "\" : ";
+                        expected += (valueToAdd2->GetValue() ? "true" : "false");
+                        expected += " }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                        if (! okSoFar)
+                        {
+                            expected = "{ \"";
+                            expected += tagForAdd2;
+                            expected += "\" : ";
+                            expected += (valueToAdd2->GetValue() ? "true" : "false");
+                            expected += ",\n\"";
+                            expected += tagForAdd1;
+                            expected += "\" : ";
+                            expected += (valueToAdd1->GetValue() ? "true" : "false");
+                            expected += " }";
+                            okSoFar = (expected == buffer.str());
+                        }
+                    }
+                }
+                break;
+
+            case 23 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd1(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd2(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved1(aValue->GetValue(tagForAdd1));
+
+                        okSoFar = (valueRetrieved1 && valueRetrieved1->AsInteger() && (*valueToAdd1 == *valueRetrieved1));
+                        if (okSoFar)
+                        {
+                            SpBase  valueRetrieved2(aValue->GetValue(tagForAdd2));
+
+                            okSoFar = (valueRetrieved2 && valueRetrieved2->AsInteger() && (*valueToAdd2 == *valueRetrieved2));
+                        }
+                    }
+                }
+                break;
+
+            case 24 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd1(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd2(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd1;
+                        expected += "\" : ";
+                        expected += std::to_string(valueToAdd1->GetValue());
+                        expected += ",\n\"";
+                        expected += tagForAdd2;
+                        expected += "\" : ";
+                        expected += std::to_string(valueToAdd2->GetValue());
+                        expected += " }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                        if (! okSoFar)
+                        {
+                            expected = "{ \"";
+                            expected += tagForAdd2;
+                            expected += "\" : ";
+                            expected += std::to_string(valueToAdd2->GetValue());
+                            expected += ",\n\"";
+                            expected += tagForAdd1;
+                            expected += "\" : ";
+                            expected += std::to_string(valueToAdd1->GetValue());
+                            expected += " }";
+                            okSoFar = (expected == buffer.str());
+                        }
+                    }
+                }
+                break;
+
+            case 25 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd1(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd2(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  valueRetrieved1(aValue->GetValue(tagForAdd1));
+
+                        okSoFar = (valueRetrieved1 && valueRetrieved1->AsString() && (*valueToAdd1 == *valueRetrieved1));
+                        if (okSoFar)
+                        {
+                            SpBase  valueRetrieved2(aValue->GetValue(tagForAdd2));
+
+                            okSoFar = (valueRetrieved2 && valueRetrieved2->AsString() && (*valueToAdd2 == *valueRetrieved2));
+                        }
+                    }
+                }
+                break;
+
+            case 26 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd1(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd2(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        std::ostringstream  buffer;
+                        std::string         expected("{ \"");
+
+                        expected += tagForAdd1;
+                        expected += "\" : \"";
+                        expected += valueToAdd1->GetValue();
+                        expected += "\",\n\"";
+                        expected += tagForAdd2;
+                        expected += "\" : \"";
+                        expected += valueToAdd2->GetValue();
+                        expected += "\" }";
+                        aValue->Print(buffer);
+                        okSoFar = (expected == buffer.str());
+                        if (! okSoFar)
+                        {
+                            expected = "{ \"";
+                            expected += tagForAdd2;
+                            expected += "\" : \"";
+                            expected += valueToAdd2->GetValue();
+                            expected += "\",\n\"";
+                            expected += tagForAdd1;
+                            expected += "\" : \"";
+                            expected += valueToAdd1->GetValue();
+                            expected += "\" }";
+                            okSoFar = (expected == buffer.str());
+                        }
+                    }
+                }
+                break;
+
+            case 27 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpObject    anotherValue(new InitFile::ObjectValue(nullptr));
+
+                        if (anotherValue && anotherValue->AsObject())
+                        {
+                            std::string anotherTag(std::to_string(RandomDouble(-1000, 1000)));
+                            SpBoolean   anotherValueToAdd(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                            anotherValue->AddValue(anotherTag, anotherValueToAdd);
+                            if (1 == anotherValue->HowManyValues())
+                            {
+                                okSoFar = (*aValue == *anotherValue);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 28 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpObject    anotherValue(new InitFile::ObjectValue(nullptr));
+
+                        if (anotherValue && anotherValue->AsObject())
+                        {
+                            std::string anotherTag(std::to_string(RandomDouble(-1000, 1000)));
+                            SpInteger   anotherValueToAdd(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                            anotherValue->AddValue(anotherTag, anotherValueToAdd);
+                            if (1 == anotherValue->HowManyValues())
+                            {
+                                okSoFar = (*aValue == *anotherValue);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 29 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpObject    anotherValue(new InitFile::ObjectValue(nullptr));
+
+                        if (anotherValue && anotherValue->AsObject())
+                        {
+                            std::string anotherTag(std::to_string(RandomDouble(-1000, 1000)));
+                            SpDouble    anotherValueToAdd(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                            anotherValue->AddValue(anotherTag, anotherValueToAdd);
+                            if (1 == anotherValue->HowManyValues())
+                            {
+                                okSoFar = (*aValue == *anotherValue);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 30 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpDouble    valueToAdd(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpObject    anotherValue(new InitFile::ObjectValue(nullptr));
+
+                        if (anotherValue && anotherValue->AsObject())
+                        {
+                            std::string anotherTag(std::to_string(RandomDouble(-1000, 1000)));
+                            SpString    anotherValueToAdd(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                            anotherValue->AddValue(anotherTag, anotherValueToAdd);
+                            if (1 == anotherValue->HowManyValues())
+                            {
+                                okSoFar = (*aValue == *anotherValue);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 31 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpObject    anotherValue(new InitFile::ObjectValue(nullptr));
+
+                        if (anotherValue && anotherValue->AsObject())
+                        {
+                            uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                            uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                            uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                            uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                            uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                            std::string anotherTag(std::to_string(RandomDouble(-1000, 1000)));
+                            SpAddress   anotherValueToAdd(new InitFile::AddressValue(nullptr, inValue));
+
+                            anotherValue->AddValue(anotherTag, anotherValueToAdd);
+                            if (1 == anotherValue->HowManyValues())
+                            {
+                                okSoFar = (*aValue == *anotherValue);
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case 32 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpAddress   valueToAdd(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpObject    anotherValue(new InitFile::ObjectValue(nullptr));
+
+                        if (anotherValue && anotherValue->AsObject())
+                        {
+                            std::string anotherTag(std::to_string(RandomDouble(-1000, 1000)));
+                            SpNull      anotherValueToAdd(new InitFile::NullValue(nullptr));
+
+                            anotherValue->AddValue(anotherTag, anotherValueToAdd);
+                            if (1 == anotherValue->HowManyValues())
+                            {
+                                okSoFar = (*aValue == *anotherValue);
+                            }
+                        }
+                    }
                 }
                 break;
 

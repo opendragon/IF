@@ -102,21 +102,21 @@ CompareWithoutCase::operator()
 
 		if (left > right)
 		{
-		result = same = false;
-		break;
+			result = same = false;
+			break;
 
 		}
 		if (left < right)
 		{
-		same = false;
-		break;
+			same = false;
+			break;
 
 		}
 	}
 	if (result && same)
 	{
 		// All the characters matched, up to the smaller of the two strings.
-		result = (lhs_max <= rhs_max);
+		result = (lhs_max < rhs_max);
 	}
 	return result;
 } // CompareWithoutCase::operator()

@@ -143,4 +143,53 @@ add_test(NAME TestObjectEmptyEqualToOtherValueType COMMAND ${THIS_TARGET} 2 f 7)
 # Test that an empty Object value and its clone are considered equal.
 add_test(NAME TestObjectEmptyEqualToClone COMMAND ${THIS_TARGET} 2 t 8)
 
-## More Object tests to follow
+# Test that an Object value with a NULL value can be created and has the correct value.
+add_test(NAME TestObjectSingletonCreateNull COMMAND ${THIS_TARGET} 2 t 9)
+# Test that an Object value with a NULL value has the correct tag.
+add_test(NAME TestObjectSingletonTagCheck COMMAND ${THIS_TARGET} 2 t 10)
+# Test that an Object value with a NULL value can be created and describes itself correctly.
+add_test(NAME TestObjectSingletonDescribeNull COMMAND ${THIS_TARGET} 2 t 11)
+# Test that an Object value with a Boolean value can be created and has the correct value.
+add_test(NAME TestObjectSingletonCreateBoolean COMMAND ${THIS_TARGET} 2 t 12)
+# Test that an Object value with a Boolean value can be created and describes itself correctly.
+add_test(NAME TestObjectSingletonDescribeBoolean COMMAND ${THIS_TARGET} 2 t 13)
+# Test that an Object value with an Integer value can be created and has the correct value.
+add_test(NAME TestObjectSingletonCreateInteger COMMAND ${THIS_TARGET} 2 t 14)
+# Test that an Object value with an Integer value can be created and describes itself correctly.
+add_test(NAME TestObjectSingletonDescribeInteger COMMAND ${THIS_TARGET} 2 t 15)
+# Test that an Object value with an String value can be created and has the correct value.
+add_test(NAME TestObjectSingletonCreateString COMMAND ${THIS_TARGET} 2 t 16)
+# Test that an Object value with an String value can be created and describes itself correctly.
+add_test(NAME TestObjectSingletonDescribeString COMMAND ${THIS_TARGET} 2 t 17)
+
+# Test that an Object value with two NULL values can be created and has the correct value.
+add_test(NAME TestObjectPairCreateNull COMMAND ${THIS_TARGET} 2 t 18)
+# Test that an Object value with two NULL values can be created and has the correct tags.
+add_test(NAME TestObjectPairTagsCheck COMMAND ${THIS_TARGET} 2 t 19)
+# Test that an Object value with two NULL values can be created and describes itself correctly.
+add_test(NAME TestObjectPairDescribeNull COMMAND ${THIS_TARGET} 2 t 20)
+# Test that an Object value with two Boolean values can be created and has the correct value.
+add_test(NAME TestObjectPairCreateBoolean COMMAND ${THIS_TARGET} 2 t 21)
+# Test that an Object value with two Boolean values can be created and describes itself correctly.
+add_test(NAME TestObjectPairDescribeBoolean COMMAND ${THIS_TARGET} 2 t 22)
+# Test that an Object value with two Integer values can be created and has the correct value.
+add_test(NAME TestObjectPairCreateInteger COMMAND ${THIS_TARGET} 2 t 23)
+# Test that an Object value with two Integer values can be created and describes itself correctly.
+add_test(NAME TestObjectPairDescribeInteger COMMAND ${THIS_TARGET} 2 t 24)
+# Test that an Object value with two String values can be created and has the correct value.
+add_test(NAME TestObjectPairCreateString COMMAND ${THIS_TARGET} 2 t 25)
+# Test that an Object value with two String values can be created and describes itself correctly.
+add_test(NAME TestObjectPairDescribeString COMMAND ${THIS_TARGET} 2 t 26)
+
+# Test that an Object value with a NULL value is different from an Object value with a Boolean value.
+add_test(NAME TestObjectSingletonsNullDifferentFromBoolean COMMAND ${THIS_TARGET} 2 f 27)
+# Test that an Object value with a Boolean value is different from an Object value with an Integer value.
+add_test(NAME TestObjectSingletonsBooleanDifferentFromInteger COMMAND ${THIS_TARGET} 2 f 28)
+# Test that an Object value with an Integer value is different from an Object value with a Double value.
+add_test(NAME TestObjectSingletonsIntegerDifferentFromDouble COMMAND ${THIS_TARGET} 2 f 29)
+# Test that an Object value with a Double value is different from an Object value with a String value.
+add_test(NAME TestObjectSingletonsDoubleDifferentFromString COMMAND ${THIS_TARGET} 2 f 30)
+# Test that an Object value with a String value is different from an Object value with an Address value.
+add_test(NAME TestObjectSingletonsStringDifferentFromAddress COMMAND ${THIS_TARGET} 2 f 31)
+# Test that an Object value with an Address value is different from an Object value with a NULL value.
+add_test(NAME TestObjectSingletonsAddressDifferentFromNull COMMAND ${THIS_TARGET} 2 f 32)

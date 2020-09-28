@@ -41,6 +41,8 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
+#include <iostream>
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -80,7 +82,7 @@ using namespace InitFile;
 
 ObjectValue::ObjectValue
     (const ObjectValue &    other) :
-        inherited(other)//, fValue(other.fValue)
+        inherited(other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -134,20 +136,36 @@ ObjectValue::Clone
 	return SpBase(new ObjectValue(*this));
 } // ObjectValue::Clone
 
+std::set<std::string>
+ObjectValue::GetTags
+	(void)
+	const
+{
+	std::set<std::string>	result;
+	
+	for (const_iterator walker(fValue.begin()); walker != fValue.end(); ++walker)
+	{
+		result.insert(walker->first);
+	}
+	return result;
+} // ObjectValue::GetTags
+
 SpBase
 ObjectValue::GetValue
-	(const std::string &    key)
+	(const std::string &    tag)
 	const
 {
 	SpBase			result;
-	const_iterator  match(fValue.find(key));
+	const_iterator  match(fValue.find(tag));
 
 	if (fValue.end() == match)
 	{
+std::cerr << "not found" << std::endl;
 		result = nullptr;
 	}
 	else
 	{
+std::cerr << "found" << std::endl;
 		result = match->second;
 	}
 	return result;
@@ -162,12 +180,12 @@ ObjectValue::HowManyValues
 } // ObjectValue::HowManyValues
 
 bool
-ObjectValue::IsKeyPresent
-	(const std::string &    key)
+ObjectValue::IsTagPresent
+	(const std::string &    tag)
 	const
 {
 	bool			result;
-	const_iterator	match = fValue.find(key);
+	const_iterator	match = fValue.find(tag);
 
 	if (fValue.end() == match)
 	{
@@ -178,7 +196,7 @@ ObjectValue::IsKeyPresent
 		result = true;
 	}
 	return result;
-} // ObjectValue::IsKeyPresent
+} // ObjectValue::IsTagPresent
 
 bool
 ObjectValue::operator ==
@@ -244,7 +262,7 @@ ObjectValue::Print
 		{
 			outputEscapedString(output, walker->first);
 			walker->second->Print(output << ':', indentStep, indentChar, indentLevel + indentStep, squished);
-			for ( ; fValue.end() != walker; ++walker)
+			for (++walker; fValue.end() != walker; ++walker)
 			{
 				outputEscapedString(output << ',', walker->first);
 				walker->second->Print(output << ':', indentStep, indentChar, indentLevel + indentStep, squished);
@@ -257,7 +275,7 @@ ObjectValue::Print
 		{
 			outputEscapedString(output << ' ', walker->first);
 			walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
-			for ( ; fValue.end() != walker; ++walker)
+			for (++walker; fValue.end() != walker; ++walker)
 			{
 				outputChars(output << ',' << std::endl, indentChar, indentLevel);
 				outputEscapedString(output, walker->first);
