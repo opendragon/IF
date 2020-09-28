@@ -166,6 +166,28 @@ doTestArrayValue
         // 28) test that an array with a Double value is different from an array with a String value.
         // 29) test that an array with a String value is different from an array with an Address value.
         // 30) test that an array with an Address value is different from an array with a NULL value.
+        // 31) test that an array value with a NULL value can be cloned and is considered to be equal.
+        // 32) test that an array value with a Boolean value can be cloned and is considered to be equal.
+        // 33) test that an array value with an integer value can be cloned and is considered to be equal.
+        // 34) test that an array value with a string value can be cloned and is considered to be equal.
+        // 35) test that an array value with a double value can be cloned and is considered to be equal.
+        // 36) test that an array value with an address value can be cloned and is considered to be equal.
+        // 37) test that an array value with an empty array value can be cloned and is considered to be equal.
+        // 38) test that an array value with an empty object value can be cloned and is considered to be equal.
+        // 39) test that an array value with two NULL values can be cloned and is considered to be equal.
+        // 40) test that an array value with two Boolean values can be cloned and is considered to be equal.
+        // 41) test that an array value with two integer values can be cloned and is considered to be equal.
+        // 42) test that an array value with two string values can be cloned and is considered to be equal.
+        // 43) test that an array value with two double values can be cloned and is considered to be equal.
+        // 44) test that an array value with two address values can be cloned and is considered to be equal.
+        // 45) test that an array value with two empty array values can be cloned and is considered to be equal.
+        // 46) test that an array value with two empty object values can be cloned and is considered to be equal.
+        // 47) test that an array value with a NULL value and a Boolean value can be cloned and is considered to be equal.
+        // 48) test that an array value with a Boolean value and an integer value can be cloned and is considered to be equal.
+        // 49) test that an array value with an integer value and a string value can be cloned and is considered to be equal.
+        // 50) test that an array value with a string value and an address value can be cloned and is considered to be equal.
+        // 51) test that an array value with an address value and a double value can be cloned and is considered to be equal.
+        // 52) test that an array value with a double value and a NULL value can be cloned and is considered to be an equal.
         switch (subSelector)
         {
             case 1 :
@@ -871,6 +893,542 @@ doTestArrayValue
                 }
                 break;
 
+            case 31 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::NullValue(nullptr));
+
+                    okSoFar = (otherValue && otherValue->AsNull());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 32 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = (otherValue && otherValue->AsBoolean());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 33 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = (otherValue && otherValue->AsInteger());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 34 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = (otherValue && otherValue->AsString());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 35 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = (otherValue && otherValue->AsDouble());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 36 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    SpBase      otherValue(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = (otherValue && otherValue->AsAddress());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 37 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (otherValue && otherValue->AsArray());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 38 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue(new InitFile::ObjectValue(nullptr));
+
+                    okSoFar = (otherValue && otherValue->AsObject());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue);
+                        okSoFar = (1 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 39 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::NullValue(nullptr));
+                    SpBase  otherValue2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = (otherValue1 && otherValue1->AsNull() && otherValue2 && otherValue2->AsNull());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 40 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                    SpBase  otherValue2(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = (otherValue1 && otherValue1->AsBoolean() && otherValue2 && otherValue2->AsBoolean());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 41 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                    SpBase  otherValue2(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = (otherValue1 && otherValue1->AsInteger() && otherValue2 && otherValue2->AsInteger());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 42 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                    SpBase  otherValue2(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = (otherValue1 && otherValue1->AsString() && otherValue2 && otherValue2->AsString());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 43 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                    SpBase  otherValue2(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = (otherValue1 && otherValue1->AsDouble() && otherValue2 && otherValue2->AsDouble());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 44 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    SpBase      otherValue1(new InitFile::AddressValue(nullptr, inValue));
+                    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    SpBase      otherValue2(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = (otherValue1 && otherValue1->AsAddress() && otherValue2 && otherValue2->AsAddress());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 45 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::ArrayValue(nullptr));
+                    SpBase  otherValue2(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = (otherValue1 && otherValue1->AsArray() && otherValue2 && otherValue2->AsArray());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 46 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::ObjectValue(nullptr));
+                    SpBase  otherValue2(new InitFile::ObjectValue(nullptr));
+
+                    okSoFar = (otherValue1 && otherValue1->AsObject() && otherValue2 && otherValue2->AsObject());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 47 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::NullValue(nullptr));
+                    SpBase  otherValue2(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = (otherValue1 && otherValue1->AsNull() && otherValue2 && otherValue2->AsBoolean());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 48 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                    SpBase  otherValue2(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = (otherValue1 && otherValue1->AsBoolean() && otherValue2 && otherValue2->AsInteger());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 49 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                    SpBase  otherValue2(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = (otherValue1 && otherValue1->AsInteger() && otherValue2 && otherValue2->AsString());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 50 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    SpBase      otherValue1(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                    SpBase      otherValue2(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = (otherValue1 && otherValue1->AsString() && otherValue2 && otherValue2->AsAddress());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 51 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    SpBase      otherValue1(new InitFile::AddressValue(nullptr, inValue));
+                    SpBase      otherValue2(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = (otherValue1 && otherValue1->AsAddress() && otherValue2 && otherValue2->AsDouble());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
+            case 52 :
+                aValue.reset(new InitFile::ArrayValue(nullptr));
+                okSoFar = (aValue && aValue->AsArray());
+                if (okSoFar)
+                {
+                    SpBase  otherValue1(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                    SpBase  otherValue2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = (otherValue1 && otherValue1->AsDouble() && otherValue2 && otherValue2->AsNull());
+                    if (okSoFar)
+                    {
+                        aValue->AddValueAtBack(otherValue1);
+                        aValue->AddValueAtBack(otherValue2);
+                        okSoFar = (2 == aValue->HowManyValues());
+                    }
+                }
+                if (okSoFar)
+                {
+                    SpBase  clonedValue(aValue->Clone());
+
+                    okSoFar = (clonedValue && (*clonedValue == *aValue));
+                }
+                break;
+
             default :
                 okSoFar = false;
                 break;
@@ -949,6 +1507,28 @@ doTestObjectValue
         // 30) test that an object value with a double value is different from an object value with a string value.
         // 31) test that an object value with a string value is different from an object value with an address value.
         // 32) test that an object value with an address value is different from an objectvalue with a NULL value.
+        // 33) test that an object value with a NULL value can be cloned and is considered to be equal.
+        // 34) test that an object value with a Boolean value can be cloned and is considered to be equal.
+        // 35) test that an object value with an integer value can be cloned and is considered to be equal.
+        // 36) test that an object value with a string value can be cloned and is considered to be equal.
+        // 37) test that an object value with a double value can be cloned and is considered to be equal.
+        // 38) test that an object value with an address value can be cloned and is considered to be equal.
+        // 39) test that an object value with an empty array value can be cloned and is considered to be equal.
+        // 40) test that an object value with an empty object value can be cloned and is considered to be equal.
+        // 41) test that an object value with two NULL values can be cloned and is considered to be equal.
+        // 42) test that an object value with two Boolean values can be cloned and is considered to be equal.
+        // 43) test that an object value with two integer values can be cloned and is considered to be equal.
+        // 44) test that an object value with two string values can be cloned and is considered to be equal.
+        // 45) test that an object value with two double values can be cloned and is considered to be equal.
+        // 46) test that an object value with two address values can be cloned and is considered to be equal.
+        // 47) test that an object value with two empty array values can be cloned and is considered to be equal.
+        // 48) test that an object value with two empty object values can be cloned and is considered to be equal.
+        // 49) test that an object value with a NULL value and a Boolean value can be cloned and is considered to be equal.
+        // 50) test that an object value with a Boolean value and an integer value can be cloned and is considered to be equal.
+        // 51) test that an object value with an integer value and a string value can be cloned and is considered to be equal.
+        // 52) test that an object value with a string value and an address value can be cloned and is considered to be equal.
+        // 53) test that an object value with an address value and a double value can be cloned and is considered to be equal.
+        // 54) test that an object value with a double value and a NULL value can be cloned and is considered to be equal.
         switch (subSelector)
         {
             case 1 :
@@ -1709,6 +2289,491 @@ doTestObjectValue
                                 okSoFar = (*aValue == *anotherValue);
                             }
                         }
+                    }
+                }
+                break;
+
+            case 33 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 34 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 35 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 36 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 37 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpDouble    valueToAdd(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 38 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    SpAddress   valueToAdd(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 39 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpArray     valueToAdd(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 40 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd(std::to_string(RandomDouble(-1000, 1000)));
+                    SpObject    valueToAdd(new InitFile::ObjectValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd, valueToAdd);
+                    if (1 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 41 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd1(new InitFile::NullValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 42 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd1(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd2(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 43 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd1(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd2(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 44 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd1(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd2(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 45 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpDouble    valueToAdd1(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpDouble    valueToAdd2(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 46 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpAddress   valueToAdd1(new InitFile::AddressValue(nullptr, inValue));
+                    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpAddress   valueToAdd2(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 47 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpArray     valueToAdd1(new InitFile::ArrayValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpArray     valueToAdd2(new InitFile::ArrayValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 48 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpObject    valueToAdd1(new InitFile::ObjectValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpObject    valueToAdd2(new InitFile::ObjectValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 49 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd1(new InitFile::NullValue(nullptr));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd2(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 50 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpBoolean   valueToAdd1(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd2(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 51 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpInteger   valueToAdd1(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd2(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 52 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpString    valueToAdd1(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpAddress   valueToAdd2(new InitFile::AddressValue(nullptr, inValue));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 53 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
+                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpAddress   valueToAdd1(new InitFile::AddressValue(nullptr, inValue));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpDouble    valueToAdd2(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
+                    }
+                }
+                break;
+
+            case 54 :
+                aValue.reset(new InitFile::ObjectValue(nullptr));
+                okSoFar = (aValue && aValue->AsObject());
+                if (okSoFar)
+                {
+                    std::string tagForAdd1(std::to_string(RandomDouble(-1000, 1000)));
+                    SpDouble    valueToAdd1(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                    std::string tagForAdd2(std::to_string(RandomDouble(-1000, 1000)));
+                    SpNull      valueToAdd2(new InitFile::NullValue(nullptr));
+
+                    okSoFar = false;
+                    aValue->AddValue(tagForAdd1, valueToAdd1);
+                    aValue->AddValue(tagForAdd2, valueToAdd2);
+                    if (2 == aValue->HowManyValues())
+                    {
+                        SpBase  clonedValue(aValue->Clone());
+
+                        okSoFar = (clonedValue && (*clonedValue == *aValue));
                     }
                 }
                 break;

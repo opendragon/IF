@@ -131,9 +131,16 @@ ObjectValue::Clone
 	(void)
 	const
 {
+	SpBase	result;
+
     ODL_OBJENTER(); //####
+	result.reset(new ObjectValue(*this));
+	for (const_iterator walker(fValue.begin()); walker != fValue.end(); ++walker)
+	{
+		result->AsObject()->AddValue(walker->first, walker->second);
+	}
     ODL_OBJEXIT(); //####
-	return SpBase(new ObjectValue(*this));
+	return result;
 } // ObjectValue::Clone
 
 std::set<std::string>
@@ -160,12 +167,10 @@ ObjectValue::GetValue
 
 	if (fValue.end() == match)
 	{
-std::cerr << "not found" << std::endl;
 		result = nullptr;
 	}
 	else
 	{
-std::cerr << "found" << std::endl;
 		result = match->second;
 	}
 	return result;

@@ -142,9 +142,18 @@ ArrayValue::Clone
 	(void)
 	const
 {
+	SpBase	result;
+
     ODL_OBJENTER(); //####
+	result.reset(new ArrayValue(*this));
+	for (size_t ii = 0; ii < fValue.size(); ++ii)
+	{
+		SpBase	thisValue = GetValue(ii);
+
+		result->AsArray()->AddValueAtBack(thisValue);
+	}
     ODL_OBJEXIT(); //####
-	return SpBase(new ArrayValue(*this));
+	return result;
 } // ArrayValue::Clone
 
 SpBase

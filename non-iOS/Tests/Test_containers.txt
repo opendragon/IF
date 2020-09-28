@@ -126,6 +126,51 @@ add_test(NAME TestArraySingletonsStringDifferentFromAddress COMMAND ${THIS_TARGE
 # Test that an Array value with an Address value is different from an Array value with a NULL value.
 add_test(NAME TestArraySingletonsAddressDifferentFromNull COMMAND ${THIS_TARGET} 1 f 30)
 
+# Test that an Array value with a NULL value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonNullClone COMMAND ${THIS_TARGET} 1 t 31)
+# Test that an Array value with a Boolean value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonBooleanClone COMMAND ${THIS_TARGET} 1 t 32)
+# Test that an Array value with an Integer value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonIntegerClone COMMAND ${THIS_TARGET} 1 t 33)
+# Test that an Array value with a String value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonStringClone COMMAND ${THIS_TARGET} 1 t 34)
+# Test that an Array value with a Double value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonDoubleClone COMMAND ${THIS_TARGET} 1 t 35)
+# Test that an Array value with an Address value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonAddressClone COMMAND ${THIS_TARGET} 1 t 36)
+# Test that an Array value with an empty Array value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonArrayClone COMMAND ${THIS_TARGET} 1 t 37)
+# Test that an Array value with an empty Object value can be cloned and is considered to be equal.
+add_test(NAME TestArraySingletonObjectClone COMMAND ${THIS_TARGET} 1 t 38)
+# Test that an Array value with two NULL values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairNullClone COMMAND ${THIS_TARGET} 1 t 39)
+# Test that an Array value with two Boolean values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairBooleanClone COMMAND ${THIS_TARGET} 1 t 40)
+# Test that an Array value with two Integer values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairIntegerClone COMMAND ${THIS_TARGET} 1 t 41)
+# Test that an Array value with two String values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairStringClone COMMAND ${THIS_TARGET} 1 t 42)
+# Test that an Array value with two Double values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairDoubleClone COMMAND ${THIS_TARGET} 1 t 43)
+# Test that an Array value with two Address values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairAddressClone COMMAND ${THIS_TARGET} 1 t 44)
+# Test that an Array value with two empty Array values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairArrayClone COMMAND ${THIS_TARGET} 1 t 45)
+# Test that an Array value with two empty Object values can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairObjectClone COMMAND ${THIS_TARGET} 1 t 46)
+# Test that an Array value with a NULL value and a Boolean value can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairNullBooleanClone COMMAND ${THIS_TARGET} 1 t 47)
+# Test that an Array value with a Boolean value and an Integer value can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairBooleanIntegerClone COMMAND ${THIS_TARGET} 1 t 48)
+# Test that an Array value with an Integer value and a String value can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairIntegerStringClone COMMAND ${THIS_TARGET} 1 t 49)
+# Test that an Array value with a String value and an Address value can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairStringAddressClone COMMAND ${THIS_TARGET} 1 t 50)
+# Test that an Array value with an Address value and a Double value can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairAddressDoubleClone COMMAND ${THIS_TARGET} 1 t 51)
+# Test that an Array value with a Double value and a NULL value can be cloned and is considered to be equal.
+add_test(NAME TestArrayPairDoubleNullClone COMMAND ${THIS_TARGET} 1 t 52)
+
 # Test that Object values are distinct from other values.
 add_test(NAME TestObjectIsDistinct COMMAND ${THIS_TARGET} 2 t 1)
 # Test that an empty Object value can be created and has the correct value.
@@ -193,3 +238,48 @@ add_test(NAME TestObjectSingletonsDoubleDifferentFromString COMMAND ${THIS_TARGE
 add_test(NAME TestObjectSingletonsStringDifferentFromAddress COMMAND ${THIS_TARGET} 2 f 31)
 # Test that an Object value with an Address value is different from an Object value with a NULL value.
 add_test(NAME TestObjectSingletonsAddressDifferentFromNull COMMAND ${THIS_TARGET} 2 f 32)
+
+# Test that an Object value with a NULL value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonNullClone COMMAND ${THIS_TARGET} 2 t 33)
+# Test that an Object value with a Boolean value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonBooleanClone COMMAND ${THIS_TARGET} 2 t 34)
+# Test that an Object value with an Integer value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonIntegerClone COMMAND ${THIS_TARGET} 2 t 35)
+# Test that an Object value with a String value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonStringClone COMMAND ${THIS_TARGET} 2 t 36)
+# Test that an Object value with a Double value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonDoubleClone COMMAND ${THIS_TARGET} 2 t 37)
+# Test that an Object value with an Address value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonAddressClone COMMAND ${THIS_TARGET} 2 t 38)
+# Test that an Object value with an empty Array value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonArrayClone COMMAND ${THIS_TARGET} 2 t 39)
+# Test that an Object value with an empty Object value can be cloned and is considered to be equal.
+add_test(NAME TestObjectSingletonObjectClone COMMAND ${THIS_TARGET} 2 t 40)
+# Test that an Object value with two NULL values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairNullClone COMMAND ${THIS_TARGET} 2 t 41)
+# Test that an Object value with two Boolean values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairBooleanClone COMMAND ${THIS_TARGET} 2 t 42)
+# Test that an Object value with two Integer values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairIntegerClone COMMAND ${THIS_TARGET} 2 t 43)
+# Test that an Object value with two String values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairStringClone COMMAND ${THIS_TARGET} 2 t 44)
+# Test that an Object value with two Double values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairDoubleClone COMMAND ${THIS_TARGET} 2 t 45)
+# Test that an Object value with two Address values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairAddressClone COMMAND ${THIS_TARGET} 2 t 46)
+# Test that an Object value with two empty Array values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairArrayClone COMMAND ${THIS_TARGET} 2 t 47)
+# Test that an Object value with two empty Object values can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairObjectClone COMMAND ${THIS_TARGET} 2 t 48)
+# Test that an Object value with a NULL value and a Boolean value can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairNullBooleanClone COMMAND ${THIS_TARGET} 2 t 49)
+# Test that an Object value with a Boolean value and an Integer value can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairBooleanIntegerClone COMMAND ${THIS_TARGET} 2 t 50)
+# Test that an Object value with an Integer value and a String value can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairIntegerStringClone COMMAND ${THIS_TARGET} 2 t 51)
+# Test that an Object value with a String value and an Address value can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairStringAddressClone COMMAND ${THIS_TARGET} 2 t 52)
+# Test that an Object value with an Address value and a Double value can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairAddressDoubleClone COMMAND ${THIS_TARGET} 2 t 53)
+# Test that an Object value with a Double value and a NULL value can be cloned and is considered to be equal.
+add_test(NAME TestObjectPairDoubleNullClone COMMAND ${THIS_TARGET} 2 t 54)
