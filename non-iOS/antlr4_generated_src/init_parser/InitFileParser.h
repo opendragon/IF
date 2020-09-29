@@ -139,13 +139,13 @@ public:
   public:
     ValueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    StringValueContext *stringValue();
+    LiteralValueContext *literalValue();
+    AddressValueContext *addressValue();
     DoubleValueContext *doubleValue();
     IntegerValueContext *integerValue();
     ObjectContext *object();
     ArrayContext *array();
-    LiteralValueContext *literalValue();
-    AddressValueContext *addressValue();
+    StringValueContext *stringValue();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

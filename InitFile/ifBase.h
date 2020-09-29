@@ -348,6 +348,13 @@ namespace InitFile
 
     }; // BaseValue
 
+	/*! @brief Convert an arbitrary string into a correctly formatted string.
+	@param[in] inString The string to be formatted.
+	@result A string with correctly escaped characters and delimiters. */
+	std::string
+	MakeWrappedString
+		(const std::string &    inString);
+
 } // InitFile
 
 #endif /* not ifBase_H_ */

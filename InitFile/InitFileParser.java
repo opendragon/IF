@@ -16,18 +16,18 @@ public class InitFileParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		TRUE_VALUE=1, FALSE_VALUE=2, NULL_VALUE=3, IPV4_ADDRESS=4, SIGNED_DOUBLE=5,
-		UNSIGNED_DOUBLE=6, SIGNED_INTEGER=7, DOUBLE_Q=8, SINGLE_Q=9, STRING1=10,
-		STRING2=11, STRING3=12, STRING4=13, NAME=14, COMMENT_POUND=15, COMMENT_SLASHES=16,
-		COMMENT_C_STYLE=17, OPEN_CURLY=18, CLOSE_CURLY=19, OPEN_SQUARE=20, CLOSE_SQUARE=21,
+		TRUE_VALUE=1, FALSE_VALUE=2, NULL_VALUE=3, IPV4_ADDRESS=4, SIGNED_DOUBLE=5, 
+		UNSIGNED_DOUBLE=6, SIGNED_INTEGER=7, DOUBLE_Q=8, SINGLE_Q=9, STRING1=10, 
+		STRING2=11, STRING3=12, STRING4=13, NAME=14, COMMENT_POUND=15, COMMENT_SLASHES=16, 
+		COMMENT_C_STYLE=17, OPEN_CURLY=18, CLOSE_CURLY=19, OPEN_SQUARE=20, CLOSE_SQUARE=21, 
 		COMMA=22, COLON=23, WS=24;
 	public static final int
-		RULE_configuration = 0, RULE_object = 1, RULE_pair = 2, RULE_tag = 3,
-		RULE_value = 4, RULE_addressValue = 5, RULE_stringValue = 6, RULE_doubleValue = 7,
+		RULE_configuration = 0, RULE_object = 1, RULE_pair = 2, RULE_tag = 3, 
+		RULE_value = 4, RULE_addressValue = 5, RULE_stringValue = 6, RULE_doubleValue = 7, 
 		RULE_integerValue = 8, RULE_literalValue = 9, RULE_array = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"configuration", "object", "pair", "tag", "value", "addressValue", "stringValue",
+			"configuration", "object", "pair", "tag", "value", "addressValue", "stringValue", 
 			"doubleValue", "integerValue", "literalValue", "array"
 		};
 	}
@@ -35,18 +35,18 @@ public class InitFileParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, "'\"'", "'''", null,
-			null, null, null, null, null, null, null, "'{'", "'}'", "'['", "']'",
+			null, null, null, null, null, null, null, null, "'\"'", "'''", null, 
+			null, null, null, null, null, null, null, "'{'", "'}'", "'['", "']'", 
 			"','", "':'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "SIGNED_DOUBLE",
-			"UNSIGNED_DOUBLE", "SIGNED_INTEGER", "DOUBLE_Q", "SINGLE_Q", "STRING1",
-			"STRING2", "STRING3", "STRING4", "NAME", "COMMENT_POUND", "COMMENT_SLASHES",
-			"COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", "CLOSE_SQUARE",
+			null, "TRUE_VALUE", "FALSE_VALUE", "NULL_VALUE", "IPV4_ADDRESS", "SIGNED_DOUBLE", 
+			"UNSIGNED_DOUBLE", "SIGNED_INTEGER", "DOUBLE_Q", "SINGLE_Q", "STRING1", 
+			"STRING2", "STRING3", "STRING4", "NAME", "COMMENT_POUND", "COMMENT_SLASHES", 
+			"COMMENT_C_STYLE", "OPEN_CURLY", "CLOSE_CURLY", "OPEN_SQUARE", "CLOSE_SQUARE", 
 			"COMMA", "COLON", "WS"
 		};
 	}
@@ -173,7 +173,7 @@ public class InitFileParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_object; }
-	
+	 
 		public ObjectContext() { }
 		public void copyFrom(ObjectContext ctx) {
 			super.copyFrom(ctx);
@@ -255,7 +255,7 @@ public class InitFileParser extends Parser {
 						setState(33);
 						pair();
 						}
-						}
+						} 
 					}
 					setState(38);
 					_errHandler.sync(this);
@@ -420,8 +420,11 @@ public class InitFileParser extends Parser {
 	}
 
 	public static class ValueContext extends ParserRuleContext {
-		public StringValueContext stringValue() {
-			return getRuleContext(StringValueContext.class,0);
+		public LiteralValueContext literalValue() {
+			return getRuleContext(LiteralValueContext.class,0);
+		}
+		public AddressValueContext addressValue() {
+			return getRuleContext(AddressValueContext.class,0);
 		}
 		public DoubleValueContext doubleValue() {
 			return getRuleContext(DoubleValueContext.class,0);
@@ -435,11 +438,8 @@ public class InitFileParser extends Parser {
 		public ArrayContext array() {
 			return getRuleContext(ArrayContext.class,0);
 		}
-		public LiteralValueContext literalValue() {
-			return getRuleContext(LiteralValueContext.class,0);
-		}
-		public AddressValueContext addressValue() {
-			return getRuleContext(AddressValueContext.class,0);
+		public StringValueContext stringValue() {
+			return getRuleContext(StringValueContext.class,0);
 		}
 		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -467,59 +467,59 @@ public class InitFileParser extends Parser {
 			setState(64);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
+			case TRUE_VALUE:
+			case FALSE_VALUE:
+			case NULL_VALUE:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(57);
+				literalValue();
+				}
+				break;
+			case IPV4_ADDRESS:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(58);
+				addressValue();
+				}
+				break;
+			case SIGNED_DOUBLE:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(59);
+				doubleValue();
+				}
+				break;
+			case SIGNED_INTEGER:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(60);
+				integerValue();
+				}
+				break;
+			case OPEN_CURLY:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(61);
+				object();
+				}
+				break;
+			case OPEN_SQUARE:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(62);
+				array();
+				}
+				break;
 			case STRING1:
 			case STRING2:
 			case STRING3:
 			case STRING4:
 			case NAME:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(57);
-				stringValue();
-				}
-				break;
-			case SIGNED_DOUBLE:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(58);
-				doubleValue();
-				}
-				break;
-			case SIGNED_INTEGER:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(59);
-				integerValue();
-				}
-				break;
-			case OPEN_CURLY:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(60);
-				object();
-				}
-				break;
-			case OPEN_SQUARE:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(61);
-				array();
-				}
-				break;
-			case TRUE_VALUE:
-			case FALSE_VALUE:
-			case NULL_VALUE:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(62);
-				literalValue();
-				}
-				break;
-			case IPV4_ADDRESS:
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(63);
-				addressValue();
+				stringValue();
 				}
 				break;
 			default:
@@ -827,7 +827,7 @@ public class InitFileParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_array; }
-	
+	 
 		public ArrayContext() { }
 		public void copyFrom(ArrayContext ctx) {
 			super.copyFrom(ctx);
@@ -909,7 +909,7 @@ public class InitFileParser extends Parser {
 						setState(87);
 						value();
 						}
-						}
+						} 
 					}
 					setState(92);
 					_errHandler.sync(this);
@@ -969,8 +969,8 @@ public class InitFileParser extends Parser {
 		"\30\2\2*)\3\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\25\2\2-\61\3\2\2\2./\7\24\2"+
 		"\2/\61\7\25\2\2\60 \3\2\2\2\60.\3\2\2\2\61\5\3\2\2\2\62\63\5\b\5\2\63"+
 		"\64\7\31\2\2\64\65\5\n\6\2\65\7\3\2\2\2\66:\7\f\2\2\67:\7\r\2\28:\7\20"+
-		"\2\29\66\3\2\2\29\67\3\2\2\298\3\2\2\2:\t\3\2\2\2;C\5\16\b\2<C\5\20\t"+
-		"\2=C\5\22\n\2>C\5\4\3\2?C\5\26\f\2@C\5\24\13\2AC\5\f\7\2B;\3\2\2\2B<\3"+
+		"\2\29\66\3\2\2\29\67\3\2\2\298\3\2\2\2:\t\3\2\2\2;C\5\24\13\2<C\5\f\7"+
+		"\2=C\5\20\t\2>C\5\22\n\2?C\5\4\3\2@C\5\26\f\2AC\5\16\b\2B;\3\2\2\2B<\3"+
 		"\2\2\2B=\3\2\2\2B>\3\2\2\2B?\3\2\2\2B@\3\2\2\2BA\3\2\2\2C\13\3\2\2\2D"+
 		"E\7\6\2\2E\r\3\2\2\2FL\7\f\2\2GL\7\r\2\2HL\7\20\2\2IL\7\16\2\2JL\7\17"+
 		"\2\2KF\3\2\2\2KG\3\2\2\2KH\3\2\2\2KI\3\2\2\2KJ\3\2\2\2L\17\3\2\2\2MN\7"+

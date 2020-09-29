@@ -83,6 +83,8 @@ using namespace InitFile;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+std::string  InitFile::kDQ("\"");
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)

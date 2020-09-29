@@ -20,13 +20,13 @@ pair : tag COLON value ;
 
 tag : dq=STRING1 | sq=STRING2 | na=NAME ;
 
-value : stringValue
+value : literalValue 
+        | addressValue
         | doubleValue
         | integerValue
         | object
         | array
-        | literalValue
-        | addressValue
+        | stringValue
 ;
 
 addressValue : add=IPV4_ADDRESS ;

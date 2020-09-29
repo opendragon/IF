@@ -241,18 +241,34 @@ BaseValue::outputEscapedString
 	 const std::string &	aString)
 	const
 {
-	size_t		foundDouble = aString.find('"');
-	size_t		foundSingle = aString.find('\'');
+	output << MakeWrappedString(aString);
+	return output;
+} // BaseValue::outputEscapedString
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)
+
+/*! @brief Convert an arbitrary string into a correctly formatted string.
+ @param[in] inString The string to be formatted.
+ @result A string with correctly escaped characters and delimiters. */
+std::string
+InitFile::MakeWrappedString
+    (const std::string &    inString)
+{
+    std::string result;
+	size_t		foundDouble = inString.find('"');
+	size_t		foundSingle = inString.find('\'');
 	char		quoteChar;
 	const char	escape = '\\';
 
-	if (aString.npos == foundDouble)
+	if (inString.npos == foundDouble)
 	{
 		// No double quotes present in the string.
 		// Use double quotes.
 		quoteChar = '"';
 	}
-	else if (aString.npos == foundSingle)
+	else if (inString.npos == foundSingle)
 	{
 		// No single quotes present in the string.
 		// Double quotes present in the string.
@@ -265,58 +281,62 @@ BaseValue::outputEscapedString
 		// Use double quotes.
 		quoteChar = '"';
 	}
-	output << quoteChar;
-	for (auto walker = aString.cbegin(); walker != aString.cend(); ++walker)
+    result = quoteChar;
+	for (auto walker = inString.cbegin(); walker != inString.cend(); ++walker)
 	{
 		const char	aChar = *walker;
 
 		if (aChar == quoteChar)
 		{
-			output << escape << aChar;
+			result += escape;
+            result += aChar;
 		}
 		else
 		{
 			switch (aChar)
 			{
 				case '\b' :
-					output << escape << 'b';
+					result += escape;
+                    result += 'b';
 					break;
 
 				case '\f' :
-					output << escape << 'f';
+					result += escape;
+					result += 'f';
 					break;
 
 				case '\n' :
-					output << escape << 'n';
+					result += escape;
+					result += 'n';
 					break;
 
 				case '\r' :
-					output << escape << 'r';
+					result += escape;
+					result += 'r';
 					break;
 
 				case '\t' :
-					output << escape << 't';
+					result += escape;
+					result += 't';
 					break;
 
 				case '\v' :
-					output << escape << 'v';
+					result += escape;
+					result += 'v';
 					break;
 
 				case escape :
-					output << escape << aChar;
+					result += escape;
+					result += aChar;
 					break;
 
 				default :
-					output << aChar;
+					result += aChar;
 					break;
 
 			}
 		}
 	}
-	output << quoteChar;
-	return output;
-} // BaseValue::outputEscapedString
-
-#if defined(__APPLE__)
-# pragma mark Global functions
-#endif // defined(__APPLE__)
+	result += quoteChar;
+    return result;
+} // BaseValue::MakeWrappedString

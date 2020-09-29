@@ -76,6 +76,8 @@ using namespace InitFile;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+//#define TRACE_PARSING_
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -114,7 +116,9 @@ void
 BaseValueListener::enterEmptyObject
     (InitParser::InitFileParser::EmptyObjectContext * /*ctx*/)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushContainer(fCurrentContainer);
     fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
@@ -125,7 +129,9 @@ void
 BaseValueListener::enterNonEmptyArray
     (InitParser::InitFileParser::NonEmptyArrayContext * /*ctx*/)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushContainer(fCurrentContainer);
     fCurrentContainer.reset(new ArrayValue(fCurrentContainer));
@@ -136,7 +142,9 @@ void
 BaseValueListener::enterNonEmptyObject
     (InitParser::InitFileParser::NonEmptyObjectContext * /*ctx*/)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushContainer(fCurrentContainer);
     fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
@@ -147,7 +155,9 @@ void
 BaseValueListener::exitAddressValue
     (InitParser::InitFileParser::AddressValueContext *  ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     std::string addressString;
     uint32_t    address = 0;
 
@@ -156,7 +166,9 @@ BaseValueListener::exitAddressValue
     {
         addressString = ctx->add->getText();
         addressString = addressString.substr(1, addressString.length() - 1);
-// std::cout << "address=" << addressString << std::endl;
+#if defined(TRACE_PARSING_)
+        std::cerr << "address=" << addressString << std::endl;
+#endif // defined(TRACE_PARSING_)
         for (size_t ii = 0, lastPos = 0; ii < 4; ++ii)
         {
             size_t      jj = addressString.find_first_of('.', lastPos);
@@ -172,15 +184,23 @@ BaseValueListener::exitAddressValue
                 segment = addressString.substr(lastPos, jj - lastPos);
                 lastPos = jj + 1;
             }
-            // Note that the following doesn't check if the segment value is greater than 255!
-            address += std::stoul(segment);
-        }
-// char oldFill = std::cout.fill('0');
+            size_t  segmentValue = std::stoul(segment);
 
-// std::cout << std::hex << "0x";
-// std::cout.width(8);
-// std::cout << address << std::dec << "<" << address << ">" << std::endl;
-// std::cout.fill(oldFill);
+            if (255 < segmentValue)
+            {
+                throw antlr4::RuntimeException("address contains invalid byte (" + segment + ")");
+
+            }
+            address += segmentValue;
+        }
+#if defined(TRACE_PARSING_)
+        char oldFill = std::cout.fill('0');
+
+        std::cerr << std::hex << "0x";
+        std::cerr.width(8);
+        std::cerr << address << std::dec << "<" << address << ">" << std::endl;
+        std::cerr.fill(oldFill);
+#endif // defined(TRACE_PARSING_)
     }
     pushValue(SpBase(new AddressValue(fCurrentContainer, address)));
     ODL_OBJEXIT(); //####
@@ -190,7 +210,9 @@ void
 BaseValueListener::exitConfiguration
     (InitParser::InitFileParser::ConfigurationContext * /*ctx*/)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     fRootObject = popValue();
     ODL_OBJEXIT(); //####
@@ -200,9 +222,13 @@ void
 BaseValueListener::exitDoubleValue
     (InitParser::InitFileParser::DoubleValueContext * ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
-// std::cout << "number=" << ctx->nu->getText() << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << "number=" << ctx->nu->getText() << std::endl;
+#endif // defined(TRACE_PARSING_)
     pushValue(SpBase(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), NULL))));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitDoubleValue
@@ -211,7 +237,9 @@ void
 BaseValueListener::exitEmptyArray
     (InitParser::InitFileParser::EmptyArrayContext * /*ctx*/)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushValue(SpBase(new ArrayValue(fCurrentContainer)));
     ODL_OBJEXIT(); //####
@@ -221,7 +249,9 @@ void
 BaseValueListener::exitEmptyObject
     (InitParser::InitFileParser::EmptyObjectContext * /*ctx*/)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
@@ -232,7 +262,9 @@ void
 BaseValueListener::exitIntegerValue
     (InitParser::InitFileParser::IntegerValueContext *  ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushValue(SpBase(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), NULL))));
     ODL_OBJEXIT(); //####
@@ -242,7 +274,9 @@ void
 BaseValueListener::exitLiteralValue
     (InitParser::InitFileParser::LiteralValueContext * ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     if (ctx->tv)
     {
@@ -263,8 +297,10 @@ void
 BaseValueListener::exitNonEmptyArray
     (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
-// std::cout << "#values=" << ctx->value().size() << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << "#values=" << ctx->value().size() << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     ArrayValue *    currentArray = fCurrentContainer->AsArray();
     size_t          numValues = ctx->value().size();
@@ -283,10 +319,16 @@ BaseValueListener::exitNonEmptyArray
 
 void
 BaseValueListener::exitNonEmptyObject
+#if defined(TRACE_PARSING_)
+    (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
+#else // not defined(TRACE_PARSING_)
     (InitParser::InitFileParser::NonEmptyObjectContext * /*ctx*/)
+#endif // not defined(TRACE_PARSING_)
 {
-// std::cout << __FUNCTION__ << std::endl;
-// std::cout << "#pairs=" << ctx->pair().size() << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << "#pairs=" << ctx->pair().size() << std::endl;
+#endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
@@ -297,13 +339,26 @@ void
 BaseValueListener::exitPair
     (InitParser::InitFileParser::PairContext * /*ctx*/)
 {
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     std::string     tag = popTag();
     SpBase          value = popValue();
+#if defined(TRACE_PARSING_)
+    std::cerr << "tag=" << tag << " : value=";
+    if (value)
+    {
+        value->Print(std::cerr);
+    }
+    else
+    {
+        std::cerr << "<<broken>>";
+    }
+    std::cerr << std::endl;
+#endif // defined(TRACE_PARSING_)
     ObjectValue *   currentObject = fCurrentContainer->AsObject();
 
     ODL_OBJENTER(); //####
-// std::cout << __FUNCTION__ << std::endl;
-// std::cout << "tag=" << tag << " : value=" << value->Describe() << std::endl;
     currentObject->AddValue(tag, value);
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitPair
@@ -312,7 +367,9 @@ void
 BaseValueListener::exitStringValue
     (InitParser::InitFileParser::StringValueContext * ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     std::string actualValue;
 
     ODL_OBJENTER(); //####
@@ -339,7 +396,9 @@ void
 BaseValueListener::exitTag
     (InitParser::InitFileParser::TagContext * ctx)
 {
-// std::cout << __FUNCTION__ << std::endl;
+#if defined(TRACE_PARSING_)
+    std::cerr << __FUNCTION__ << std::endl;
+#endif // defined(TRACE_PARSING_)
     std::string actualTag;
 
     ODL_OBJENTER(); //####
@@ -380,10 +439,12 @@ BaseValueListener::GetValue
     catch (const antlr4::RuntimeException & ee)
     {
         std::cerr << "ANTLR4 RuntimeException: " << ee.what() << std::endl;
+        fRootObject.reset();
     }
     catch (const std::exception & ee)
     {
         std::cerr << ee.what() << std::endl;
+        fRootObject.reset();
     }
 	return fRootObject;
 } // BaseValueListener::GetValue
@@ -407,10 +468,12 @@ BaseValueListener::GetValue
     catch (const antlr4::RuntimeException & ee)
     {
         std::cerr << "ANTLR4 RuntimeException: " << ee.what() << std::endl;
+        fRootObject.reset();
     }
     catch (const std::exception & ee)
     {
         std::cerr << ee.what() << std::endl;
+        fRootObject.reset();
     }
 	return fRootObject;
 } // BaseValueListener::GetValue

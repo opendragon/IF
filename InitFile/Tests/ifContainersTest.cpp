@@ -449,10 +449,9 @@ doTestArrayValue
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
-                        std::string         expectedString("[ \"");
+                        std::string         expectedString;
 
-                        expectedString += testString;
-                        expectedString += "\" ]";
+                        expectedString = "[ " + kDQ + testString + kDQ + " ]";
                         aValue->Print(buffer);
                         okSoFar = (expectedString == buffer.str());
                     }
@@ -678,12 +677,9 @@ doTestArrayValue
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
-                        std::string         expectedString("[ \"");
+                        std::string         expectedString;
 
-                        expectedString += testString1;
-                        expectedString += "\",\n\"";
-                        expectedString += testString2;
-                        expectedString += "\" ]";
+                        expectedString = "[ " + kDQ + testString1 + kDQ + ",\n" + kDQ + testString2 + kDQ + " ]";
                         aValue->Print(buffer);
                         okSoFar = (expectedString == buffer.str());
                     }
@@ -1658,10 +1654,9 @@ doTestObjectValue
                     if (1 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd;
-                        expected += "\" : null }";
+                        expected = "{ " + kDQ + tagForAdd + kDQ + " : null }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                     }
@@ -1700,12 +1695,9 @@ doTestObjectValue
                     if (1 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd;
-                        expected += "\" : ";
-                        expected += (valueToAdd->GetValue() ? "true" : "false");
-                        expected += " }";
+                        expected = "{ " + kDQ + tagForAdd + kDQ + " : " + (valueToAdd->GetValue() ? "true" : "false") + " }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                     }
@@ -1744,12 +1736,9 @@ doTestObjectValue
                     if (1 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd;
-                        expected += "\" : ";
-                        expected += std::to_string(valueToAdd->GetValue());
-                        expected += " }";
+                        expected = "{ " + kDQ + tagForAdd + kDQ + " : " + std::to_string(valueToAdd->GetValue()) + " }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                     }
@@ -1788,12 +1777,9 @@ doTestObjectValue
                     if (1 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd;
-                        expected += "\" : \"";
-                        expected += valueToAdd->GetValue();
-                        expected += "\" }";
+                        expected = "{ " + kDQ + tagForAdd + kDQ + " : " + kDQ + valueToAdd->GetValue() + kDQ + " }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                     }
@@ -1869,21 +1855,14 @@ doTestObjectValue
                     if (2 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd1;
-                        expected += "\" : null,\n\"";
-                        expected += tagForAdd2;
-                        expected += "\" : null }";
+                        expected = "{ " + kDQ + tagForAdd1 + kDQ + " : null,\n" + kDQ + tagForAdd2 + kDQ + " : null }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                         if (! okSoFar)
                         {
-                            expected = "{ \"";
-                            expected += tagForAdd2;
-                            expected += "\" : null,\n\"";
-                            expected += tagForAdd1;
-                            expected += "\" : null }";
+                            expected = "{ " + kDQ + tagForAdd2 + kDQ + " : null,\n" + kDQ + tagForAdd1 + kDQ + " : null }";
                             okSoFar = (expected == buffer.str());
                         }
                     }
@@ -1934,29 +1913,16 @@ doTestObjectValue
                     if (2 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd1;
-                        expected += "\" : ";
-                        expected += (valueToAdd1->GetValue() ? "true" : "false");
-                        expected += ",\n\"";
-                        expected += tagForAdd2;
-                        expected += "\" : ";
-                        expected += (valueToAdd2->GetValue() ? "true" : "false");
-                        expected += " }";
+                        expected = "{ " + kDQ + tagForAdd1 + kDQ + " : " + (valueToAdd1->GetValue() ? "true" : "false") + ",\n" +
+                                    kDQ + tagForAdd2 + kDQ + " : " + (valueToAdd2->GetValue() ? "true" : "false") + " }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                         if (! okSoFar)
                         {
-                            expected = "{ \"";
-                            expected += tagForAdd2;
-                            expected += "\" : ";
-                            expected += (valueToAdd2->GetValue() ? "true" : "false");
-                            expected += ",\n\"";
-                            expected += tagForAdd1;
-                            expected += "\" : ";
-                            expected += (valueToAdd1->GetValue() ? "true" : "false");
-                            expected += " }";
+                            expected = "{ " + kDQ + tagForAdd2 + kDQ + " : " + (valueToAdd2->GetValue() ? "true" : "false") +
+                                        ",\n" + kDQ + tagForAdd1 + kDQ + " : " + (valueToAdd1->GetValue() ? "true" : "false") + " }";
                             okSoFar = (expected == buffer.str());
                         }
                     }
@@ -2007,29 +1973,16 @@ doTestObjectValue
                     if (2 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd1;
-                        expected += "\" : ";
-                        expected += std::to_string(valueToAdd1->GetValue());
-                        expected += ",\n\"";
-                        expected += tagForAdd2;
-                        expected += "\" : ";
-                        expected += std::to_string(valueToAdd2->GetValue());
-                        expected += " }";
+                        expected = "{ " + kDQ + tagForAdd1 + kDQ + " : " + std::to_string(valueToAdd1->GetValue()) + ",\n" +
+                                    kDQ + tagForAdd2 + kDQ + " : " + std::to_string(valueToAdd2->GetValue()) + " }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                         if (! okSoFar)
                         {
-                            expected = "{ \"";
-                            expected += tagForAdd2;
-                            expected += "\" : ";
-                            expected += std::to_string(valueToAdd2->GetValue());
-                            expected += ",\n\"";
-                            expected += tagForAdd1;
-                            expected += "\" : ";
-                            expected += std::to_string(valueToAdd1->GetValue());
-                            expected += " }";
+                            expected = "{ " + kDQ + tagForAdd2 + kDQ + " : " + std::to_string(valueToAdd2->GetValue()) + ",\n" +
+                                        kDQ + tagForAdd1 + kDQ + " : " + std::to_string(valueToAdd1->GetValue()) + " }";
                             okSoFar = (expected == buffer.str());
                         }
                     }
@@ -2080,29 +2033,16 @@ doTestObjectValue
                     if (2 == aValue->HowManyValues())
                     {
                         std::ostringstream  buffer;
-                        std::string         expected("{ \"");
+                        std::string         expected;
 
-                        expected += tagForAdd1;
-                        expected += "\" : \"";
-                        expected += valueToAdd1->GetValue();
-                        expected += "\",\n\"";
-                        expected += tagForAdd2;
-                        expected += "\" : \"";
-                        expected += valueToAdd2->GetValue();
-                        expected += "\" }";
+                        expected = "{ " + kDQ + tagForAdd1 + kDQ + " : " + kDQ + valueToAdd1->GetValue() + kDQ + ",\n" +
+                                    kDQ + tagForAdd2 + kDQ + " : " + kDQ + valueToAdd2->GetValue() + kDQ + " }";
                         aValue->Print(buffer);
                         okSoFar = (expected == buffer.str());
                         if (! okSoFar)
                         {
-                            expected = "{ \"";
-                            expected += tagForAdd2;
-                            expected += "\" : \"";
-                            expected += valueToAdd2->GetValue();
-                            expected += "\",\n\"";
-                            expected += tagForAdd1;
-                            expected += "\" : \"";
-                            expected += valueToAdd1->GetValue();
-                            expected += "\" }";
+                            expected = "{ " + kDQ + tagForAdd2 + kDQ + " : " + kDQ + valueToAdd2->GetValue() + kDQ + ",\n" +
+                                        kDQ + tagForAdd1 + kDQ + " : " + kDQ + valueToAdd1->GetValue() + kDQ + " }";
                             okSoFar = (expected == buffer.str());
                         }
                     }

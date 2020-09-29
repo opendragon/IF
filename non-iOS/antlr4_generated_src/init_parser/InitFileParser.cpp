@@ -402,8 +402,12 @@ InitFileParser::ValueContext::ValueContext(ParserRuleContext *parent, size_t inv
   : ParserRuleContext(parent, invokingState) {
 }
 
-InitFileParser::StringValueContext* InitFileParser::ValueContext::stringValue() {
-  return getRuleContext<InitFileParser::StringValueContext>(0);
+InitFileParser::LiteralValueContext* InitFileParser::ValueContext::literalValue() {
+  return getRuleContext<InitFileParser::LiteralValueContext>(0);
+}
+
+InitFileParser::AddressValueContext* InitFileParser::ValueContext::addressValue() {
+  return getRuleContext<InitFileParser::AddressValueContext>(0);
 }
 
 InitFileParser::DoubleValueContext* InitFileParser::ValueContext::doubleValue() {
@@ -422,12 +426,8 @@ InitFileParser::ArrayContext* InitFileParser::ValueContext::array() {
   return getRuleContext<InitFileParser::ArrayContext>(0);
 }
 
-InitFileParser::LiteralValueContext* InitFileParser::ValueContext::literalValue() {
-  return getRuleContext<InitFileParser::LiteralValueContext>(0);
-}
-
-InitFileParser::AddressValueContext* InitFileParser::ValueContext::addressValue() {
-  return getRuleContext<InitFileParser::AddressValueContext>(0);
+InitFileParser::StringValueContext* InitFileParser::ValueContext::stringValue() {
+  return getRuleContext<InitFileParser::StringValueContext>(0);
 }
 
 
@@ -458,58 +458,58 @@ InitFileParser::ValueContext* InitFileParser::value() {
     setState(64);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case InitFileParser::STRING1:
-      case InitFileParser::STRING2:
-      case InitFileParser::STRING3:
-      case InitFileParser::STRING4:
-      case InitFileParser::NAME: {
-        enterOuterAlt(_localctx, 1);
-        setState(57);
-        stringValue();
-        break;
-      }
-
-      case InitFileParser::SIGNED_DOUBLE: {
-        enterOuterAlt(_localctx, 2);
-        setState(58);
-        doubleValue();
-        break;
-      }
-
-      case InitFileParser::SIGNED_INTEGER: {
-        enterOuterAlt(_localctx, 3);
-        setState(59);
-        integerValue();
-        break;
-      }
-
-      case InitFileParser::OPEN_CURLY: {
-        enterOuterAlt(_localctx, 4);
-        setState(60);
-        object();
-        break;
-      }
-
-      case InitFileParser::OPEN_SQUARE: {
-        enterOuterAlt(_localctx, 5);
-        setState(61);
-        array();
-        break;
-      }
-
       case InitFileParser::TRUE_VALUE:
       case InitFileParser::FALSE_VALUE:
       case InitFileParser::NULL_VALUE: {
-        enterOuterAlt(_localctx, 6);
-        setState(62);
+        enterOuterAlt(_localctx, 1);
+        setState(57);
         literalValue();
         break;
       }
 
       case InitFileParser::IPV4_ADDRESS: {
+        enterOuterAlt(_localctx, 2);
+        setState(58);
+        addressValue();
+        break;
+      }
+
+      case InitFileParser::SIGNED_DOUBLE: {
+        enterOuterAlt(_localctx, 3);
+        setState(59);
+        doubleValue();
+        break;
+      }
+
+      case InitFileParser::SIGNED_INTEGER: {
+        enterOuterAlt(_localctx, 4);
+        setState(60);
+        integerValue();
+        break;
+      }
+
+      case InitFileParser::OPEN_CURLY: {
+        enterOuterAlt(_localctx, 5);
+        setState(61);
+        object();
+        break;
+      }
+
+      case InitFileParser::OPEN_SQUARE: {
+        enterOuterAlt(_localctx, 6);
+        setState(62);
+        array();
+        break;
+      }
+
+      case InitFileParser::STRING1:
+      case InitFileParser::STRING2:
+      case InitFileParser::STRING3:
+      case InitFileParser::STRING4:
+      case InitFileParser::NAME: {
         enterOuterAlt(_localctx, 7);
         setState(63);
-        addressValue();
+        stringValue();
         break;
       }
 
@@ -1089,10 +1089,10 @@ InitFileParser::Initializer::Initializer() {
     0x7, 0xc, 0x2, 0x2, 0x37, 0x3a, 0x7, 0xd, 0x2, 0x2, 0x38, 0x3a, 0x7, 
     0x10, 0x2, 0x2, 0x39, 0x36, 0x3, 0x2, 0x2, 0x2, 0x39, 0x37, 0x3, 0x2, 
     0x2, 0x2, 0x39, 0x38, 0x3, 0x2, 0x2, 0x2, 0x3a, 0x9, 0x3, 0x2, 0x2, 
-    0x2, 0x3b, 0x43, 0x5, 0xe, 0x8, 0x2, 0x3c, 0x43, 0x5, 0x10, 0x9, 0x2, 
-    0x3d, 0x43, 0x5, 0x12, 0xa, 0x2, 0x3e, 0x43, 0x5, 0x4, 0x3, 0x2, 0x3f, 
-    0x43, 0x5, 0x16, 0xc, 0x2, 0x40, 0x43, 0x5, 0x14, 0xb, 0x2, 0x41, 0x43, 
-    0x5, 0xc, 0x7, 0x2, 0x42, 0x3b, 0x3, 0x2, 0x2, 0x2, 0x42, 0x3c, 0x3, 
+    0x2, 0x3b, 0x43, 0x5, 0x14, 0xb, 0x2, 0x3c, 0x43, 0x5, 0xc, 0x7, 0x2, 
+    0x3d, 0x43, 0x5, 0x10, 0x9, 0x2, 0x3e, 0x43, 0x5, 0x12, 0xa, 0x2, 0x3f, 
+    0x43, 0x5, 0x4, 0x3, 0x2, 0x40, 0x43, 0x5, 0x16, 0xc, 0x2, 0x41, 0x43, 
+    0x5, 0xe, 0x8, 0x2, 0x42, 0x3b, 0x3, 0x2, 0x2, 0x2, 0x42, 0x3c, 0x3, 
     0x2, 0x2, 0x2, 0x42, 0x3d, 0x3, 0x2, 0x2, 0x2, 0x42, 0x3e, 0x3, 0x2, 
     0x2, 0x2, 0x42, 0x3f, 0x3, 0x2, 0x2, 0x2, 0x42, 0x40, 0x3, 0x2, 0x2, 
     0x2, 0x42, 0x41, 0x3, 0x2, 0x2, 0x2, 0x43, 0xb, 0x3, 0x2, 0x2, 0x2, 

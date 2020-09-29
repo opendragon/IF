@@ -1,0 +1,299 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_parser.txt
+#
+#  Project:    IF
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-09-28
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET ifParserTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+
+#add_library(ifCommonTestSupport)
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/ifParserTest.cpp
+                ${THIS_SOURCE_DIR}/ifTestSupport.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+#target_link_libraries(${THIS_TARGET} ifCommonTestSupport ${IF_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${IF_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+# Test that an empty string fails.
+add_test(NAME TestStringEmptyString COMMAND ${THIS_TARGET} 1 f 1)
+# Test that a string with a non-container fails.
+add_test(NAME TestStringNonContainer COMMAND ${THIS_TARGET} 1 f 2)
+# Test that a string with an empty Array is accepted.
+add_test(NAME TestStringEmptyArray COMMAND ${THIS_TARGET} 1 t 3)
+# Test that a string with an unterminated Array fails.
+add_test(NAME TestStringUnterminatedArray COMMAND ${THIS_TARGET} 1 f 4)
+# Test that a string with an Array with a single NULL is accepted.
+add_test(NAME TestStringArrayWithNULL COMMAND ${THIS_TARGET} 1 t 5 "null")
+# Test that a string with an Array with an invalid NULL fails.
+add_test(NAME TestStringArrayWithInvalidNULL COMMAND ${THIS_TARGET} 1 f 5 "nul")
+# Test that a string with an Array with a single false value is accepted.
+add_test(NAME TestStringArrayWithFalse COMMAND ${THIS_TARGET} 1 t 6 "false")
+# Test that a string with an Array with an invalid false value fails.
+add_test(NAME TestStringArrayWithInvalidFalse COMMAND ${THIS_TARGET} 1 f 6 "felse")
+# Test that a string with an Array with a single false value is accepted.
+add_test(NAME TestStringArrayWithTrue COMMAND ${THIS_TARGET} 1 t 6 "true")
+# Test that a string with an Array with an invalid false value fails.
+add_test(NAME TestStringArrayWithInvalidTrue COMMAND ${THIS_TARGET} 1 f 6 "trve")
+# Test that a string with an Array with a single Integer value is accepted.
+add_test(NAME TestStringArrayWithInteger COMMAND ${THIS_TARGET} 1 t 7 "42")
+# Test that a string with an Array with an invalid Integer value fails.
+add_test(NAME TestStringArrayWithInvalidInteger COMMAND ${THIS_TARGET} 1 f 7 "4e1")
+# Test that a string with an Array with a single negative Integer value is accepted.
+add_test(NAME TestStringArrayWithNegInteger COMMAND ${THIS_TARGET} 1 t 7 "-42")
+# Test that a string with an Array with an invalid negative Integer value fails.
+add_test(NAME TestStringArrayWithInvalidNegInteger COMMAND ${THIS_TARGET} 1 f 7 "-4.1")
+# Test that a string with an Array with a single simple String value is accepted.
+add_test(NAME TestStringArrayWithSimpleString COMMAND ${THIS_TARGET} 1 t 8 "alpha beta")
+# Test that a string with an Array with a single complex String value is accepted.
+add_test(NAME TestStringArrayWithComplexString COMMAND ${THIS_TARGET} 1 t 8 "alpha\" beta")
+# Test that a string with an Array with a single Double value is accepted.
+add_test(NAME TestStringArrayWithDouble COMMAND ${THIS_TARGET} 1 t 9 "42.0")
+# Test that a string with an Array with an invalid Double value fails.
+add_test(NAME TestStringArrayWithInvalidDouble COMMAND ${THIS_TARGET} 1 f 9 "42")
+# Test that a string with an Array with a single negative Double value is accepted.
+add_test(NAME TestStringArrayWithNegDouble COMMAND ${THIS_TARGET} 1 t 9 "-42e3")
+# Test that a string with an Array with an invalid negative Double value fails.
+add_test(NAME TestStringArrayWithInvalidNegDouble COMMAND ${THIS_TARGET} 1 f 9 "-400")
+# Test that a string with an Array with a single Address value is accepted.
+add_test(NAME TestStringArrayWithAddress1 COMMAND ${THIS_TARGET} 1 t 10 "12.23.34.45")
+# Test that a string with an Array with a single Address value is accepted.
+add_test(NAME TestStringArrayWithAddress2 COMMAND ${THIS_TARGET} 1 t 10 "@12.23.34.45")
+# Test that a string with an Array with an invalid Address value fails.
+add_test(NAME TestStringArrayWithInvalidAddress1 COMMAND ${THIS_TARGET} 1 f 10 "1.2.3.4.5")
+# Test that a string with an Array with an invalid Address value fails.
+add_test(NAME TestStringArrayWithInvalidAddress2 COMMAND ${THIS_TARGET} 1 f 10 "1.2.3")
+# Test that a string with an Array with an invalid Address value fails.
+add_test(NAME TestStringArrayWithInvalidAddress3 COMMAND ${THIS_TARGET} 1 f 10 "1111.222.33.44")
+# Test that a string with an Array with an invalid Address value fails.
+add_test(NAME TestStringArrayWithInvalidAddress4 COMMAND ${THIS_TARGET} 1 f 10 "111.222.333.444")
+# Test that a string with an Array with a single Array value is accepted.
+add_test(NAME TestStringArrayWithArray COMMAND ${THIS_TARGET} 1 t 11 "[]")
+# Test that a string with an Array with an invalid Array value fails.
+add_test(NAME TestStringArrayWithInvalidArray COMMAND ${THIS_TARGET} 1 f 11 "[}")
+# Test that a string with an Array with a single Object value is accepted.
+add_test(NAME TestStringArrayWithObject COMMAND ${THIS_TARGET} 1 t 12 "{}")
+# Test that a string with an Array with an invalid Object value fails.
+add_test(NAME TestStringArrayWithInvalidObject COMMAND ${THIS_TARGET} 1 f 12 "{")
+
+# Test that an empty file fails.
+add_test(NAME TestFileEmptyFile COMMAND ${THIS_TARGET} 2 f 1)
+# Test that file with a non-container fails.
+add_test(NAME TestFileNonContainer COMMAND ${THIS_TARGET} 2 f 2)
+# Test that a file with an empty Array is accepted.
+add_test(NAME TestFileEmptyArray COMMAND ${THIS_TARGET} 2 t 3)
+# Test that a file with an unterminated Array fails.
+add_test(NAME TestFileUnterminatedArray COMMAND ${THIS_TARGET} 2 f 4)
+# Test that a file with an Array with a single NULL is accepted.
+add_test(NAME TestFileArrayWithNULL COMMAND ${THIS_TARGET} 2 t 5 "null")
+# Test that a file with an Array with an invalid NULL fails.
+add_test(NAME TestFileArrayWithInvalidNULL COMMAND ${THIS_TARGET} 2 f 5 "nul")
+# Test that a file with an Array with a single false value is accepted.
+add_test(NAME TestFileArrayWithFalse COMMAND ${THIS_TARGET} 2 t 6 "false")
+# Test that a file with an Array with an invalid false value fails.
+add_test(NAME TestFileArrayWithInvalidFalse COMMAND ${THIS_TARGET} 2 f 6 "felse")
+# Test that a file with an Array with a single false value is accepted.
+add_test(NAME TestFileArrayWithTrue COMMAND ${THIS_TARGET} 2 t 6 "true")
+# Test that a file with an Array with an invalid false value fails.
+add_test(NAME TestFileArrayWithInvalidTrue COMMAND ${THIS_TARGET} 2 f 6 "trve")
+# Test that a file with an Array with a single Integer value is accepted.
+add_test(NAME TestFileArrayWithInteger COMMAND ${THIS_TARGET} 2 t 7 "42")
+# Test that a file with an Array with an invalid Integer value fails.
+add_test(NAME TestFileArrayWithInvalidInteger COMMAND ${THIS_TARGET} 2 f 7 "4e1")
+# Test that a file with an Array with a single negative Integer value is accepted.
+add_test(NAME TestFileArrayWithNegInteger COMMAND ${THIS_TARGET} 2 t 7 "-42")
+# Test that a file with an Array with an invalid negative Integer value fails.
+add_test(NAME TestFileArrayWithInvalidNegInteger COMMAND ${THIS_TARGET} 2 f 7 "-4.1")
+# Test that a file with an Array with a single simple String value is accepted.
+add_test(NAME TestFileArrayWithSimpleString COMMAND ${THIS_TARGET} 2 t 8 "alpha beta")
+# Test that a file with an Array with a single complex String value is accepted.
+add_test(NAME TestFileArrayWithComplexString COMMAND ${THIS_TARGET} 2 t 8 "alpha\" beta")
+# Test that a file with an Array with a single Double value is accepted.
+add_test(NAME TestFileArrayWithDouble COMMAND ${THIS_TARGET} 2 t 9 "42.0")
+# Test that a file with an Array with an invalid Double value fails.
+add_test(NAME TestFileArrayWithInvalidDouble COMMAND ${THIS_TARGET} 2 f 9 "42")
+# Test that a file with an Array with a single negative Double value is accepted.
+add_test(NAME TestFileArrayWithNegDouble COMMAND ${THIS_TARGET} 2 t 9 "-42e3")
+# Test that a file with an Array with an invalid negative Double value fails.
+add_test(NAME TestFileArrayWithInvalidNegDouble COMMAND ${THIS_TARGET} 2 f 9 "-400")
+# Test that a file with an Array with a single Address value is accepted.
+add_test(NAME TestFileArrayWithAddress1 COMMAND ${THIS_TARGET} 2 t 10 "12.23.34.45")
+# Test that a file with an Array with a single Address value is accepted.
+add_test(NAME TestFileArrayWithAddress2 COMMAND ${THIS_TARGET} 2 t 10 "@12.23.34.45")
+# Test that a file with an Array with an invalid Address value fails.
+add_test(NAME TestFileArrayWithInvalidAddress1 COMMAND ${THIS_TARGET} 2 f 10 "1.2.3.4.5")
+# Test that a file with an Array with an invalid Address value fails.
+add_test(NAME TestFileArrayWithInvalidAddress2 COMMAND ${THIS_TARGET} 2 f 10 "1.2.3")
+# Test that a file with an Array with an invalid Address value fails.
+add_test(NAME TestFileArrayWithInvalidAddress3 COMMAND ${THIS_TARGET} 2 f 10 "1111.222.33.44")
+# Test that a file with an Array with an invalid Address value fails.
+add_test(NAME TestFileArrayWithInvalidAddress4 COMMAND ${THIS_TARGET} 2 f 10 "111.222.333.444")
+# Test that a file with an Array with a single Array value is accepted.
+add_test(NAME TestFileArrayWithArray COMMAND ${THIS_TARGET} 2 t 11 "[]")
+# Test that a file with an Array with an invalid Array value fails.
+add_test(NAME TestFileArrayWithInvalidArray COMMAND ${THIS_TARGET} 2 f 11 "[}")
+# Test that a file with an Array with a single Object value is accepted.
+add_test(NAME TestFileArrayWithObject COMMAND ${THIS_TARGET} 2 t 12 "{}")
+# Test that a file with an Array with an invalid Object value fails.
+add_test(NAME TestFileArrayWithInvalidObject COMMAND ${THIS_TARGET} 2 f 12 "{")
+
+# Test that a string with an empty Object is accepted.
+add_test(NAME TestStringEmptyObject COMMAND ${THIS_TARGET} 3 t 1)
+# Test that a string with an unterminated Object fails.
+add_test(NAME TestStringUnterminatedObject COMMAND ${THIS_TARGET} 3 f 2)
+# Test that a file with an Object with a single NULL is accepted.
+add_test(NAME TestStringObjectWithNULL COMMAND ${THIS_TARGET} 3 t 3 "tag" "null")
+# Test that a file with an Object with an invalid NULL fails.
+add_test(NAME TestStringObjectWithInvalidNULL COMMAND ${THIS_TARGET} 3 f 3 "<tag>" "nul")
+# Test that a string with an Object with a single false value is accepted.
+add_test(NAME TestStringObjectWithFalse COMMAND ${THIS_TARGET} 3 t 4 "chuck" "false")
+# Test that a string with an Object with an invalid false value fails.
+add_test(NAME TestStringObjectWithInvalidFalse COMMAND ${THIS_TARGET} 3 f 4 "farley" "felse")
+# Test that a string with an Object with a single false value is accepted.
+add_test(NAME TestStringObjectWithTrue COMMAND ${THIS_TARGET} 3 t 4 "nada" "true")
+# Test that a string with an Object with an invalid false value fails.
+add_test(NAME TestStringObjectWithInvalidTrue COMMAND ${THIS_TARGET} 3 f 4 "wrong" "trve")
+# Test that a string with an Object with a single Integer value is accepted.
+add_test(NAME TestStringObjectWithInteger COMMAND ${THIS_TARGET} 3 t 5 "one" "42")
+# Test that a string with an Object with an invalid Integer value fails.
+add_test(NAME TestStringObjectWithInvalidInteger COMMAND ${THIS_TARGET} 3 f 5 "two" "4e1")
+# Test that a string with an Object with a single negative Integer value is accepted.
+add_test(NAME TestStringObjectWithNegInteger COMMAND ${THIS_TARGET} 3 t 5 "three" "-42")
+# Test that a string with an Object with an invalid negative Integer value fails.
+add_test(NAME TestStringObjectWithInvalidNegInteger COMMAND ${THIS_TARGET} 3 f 5 "four" "-4.1")
+# Test that a string with an Object with a single simple String value is accepted.
+add_test(NAME TestStringObjectWithSimpleString COMMAND ${THIS_TARGET} 3 t 6 "eno" "alpha beta")
+# Test that a string with an Object with a single complex String value is accepted.
+add_test(NAME TestStringObjectWithComplexString COMMAND ${THIS_TARGET} 3 t 6 "owt" "alpha\" beta")
+# Test that a string with an Object with a single Double value is accepted.
+add_test(NAME TestStringObjectWithDouble COMMAND ${THIS_TARGET} 3 t 7 "alpha" "42.0")
+# Test that a string with an Object with an invalid Double value fails.
+add_test(NAME TestStringObjectWithInvalidDouble COMMAND ${THIS_TARGET} 3 f 7 "beta" "42")
+# Test that a string with an Object with a single negative Double value is accepted.
+add_test(NAME TestStringObjectWithNegDouble COMMAND ${THIS_TARGET} 3 t 7 "gamma" "-42e3")
+# Test that a string with an Object with an invalid negative Double value fails.
+add_test(NAME TestStringObjectWithInvalidNegDouble COMMAND ${THIS_TARGET} 3 f 7 "delta" "-400")
+# Test that a string with an Object with a single Address value is accepted.
+add_test(NAME TestStringObjectWithAddress1 COMMAND ${THIS_TARGET} 3 t 8 "^1" "12.23.34.45")
+# Test that a string with an Object with a single Address value is accepted.
+add_test(NAME TestStringObjectWithAddress2 COMMAND ${THIS_TARGET} 3 t 8 "^2" "@12.23.34.45")
+# Test that a string with an Object with an invalid Address value fails.
+add_test(NAME TestStringObjectWithInvalidAddress1 COMMAND ${THIS_TARGET} 3 f 8 "^3" "1.2.3.4.5")
+# Test that a string with an Object with an invalid Address value fails.
+add_test(NAME TestStringObjectWithInvalidAddress2 COMMAND ${THIS_TARGET} 3 f 8 "^4" "1.2.3")
+# Test that a string with an Object with an invalid Address value fails.
+add_test(NAME TestStringObjectWithInvalidAddress3 COMMAND ${THIS_TARGET} 3 f 8 "^5" "1111.222.33.44")
+# Test that a string with an Object with an invalid Address value fails.
+add_test(NAME TestStringObjectWithInvalidAddress4 COMMAND ${THIS_TARGET} 3 f 8 "^6" "111.222.333.444")
+# Test that a string with an Object with a single Array value is accepted.
+add_test(NAME TestStringObjectWithArray COMMAND ${THIS_TARGET} 3 t 9 "*1" "[]")
+# Test that a string with an Object with an invalid Array value fails.
+add_test(NAME TestStringObjectWithInvalidArray COMMAND ${THIS_TARGET} 3 f 9 "*2" "[}")
+# Test that a string with an Object with a single Object value is accepted.
+add_test(NAME TestStringObjectWithObject COMMAND ${THIS_TARGET} 3 t 10 "+1" "{}")
+# Test that a string with an Object with an invalid Object value fails.
+add_test(NAME TestStringObjectWithInvalidObject COMMAND ${THIS_TARGET} 3 f 10 "+2" "{]")
+
+# Test that a file with an empty Object is accepted.
+add_test(NAME TestFileEmptyObject COMMAND ${THIS_TARGET} 4 t 1)
+# Test that a file with an unterminated Object fails.
+add_test(NAME TestFileUnterminatedObject COMMAND ${THIS_TARGET} 4 f 2)
+# Test that a file with an Object with a single NULL is accepted.
+add_test(NAME TestFileObjectWithNULL COMMAND ${THIS_TARGET} 4 t 3 "tag" "null")
+# Test that a file with an Object with an invalid NULL fails.
+add_test(NAME TestFileObjectWithInvalidNULL COMMAND ${THIS_TARGET} 4 f 3 "<tag>" "nul")
+# Test that a file with an Object with a single false value is accepted.
+add_test(NAME TestFileObjectWithFalse COMMAND ${THIS_TARGET} 4 t 4 "chuck" "false")
+# Test that a file with an Object with an invalid false value fails.
+add_test(NAME TestFileObjectWithInvalidFalse COMMAND ${THIS_TARGET} 4 f 4 "farley" "felse")
+# Test that a file with an Object with a single false value is accepted.
+add_test(NAME TestFileObjectWithTrue COMMAND ${THIS_TARGET} 4 t 4 "nada" "true")
+# Test that a file with an Object with an invalid false value fails.
+add_test(NAME TestFileObjectWithInvalidTrue COMMAND ${THIS_TARGET} 4 f 4 "wrong" "trve")
+# Test that a file with an Object with a single Integer value is accepted.
+add_test(NAME TestFileObjectWithInteger COMMAND ${THIS_TARGET} 4 t 5 "one" "42")
+# Test that a file with an Object with an invalid Integer value fails.
+add_test(NAME TestFileObjectWithInvalidInteger COMMAND ${THIS_TARGET} 4 f 5 "two" "4e1")
+# Test that a file with an Object with a single negative Integer value is accepted.
+add_test(NAME TestFileObjectWithNegInteger COMMAND ${THIS_TARGET} 4 t 5 "three" "-42")
+# Test that a file with an Object with an invalid negative Integer value fails.
+add_test(NAME TestFileObjectWithInvalidNegInteger COMMAND ${THIS_TARGET} 4 f 5 "four" "-4.1")
+# Test that a file with an Object with a single simple String value is accepted.
+add_test(NAME TestFileObjectWithSimpleString COMMAND ${THIS_TARGET} 4 t 6 "eno" "alpha beta")
+# Test that a file with an Object with a single complex String value is accepted.
+add_test(NAME TestFileObjectWithComplexString COMMAND ${THIS_TARGET} 4 t 6 "owt" "alpha\" beta")
+# Test that a file with an Object with a single Double value is accepted.
+add_test(NAME TestFileObjectWithDouble COMMAND ${THIS_TARGET} 4 t 7 "alpha" "42.0")
+# Test that a file with an Object with an invalid Double value fails.
+add_test(NAME TestFileObjectWithInvalidDouble COMMAND ${THIS_TARGET} 4 f 7 "beta" "42")
+# Test that a file with an Object with a single negative Double value is accepted.
+add_test(NAME TestFileObjectWithNegDouble COMMAND ${THIS_TARGET} 4 t 7 "gamma" "-42e3")
+# Test that a file with an Object with an invalid negative Double value fails.
+add_test(NAME TestFileObjectWithInvalidNegDouble COMMAND ${THIS_TARGET} 4 f 7 "delta" "-400")
+# Test that a file with an Object with a single Address value is accepted.
+add_test(NAME TestFileObjectWithAddress1 COMMAND ${THIS_TARGET} 4 t 8 "^1" "12.23.34.45")
+# Test that a file with an Object with a single Address value is accepted.
+add_test(NAME TestFileObjectWithAddress2 COMMAND ${THIS_TARGET} 4 t 8 "^2" "@12.23.34.45")
+# Test that a file with an Object with an invalid Address value fails.
+add_test(NAME TestFileObjectWithInvalidAddress1 COMMAND ${THIS_TARGET} 4 f 8 "^3" "1.2.3.4.5")
+# Test that a file with an Object with an invalid Address value fails.
+add_test(NAME TestFileObjectWithInvalidAddress2 COMMAND ${THIS_TARGET} 4 f 8 "^4" "1.2.3")
+# Test that a file with an Object with an invalid Address value fails.
+add_test(NAME TestFileObjectWithInvalidAddress3 COMMAND ${THIS_TARGET} 4 f 8 "^5" "1111.222.33.44")
+# Test that a file with an Object with an invalid Address value fails.
+add_test(NAME TestFileObjectWithInvalidAddress4 COMMAND ${THIS_TARGET} 4 f 8 "^6" "111.222.333.444")
+# Test that a file with an Object with a single Array value is accepted.
+add_test(NAME TestFileObjectWithArray COMMAND ${THIS_TARGET} 3 t 9 "*1" "[]")
+# Test that a file with an Object with an invalid Array value fails.
+add_test(NAME TestFileObjectWithInvalidArray COMMAND ${THIS_TARGET} 3 f 9 "*2" "[}")
+# Test that a file with an Object with a single Object value is accepted.
+add_test(NAME TestFileObjectWithObject COMMAND ${THIS_TARGET} 3 t 10 "+1" "{}")
+# Test that a file with an Object with an invalid Object value fails.
+add_test(NAME TestFileObjectWithInvalidObject COMMAND ${THIS_TARGET} 3 f 10 "+2" "{]")

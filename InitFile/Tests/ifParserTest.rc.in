@@ -69,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "@IF_COMPANY@\0"
             VALUE "FileDescription", "Argument Descriptors Test\0"
             VALUE "FileVersion", "@IF_VERSION_STRING@.0\0"
-            VALUE "InternalName", "ifContainersTest.exe\0"
+            VALUE "InternalName", "ifParserTest.exe\0"
             VALUE "LegalCopyright", "(c) 2020 by @IF_COMPANY@.\0"
-            VALUE "OriginalFilename", "ifContainersTest.exe\0"
+            VALUE "OriginalFilename", "ifParserTest.exe\0"
             VALUE "ProductName", "Argument Descriptors Test\0"
             VALUE "ProductVersion", "@IF_VERSION_STRING@.0\0"
         END

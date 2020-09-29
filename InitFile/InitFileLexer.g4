@@ -9,7 +9,7 @@ FALSE_VALUE : [Ff][Aa][Ll][Ss][Ee] ;
 
 NULL_VALUE : [Nn][Uu][Ll][Ll] ;
 
-IPV4_ADDRESS : '@' INT3 '.' INT3 '.' INT3 '.' INT3 ;
+IPV4_ADDRESS : '@'? INT3 '.' INT3 '.' INT3 '.' INT3 ;
 
 fragment INT3 : DIGIT ( DIGIT DIGIT? )? ;
 

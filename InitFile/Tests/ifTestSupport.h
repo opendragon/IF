@@ -60,6 +60,7 @@
 
 namespace InitFile
 {
+
     /*! @brief A pointer to a handler for system signals.
      @param[in] theSignal The signal of interest. */
     using SignalHandler = void (*)
@@ -137,6 +138,9 @@ namespace InitFile
     void
     ShutDownCatcher
         (void);
+
+    /*! @brief A string containing a double quote to aid in code legibility. */
+    extern std::string  kDQ;
 
 } // InitFile
 

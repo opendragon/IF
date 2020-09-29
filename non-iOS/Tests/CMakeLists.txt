@@ -42,4 +42,4 @@ set(THIS_SOURCE_DIR ${IF_SOURCE_DIR}/Tests)
 
 include(Test_values.txt)
 include(Test_containers.txt)
-#include(Test_parser.txt)
+include(Test_parser.txt)
