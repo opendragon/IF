@@ -165,7 +165,10 @@ BaseValueListener::exitAddressValue
     if (ctx->add)
     {
         addressString = ctx->add->getText();
-        addressString = addressString.substr(1, addressString.length() - 1);
+        if ('@' == addressString[0])
+        {
+            addressString = addressString.substr(1, addressString.length());
+        }
 #if defined(TRACE_PARSING_)
         std::cerr << "address=" << addressString << std::endl;
 #endif // defined(TRACE_PARSING_)
@@ -184,9 +187,10 @@ BaseValueListener::exitAddressValue
                 segment = addressString.substr(lastPos, jj - lastPos);
                 lastPos = jj + 1;
             }
-            size_t  segmentValue = std::stoul(segment);
+            size_t  nextPos;
+            size_t  segmentValue = std::stoul(segment, &nextPos);
 
-            if (255 < segmentValue)
+            if ((255 < segmentValue) || (nextPos < segment.length()))
             {
                 throw antlr4::RuntimeException("address contains invalid byte (" + segment + ")");
 

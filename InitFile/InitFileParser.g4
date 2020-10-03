@@ -20,7 +20,7 @@ pair : tag COLON value ;
 
 tag : dq=STRING1 | sq=STRING2 | na=NAME ;
 
-value : literalValue 
+value : literalValue
         | addressValue
         | doubleValue
         | integerValue

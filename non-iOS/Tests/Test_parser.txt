@@ -107,13 +107,11 @@ add_test(NAME TestStringArrayWithAddress1 COMMAND ${THIS_TARGET} 1 t 10 "12.23.3
 # Test that a string with an Array with a single Address value is accepted.
 add_test(NAME TestStringArrayWithAddress2 COMMAND ${THIS_TARGET} 1 t 10 "@12.23.34.45")
 # Test that a string with an Array with an invalid Address value fails.
-add_test(NAME TestStringArrayWithInvalidAddress1 COMMAND ${THIS_TARGET} 1 f 10 "1.2.3.4.5")
+add_test(NAME TestStringArrayWithInvalidAddress1 COMMAND ${THIS_TARGET} 1 f 10 "1.2.3")
 # Test that a string with an Array with an invalid Address value fails.
-add_test(NAME TestStringArrayWithInvalidAddress2 COMMAND ${THIS_TARGET} 1 f 10 "1.2.3")
+add_test(NAME TestStringArrayWithInvalidAddress2 COMMAND ${THIS_TARGET} 1 f 10 "1111.222.33.44")
 # Test that a string with an Array with an invalid Address value fails.
-add_test(NAME TestStringArrayWithInvalidAddress3 COMMAND ${THIS_TARGET} 1 f 10 "1111.222.33.44")
-# Test that a string with an Array with an invalid Address value fails.
-add_test(NAME TestStringArrayWithInvalidAddress4 COMMAND ${THIS_TARGET} 1 f 10 "111.222.333.444")
+add_test(NAME TestStringArrayWithInvalidAddress3 COMMAND ${THIS_TARGET} 1 f 10 "111.222.333.444")
 # Test that a string with an Array with a single Array value is accepted.
 add_test(NAME TestStringArrayWithArray COMMAND ${THIS_TARGET} 1 t 11 "[]")
 # Test that a string with an Array with an invalid Array value fails.
@@ -122,6 +120,22 @@ add_test(NAME TestStringArrayWithInvalidArray COMMAND ${THIS_TARGET} 1 f 11 "[}"
 add_test(NAME TestStringArrayWithObject COMMAND ${THIS_TARGET} 1 t 12 "{}")
 # Test that a string with an Array with an invalid Object value fails.
 add_test(NAME TestStringArrayWithInvalidObject COMMAND ${THIS_TARGET} 1 f 12 "{")
+# Test that a string with an Array with a pair of NULLs is accepted.
+add_test(NAME TestStringArrayWithPairNull COMMAND ${THIS_TARGET} 1 t 13 "NULL" "null")
+# Test that a string with an Array with a pair of Boolean values is accepted.
+add_test(NAME TestStringArrayWithPairBoolean COMMAND ${THIS_TARGET} 1 t 14 "TRUE" "FALSE")
+# Test that a string with an Array with a pair of Integer values is accepted.
+add_test(NAME TestStringArrayWithPairInteger COMMAND ${THIS_TARGET} 1 t 15 "17" "12")
+# Test that a string with an Array with a pair of String values is accepted.
+add_test(NAME TestStringArrayWithPairString COMMAND ${THIS_TARGET} 1 t 16 "alpha beta" "alpha\" beta")
+# Test that a string with an Array with a pair of Double values is accepted.
+add_test(NAME TestStringArrayWithPairDouble COMMAND ${THIS_TARGET} 1 t 17 "12345.0" "54321E0")
+# Test that a string with an Array with a pair of Address values is accepted.
+add_test(NAME TestStringArrayWithPairAddress COMMAND ${THIS_TARGET} 1 t 18 "11.22.33.44" "44.33.22.11")
+# Test that a string with an Array with a pair of Array values is accepted.
+add_test(NAME TestStringArrayWithPairArray COMMAND ${THIS_TARGET} 1 t 19)
+# Test that a string with an Array with a pair of Object values is accepted.
+add_test(NAME TestStringArrayWithPairObject COMMAND ${THIS_TARGET} 1 t 20)
 
 # Test that an empty file fails.
 add_test(NAME TestFileEmptyFile COMMAND ${THIS_TARGET} 2 f 1)
@@ -183,6 +197,22 @@ add_test(NAME TestFileArrayWithInvalidArray COMMAND ${THIS_TARGET} 2 f 11 "[}")
 add_test(NAME TestFileArrayWithObject COMMAND ${THIS_TARGET} 2 t 12 "{}")
 # Test that a file with an Array with an invalid Object value fails.
 add_test(NAME TestFileArrayWithInvalidObject COMMAND ${THIS_TARGET} 2 f 12 "{")
+# Test that a file with an Array with a pair of NULLs is accepted.
+add_test(NAME TestFileArrayWithPairNull COMMAND ${THIS_TARGET} 2 t 13 "null" "NULL")
+# Test that a file with an Array with a pair of Boolean values is accepted.
+add_test(NAME TestFileArrayWithPairBoolean COMMAND ${THIS_TARGET} 2 t 14 "false" "true")
+# Test that a file with an Array with a pair of Integer values is accepted.
+add_test(NAME TestFileArrayWithPairInteger COMMAND ${THIS_TARGET} 2 t 15 "12" "17")
+# Test that a file with an Array with a pair of String values is accepted.
+add_test(NAME TestFileArrayWithPairString COMMAND ${THIS_TARGET} 2 t 16 "alpha beta" "alpha\" beta")
+# Test that a file with an Array with a pair of Double values is accepted.
+add_test(NAME TestFileArrayWithPairDouble COMMAND ${THIS_TARGET} 2 t 17 "1712.0" "1217.0")
+# Test that a file with an Array with a pair of Address values is accepted.
+add_test(NAME TestFileArrayWithPairAddress COMMAND ${THIS_TARGET} 2 t 18 "4.3.2.1" "8.7.6.5")
+# Test that a file with an Array with a pair of Array values is accepted.
+add_test(NAME TestFileArrayWithPairArray COMMAND ${THIS_TARGET} 2 t 19)
+# Test that a file with an Array with a pair of Object values is accepted.
+add_test(NAME TestFileArrayWithPairObject COMMAND ${THIS_TARGET} 2 t 20)
 
 # Test that a string with an empty Object is accepted.
 add_test(NAME TestStringEmptyObject COMMAND ${THIS_TARGET} 3 t 1)
@@ -240,6 +270,22 @@ add_test(NAME TestStringObjectWithInvalidArray COMMAND ${THIS_TARGET} 3 f 9 "*2"
 add_test(NAME TestStringObjectWithObject COMMAND ${THIS_TARGET} 3 t 10 "+1" "{}")
 # Test that a string with an Object with an invalid Object value fails.
 add_test(NAME TestStringObjectWithInvalidObject COMMAND ${THIS_TARGET} 3 f 10 "+2" "{]")
+# Test that a string with an Object with a pair of NULLs is accepted.
+add_test(NAME TestStringObjectWithPairNull COMMAND ${THIS_TARGET} 3 t 11 "^1" "nUlL" "^2" "NuLl")
+# Test that a string with an Object with a pair of Boolean values is accepted.
+add_test(NAME TestStringObjectWithPairBoolean COMMAND ${THIS_TARGET} 3 t 12 "@1" "false" "@2" "true")
+# Test that a string with an Object with a pair of Integer values is accepted.
+add_test(NAME TestStringObjectWithPairInteger COMMAND ${THIS_TARGET} 3 t 13 ":1" "42" ":2" "43")
+# Test that a string with an Object with a pair of String values is accepted.
+add_test(NAME TestStringObjectWithPairString COMMAND ${THIS_TARGET} 3 t 14 "41" "alpha beta" "42" "alpha\" beta")
+# Test that a string with an Object with a pair of Double values is accepted.
+add_test(NAME TestStringObjectWithPairDouble COMMAND ${THIS_TARGET} 3 t 15 "aa" "1711.0" "bb" "1117E1")
+# Test that a string with an Object with a pair of Address values is accepted.
+add_test(NAME TestStringObjectWithPairAddress COMMAND ${THIS_TARGET} 3 t 16 "ZY" "12.23.34.45" "YX" "54.43.32.31")
+# Test that a string with an Object with a pair of Array values is accepted.
+add_test(NAME TestStringObjectWithPairArray COMMAND ${THIS_TARGET} 3 t 17)
+# Test that a string with an Object with a pair of Object values is accepted.
+add_test(NAME TestStringObjectWithPairObject COMMAND ${THIS_TARGET} 3 t 18)
 
 # Test that a file with an empty Object is accepted.
 add_test(NAME TestFileEmptyObject COMMAND ${THIS_TARGET} 4 t 1)
@@ -290,10 +336,26 @@ add_test(NAME TestFileObjectWithInvalidAddress3 COMMAND ${THIS_TARGET} 4 f 8 "^5
 # Test that a file with an Object with an invalid Address value fails.
 add_test(NAME TestFileObjectWithInvalidAddress4 COMMAND ${THIS_TARGET} 4 f 8 "^6" "111.222.333.444")
 # Test that a file with an Object with a single Array value is accepted.
-add_test(NAME TestFileObjectWithArray COMMAND ${THIS_TARGET} 3 t 9 "*1" "[]")
+add_test(NAME TestFileObjectWithArray COMMAND ${THIS_TARGET} 4 t 9 "*1" "[]")
 # Test that a file with an Object with an invalid Array value fails.
-add_test(NAME TestFileObjectWithInvalidArray COMMAND ${THIS_TARGET} 3 f 9 "*2" "[}")
+add_test(NAME TestFileObjectWithInvalidArray COMMAND ${THIS_TARGET} 4 f 9 "*2" "[}")
 # Test that a file with an Object with a single Object value is accepted.
-add_test(NAME TestFileObjectWithObject COMMAND ${THIS_TARGET} 3 t 10 "+1" "{}")
+add_test(NAME TestFileObjectWithObject COMMAND ${THIS_TARGET} 4 t 10 "+1" "{}")
 # Test that a file with an Object with an invalid Object value fails.
-add_test(NAME TestFileObjectWithInvalidObject COMMAND ${THIS_TARGET} 3 f 10 "+2" "{]")
+add_test(NAME TestFileObjectWithInvalidObject COMMAND ${THIS_TARGET} 4 f 10 "+2" "{]")
+# Test that a file with an Object with a pair of NULLs is accepted.
+add_test(NAME TestFileObjectWithPairNull COMMAND ${THIS_TARGET} 4 t 11 "%1" "null" "%2" "NULL")
+# Test that a file with an Object with a pair of Boolean values is accepted.
+add_test(NAME TestFileObjectWithPairBoolean COMMAND ${THIS_TARGET} 4 t 12 "@1" "fAlsE" "@2" "TrUe")
+# Test that a file with an Object with a pair of Integer values is accepted.
+add_test(NAME TestFileObjectWithPairInteger COMMAND ${THIS_TARGET} 4 t 13 ":2" "43" ":1" "42")
+# Test that a file with an Object with a pair of String values is accepted.
+add_test(NAME TestFileObjectWithPairString COMMAND ${THIS_TARGET} 4 t 14 "42" "alpha" "41" "beta")
+# Test that a file with an Object with a pair of Double values is accepted.
+add_test(NAME TestFileObjectWithPairDouble COMMAND ${THIS_TARGET} 4 t 15 "@@" "1792E1" "!!" "9217.0")
+# Test that a file with an Object with a pair of Address values is accepted.
+add_test(NAME TestFileObjectWithPairAddress COMMAND ${THIS_TARGET} 4 t 16 "::" "98.87.76.65" "**" "56.67.78.89")
+# Test that a file with an Object with a pair of Array values is accepted.
+add_test(NAME TestFileObjectWithPairArray COMMAND ${THIS_TARGET} 4 t 17)
+# Test that a file with an Object with a pair of Object values is accepted.
+add_test(NAME TestFileObjectWithPairObject COMMAND ${THIS_TARGET} 4 t 18)

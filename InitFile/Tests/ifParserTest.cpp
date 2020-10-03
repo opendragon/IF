@@ -121,61 +121,154 @@ getTempFileName
     return std::string(mktemp(newName));
 } // getTempFileName
 
-/*! @brief Construct a string and parse it.
+/*! @brief Construct a string for an Array and parse it.
  @param[in,out] listener The listener used to handle the parse operation.
- @param[in] stringToAdd The string of interest.
- @param[in] tagToUse The tag to be used if constructing an Object string.
+ @param[in] stringToAdd1 The first string of interest.
+ @param[in] stringToAdd2 The second string of interest.
  @return The result of the parse operation. */
 static InitFile::SpBase
-addToStringAndParse
+addArrayToStringAndParse
     (InitFile::BaseValueListener *  listener,
-     const std::string &            stringToAdd,
-     const std::string &            tagToUse = "")
+     const std::string &            stringToAdd1,
+     const std::string &            stringToAdd2 = "")
 {
-    std::string stringToBuild;
+    std::string stringToBuild("[ " + stringToAdd1);
 
-    if (0 < tagToUse.length())
+    if (0 < stringToAdd2.length())
     {
-        // This is for an Object value.
-        stringToBuild = "{ " + MakeWrappedString(tagToUse) + " : " + stringToAdd + " }";
+        stringToBuild += ", " + stringToAdd2;
     }
-    else
-    {
-        // This is for an Array value.
-        stringToBuild = "[ " + stringToAdd + " ]";
-    }
+    stringToBuild += " ]";
     return listener->GetValue(stringToBuild);
-} // addToStringAndParse
+} // addArrayToStringAndParse
 
-/*! @brief Write to afile and parse it.
+/*! @brief Construct a string for an Object and parse it.
+ @param[in,out] listener The listener used to handle the parse operation.
+ @param[in] tagToUse1 The first tag to be used.
+ @param[in] stringToAdd1 The first string of interest.
+ @param[in] tagToUse2 The second tag to be used.
+ @param[in] stringToAdd2 The second string of interest.
+ @return The result of the parse operation. */
+static InitFile::SpBase
+addObjectToStringAndParse
+    (InitFile::BaseValueListener *  listener,
+     const std::string &            tagToUse1,
+     const std::string &            stringToAdd1,
+     const std::string &            tagToUse2 = "",
+     const std::string &            stringToAdd2 = "")
+{
+    std::string stringToBuild("{ " + MakeWrappedString(tagToUse1) + " : " + stringToAdd1);
+
+    if ((0 < tagToUse2.length()) && (0 < stringToAdd2.length()))
+    {
+        stringToBuild += ", " + MakeWrappedString(tagToUse2) + " : " + stringToAdd2;
+    }
+    stringToBuild += " }";
+    return listener->GetValue(stringToBuild);
+} // addObjectToStringAndParse
+
+/*! @brief Write an Array to a file and parse it.
  @param[in,out] listener The listener used to handle the parse operation.
  @param[in,out] inOutFile The file to be used for the parsing.
  @param[in] fileName The name of the file being used.
- @param[in] stringToWrite The string of interest.
- @param[in] tagToUse The tag to be used if writing an Object.
+ @param[in] stringToWrite1 The first string of interest.
+ @param[in] stringToWrite2 The second string of interest.
  @return The result of the parse operation. */
 static InitFile::SpBase
-writeToFileAndParse
+writeArrayToFileAndParse
     (InitFile::BaseValueListener *  listener,
      std::fstream &                 inOutFile,
      const std::string &            fileName,
-     const std::string &            stringToWrite,
-     const std::string &            tagToUse = "")
+     const std::string &            stringToWrite1,
+     const std::string &            stringToWrite2 = "")
 {
-    if (0 < tagToUse.length())
+    inOutFile << "[ " << stringToWrite1;
+    if (0 < stringToWrite2.length())
     {
-        // This is for an Object value.
-        inOutFile << "{ " << MakeWrappedString(tagToUse) << " : " << stringToWrite << " }";
+        inOutFile << ", " << stringToWrite2;
     }
-    else
-    {
-        // This is for an Array value.
-        inOutFile << "[ " << stringToWrite << " ]";
-    }
+    inOutFile << " ]";
     inOutFile.close();
     inOutFile.open(fileName, std::ios::in);
     return listener->GetValue(inOutFile);
-} // writeToFileAndParse
+} // writeArrayToFileAndParse
+
+/*! @brief Write an Object to a file and parse it.
+ @param[in,out] listener The listener used to handle the parse operation.
+ @param[in,out] inOutFile The file to be used for the parsing.
+ @param[in] fileName The name of the file being used.
+ @param[in] tagToUse1 The first tag to be used.
+ @param[in] stringToWrite1 The string of interest.
+ @param[in] tagToUse2 The second tag to be used.
+ @param[in] stringToWrite2 The string of interest.
+ @return The result of the parse operation. */
+static InitFile::SpBase
+writeObjectToFileAndParse
+    (InitFile::BaseValueListener *  listener,
+     std::fstream &                 inOutFile,
+     const std::string &            fileName,
+     const std::string &            tagToUse1,
+     const std::string &            stringToWrite1,
+     const std::string &            tagToUse2 = "",
+     const std::string &            stringToWrite2 = "")
+{
+    inOutFile << "{ " << MakeWrappedString(tagToUse1) << " : " << stringToWrite1;
+    if ((0 < tagToUse2.length()) && (0 < stringToWrite2.length()))
+    {
+        inOutFile << ", " << MakeWrappedString(tagToUse2) << " : " << stringToWrite2;
+    }
+    inOutFile << " }";
+    inOutFile.close();
+    inOutFile.open(fileName, std::ios::in);
+    return listener->GetValue(inOutFile);
+} // writeObjectToFileAndParse
+
+/*! @brief Convert a dot-separated string of integers into an IPv4 address.
+ @param[in] inString The string to be processed, which may have a leading '@' character.
+ @return The IPv4 address represented by the string. */
+static uint32_t
+convertStringToIp4Value
+    (const std::string &    inString)
+{
+    uint32_t    result = 0;
+    size_t      lastPos = (('@' == inString[0]) ? 1 : 0);
+
+    for (size_t ii = 0; ii < 4; ++ii)
+    {
+        size_t      jj = inString.find_first_of('.', lastPos);
+        std::string segment;
+
+        result <<= 8;
+        if (std::string::npos == jj)
+        {
+            segment = inString.substr(lastPos, inString.length());
+        }
+        else if (ii < 3)
+        {
+            segment = inString.substr(lastPos, jj - lastPos);
+            lastPos = jj + 1;
+        }
+        else
+        {
+            // Extra dot after a valid IPv4 address, which makes it invalid.
+            result = static_cast<uint32_t>(-1);
+            break;
+
+        }
+        size_t  nextPos;
+        size_t  segmentValue = std::stoul(segment, &nextPos);
+
+        // Check if the segment has no invalid characters and is not too large.
+        if ((255 < segmentValue) || (nextPos < segment.length()))
+        {
+            result = static_cast<uint32_t>(-1);
+            break;
+
+        }
+        result += segmentValue;
+    }
+    return result;
+} // convertStringToIp4Value
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
@@ -220,6 +313,14 @@ doTestStringInputArray
         // 10) test that a string with an array with a single address value succeeds or fails.
         // 11) test that a string with an array with a single array value succeeds or fails.
         // 12) test that a string with an array with a single object value succeeds or fails.
+        // 13) test that a string with an array with a pair of NULLs is accepted.
+        // 14) test that a string with an array with a pair of Boolean values is accepted.
+        // 15) test that a string with an array with a pair of Integer values is accepted.
+        // 16) test that a string with an array with a pair of String values is accepted.
+        // 17) test that a string with an array with a pair of Double values is accepted.
+        // 18) test that a string with an array with a pair of Address values is accepted.
+        // 19) test that a string with an array with a pair of Array values is accepted.
+        // 20) test that a string with an array with a pair of Object values is accepted.
         switch (subSelector)
         {
             case 1 :
@@ -245,7 +346,7 @@ doTestStringInputArray
             case 5 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -264,7 +365,7 @@ doTestStringInputArray
             case 6 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -284,7 +385,7 @@ doTestStringInputArray
             case 7 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -307,14 +408,13 @@ doTestStringInputArray
                 {
                     std::string     wrappedString(InitFile::MakeWrappedString(*argv));
 
-                    aValue = addToStringAndParse(listener.get(), wrappedString);
+                    aValue = addArrayToStringAndParse(listener.get(), wrappedString);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
                         SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
 
-                        okSoFar = (fetchedValue && fetchedValue->AsString() &&
-                                    (*argv == fetchedValue->AsString()->GetValue()));
+                        okSoFar = (fetchedValue && fetchedValue->AsString() && (*argv == fetchedValue->AsString()->GetValue()));
                     }
                 }
                 else
@@ -327,7 +427,7 @@ doTestStringInputArray
             case 9 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -348,13 +448,14 @@ doTestStringInputArray
             case 10 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase      fetchedValue(aValue->AsArray()->GetValue(0));
+                        uint32_t    expectedValue = convertStringToIp4Value(*argv);
 
-                        okSoFar = (fetchedValue && fetchedValue->AsAddress());
+                        okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
                     }
                 }
                 else
@@ -367,7 +468,7 @@ doTestStringInputArray
             case 11 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -386,7 +487,7 @@ doTestStringInputArray
             case 12 :
                 if (1 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), *argv);
+                    aValue = addArrayToStringAndParse(listener.get(), *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -399,6 +500,168 @@ doTestStringInputArray
                 {
                     ODL_LOG("! (1 <= argc)"); //####
                     okSoFar = false;
+                }
+                break;
+
+            case 13 :
+                if (2 <= argc)
+                {
+                    aValue = addArrayToStringAndParse(listener.get(), *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 14 :
+                if (2 <= argc)
+                {
+                    aValue = addArrayToStringAndParse(listener.get(), *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        bool    expectedValue1 = ('t' == tolower(*argv[0]));
+                        bool    expectedValue2 = ('t' == tolower(*argv[1]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsBoolean() && (expectedValue1 == fetchedValue1->AsBoolean()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsBoolean() && (expectedValue2 == fetchedValue2->AsBoolean()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 15 :
+                if (2 <= argc)
+                {
+                    aValue = addArrayToStringAndParse(listener.get(), *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        int64_t expectedValue1;
+                        int64_t expectedValue2;
+
+                        okSoFar = (ConvertToInt64(*argv, expectedValue1) && fetchedValue1 && fetchedValue1->AsInteger() &&
+                                    (expectedValue1 == fetchedValue1->AsInteger()->GetValue()) && ConvertToInt64(argv[1], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsInteger() && (expectedValue2 == fetchedValue2->AsInteger()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 16 :
+                if (2 <= argc)
+                {
+                    std::string     wrappedString1(InitFile::MakeWrappedString(*argv));
+                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[1]));
+
+                    aValue = addArrayToStringAndParse(listener.get(), wrappedString1, wrappedString2);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (*argv == fetchedValue1->AsString()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsString() && (argv[1] == fetchedValue2->AsString()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 17 :
+                if (2 <= argc)
+                {
+                    aValue = addArrayToStringAndParse(listener.get(), *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        double  expectedValue1;
+                        double  expectedValue2;
+
+                        okSoFar = (ConvertToDouble(*argv, expectedValue1) && fetchedValue1 && fetchedValue1->AsDouble() &&
+                                    (expectedValue1 == fetchedValue1->AsDouble()->GetValue()) && ConvertToDouble(argv[1], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsDouble() && (expectedValue2 == fetchedValue2->AsDouble()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 18 :
+                if (2 <= argc)
+                {
+                    aValue = addArrayToStringAndParse(listener.get(), *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase      fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase      fetchedValue2(aValue->AsArray()->GetValue(1));
+                        uint32_t    expectedValue1 = convertStringToIp4Value(*argv);
+                        uint32_t    expectedValue2 = convertStringToIp4Value(argv[1]);
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsAddress() && (expectedValue1 == fetchedValue1->AsAddress()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsAddress() && (expectedValue2 == fetchedValue2->AsAddress()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 19 :
+                aValue = addArrayToStringAndParse(listener.get(), "[ ]", "[]");
+                okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                    okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
+                }
+                break;
+
+            case 20 :
+                aValue = addArrayToStringAndParse(listener.get(), "{}", "{ }");
+                okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                    okSoFar = (fetchedValue1 && fetchedValue1->AsObject() && fetchedValue2 && fetchedValue2->AsObject());
                 }
                 break;
 
@@ -463,6 +726,14 @@ doTestFileInputArray
         // 10) test that a file with an array with a single address value succeeds or fails.
         // 11) test that a file with an array with a single array value succeeds or fails.
         // 12) test that a file with an array with a single object value succeeds or fails.
+        // 13) test that a file with an array with a pair of NULLs is accepted.
+        // 14) test that a file with an array with a pair of Boolean values is accepted.
+        // 15) test that a file with an array with a pair of integer values is accepted.
+        // 16) test that a file with an array with a pair of string values is accepted.
+        // 17) test that a file with an array with a pair of double values is accepted.
+        // 18) test that a file with an array with a pair of address values is accepted.
+        // 19) test that a file with an array with a pair of array values is accepted.
+        // 20) test that a file with an array with a pair of object values is accepted.
         if (! inputOutput.is_open())
         {
             inputOutput.clear();
@@ -504,7 +775,7 @@ doTestFileInputArray
             case 5 :
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -523,7 +794,7 @@ doTestFileInputArray
             case 6 :
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -543,7 +814,7 @@ doTestFileInputArray
             case 7 :
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -566,14 +837,13 @@ doTestFileInputArray
                 {
                     std::string     wrappedString(InitFile::MakeWrappedString(*argv));
 
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, wrappedString);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, wrappedString);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
                         SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
 
-                        okSoFar = (fetchedValue && fetchedValue->AsString() &&
-                                    (*argv == fetchedValue->AsString()->GetValue()));
+                        okSoFar = (fetchedValue && fetchedValue->AsString() && (*argv == fetchedValue->AsString()->GetValue()));
                     }
                 }
                 else
@@ -586,7 +856,7 @@ doTestFileInputArray
             case 9 :
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -607,13 +877,14 @@ doTestFileInputArray
             case 10:
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase      fetchedValue(aValue->AsArray()->GetValue(0));
+                        uint32_t    expectedValue = convertStringToIp4Value(*argv);
 
-                        okSoFar = (fetchedValue && fetchedValue->AsAddress());
+                        okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
                     }
                 }
                 else
@@ -626,7 +897,7 @@ doTestFileInputArray
             case 11 :
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -645,7 +916,7 @@ doTestFileInputArray
             case 12 :
                 if (1 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, *argv);
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -658,6 +929,168 @@ doTestFileInputArray
                 {
                     ODL_LOG("! (1 <= argc)"); //####
                     okSoFar = false;
+                }
+                break;
+
+            case 13 :
+                if (2 <= argc)
+                {
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 14 :
+                if (2 <= argc)
+                {
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        bool    expectedValue1 = ('t' == tolower(*argv[0]));
+                        bool    expectedValue2 = ('t' == tolower(*argv[1]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsBoolean() && (expectedValue1 == fetchedValue1->AsBoolean()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsBoolean() && (expectedValue2 == fetchedValue2->AsBoolean()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 15 :
+                if (2 <= argc)
+                {
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        int64_t expectedValue1;
+                        int64_t expectedValue2;
+
+                        okSoFar = (ConvertToInt64(*argv, expectedValue1) && fetchedValue1 && fetchedValue1->AsInteger() &&
+                                    (expectedValue1 == fetchedValue1->AsInteger()->GetValue()) && ConvertToInt64(argv[1], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsInteger() && (expectedValue2 == fetchedValue2->AsInteger()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 16 :
+                if (2 <= argc)
+                {
+                    std::string     wrappedString1(InitFile::MakeWrappedString(*argv));
+                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[1]));
+
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, wrappedString1, wrappedString2);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (*argv == fetchedValue1->AsString()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsString() && (argv[1] == fetchedValue2->AsString()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 17 :
+                if (2 <= argc)
+                {
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        double  expectedValue1;
+                        double  expectedValue2;
+
+                        okSoFar = (ConvertToDouble(*argv, expectedValue1) && fetchedValue1 && fetchedValue1->AsDouble() &&
+                                    (expectedValue1 == fetchedValue1->AsDouble()->GetValue()) && ConvertToDouble(argv[1], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsDouble() && (expectedValue2 == fetchedValue2->AsDouble()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 18 :
+                if (2 <= argc)
+                {
+                    aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
+                    okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase      fetchedValue1(aValue->AsArray()->GetValue(0));
+                        SpBase      fetchedValue2(aValue->AsArray()->GetValue(1));
+                        uint32_t    expectedValue1 = convertStringToIp4Value(*argv);
+                        uint32_t    expectedValue2 = convertStringToIp4Value(argv[1]);
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsAddress() && (expectedValue1 == fetchedValue1->AsAddress()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsAddress() && (expectedValue2 == fetchedValue2->AsAddress()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 19 :
+                aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, "[]", "[ ]");
+                okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                    okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
+                }
+                break;
+
+            case 20 :
+                aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, "{}", "{ }");
+                okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
+                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+
+                    okSoFar = (fetchedValue1 && fetchedValue1->AsObject() && fetchedValue2 && fetchedValue2->AsObject());
                 }
                 break;
 
@@ -707,6 +1140,8 @@ doTestStringInputObject
         std::unique_ptr<InitFile::BaseValueListener>    listener(new InitFile::BaseValueListener);
         SpBase                                          aValue;
         bool                                            okSoFar;
+        std::string                                     key1;
+        std::string                                     key2;
 
         // 1) test that a string with an empty object is accepted.
         // 2) test that a string with an unterminated object fails.
@@ -718,6 +1153,14 @@ doTestStringInputObject
         // 8) test that a string with an object with a single address value succeeds or fails.
         // 9) test that a string with an object with a single array value succeeds or fails.
         // 10) test that a string with an object with a single object value succeeds or fails.
+        // 11) test that a string with an object with a pair of NULLs is accepted.
+        // 12) test that a string with an object with a pair of Boolean values is accepted.
+        // 13) test that a string with an object with a pair of integer values is accepted.
+        // 14) test that a string with an object with a pair of string values is accepted.
+        // 15) test that a string with an object with a pair of double values is accepted.
+        // 16) test that a string with an object with a pair of address values is accepted.
+        // 17) test that a string with an object with a pair of array values is accepted.
+        // 18) test that a string with an object with a pair of object values is accepted.
         switch (subSelector)
         {
             case 1 :
@@ -733,7 +1176,7 @@ doTestStringInputObject
             case 3 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -752,7 +1195,7 @@ doTestStringInputObject
             case 4 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -772,7 +1215,7 @@ doTestStringInputObject
             case 5 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -795,7 +1238,7 @@ doTestStringInputObject
                 {
                     std::string     wrappedString(InitFile::MakeWrappedString(argv[1]));
 
-                    aValue = addToStringAndParse(listener.get(), wrappedString, *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, wrappedString);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -814,7 +1257,7 @@ doTestStringInputObject
             case 7 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -835,13 +1278,14 @@ doTestStringInputObject
             case 8 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase      fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        uint32_t    expectedValue = convertStringToIp4Value(argv[1]);
 
-                        okSoFar = (fetchedValue && fetchedValue->AsAddress());
+                        okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
                     }
                 }
                 else
@@ -854,7 +1298,7 @@ doTestStringInputObject
             case 9 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -873,7 +1317,7 @@ doTestStringInputObject
             case 10 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -886,6 +1330,172 @@ doTestStringInputObject
                 {
                     ODL_LOG("! (2 <= argc)"); //####
                     okSoFar = false;
+                }
+                break;
+
+            case 11 :
+                if (4 <= argc)
+                {
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 12 :
+                if (4 <= argc)
+                {
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        bool    expectedValue1 = ('t' == tolower(*argv[1]));
+                        bool    expectedValue2 = ('t' == tolower(*argv[3]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsBoolean() && (expectedValue1 == fetchedValue1->AsBoolean()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue1->AsBoolean() && (expectedValue2 == fetchedValue2->AsBoolean()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 13 :
+                if (4 <= argc)
+                {
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        int64_t expectedValue1;
+                        int64_t expectedValue2;
+
+                        okSoFar = (ConvertToInt64(argv[1], expectedValue1) && fetchedValue1 && fetchedValue1->AsInteger() &&
+                                    (expectedValue1 == fetchedValue1->AsInteger()->GetValue()) && ConvertToInt64(argv[3], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsInteger() && (expectedValue2 == fetchedValue2->AsInteger()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 14 :
+                if (4 <= argc)
+                {
+                    std::string     wrappedString1(InitFile::MakeWrappedString(argv[1]));
+                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[3]));
+
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, wrappedString1, argv[2], wrappedString2);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (argv[1] == fetchedValue1->AsString()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsString() && (argv[3] == fetchedValue2->AsString()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 15 :
+                if (4 <= argc)
+                {
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        double  expectedValue1;
+                        double  expectedValue2;
+
+                        okSoFar = (ConvertToDouble(argv[1], expectedValue1) && fetchedValue1 && fetchedValue1->AsDouble() &&
+                                    (expectedValue1 == fetchedValue1->AsDouble()->GetValue()) && ConvertToDouble(argv[3], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsDouble() && (expectedValue2 == fetchedValue2->AsDouble()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 16 :
+                if (4 <= argc)
+                {
+                    aValue = addObjectToStringAndParse(listener.get(), *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase      fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase      fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        uint32_t    expectedValue1 = convertStringToIp4Value(argv[1]);
+                        uint32_t    expectedValue2 = convertStringToIp4Value(argv[3]);
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsAddress() && (expectedValue1 == fetchedValue1->AsAddress()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsAddress() && (expectedValue2 == fetchedValue2->AsAddress()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 17 :
+                key1 = std::to_string(RandomDouble(-1000, 1000));
+                key2 = std::to_string(RandomDouble(-1000, 1000));
+                aValue = addObjectToStringAndParse(listener.get(), key1, "[ ]", key2, "[]");
+                okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
+                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+
+                    okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
+                }
+                break;
+
+            case 18 :
+                key1 = std::to_string(RandomDouble(-1000, 1000));
+                key2 = std::to_string(RandomDouble(-1000, 1000));
+                aValue = addObjectToStringAndParse(listener.get(), key1, "{ }", key2, "{}");
+                okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
+                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+
+                    okSoFar = (fetchedValue2 && fetchedValue2->AsObject());
                 }
                 break;
 
@@ -937,6 +1547,8 @@ doTestFileInputObject
         bool                                            okSoFar;
         std::string                                     fileName(getTempFileName());
         std::fstream                                    inputOutput;
+        std::string                                     key1;
+        std::string                                     key2;
 
         // 1) test that a file with an empty object is accepted.
         // 2) test that a file with an unterminated object fails.
@@ -948,6 +1560,14 @@ doTestFileInputObject
         // 8) test that a file with an object with a single address value succeeds or fails.
         // 9) test that a file with an object with a single array value succeeds or fails.
         // 10) test that a file with an object with a single object value succeeds or fails.
+        // 11) test that a file with an object with a pair of NULLs is accepted.
+        // 12) test that a file with an object with a pair of Boolean values is accepted.
+        // 13) test that a file with an object with a pair of integer values is accepted.
+        // 14) test that a file with an object with a pair of string values is accepted.
+        // 15) test that a file with an object with a pair of double values is accepted.
+        // 16) test that a file with an object with a pair of address values is accepted.
+        // 17) test that a file with an object with a pair of array values is accepted.
+        // 18) test that a file with an object with a pair of object values is accepted.
         if (! inputOutput.is_open())
         {
             inputOutput.clear();
@@ -974,7 +1594,7 @@ doTestFileInputObject
             case 3 :
                 if (2 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -993,7 +1613,7 @@ doTestFileInputObject
             case 4 :
                 if (2 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -1013,7 +1633,7 @@ doTestFileInputObject
             case 5 :
                 if (2 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -1036,7 +1656,7 @@ doTestFileInputObject
                 {
                     std::string     wrappedString(InitFile::MakeWrappedString(argv[1]));
 
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, wrappedString, *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, wrappedString);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -1055,7 +1675,7 @@ doTestFileInputObject
             case 7 :
                 if (2 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -1076,13 +1696,14 @@ doTestFileInputObject
             case 8 :
                 if (2 <= argc)
                 {
-                    aValue = writeToFileAndParse(listener.get(), inputOutput, fileName, argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase      fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        uint32_t    expectedValue = convertStringToIp4Value(argv[1]);
 
-                        okSoFar = (fetchedValue && fetchedValue->AsAddress());
+                        okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
                     }
                 }
                 else
@@ -1095,7 +1716,7 @@ doTestFileInputObject
             case 9 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -1114,7 +1735,7 @@ doTestFileInputObject
             case 10 :
                 if (2 <= argc)
                 {
-                    aValue = addToStringAndParse(listener.get(), argv[1], *argv);
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1]);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
@@ -1127,6 +1748,172 @@ doTestFileInputObject
                 {
                     ODL_LOG("! (2 <= argc)"); //####
                     okSoFar = false;
+                }
+                break;
+
+            case 11 :
+                if (4 <= argc)
+                {
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 12 :
+                if (4 <= argc)
+                {
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        bool    expectedValue1 = ('t' == tolower(*argv[1]));
+                        bool    expectedValue2 = ('t' == tolower(*argv[3]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsBoolean() && (expectedValue1 == fetchedValue1->AsBoolean()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue1->AsBoolean() && (expectedValue2 == fetchedValue2->AsBoolean()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 13 :
+                if (4 <= argc)
+                {
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        int64_t expectedValue1;
+                        int64_t expectedValue2;
+
+                        okSoFar = (ConvertToInt64(argv[1], expectedValue1) && fetchedValue1 && fetchedValue1->AsInteger() &&
+                                    (expectedValue1 == fetchedValue1->AsInteger()->GetValue()) && ConvertToInt64(argv[3], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsInteger() && (expectedValue2 == fetchedValue2->AsInteger()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 14 :
+                if (4 <= argc)
+                {
+                    std::string     wrappedString1(InitFile::MakeWrappedString(argv[1]));
+                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[3]));
+
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, wrappedString1, argv[2], wrappedString2);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (argv[1] == fetchedValue1->AsString()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsString() && (argv[3] == fetchedValue2->AsString()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 15 :
+                if (4 <= argc)
+                {
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        double  expectedValue1;
+                        double  expectedValue2;
+
+                        okSoFar = (ConvertToDouble(argv[1], expectedValue1) && fetchedValue1 && fetchedValue1->AsDouble() &&
+                                    (expectedValue1 == fetchedValue1->AsDouble()->GetValue()) && ConvertToDouble(argv[3], expectedValue2) &&
+                                    fetchedValue2 && fetchedValue2->AsDouble() && (expectedValue2 == fetchedValue2->AsDouble()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 16 :
+                if (4 <= argc)
+                {
+                    aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, argv[1], argv[2], argv[3]);
+                    okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                    if (okSoFar)
+                    {
+                        SpBase      fetchedValue1(aValue->AsObject()->GetValue(*argv));
+                        SpBase      fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        uint32_t    expectedValue1 = convertStringToIp4Value(argv[1]);
+                        uint32_t    expectedValue2 = convertStringToIp4Value(argv[3]);
+
+                        okSoFar = (fetchedValue1 && fetchedValue1->AsAddress() && (expectedValue1 == fetchedValue1->AsAddress()->GetValue()) &&
+                                    fetchedValue2 && fetchedValue2->AsAddress() && (expectedValue2 == fetchedValue2->AsAddress()->GetValue()));
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (4 <= argc)"); //####
+                    okSoFar = false;
+                }
+                break;
+
+            case 17 :
+                key1 = std::to_string(RandomDouble(-1000, 1000));
+                key2 = std::to_string(RandomDouble(-1000, 1000));
+                aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, key1, "[ ]", key2, "[]");
+                okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
+                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+
+                    okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
+                }
+                break;
+
+            case 18 :
+                key1 = std::to_string(RandomDouble(-1000, 1000));
+                key2 = std::to_string(RandomDouble(-1000, 1000));
+                aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, key1, "{ }", key2, "{}");
+                okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
+                if (okSoFar)
+                {
+                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
+                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+
+                    okSoFar = (fetchedValue2 && fetchedValue2->AsObject());
                 }
                 break;
 
