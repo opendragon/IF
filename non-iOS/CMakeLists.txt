@@ -246,10 +246,6 @@ endif()
 
 set(IF_LINK_LIBRARIES initfile ${ODL_LIBRARY} ${OTHER_LIBS})
 
-if(LINUX)
-#    set(IF_LINK_LIBRARIES ${IF_LINK_LIBRARIES} dns_sd)
-endif()
-
 if(APPLE)
     function(fix_dynamic_libs target)
         add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
@@ -275,10 +271,8 @@ install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 
 if(IF_DO_SWIG)
-    set(IF_SWIG_SOURCES ${IF_SOURCE_DIR}/swig_if_in/ifCommon.i
-        ${IF_SOURCE_DIR}/ifValue.cpp ${IF_SOURCE_DIR}/ifValue.h)
+    set(IF_SWIG_SOURCES ${IF_SOURCE_DIR}/swig_if_in/ifCommon.i)
 
-    #include_directories("${IF_SOURCE_DIR}/nImO")
     set_source_files_properties(swig_if_in/ifCommon.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties(swig_if_in/ifCommon.i PROPERTIES SWIG_FLAGS "-includeall")
 
