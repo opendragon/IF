@@ -434,7 +434,7 @@ doTestIntegerValue
             case 2 :
                 if (1 <= argc)
                 {
-                    const int64_t   inValue = strtol(*argv, NULL, 10);
+                    const int64_t   inValue = strtol(*argv, nullptr, 10);
 
                     aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
                     okSoFar = (aValue && aValue->AsInteger());
@@ -455,7 +455,7 @@ doTestIntegerValue
             case 3 :
                 if (1 <= argc)
                 {
-                    const int64_t   inValue = strtol(*argv, NULL, 10);
+                    const int64_t   inValue = strtol(*argv, nullptr, 10);
 
                     aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
                     okSoFar = (aValue && aValue->AsInteger());
@@ -589,7 +589,7 @@ doTestDoubleValue
             case 2 :
                 if (1 <= argc)
                 {
-                    const double    dblValue = strtod(*argv, NULL);
+                    const double    dblValue = strtod(*argv, nullptr);
 
                     aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
                     okSoFar = (aValue && aValue->AsDouble());
@@ -610,7 +610,7 @@ doTestDoubleValue
             case 3 :
                 if (2 <= argc)
                 {
-                    const double    dblValue = strtod(*argv, NULL);
+                    const double    dblValue = strtod(*argv, nullptr);
 
                     aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
                     okSoFar = (aValue && aValue->AsDouble());
@@ -900,10 +900,10 @@ doTestAddressValue
             case 2 :
                 if (4 <= argc)
                 {
-                    byte0 = strtol(*argv, NULL, 10);
-                    byte1 = strtol(argv[1], NULL, 10);
-                    byte2 = strtol(argv[2], NULL, 10);
-                    byte3 = strtol(argv[3], NULL, 10);
+                    byte0 = strtol(*argv, nullptr, 10);
+                    byte1 = strtol(argv[1], nullptr, 10);
+                    byte2 = strtol(argv[2], nullptr, 10);
+                    byte3 = strtol(argv[3], nullptr, 10);
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                     aValue.reset(new InitFile::AddressValue(nullptr, inValue));
                     okSoFar = (aValue && aValue->AsAddress());
@@ -924,10 +924,10 @@ doTestAddressValue
             case 3 :
                 if (5 <= argc)
                 {
-                    byte0 = strtol(*argv, NULL, 10);
-                    byte1 = strtol(argv[1], NULL, 10);
-                    byte2 = strtol(argv[2], NULL, 10);
-                    byte3 = strtol(argv[3], NULL, 10);
+                    byte0 = strtol(*argv, nullptr, 10);
+                    byte1 = strtol(argv[1], nullptr, 10);
+                    byte2 = strtol(argv[2], nullptr, 10);
+                    byte3 = strtol(argv[3], nullptr, 10);
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                     aValue.reset(new InitFile::AddressValue(nullptr, inValue));
                     okSoFar = (aValue && aValue->AsAddress());

@@ -233,7 +233,7 @@ BaseValueListener::exitDoubleValue
 #if defined(TRACE_PARSING_)
     std::cerr << "number=" << ctx->nu->getText() << std::endl;
 #endif // defined(TRACE_PARSING_)
-    pushValue(SpBase(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), NULL))));
+    pushValue(SpBase(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr))));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitDoubleValue
 
@@ -270,7 +270,7 @@ BaseValueListener::exitIntegerValue
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
-    pushValue(SpBase(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), NULL))));
+    pushValue(SpBase(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), nullptr))));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitIntegerValue
 
@@ -522,7 +522,7 @@ BaseValueListener::popValue
 
     if (fValueStack.empty())
     {
-        //result = NULL;
+        //result = nullptr;
     }
     else
     {
