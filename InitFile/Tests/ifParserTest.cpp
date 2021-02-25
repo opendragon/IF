@@ -96,7 +96,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -132,7 +132,7 @@ addArrayToStringAndParse
      const std::string &            stringToAdd1,
      const std::string &            stringToAdd2 = "")
 {
-    std::string stringToBuild("[ " + stringToAdd1);
+    std::string stringToBuild{"[ " + stringToAdd1};
 
     if (0 < stringToAdd2.length())
     {
@@ -157,7 +157,7 @@ addObjectToStringAndParse
      const std::string &            tagToUse2 = "",
      const std::string &            stringToAdd2 = "")
 {
-    std::string stringToBuild("{ " + MakeWrappedString(tagToUse1) + " : " + stringToAdd1);
+    std::string stringToBuild{"{ " + MakeWrappedString(tagToUse1) + " : " + stringToAdd1};
 
     if ((0 < tagToUse2.length()) && (0 < stringToAdd2.length()))
     {
@@ -297,7 +297,7 @@ doTestStringInputArray
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener(new InitFile::BaseValueListener);
+        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
         SpBase                                          aValue;
         bool                                            okSoFar;
 
@@ -350,7 +350,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsNull());
                     }
@@ -369,7 +369,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
                         bool    expectedValue = ('t' == tolower(*argv[0]));
 
                         okSoFar = (fetchedValue && fetchedValue->AsBoolean() && (expectedValue == fetchedValue->AsBoolean()->GetValue()));
@@ -389,7 +389,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
                         int64_t expectedValue;
 
                         okSoFar = (ConvertToInt64(*argv, expectedValue) && fetchedValue && fetchedValue->AsInteger() &&
@@ -406,13 +406,13 @@ doTestStringInputArray
             case 8 :
                 if (1 <= argc)
                 {
-                    std::string     wrappedString(InitFile::MakeWrappedString(*argv));
+                    std::string     wrappedString{InitFile::MakeWrappedString(*argv)};
 
                     aValue = addArrayToStringAndParse(listener.get(), wrappedString);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsString() && (*argv == fetchedValue->AsString()->GetValue()));
                     }
@@ -431,7 +431,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
                         double  expectedValue;
 
                         okSoFar = (ConvertToDouble(*argv, expectedValue) && fetchedValue && fetchedValue->AsDouble() &&
@@ -452,7 +452,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase      fetchedValue{aValue->AsArray()->GetValue(0)};
                         uint32_t    expectedValue = convertStringToIp4Value(*argv);
 
                         okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
@@ -472,7 +472,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsArray());
                     }
@@ -491,7 +491,7 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsObject());
                     }
@@ -510,8 +510,8 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
                     }
@@ -530,8 +530,8 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
                         bool    expectedValue1 = ('t' == tolower(*argv[0]));
                         bool    expectedValue2 = ('t' == tolower(*argv[1]));
 
@@ -553,8 +553,8 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
                         int64_t expectedValue1;
                         int64_t expectedValue2;
 
@@ -573,15 +573,15 @@ doTestStringInputArray
             case 16 :
                 if (2 <= argc)
                 {
-                    std::string     wrappedString1(InitFile::MakeWrappedString(*argv));
-                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[1]));
+                    std::string     wrappedString1{InitFile::MakeWrappedString(*argv)};
+                    std::string     wrappedString2{InitFile::MakeWrappedString(argv[1])};
 
                     aValue = addArrayToStringAndParse(listener.get(), wrappedString1, wrappedString2);
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (*argv == fetchedValue1->AsString()->GetValue()) &&
                                     fetchedValue2 && fetchedValue2->AsString() && (argv[1] == fetchedValue2->AsString()->GetValue()));
@@ -601,8 +601,8 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
                         double  expectedValue1;
                         double  expectedValue2;
 
@@ -625,8 +625,8 @@ doTestStringInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase      fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase      fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase      fetchedValue2{aValue->AsArray()->GetValue(1)};
                         uint32_t    expectedValue1 = convertStringToIp4Value(*argv);
                         uint32_t    expectedValue2 = convertStringToIp4Value(argv[1]);
 
@@ -646,8 +646,8 @@ doTestStringInputArray
                 okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                    SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                    SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                     okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
                 }
@@ -658,8 +658,8 @@ doTestStringInputArray
                 okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                    SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                    SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                     okSoFar = (fetchedValue1 && fetchedValue1->AsObject() && fetchedValue2 && fetchedValue2->AsObject());
                 }
@@ -708,10 +708,10 @@ doTestFileInputArray
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener(new InitFile::BaseValueListener);
+        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
         SpBase                                          aValue;
         bool                                            okSoFar;
-        std::string                                     fileName(getTempFileName());
+        std::string                                     fileName{getTempFileName()};
         std::fstream                                    inputOutput;
 
         // 1) test that an empty file fails.
@@ -779,7 +779,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsNull());
                     }
@@ -798,7 +798,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
                         bool    expectedValue = ('t' == tolower(*argv[0]));
 
                         okSoFar = (fetchedValue && fetchedValue->AsBoolean() && (expectedValue == fetchedValue->AsBoolean()->GetValue()));
@@ -818,7 +818,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
                         int64_t expectedValue;
 
                         okSoFar = (ConvertToInt64(*argv, expectedValue) && fetchedValue && fetchedValue->AsInteger() &&
@@ -835,13 +835,13 @@ doTestFileInputArray
             case 8 :
                 if (1 <= argc)
                 {
-                    std::string     wrappedString(InitFile::MakeWrappedString(*argv));
+                    std::string     wrappedString{InitFile::MakeWrappedString(*argv)};
 
                     aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, wrappedString);
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsString() && (*argv == fetchedValue->AsString()->GetValue()));
                     }
@@ -860,7 +860,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
                         double  expectedValue;
 
                         okSoFar = (ConvertToDouble(*argv, expectedValue) && fetchedValue && fetchedValue->AsDouble() &&
@@ -881,7 +881,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase      fetchedValue{aValue->AsArray()->GetValue(0)};
                         uint32_t    expectedValue = convertStringToIp4Value(*argv);
 
                         okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
@@ -901,7 +901,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsArray());
                     }
@@ -920,7 +920,7 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (1 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsArray()->GetValue(0));
+                        SpBase  fetchedValue{aValue->AsArray()->GetValue(0)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsObject());
                     }
@@ -939,8 +939,8 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
                     }
@@ -959,8 +959,8 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
                         bool    expectedValue1 = ('t' == tolower(*argv[0]));
                         bool    expectedValue2 = ('t' == tolower(*argv[1]));
 
@@ -982,8 +982,8 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
                         int64_t expectedValue1;
                         int64_t expectedValue2;
 
@@ -1002,15 +1002,15 @@ doTestFileInputArray
             case 16 :
                 if (2 <= argc)
                 {
-                    std::string     wrappedString1(InitFile::MakeWrappedString(*argv));
-                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[1]));
+                    std::string     wrappedString1{InitFile::MakeWrappedString(*argv)};
+                    std::string     wrappedString2{InitFile::MakeWrappedString(argv[1])};
 
                     aValue = writeArrayToFileAndParse(listener.get(), inputOutput, fileName, wrappedString1, wrappedString2);
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (*argv == fetchedValue1->AsString()->GetValue()) &&
                                     fetchedValue2 && fetchedValue2->AsString() && (argv[1] == fetchedValue2->AsString()->GetValue()));
@@ -1030,8 +1030,8 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
                         double  expectedValue1;
                         double  expectedValue2;
 
@@ -1054,8 +1054,8 @@ doTestFileInputArray
                     okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue1(aValue->AsArray()->GetValue(0));
-                        SpBase      fetchedValue2(aValue->AsArray()->GetValue(1));
+                        SpBase      fetchedValue1{aValue->AsArray()->GetValue(0)};
+                        SpBase      fetchedValue2{aValue->AsArray()->GetValue(1)};
                         uint32_t    expectedValue1 = convertStringToIp4Value(*argv);
                         uint32_t    expectedValue2 = convertStringToIp4Value(argv[1]);
 
@@ -1075,8 +1075,8 @@ doTestFileInputArray
                 okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                    SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                    SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                     okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
                 }
@@ -1087,8 +1087,8 @@ doTestFileInputArray
                 okSoFar = (aValue && aValue->AsArray() && (2 == aValue->AsArray()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsArray()->GetValue(0));
-                    SpBase  fetchedValue2(aValue->AsArray()->GetValue(1));
+                    SpBase  fetchedValue1{aValue->AsArray()->GetValue(0)};
+                    SpBase  fetchedValue2{aValue->AsArray()->GetValue(1)};
 
                     okSoFar = (fetchedValue1 && fetchedValue1->AsObject() && fetchedValue2 && fetchedValue2->AsObject());
                 }
@@ -1137,7 +1137,7 @@ doTestStringInputObject
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener(new InitFile::BaseValueListener);
+        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
         SpBase                                          aValue;
         bool                                            okSoFar;
         std::string                                     key1;
@@ -1180,7 +1180,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsNull());
                     }
@@ -1199,7 +1199,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         bool    expectedValue = ('t' == tolower(*argv[1]));
 
                         okSoFar = (fetchedValue && fetchedValue->AsBoolean() && (expectedValue == fetchedValue->AsBoolean()->GetValue()));
@@ -1219,7 +1219,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         int64_t expectedValue;
 
                         okSoFar = (ConvertToInt64(argv[1], expectedValue) && fetchedValue && fetchedValue->AsInteger() &&
@@ -1236,13 +1236,13 @@ doTestStringInputObject
             case 6 :
                 if (2 <= argc)
                 {
-                    std::string     wrappedString(InitFile::MakeWrappedString(argv[1]));
+                    std::string     wrappedString{InitFile::MakeWrappedString(argv[1])};
 
                     aValue = addObjectToStringAndParse(listener.get(), *argv, wrappedString);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsString() && (argv[1] == fetchedValue->AsString()->GetValue()));
                     }
@@ -1261,7 +1261,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         double  expectedValue;
 
                         okSoFar = (ConvertToDouble(argv[1], expectedValue) && fetchedValue && fetchedValue->AsDouble() &&
@@ -1282,7 +1282,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase      fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         uint32_t    expectedValue = convertStringToIp4Value(argv[1]);
 
                         okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
@@ -1302,7 +1302,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsArray());
                     }
@@ -1321,7 +1321,7 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsObject());
                     }
@@ -1340,8 +1340,8 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
                     }
@@ -1360,8 +1360,8 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         bool    expectedValue1 = ('t' == tolower(*argv[1]));
                         bool    expectedValue2 = ('t' == tolower(*argv[3]));
 
@@ -1383,8 +1383,8 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         int64_t expectedValue1;
                         int64_t expectedValue2;
 
@@ -1403,15 +1403,15 @@ doTestStringInputObject
             case 14 :
                 if (4 <= argc)
                 {
-                    std::string     wrappedString1(InitFile::MakeWrappedString(argv[1]));
-                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[3]));
+                    std::string     wrappedString1{InitFile::MakeWrappedString(argv[1])};
+                    std::string     wrappedString2{InitFile::MakeWrappedString(argv[3])};
 
                     aValue = addObjectToStringAndParse(listener.get(), *argv, wrappedString1, argv[2], wrappedString2);
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (argv[1] == fetchedValue1->AsString()->GetValue()) &&
                                     fetchedValue2 && fetchedValue2->AsString() && (argv[3] == fetchedValue2->AsString()->GetValue()));
@@ -1431,8 +1431,8 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         double  expectedValue1;
                         double  expectedValue2;
 
@@ -1455,8 +1455,8 @@ doTestStringInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase      fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase      fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase      fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         uint32_t    expectedValue1 = convertStringToIp4Value(argv[1]);
                         uint32_t    expectedValue2 = convertStringToIp4Value(argv[3]);
 
@@ -1478,8 +1478,8 @@ doTestStringInputObject
                 okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
-                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+                    SpBase  fetchedValue1{aValue->AsObject()->GetValue(key1)};
+                    SpBase  fetchedValue2{aValue->AsObject()->GetValue(key2)};
 
                     okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
                 }
@@ -1492,8 +1492,8 @@ doTestStringInputObject
                 okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
-                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+                    SpBase  fetchedValue1{aValue->AsObject()->GetValue(key1)};
+                    SpBase  fetchedValue2{aValue->AsObject()->GetValue(key2)};
 
                     okSoFar = (fetchedValue2 && fetchedValue2->AsObject());
                 }
@@ -1542,10 +1542,10 @@ doTestFileInputObject
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener(new InitFile::BaseValueListener);
+        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
         SpBase                                          aValue;
         bool                                            okSoFar;
-        std::string                                     fileName(getTempFileName());
+        std::string                                     fileName{getTempFileName()};
         std::fstream                                    inputOutput;
         std::string                                     key1;
         std::string                                     key2;
@@ -1598,7 +1598,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsNull());
                     }
@@ -1617,7 +1617,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         bool    expectedValue = ('t' == tolower(*argv[1]));
 
                         okSoFar = (fetchedValue && fetchedValue->AsBoolean() && (expectedValue == fetchedValue->AsBoolean()->GetValue()));
@@ -1637,7 +1637,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         int64_t expectedValue;
 
                         okSoFar = (ConvertToInt64(argv[1], expectedValue) && fetchedValue && fetchedValue->AsInteger() &&
@@ -1654,13 +1654,13 @@ doTestFileInputObject
             case 6 :
                 if (2 <= argc)
                 {
-                    std::string     wrappedString(InitFile::MakeWrappedString(argv[1]));
+                    std::string     wrappedString{InitFile::MakeWrappedString(argv[1])};
 
                     aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, wrappedString);
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsString() && (argv[1] == fetchedValue->AsString()->GetValue()));
                     }
@@ -1679,7 +1679,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         double  expectedValue;
 
                         okSoFar = (ConvertToDouble(argv[1], expectedValue) && fetchedValue && fetchedValue->AsDouble() &&
@@ -1700,7 +1700,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase      fetchedValue{aValue->AsObject()->GetValue(*argv)};
                         uint32_t    expectedValue = convertStringToIp4Value(argv[1]);
 
                         okSoFar = (fetchedValue && fetchedValue->AsAddress() && (expectedValue == fetchedValue->AsAddress()->GetValue()));
@@ -1720,7 +1720,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsArray());
                     }
@@ -1739,7 +1739,7 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (1 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue(aValue->AsObject()->GetValue(*argv));
+                        SpBase  fetchedValue{aValue->AsObject()->GetValue(*argv)};
 
                         okSoFar = (fetchedValue && fetchedValue->AsObject());
                     }
@@ -1758,8 +1758,8 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsNull() && fetchedValue2 && fetchedValue2->AsNull());
                     }
@@ -1778,8 +1778,8 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         bool    expectedValue1 = ('t' == tolower(*argv[1]));
                         bool    expectedValue2 = ('t' == tolower(*argv[3]));
 
@@ -1801,8 +1801,8 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         int64_t expectedValue1;
                         int64_t expectedValue2;
 
@@ -1821,15 +1821,15 @@ doTestFileInputObject
             case 14 :
                 if (4 <= argc)
                 {
-                    std::string     wrappedString1(InitFile::MakeWrappedString(argv[1]));
-                    std::string     wrappedString2(InitFile::MakeWrappedString(argv[3]));
+                    std::string     wrappedString1{InitFile::MakeWrappedString(argv[1])};
+                    std::string     wrappedString2{InitFile::MakeWrappedString(argv[3])};
 
                     aValue = writeObjectToFileAndParse(listener.get(), inputOutput, fileName, *argv, wrappedString1, argv[2], wrappedString2);
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
 
                         okSoFar = (fetchedValue1 && fetchedValue1->AsString() && (argv[1] == fetchedValue1->AsString()->GetValue()) &&
                                     fetchedValue2 && fetchedValue2->AsString() && (argv[3] == fetchedValue2->AsString()->GetValue()));
@@ -1849,8 +1849,8 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase  fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase  fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase  fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase  fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         double  expectedValue1;
                         double  expectedValue2;
 
@@ -1873,8 +1873,8 @@ doTestFileInputObject
                     okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                     if (okSoFar)
                     {
-                        SpBase      fetchedValue1(aValue->AsObject()->GetValue(*argv));
-                        SpBase      fetchedValue2(aValue->AsObject()->GetValue(argv[2]));
+                        SpBase      fetchedValue1{aValue->AsObject()->GetValue(*argv)};
+                        SpBase      fetchedValue2{aValue->AsObject()->GetValue(argv[2])};
                         uint32_t    expectedValue1 = convertStringToIp4Value(argv[1]);
                         uint32_t    expectedValue2 = convertStringToIp4Value(argv[3]);
 
@@ -1896,8 +1896,8 @@ doTestFileInputObject
                 okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
-                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+                    SpBase  fetchedValue1{aValue->AsObject()->GetValue(key1)};
+                    SpBase  fetchedValue2{aValue->AsObject()->GetValue(key2)};
 
                     okSoFar = (fetchedValue1 && fetchedValue1->AsArray() && fetchedValue2 && fetchedValue2->AsArray());
                 }
@@ -1910,8 +1910,8 @@ doTestFileInputObject
                 okSoFar = (aValue && aValue->AsObject() && (2 == aValue->AsObject()->HowManyValues()));
                 if (okSoFar)
                 {
-                    SpBase  fetchedValue1(aValue->AsObject()->GetValue(key1));
-                    SpBase  fetchedValue2(aValue->AsObject()->GetValue(key2));
+                    SpBase  fetchedValue1{aValue->AsObject()->GetValue(key1)};
+                    SpBase  fetchedValue2{aValue->AsObject()->GetValue(key2)};
 
                     okSoFar = (fetchedValue2 && fetchedValue2->AsObject());
                 }
@@ -1949,7 +1949,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

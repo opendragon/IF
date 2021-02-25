@@ -99,11 +99,17 @@ namespace InitFile
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline ObjectValue
+		inline explicit ObjectValue
 			(SpBase    parent) :
 				inherited(parent)
 			{
 			} /* constructor */
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ObjectValue
+            (ObjectValue &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -175,6 +181,21 @@ namespace InitFile
             (const std::string &    tag)
             const;
 
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        ObjectValue &
+        operator =
+            (const ObjectValue &  other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        ObjectValue &
+        operator =
+            (ObjectValue &&  other)
+            noexcept;
+
         /*! @brief Return @c true if the two values are equal.
          @param[in] other The value to be compared with.
          @return @c true if the two values are comparable and equal. */
@@ -208,17 +229,10 @@ namespace InitFile
     private :
         // Private methods.
 
-        /*! @brief The copy constructor.
+        /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
         ObjectValue
             (const ObjectValue &	other);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        ObjectValue &
-        operator =
-            (const ObjectValue &  other);
 
     public :
         // Public fields.

@@ -83,7 +83,7 @@ using namespace InitFile;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-std::string  InitFile::kDQ("\"");
+std::string  InitFile::kDQ{"\""};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -102,7 +102,7 @@ localCatcher
 #if 0
     if (lLogger)
     {
-        std::string message("Exiting due to signal ");
+        std::string message{"Exiting due to signal "};
 
         message += std::to_string(signal);
         message += " = ";
@@ -177,7 +177,7 @@ InitFile::ConvertDoubleToString
     std::ostringstream  holder;
 
     holder << std::defaultfloat << value;
-    std::string result(holder.str());
+    std::string result{holder.str()};
 
     ODL_EXIT_s(result); //####
     return result;
@@ -243,6 +243,11 @@ InitFile::Initialize
     //ODL_S1s("progName = ", progName); //####
     try
     {
+#if defined(__APPLE__)
+        sranddev();
+#else // ! defined(__APPLE__)
+        srand(static_cast<unsigned int>(time(nullptr)));
+#endif // ! defined(__APPLE__)
         //Value::initialize();
     }
     catch (...)

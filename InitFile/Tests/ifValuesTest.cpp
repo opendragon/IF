@@ -94,7 +94,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message("Exiting due to signal ");
+    std::string message{"Exiting due to signal "};
 
     message += std::to_string(signal);
     message += " = ";
@@ -191,7 +191,7 @@ doTestNullValue
                 okSoFar = (aValue && aValue->AsNull());
                 if (okSoFar)
                 {
-                    SpNull  otherValue(new InitFile::NullValue(nullptr));
+                    SpNull  otherValue{new InitFile::NullValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -202,7 +202,7 @@ doTestNullValue
                 okSoFar = (aValue && aValue->AsNull());
                 if (okSoFar)
                 {
-                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -340,7 +340,7 @@ doTestBooleanValue
                 okSoFar = (aValue && aValue->AsBoolean());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(new InitFile::BooleanValue(nullptr, aValue->GetValue()));
+                    SpBase  otherValue{new InitFile::BooleanValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
                 }
@@ -351,7 +351,7 @@ doTestBooleanValue
                 okSoFar = (aValue && aValue->AsBoolean());
                 if (okSoFar)
                 {
-                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -495,7 +495,7 @@ doTestIntegerValue
                 okSoFar = (aValue && aValue->AsInteger());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(new InitFile::IntegerValue(nullptr, aValue->GetValue()));
+                    SpBase  otherValue{new InitFile::IntegerValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
                 }
@@ -506,7 +506,7 @@ doTestIntegerValue
                 okSoFar = (aValue && aValue->AsInteger());
                 if (okSoFar)
                 {
-                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -650,7 +650,7 @@ doTestDoubleValue
                 okSoFar = (aValue && aValue->AsDouble());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(new InitFile::DoubleValue(nullptr, aValue->GetValue()));
+                    SpBase  otherValue{new InitFile::DoubleValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
                 }
@@ -661,7 +661,7 @@ doTestDoubleValue
                 okSoFar = (aValue && aValue->AsDouble());
                 if (okSoFar)
                 {
-                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -748,7 +748,7 @@ doTestStringValue
                     okSoFar = (aValue && aValue->AsString());
                     if (okSoFar)
                     {
-                        std::string fetched = aValue->GetValue();
+                        std::string fetched{aValue->GetValue()};
 
                         okSoFar = (*argv == fetched);
                     }
@@ -801,7 +801,7 @@ doTestStringValue
                 okSoFar = (aValue && aValue->AsString());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(new InitFile::StringValue(nullptr, aValue->GetValue()));
+                    SpBase  otherValue{new InitFile::StringValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
                 }
@@ -812,7 +812,7 @@ doTestStringValue
                 okSoFar = (aValue && aValue->AsString());
                 if (okSoFar)
                 {
-                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -982,7 +982,7 @@ doTestAddressValue
                 okSoFar = (aValue && aValue->AsAddress());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(new InitFile::AddressValue(nullptr, aValue->GetValue()));
+                    SpBase  otherValue{new InitFile::AddressValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
                 }
@@ -998,7 +998,7 @@ doTestAddressValue
                 okSoFar = (aValue && aValue->AsAddress());
                 if (okSoFar)
                 {
-                    SpArray otherValue(new InitFile::ArrayValue(nullptr));
+                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -1052,7 +1052,7 @@ main
     (int        argc,
      char **    argv)
 {
-    std::string progName(*argv);
+    std::string progName{*argv};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

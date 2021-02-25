@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for String values. */
-    class StringValue : public BaseValue
+    class StringValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -75,11 +75,17 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline StringValue
-			(SpBase	        parent,
+			(SpBase	                parent,
              const std::string &    value) :
 				inherited(parent), fValue(value)
 			{
 			} /* constructor */
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        StringValue
+            (StringValue &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -119,6 +125,21 @@ namespace InitFile
 			return fValue;
 		} // GetValue
 
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        StringValue &
+        operator =
+            (const StringValue &  other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        StringValue &
+        operator =
+            (StringValue &&  other)
+            noexcept;
+
         /*! @brief Return @c true if the two values are equal.
          @param[in] other The value to be compared with.
          @return @c true if the two values are comparable and equal. */
@@ -152,17 +173,10 @@ namespace InitFile
     private :
         // Private methods.
 
-        /*! @brief The copy constructor.
+        /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
         StringValue
             (const StringValue &	other);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        StringValue &
-        operator =
-            (const StringValue &  other);
 
     public :
         // Public fields.

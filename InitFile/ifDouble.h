@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Double values. */
-    class DoubleValue : public BaseValue
+    class DoubleValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -75,11 +75,17 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline DoubleValue
-			(SpBase	parent,
+			(SpBase         parent,
              const double   value) :
 				inherited(parent), fValue(value)
 			{
 			} /* constructor */
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        DoubleValue
+            (DoubleValue &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -119,6 +125,21 @@ namespace InitFile
 			return fValue;
 		} // GetValue
 
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        DoubleValue &
+        operator =
+            (const DoubleValue &  other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        DoubleValue &
+        operator =
+            (DoubleValue &&  other)
+            noexcept;
+
         /*! @brief Return @c true if the two values are equal.
          @param[in] other The value to be compared with.
          @return @c true if the two values are comparable and equal. */
@@ -152,17 +173,10 @@ namespace InitFile
     private :
         // Private methods.
 
-        /*! @brief The copy constructor.
+        /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
         DoubleValue
             (const DoubleValue &	other);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        DoubleValue &
-        operator =
-            (const DoubleValue &  other);
 
     public :
         // Public fields.

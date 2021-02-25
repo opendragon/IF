@@ -282,9 +282,9 @@ InitFile::MakeWrappedString
 		quoteChar = '"';
 	}
     result = quoteChar;
-	for (auto walker = inString.cbegin(); walker != inString.cend(); ++walker)
+	for (auto & walker : inString)
 	{
-		const char	aChar = *walker;
+		const char	aChar = walker;
 
 		if (aChar == quoteChar)
 		{

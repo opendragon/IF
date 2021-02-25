@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide a string comparison without regard to case. */
-    class CompareWithoutCase
+    class CompareWithoutCase final
     {
     public :
         // Public type definitions.

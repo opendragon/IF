@@ -62,7 +62,7 @@
 namespace InitFile
 {
 
-    class BaseValueListener : public InitParser::InitFileParserBaseListener
+    class BaseValueListener final : public InitParser::InitFileParserBaseListener
     {
     public :
         // Public type definitions.
@@ -79,6 +79,12 @@ namespace InitFile
         /*! @brief The constructor. */
         BaseValueListener
             (void);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        BaseValueListener
+            (BaseValueListener &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual

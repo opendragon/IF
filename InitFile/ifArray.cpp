@@ -148,7 +148,7 @@ ArrayValue::Clone
 	result.reset(new ArrayValue(*this));
 	for (size_t ii = 0; ii < fValue.size(); ++ii)
 	{
-		SpBase	thisValue = GetValue(ii);
+		SpBase	thisValue{GetValue(ii)};
 
 		result->AsArray()->AddValueAtBack(thisValue);
 	}
@@ -208,8 +208,8 @@ ArrayValue::operator ==
 				result = true;
 				for (size_t ii = 0; result && (ii < otherSize); ++ii)
 				{
-					SpBase	thisValue = GetValue(ii);
-					SpBase	otherValue = asValue->GetValue(ii);
+					SpBase	thisValue{GetValue(ii)};
+					SpBase	otherValue{asValue->GetValue(ii)};
 
 					result = (*thisValue == *otherValue);
 				}

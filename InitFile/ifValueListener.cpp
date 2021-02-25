@@ -312,7 +312,7 @@ BaseValueListener::exitNonEmptyArray
     // Pull the number of values that were pushed and put them in the correct order.
     for (size_t ii = 0; ii < numValues; ++ii)
     {
-        SpBase aValue = popValue();
+        SpBase aValue{popValue()};
 
         currentArray->AddValueAtFront(aValue);
     }
@@ -346,8 +346,8 @@ BaseValueListener::exitPair
 #if defined(TRACE_PARSING_)
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
-    std::string     tag = popTag();
-    SpBase          value = popValue();
+    std::string     tag{popTag()};
+    SpBase          value{popValue()};
 #if defined(TRACE_PARSING_)
     std::cerr << "tag=" << tag << " : value=";
     if (value)

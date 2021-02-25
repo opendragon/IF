@@ -107,7 +107,7 @@ ObjectValue::AddValue
 	(const std::string &	key,
 	 SpBase            		aValue)
 {
-	fValue.insert(value_type(key, aValue));
+	fValue.insert({key, aValue});
 	return *this;
 } // ObjectValue::AddValue
 
@@ -135,9 +135,9 @@ ObjectValue::Clone
 
     ODL_OBJENTER(); //####
 	result.reset(new ObjectValue(*this));
-	for (const_iterator walker(fValue.begin()); walker != fValue.end(); ++walker)
+	for (auto & walker : fValue)
 	{
-		result->AsObject()->AddValue(walker->first, walker->second);
+		result->AsObject()->AddValue(walker.first, walker.second);
 	}
     ODL_OBJEXIT(); //####
 	return result;
@@ -150,9 +150,9 @@ ObjectValue::GetTags
 {
 	std::set<std::string>	result;
 	
-	for (const_iterator walker(fValue.begin()); walker != fValue.end(); ++walker)
+	for (auto & walker : fValue)
 	{
-		result.insert(walker->first);
+		result.insert(walker.first);
 	}
 	return result;
 } // ObjectValue::GetTags
@@ -162,8 +162,8 @@ ObjectValue::GetValue
 	(const std::string &    tag)
 	const
 {
-	SpBase			result;
-	const_iterator  match(fValue.find(tag));
+	SpBase	result;
+	auto	match{fValue.find(tag)};
 
 	if (fValue.end() == match)
 	{
@@ -189,8 +189,8 @@ ObjectValue::IsTagPresent
 	(const std::string &    tag)
 	const
 {
-	bool			result;
-	const_iterator	match = fValue.find(tag);
+	bool	result;
+	auto	match{fValue.find(tag)};
 
 	if (fValue.end() == match)
 	{
@@ -227,11 +227,11 @@ ObjectValue::operator ==
 			if (HowManyValues() == otherSize)
 			{
 				result = true;
-				for (const_iterator walker(fValue.begin()); result && (walker != fValue.end()); ++walker)
+				for (auto & walker : fValue)
 				{
-					std::string	key = walker->first;
-					SpBase		thisValue = walker->second;
-					SpBase		otherValue = asValue->GetValue(key);
+					std::string	key{walker.first};
+					SpBase		thisValue{walker.second};
+					SpBase		otherValue{asValue->GetValue(key)};
 
 					if (otherValue)
 					{
@@ -258,7 +258,7 @@ ObjectValue::Print
 	 const bool		squished)
 	const
 {
-	const_iterator	walker(fValue.begin());
+	auto	walker{fValue.begin()};
 
 	output << '{';
 	if (squished)

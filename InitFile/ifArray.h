@@ -57,7 +57,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for Array values. */
-    class ArrayValue : public BaseValue
+    class ArrayValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -91,11 +91,17 @@ namespace InitFile
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline ArrayValue
+		inline explicit ArrayValue
 			(SpBase    parent) :
 				inherited(parent)
 			{
 			} /* constructor */
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        ArrayValue
+            (ArrayValue &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -158,6 +164,21 @@ namespace InitFile
             (void)
             const;
 
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        ArrayValue &
+        operator =
+            (const ArrayValue &  other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        ArrayValue &
+        operator =
+            (ArrayValue &&  other)
+            noexcept;
+
         /*! @brief Return @c true if the two values are equal.
          @param[in] other The value to be compared with.
          @return @c true if the two values are comparable and equal. */
@@ -191,17 +212,10 @@ namespace InitFile
     private :
         // Private methods.
 
-        /*! @brief The copy constructor.
+        /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
         ArrayValue
             (const ArrayValue &	other);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        ArrayValue &
-        operator =
-            (const ArrayValue &  other);
 
     public :
         // Public fields.

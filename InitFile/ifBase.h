@@ -239,6 +239,21 @@ namespace InitFile
 			return fParent;
 		} // GetParent
 
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        BaseValue &
+        operator =
+            (const BaseValue &  other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        BaseValue &
+        operator =
+            (BaseValue &&  other)
+            noexcept;
+
         /*! @brief Return @c true if the two values are equal.
          @param[in] other The value to be compared with.
          @return @c true if the two values are comparable and equal. */
@@ -280,7 +295,7 @@ namespace InitFile
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline BaseValue
+		inline explicit BaseValue
 			(SpBase	parent) :
 				fParent(parent)
 			{
@@ -290,6 +305,12 @@ namespace InitFile
          @param[in] other The object to be copied. */
         BaseValue
             (const BaseValue &	other);
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        BaseValue
+            (BaseValue &&	other)
+            noexcept;
 
 		/*! @brief Add multiple characters to a stream.
          @param[in,out] output The stream to be written to.
@@ -326,13 +347,6 @@ namespace InitFile
 
     private :
         // Private methods.
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        BaseValue &
-        operator =
-            (const BaseValue &  other);
 
     public :
         // Public fields.

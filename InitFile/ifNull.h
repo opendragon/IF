@@ -55,7 +55,7 @@
 namespace InitFile
 {
     /*! @brief A class to provide the base type for NULL values. */
-    class NullValue : public BaseValue
+    class NullValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -74,11 +74,17 @@ namespace InitFile
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline NullValue
+		inline explicit NullValue
 			(SpBase	parent) :
 				inherited(parent)
 			{
 			} /* constructor */
+
+        /*! @brief The move constructor.
+         @param[in] other The object to be moved. */
+        NullValue
+            (NullValue &&	other)
+            noexcept;
 
         /*! @brief The destructor. */
         virtual
@@ -107,6 +113,21 @@ namespace InitFile
 			(void)
 			const
             override;
+
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        NullValue &
+        operator =
+            (const NullValue &  other) = delete;
+
+        /*! @brief The move assignment operator.
+         @param[in] other The object to be moved.
+         @return The updated object. */
+        NullValue &
+        operator =
+            (NullValue &&  other)
+            noexcept;
 
         /*! @brief Return @c true if the two values are equal.
          @param[in] other The value to be compared with.
@@ -141,17 +162,10 @@ namespace InitFile
     private :
         // Private methods.
 
-        /*! @brief The copy constructor.
+        /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
         NullValue
             (const NullValue &	other);
-
-        /*! @brief The assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        NullValue &
-        operator =
-            (const NullValue &  other);
 
     public :
         // Public fields.
