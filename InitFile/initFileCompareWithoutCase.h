@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifCompareWithoutCase.h
+//  File:       InitFile/initFileCompareWithoutCase.h
 //
 //  Project:    IF
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifCompareWithoutCase_H_))
-# define ifCompareWithoutCase_H_ /* Header guard */
+#if (! defined(initFileCompareWithoutCase_H_))
+# define initFileCompareWithoutCase_H_ /* Header guard */
 
 # include <string>
 
@@ -96,4 +96,4 @@ namespace InitFile
 
 } // InitFile
 
-#endif /* not ifCompareWithoutCase_H_ */
+#endif /* not initFileCompareWithoutCase_H_ */

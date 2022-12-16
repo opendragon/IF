@@ -38,14 +38,14 @@
 
 #include "ifTestSupport.h"
 
-#include <ifAddress.h>
-#include <ifArray.h>
-#include <ifBoolean.h>
-#include <ifDouble.h>
-#include <ifInteger.h>
-#include <ifNull.h>
-#include <ifObject.h>
-#include <ifString.h>
+#include <initFileAddress.h>
+#include <initFileArray.h>
+#include <initFileBoolean.h>
+#include <initFileDouble.h>
+#include <initFileInteger.h>
+#include <initFileNull.h>
+#include <initFileObject.h>
+#include <initFileString.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

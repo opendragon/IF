@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifString.h
+//  File:       InitFile/initFileString.h
 //
 //  Project:    IF
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifString_H_))
-# define ifString_H_ /* Header guard */
+#if (! defined(initFileString_H_))
+# define initFileString_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -194,4 +194,4 @@ namespace InitFile
 
 } // InitFile
 
-#endif /* not ifString_H_ */
+#endif /* not initFileString_H_ */

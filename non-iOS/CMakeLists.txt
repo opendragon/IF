@@ -65,7 +65,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -124,9 +124,9 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 find_package(antlr4-generator REQUIRED)
 find_package(antlr4-runtime REQUIRED)
 
-configure_file(${IF_CONFIG_DIR}/IFConfigVersion.cmake.in
-               ${CMAKE_CURRENT_BINARY_DIR}/IFConfigVersion.cmake @ONLY)
-configure_file("${IF_SOURCE_DIR}/ifConfig.h.in" "${IF_SOURCE_DIR}/ifConfig.h")
+configure_file(${IF_CONFIG_DIR}/ifConfigVersion.cmake.in
+               ${CMAKE_CURRENT_BINARY_DIR}/ifConfigVersion.cmake @ONLY)
+configure_file("${IF_SOURCE_DIR}/initFileConfig.h.in" "${IF_SOURCE_DIR}/initFileConfig.h")
 
 # The following is to help CMake find ODL...
 if(WIN32)
@@ -200,17 +200,17 @@ include_directories(${ANTLR4_INCLUDE_DIR}
 
 add_library(${TARGET}
             ${DO_SHARED}
-            ${IF_SOURCE_DIR}/ifAddress.cpp
-            ${IF_SOURCE_DIR}/ifArray.cpp
-            ${IF_SOURCE_DIR}/ifBase.cpp
-            ${IF_SOURCE_DIR}/ifBoolean.cpp
-            ${IF_SOURCE_DIR}/ifCompareWithoutCase.cpp
-            ${IF_SOURCE_DIR}/ifDouble.cpp
-            ${IF_SOURCE_DIR}/ifInteger.cpp
-            ${IF_SOURCE_DIR}/ifNull.cpp
-            ${IF_SOURCE_DIR}/ifObject.cpp
-            ${IF_SOURCE_DIR}/ifString.cpp
-            ${IF_SOURCE_DIR}/ifValueListener.cpp
+            ${IF_SOURCE_DIR}/initFileAddress.cpp
+            ${IF_SOURCE_DIR}/initFileArray.cpp
+            ${IF_SOURCE_DIR}/initFileBase.cpp
+            ${IF_SOURCE_DIR}/initFileBoolean.cpp
+            ${IF_SOURCE_DIR}/initFileCompareWithoutCase.cpp
+            ${IF_SOURCE_DIR}/initFileDouble.cpp
+            ${IF_SOURCE_DIR}/initFileInteger.cpp
+            ${IF_SOURCE_DIR}/initFileNull.cpp
+            ${IF_SOURCE_DIR}/initFileObject.cpp
+            ${IF_SOURCE_DIR}/initFileString.cpp
+            ${IF_SOURCE_DIR}/initFileValueListener.cpp
             "${ANTLR4_SRC_FILES_init_parser}"
             "${ANTLR4_SRC_FILES_init_lexer}")
 
@@ -231,17 +231,17 @@ install(TARGETS ${TARGET}
         COMPONENT libraries)
 
 install(FILES
-        ${IF_SOURCE_DIR}/ifAddress.h
-        ${IF_SOURCE_DIR}/ifArray.h
-        ${IF_SOURCE_DIR}/ifBase.h
-        ${IF_SOURCE_DIR}/ifBoolean.h
-        ${IF_SOURCE_DIR}/ifCompareWithoutCase.h
-        ${IF_SOURCE_DIR}/ifConfig.h
-        ${IF_SOURCE_DIR}/ifDouble.h
-        ${IF_SOURCE_DIR}/ifInteger.h
-        ${IF_SOURCE_DIR}/ifNull.h
-        ${IF_SOURCE_DIR}/ifObject.h
-        ${IF_SOURCE_DIR}/ifString.h
+        ${IF_SOURCE_DIR}/initFileAddress.h
+        ${IF_SOURCE_DIR}/initFileArray.h
+        ${IF_SOURCE_DIR}/initFileBase.h
+        ${IF_SOURCE_DIR}/initFileBoolean.h
+        ${IF_SOURCE_DIR}/initFileCompareWithoutCase.h
+        ${IF_SOURCE_DIR}/initFileConfig.h
+        ${IF_SOURCE_DIR}/initFileDouble.h
+        ${IF_SOURCE_DIR}/initFileInteger.h
+        ${IF_SOURCE_DIR}/initFileNull.h
+        ${IF_SOURCE_DIR}/initFileObject.h
+        ${IF_SOURCE_DIR}/initFileString.h
         DESTINATION ${INCLUDE_DEST}
         COMPONENT headers)
 
@@ -269,8 +269,8 @@ else()
 endif()
 
 install(FILES
-        ${IF_CONFIG_DIR}/IFConfig.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/IFConfigVersion.cmake
+        ${IF_CONFIG_DIR}/ifConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/ifConfigVersion.cmake
         DESTINATION ${LIB_DEST}
         COMPONENT scripts)
 

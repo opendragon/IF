@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifArray.cpp
+//  File:       InitFile/initFileInteger.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile Array values.
+//  Contains:   The class definition for InitFile Integer values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-09-22
+//  Created:    2020-09-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifArray.h>
+#include <initFileInteger.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile Array values. */
+ @brief The class definition for %InitFile Integer values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,112 +78,53 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ArrayValue::ArrayValue
-    (const ArrayValue &    other) :
-        inherited(other)
+IntegerValue::IntegerValue
+    (const IntegerValue &    other) :
+        inherited(other), fValue(other.fValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-	// copy elements
     ODL_EXIT_P(this); //####
-} // ArrayValue::ArrayValue
+} // IntegerValue::IntegerValue
 
-ArrayValue::~ArrayValue
+IntegerValue::~IntegerValue
     (void)
 {
     ODL_OBJENTER(); //####
-	fValue.clear();
     ODL_OBJEXIT(); //####
-} // ArrayValue::~ArrayValue
+} // IntegerValue::~IntegerValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-ArrayValue &
-ArrayValue::AddValueAtBack
-	(SpBase	aValue)
-{
-	if (aValue)
-	{
-		fValue.push_back(aValue);
-	}
-	return *this;
-} // ArrayValue::AddValueAtBack
-
-ArrayValue &
-ArrayValue::AddValueAtFront
-	(SpBase	aValue)
-{
-	if (aValue)
-	{
-		fValue.push_front(aValue);
-	}
-	return *this;
-} // ArrayValue::AddValueAtFront
-
-ArrayValue *
-ArrayValue::AsArray
+IntegerValue *
+IntegerValue::AsInteger
 	(void)
 {
 	return this;
-} // ArrayValue::AsArray
+} // IntegerValue::AsInteger
 
-const ArrayValue *
-ArrayValue::AsArray
+const IntegerValue *
+IntegerValue::AsInteger
 	(void)
 	const
 {
 	return this;
-} // ArrayValue::AsArray
+} // IntegerValue::AsInteger
 
 SpBase
-ArrayValue::Clone
+IntegerValue::Clone
 	(void)
 	const
 {
-	SpBase	result;
-
     ODL_OBJENTER(); //####
-	result.reset(new ArrayValue(*this));
-	for (size_t ii = 0; ii < fValue.size(); ++ii)
-	{
-		SpBase	thisValue{GetValue(ii)};
-
-		result->AsArray()->AddValueAtBack(thisValue);
-	}
     ODL_OBJEXIT(); //####
-	return result;
-} // ArrayValue::Clone
-
-SpBase
-ArrayValue::GetValue
-	(const size_t   index)
-	const
-{
-	SpBase	result;
-
-	if (index < fValue.size())
-	{
-		result = fValue[index];
-	}
-	else
-	{
-		result = nullptr;
-	}
-	return result;
-} // ArrayValue::GetValue
-
-size_t
-ArrayValue::HowManyValues
-	(void)
-	const
-{
-	return fValue.size();
-} // ArrayValue::HowManyValues
+	return SpBase(new IntegerValue(*this));	
+} // IntegerValue::Clone
 
 bool
-ArrayValue::operator ==
+IntegerValue::operator ==
 	(const BaseValue &	other)
 	const
 {
@@ -197,67 +138,27 @@ ArrayValue::operator ==
 	}
 	else
 	{
-		const ArrayValue *	asValue = other.AsArray();
+		const IntegerValue *	asValue = other.AsInteger();
 
 		if (asValue)
 		{
-			size_t	otherSize = asValue->HowManyValues();
-
-			if (HowManyValues() == otherSize)
-			{
-				result = true;
-				for (size_t ii = 0; result && (ii < otherSize); ++ii)
-				{
-					SpBase	thisValue{GetValue(ii)};
-					SpBase	otherValue{asValue->GetValue(ii)};
-
-					result = (*thisValue == *otherValue);
-				}
-			}
+			result = (fValue == asValue->GetValue());
 		}
 	}
 	ODL_OBJEXIT_B(result); //####
 	return result;
-} // ArrayValue::operator ==
+} // IntegerValue::operator ==
 
 std::ostream &
-ArrayValue::Print
+IntegerValue::Print
 	(std::ostream &	output,
-	 const size_t	indentStep,
-	 const char		indentChar,
-	 const size_t	indentLevel,
-	 const bool		squished)
+	 const size_t	/*indentStep*/,
+	 const char		/*indentChar*/,
+	 const size_t	/*indentLevel*/,
+	 const bool		/*squished*/)
 	const
 {
-	size_t	count = fValue.size();
-
-	output << '[';
-	if (squished)
-	{
-		if (0 != count)
-		{
-			fValue[0]->Print(output, indentStep, indentChar, indentLevel + indentStep, squished);
-			for (size_t ii = 1; ii < count; ++ii)
-			{
-				fValue[ii]->Print(output << ',', indentStep, indentChar, indentLevel + indentStep, squished);
-			}
-		}
-	}
-	else
-	{
-		if (0 != count)
-		{
-			fValue[0]->Print(output << ' ', indentStep, indentChar, indentLevel + indentStep, squished);
-			for (size_t ii = 1; ii < count; ++ii)
-			{
-				outputChars(output << ',' << std::endl, indentChar, indentLevel);
-				fValue[ii]->Print(output, indentStep, indentChar, indentLevel + indentStep, squished);
-			}
-		}
-		output << ' ';
-	}
-	output << ']';
-	return output;
+	return (output << fValue);
 } // BaseValue::Print
 
 #if defined(__APPLE__)

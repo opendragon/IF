@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifValueListener.h
+//  File:       InitFile/initFileValueListener.h
 //
 //  Project:    IF
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifValueListener_H_))
-# define ifValueListener_H_ /* Header guard */
+#if (! defined(initFileValueListener_H_))
+# define initFileValueListener_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
 
 # include "antlr4-runtime.h"
 # include "InitFileParserBaseListener.h"
@@ -280,4 +280,4 @@ namespace InitFile
 
 } // InitFile
 
-#endif /* not ifValueListener_H_ */
+#endif /* not initFileValueListener_H_ */

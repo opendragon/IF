@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifNull.cpp
+//  File:       InitFile/initFileNull.cpp
 //
 //  Project:    IF
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifNull.h>
+#include <initFileNull.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

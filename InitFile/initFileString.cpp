@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifObject.cpp
+//  File:       InitFile/initFileString.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile Object values.
+//  Contains:   The class definition for InitFile String values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,12 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifObject.h>
+#include <initFileString.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
-
-#include <iostream>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -49,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile Object values. */
+ @brief The class definition for %InitFile String values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -80,131 +78,53 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-ObjectValue::ObjectValue
-    (const ObjectValue &    other) :
-        inherited(other)
+StringValue::StringValue
+    (const StringValue &    other) :
+        inherited(other), fValue(other.fValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-	// copy elements
     ODL_EXIT_P(this); //####
-} // ObjectValue::ObjectValue
+} // StringValue::StringValue
 
-ObjectValue::~ObjectValue
+StringValue::~StringValue
     (void)
 {
-	ODL_OBJENTER(); //####
-	fValue.clear();
-	ODL_OBJEXIT(); //####
-} // ObjectValue::~ObjectValue
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // StringValue::~StringValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-ObjectValue &
-ObjectValue::AddValue
-	(const std::string &	key,
-	 SpBase            		aValue)
-{
-	fValue.insert({key, aValue});
-	return *this;
-} // ObjectValue::AddValue
-
-ObjectValue *
-ObjectValue::AsObject
+StringValue *
+StringValue::AsString
 	(void)
 {
 	return this;
-} // ObjectValue::AsObject
+} // StringValue::AsString
 
-const ObjectValue *
-ObjectValue::AsObject
+const StringValue *
+StringValue::AsString
 	(void)
 	const
 {
 	return this;
-} // ObjectValue::AsObject
+} // StringValue::AsString
 
 SpBase
-ObjectValue::Clone
+StringValue::Clone
 	(void)
 	const
 {
-	SpBase	result;
-
     ODL_OBJENTER(); //####
-	result.reset(new ObjectValue(*this));
-	for (auto & walker : fValue)
-	{
-		result->AsObject()->AddValue(walker.first, walker.second);
-	}
     ODL_OBJEXIT(); //####
-	return result;
-} // ObjectValue::Clone
-
-std::set<std::string>
-ObjectValue::GetTags
-	(void)
-	const
-{
-	std::set<std::string>	result;
-	
-	for (auto & walker : fValue)
-	{
-		result.insert(walker.first);
-	}
-	return result;
-} // ObjectValue::GetTags
-
-SpBase
-ObjectValue::GetValue
-	(const std::string &    tag)
-	const
-{
-	SpBase	result;
-	auto	match{fValue.find(tag)};
-
-	if (fValue.end() == match)
-	{
-		result = nullptr;
-	}
-	else
-	{
-		result = match->second;
-	}
-	return result;
-} // ObjectValue::GetValue
-
-size_t
-ObjectValue::HowManyValues
-	(void)
-	const
-{
-	return fValue.size();
-} // ObjectValue::HowManyValues
+	return SpBase(new StringValue(*this));	
+} // StringValue::Clone
 
 bool
-ObjectValue::IsTagPresent
-	(const std::string &    tag)
-	const
-{
-	bool	result;
-	auto	match{fValue.find(tag)};
-
-	if (fValue.end() == match)
-	{
-		result = false;
-	}
-	else
-	{
-		result = true;
-	}
-	return result;
-} // ObjectValue::IsTagPresent
-
-bool
-ObjectValue::operator ==
+StringValue::operator ==
 	(const BaseValue &	other)
 	const
 {
@@ -218,79 +138,27 @@ ObjectValue::operator ==
 	}
 	else
 	{
-		const ObjectValue *	asValue = other.AsObject();
+		const StringValue *	asValue = other.AsString();
 
 		if (asValue)
 		{
-			size_t	otherSize = asValue->HowManyValues();
-
-			if (HowManyValues() == otherSize)
-			{
-				result = true;
-				for (auto & walker : fValue)
-				{
-					std::string	key{walker.first};
-					SpBase		thisValue{walker.second};
-					SpBase		otherValue{asValue->GetValue(key)};
-
-					if (otherValue)
-					{
-						result = (*thisValue == *otherValue);
-					}
-					else
-					{
-						result = false;
-					}
-				}
-			}
+			result = (fValue == asValue->GetValue());
 		}
 	}
 	ODL_OBJEXIT_B(result); //####
 	return result;
-} // ObjectValue::operator ==
+} // StringValue::operator ==
 
 std::ostream &
-ObjectValue::Print
+StringValue::Print
 	(std::ostream &	output,
-	 const size_t	indentStep,
-	 const char		indentChar,
-	 const size_t	indentLevel,
-	 const bool		squished)
+	 const size_t	/*indentStep*/,
+	 const char		/*indentChar*/,
+	 const size_t	/*indentLevel*/,
+	 const bool		/*squished*/)
 	const
 {
-	auto	walker{fValue.begin()};
-
-	output << '{';
-	if (squished)
-	{
-		if (fValue.end() != walker)
-		{
-			outputEscapedString(output, walker->first);
-			walker->second->Print(output << ':', indentStep, indentChar, indentLevel + indentStep, squished);
-			for (++walker; fValue.end() != walker; ++walker)
-			{
-				outputEscapedString(output << ',', walker->first);
-				walker->second->Print(output << ':', indentStep, indentChar, indentLevel + indentStep, squished);
-			}
-		}
-	}
-	else
-	{
-		if (fValue.end() != walker)
-		{
-			outputEscapedString(output << ' ', walker->first);
-			walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
-			for (++walker; fValue.end() != walker; ++walker)
-			{
-				outputChars(output << ',' << std::endl, indentChar, indentLevel);
-				outputEscapedString(output, walker->first);
-				walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
-			}
-		}
-		output << ' ';
-	}
-	output << '}';
-	return output;
+	return outputEscapedString(output, fValue);
 } // BaseValue::Print
 
 #if defined(__APPLE__)

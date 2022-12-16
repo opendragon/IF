@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifString.cpp
+//  File:       InitFile/initFileAddress.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile String values.
+//  Contains:   The class definition for InitFile Address values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifString.h>
+#include <initFileAddress.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile String values. */
+ @brief The class definition for %InitFile Address values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,53 +78,53 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-StringValue::StringValue
-    (const StringValue &    other) :
+AddressValue::AddressValue
+    (const AddressValue &    other) :
         inherited(other), fValue(other.fValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
-} // StringValue::StringValue
+} // AddressValue::AddressValue
 
-StringValue::~StringValue
+AddressValue::~AddressValue
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // StringValue::~StringValue
+} // AddressValue::~AddressValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-StringValue *
-StringValue::AsString
+AddressValue *
+AddressValue::AsAddress
 	(void)
 {
 	return this;
-} // StringValue::AsString
+} // AddressValue::AsAddress
 
-const StringValue *
-StringValue::AsString
+const AddressValue *
+AddressValue::AsAddress
 	(void)
 	const
 {
 	return this;
-} // StringValue::AsString
+} // AddressValue::AsAddress
 
 SpBase
-StringValue::Clone
+AddressValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBase(new StringValue(*this));	
-} // StringValue::Clone
+	return SpBase(new AddressValue(*this));	
+} // AddressValue::Clone
 
 bool
-StringValue::operator ==
+AddressValue::operator ==
 	(const BaseValue &	other)
 	const
 {
@@ -138,7 +138,7 @@ StringValue::operator ==
 	}
 	else
 	{
-		const StringValue *	asValue = other.AsString();
+		const AddressValue *	asValue = other.AsAddress();
 
 		if (asValue)
 		{
@@ -147,10 +147,10 @@ StringValue::operator ==
 	}
 	ODL_OBJEXIT_B(result); //####
 	return result;
-} // StringValue::operator ==
+} // AddressValue::operator ==
 
 std::ostream &
-StringValue::Print
+AddressValue::Print
 	(std::ostream &	output,
 	 const size_t	/*indentStep*/,
 	 const char		/*indentChar*/,
@@ -158,7 +158,7 @@ StringValue::Print
 	 const bool		/*squished*/)
 	const
 {
-	return outputEscapedString(output, fValue);
+	return (output << ((fValue >> 24) & 0x0FF) << '.' << ((fValue >> 16) & 0x0FF) << '.' << ((fValue >> 8) & 0x0FF) << '.' << (fValue & 0x0FF));
 } // BaseValue::Print
 
 #if defined(__APPLE__)

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifBoolean.h
+//  File:       InitFile/initFileBoolean.h
 //
 //  Project:    IF
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifBoolean_H_))
-# define ifBoolean_H_ /* Header guard */
+#if (! defined(initFileBoolean_H_))
+# define initFileBoolean_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -194,4 +194,4 @@ namespace InitFile
 
 } // InitFile
 
-#endif /* not ifBoolean_H_ */
+#endif /* not initFileBoolean_H_ */

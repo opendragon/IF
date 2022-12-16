@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifCompareWithoutCase.cpp
+//  File:       InitFile/initFileDouble.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for functional objects used for case-insensitive comparisons.
+//  Contains:   The class definition for InitFile Double values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifCompareWithoutCase.h>
+#include <initFileDouble.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile case-insensitive comparisons. */
+ @brief The class definition for %InitFile Double values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,48 +78,88 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
+DoubleValue::DoubleValue
+    (const DoubleValue &    other) :
+        inherited(other), fValue(other.fValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // DoubleValue::DoubleValue
+
+DoubleValue::~DoubleValue
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // DoubleValue::~DoubleValue
+
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-CompareWithoutCase::operator()
-	(const std::string &  lhs,
-	 const std::string &  rhs)
+DoubleValue *
+DoubleValue::AsDouble
+	(void)
+{
+	return this;
+} // DoubleValue::AsDouble
+
+const DoubleValue *
+DoubleValue::AsDouble
+	(void)
 	const
 {
-	// true if lhs < rhs, false otherwise.
-	const size_t  lhs_max = lhs.size();
-	const size_t  rhs_max = rhs.size();
-	const size_t  max_i = std::min(lhs_max, rhs_max);
-	bool          result = true;
-	bool          same = true;
+	return this;
+} // DoubleValue::AsDouble
 
-	for (size_t ii = 0; ii < max_i; ++ii)
+SpBase
+DoubleValue::Clone
+	(void)
+	const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+	return SpBase(new DoubleValue(*this));	
+} // DoubleValue::Clone
+
+bool
+DoubleValue::operator ==
+	(const BaseValue &	other)
+	const
+{
+	bool	result = false;
+
+	ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+	if (&other == this)
 	{
-		const char  left = tolower(lhs[ii]);
-		const char  right = tolower(rhs[ii]);
+		result = true;
+	}
+	else
+	{
+		const DoubleValue *	asValue = other.AsDouble();
 
-		if (left > right)
+		if (asValue)
 		{
-			result = same = false;
-			break;
-
-		}
-		if (left < right)
-		{
-			same = false;
-			break;
-
+			result = (fValue == asValue->GetValue());
 		}
 	}
-	if (result && same)
-	{
-		// All the characters matched, up to the smaller of the two strings.
-		result = (lhs_max < rhs_max);
-	}
+	ODL_OBJEXIT_B(result); //####
 	return result;
-} // CompareWithoutCase::operator()
+} // DoubleValue::operator ==
+
+std::ostream &
+DoubleValue::Print
+	(std::ostream &	output,
+	 const size_t	/*indentStep*/,
+	 const char		/*indentChar*/,
+	 const size_t	/*indentLevel*/,
+	 const bool		/*squished*/)
+	const
+{
+	return (output << fValue);
+} // BaseValue::Print
 
 #if defined(__APPLE__)
 # pragma mark Global functions

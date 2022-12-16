@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifDouble.cpp
+//  File:       InitFile/initFileArray.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile Double values.
+//  Contains:   The class definition for InitFile Array values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifDouble.h>
+#include <initFileArray.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile Double values. */
+ @brief The class definition for %InitFile Array values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,53 +78,112 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-DoubleValue::DoubleValue
-    (const DoubleValue &    other) :
-        inherited(other), fValue(other.fValue)
+ArrayValue::ArrayValue
+    (const ArrayValue &    other) :
+        inherited(other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
+	// copy elements
     ODL_EXIT_P(this); //####
-} // DoubleValue::DoubleValue
+} // ArrayValue::ArrayValue
 
-DoubleValue::~DoubleValue
+ArrayValue::~ArrayValue
     (void)
 {
     ODL_OBJENTER(); //####
+	fValue.clear();
     ODL_OBJEXIT(); //####
-} // DoubleValue::~DoubleValue
+} // ArrayValue::~ArrayValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-DoubleValue *
-DoubleValue::AsDouble
+ArrayValue &
+ArrayValue::AddValueAtBack
+	(SpBase	aValue)
+{
+	if (aValue)
+	{
+		fValue.push_back(aValue);
+	}
+	return *this;
+} // ArrayValue::AddValueAtBack
+
+ArrayValue &
+ArrayValue::AddValueAtFront
+	(SpBase	aValue)
+{
+	if (aValue)
+	{
+		fValue.push_front(aValue);
+	}
+	return *this;
+} // ArrayValue::AddValueAtFront
+
+ArrayValue *
+ArrayValue::AsArray
 	(void)
 {
 	return this;
-} // DoubleValue::AsDouble
+} // ArrayValue::AsArray
 
-const DoubleValue *
-DoubleValue::AsDouble
+const ArrayValue *
+ArrayValue::AsArray
 	(void)
 	const
 {
 	return this;
-} // DoubleValue::AsDouble
+} // ArrayValue::AsArray
 
 SpBase
-DoubleValue::Clone
+ArrayValue::Clone
 	(void)
 	const
 {
+	SpBase	result;
+
     ODL_OBJENTER(); //####
+	result.reset(new ArrayValue(*this));
+	for (size_t ii = 0; ii < fValue.size(); ++ii)
+	{
+		SpBase	thisValue{GetValue(ii)};
+
+		result->AsArray()->AddValueAtBack(thisValue);
+	}
     ODL_OBJEXIT(); //####
-	return SpBase(new DoubleValue(*this));	
-} // DoubleValue::Clone
+	return result;
+} // ArrayValue::Clone
+
+SpBase
+ArrayValue::GetValue
+	(const size_t   index)
+	const
+{
+	SpBase	result;
+
+	if (index < fValue.size())
+	{
+		result = fValue[index];
+	}
+	else
+	{
+		result = nullptr;
+	}
+	return result;
+} // ArrayValue::GetValue
+
+size_t
+ArrayValue::HowManyValues
+	(void)
+	const
+{
+	return fValue.size();
+} // ArrayValue::HowManyValues
 
 bool
-DoubleValue::operator ==
+ArrayValue::operator ==
 	(const BaseValue &	other)
 	const
 {
@@ -138,27 +197,67 @@ DoubleValue::operator ==
 	}
 	else
 	{
-		const DoubleValue *	asValue = other.AsDouble();
+		const ArrayValue *	asValue = other.AsArray();
 
 		if (asValue)
 		{
-			result = (fValue == asValue->GetValue());
+			size_t	otherSize = asValue->HowManyValues();
+
+			if (HowManyValues() == otherSize)
+			{
+				result = true;
+				for (size_t ii = 0; result && (ii < otherSize); ++ii)
+				{
+					SpBase	thisValue{GetValue(ii)};
+					SpBase	otherValue{asValue->GetValue(ii)};
+
+					result = (*thisValue == *otherValue);
+				}
+			}
 		}
 	}
 	ODL_OBJEXIT_B(result); //####
 	return result;
-} // DoubleValue::operator ==
+} // ArrayValue::operator ==
 
 std::ostream &
-DoubleValue::Print
+ArrayValue::Print
 	(std::ostream &	output,
-	 const size_t	/*indentStep*/,
-	 const char		/*indentChar*/,
-	 const size_t	/*indentLevel*/,
-	 const bool		/*squished*/)
+	 const size_t	indentStep,
+	 const char		indentChar,
+	 const size_t	indentLevel,
+	 const bool		squished)
 	const
 {
-	return (output << fValue);
+	size_t	count = fValue.size();
+
+	output << '[';
+	if (squished)
+	{
+		if (0 != count)
+		{
+			fValue[0]->Print(output, indentStep, indentChar, indentLevel + indentStep, squished);
+			for (size_t ii = 1; ii < count; ++ii)
+			{
+				fValue[ii]->Print(output << ',', indentStep, indentChar, indentLevel + indentStep, squished);
+			}
+		}
+	}
+	else
+	{
+		if (0 != count)
+		{
+			fValue[0]->Print(output << ' ', indentStep, indentChar, indentLevel + indentStep, squished);
+			for (size_t ii = 1; ii < count; ++ii)
+			{
+				outputChars(output << ',' << std::endl, indentChar, indentLevel);
+				fValue[ii]->Print(output, indentStep, indentChar, indentLevel + indentStep, squished);
+			}
+		}
+		output << ' ';
+	}
+	output << ']';
+	return output;
 } // BaseValue::Print
 
 #if defined(__APPLE__)

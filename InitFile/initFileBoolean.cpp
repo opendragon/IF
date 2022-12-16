@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifAddress.cpp
+//  File:       InitFile/initFileBoolean.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile Address values.
+//  Contains:   The class definition for InitFile Boolean values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifAddress.h>
+#include <initFileBoolean.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile Address values. */
+ @brief The class definition for %InitFile Boolean values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,53 +78,53 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-AddressValue::AddressValue
-    (const AddressValue &    other) :
+BooleanValue::BooleanValue
+    (const BooleanValue &    other) :
         inherited(other), fValue(other.fValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
-} // AddressValue::AddressValue
+} // BooleanValue::BooleanValue
 
-AddressValue::~AddressValue
+BooleanValue::~BooleanValue
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // AddressValue::~AddressValue
+} // BooleanValue::~BooleanValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-AddressValue *
-AddressValue::AsAddress
+BooleanValue *
+BooleanValue::AsBoolean
 	(void)
 {
 	return this;
-} // AddressValue::AsAddress
+} // BooleanValue::AsBoolean
 
-const AddressValue *
-AddressValue::AsAddress
+const BooleanValue *
+BooleanValue::AsBoolean
 	(void)
 	const
 {
 	return this;
-} // AddressValue::AsAddress
+} // BooleanValue::AsBoolean
 
 SpBase
-AddressValue::Clone
+BooleanValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBase(new AddressValue(*this));	
-} // AddressValue::Clone
+	return SpBase(new BooleanValue(*this));	
+} // BooleanValue::Clone
 
 bool
-AddressValue::operator ==
+BooleanValue::operator ==
 	(const BaseValue &	other)
 	const
 {
@@ -138,7 +138,7 @@ AddressValue::operator ==
 	}
 	else
 	{
-		const AddressValue *	asValue = other.AsAddress();
+		const BooleanValue *	asValue = other.AsBoolean();
 
 		if (asValue)
 		{
@@ -147,10 +147,10 @@ AddressValue::operator ==
 	}
 	ODL_OBJEXIT_B(result); //####
 	return result;
-} // AddressValue::operator ==
+} // BooleanValue::operator ==
 
 std::ostream &
-AddressValue::Print
+BooleanValue::Print
 	(std::ostream &	output,
 	 const size_t	/*indentStep*/,
 	 const char		/*indentChar*/,
@@ -158,7 +158,7 @@ AddressValue::Print
 	 const bool		/*squished*/)
 	const
 {
-	return (output << ((fValue >> 24) & 0x0FF) << '.' << ((fValue >> 16) & 0x0FF) << '.' << ((fValue >> 8) & 0x0FF) << '.' << (fValue & 0x0FF));
+	return (output << (fValue ? "true" : "false"));
 } // BaseValue::Print
 
 #if defined(__APPLE__)

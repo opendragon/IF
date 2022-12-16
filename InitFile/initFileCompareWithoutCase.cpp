@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifBoolean.cpp
+//  File:       InitFile/initFileCompareWithoutCase.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile Boolean values.
+//  Contains:   The class definition for functional objects used for case-insensitive comparisons.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifBoolean.h>
+#include <initFileCompareWithoutCase.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile Boolean values. */
+ @brief The class definition for %InitFile case-insensitive comparisons. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,88 +78,48 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-BooleanValue::BooleanValue
-    (const BooleanValue &    other) :
-        inherited(other), fValue(other.fValue)
-{
-    ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
-    ODL_EXIT_P(this); //####
-} // BooleanValue::BooleanValue
-
-BooleanValue::~BooleanValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // BooleanValue::~BooleanValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-BooleanValue *
-BooleanValue::AsBoolean
-	(void)
-{
-	return this;
-} // BooleanValue::AsBoolean
-
-const BooleanValue *
-BooleanValue::AsBoolean
-	(void)
-	const
-{
-	return this;
-} // BooleanValue::AsBoolean
-
-SpBase
-BooleanValue::Clone
-	(void)
-	const
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-	return SpBase(new BooleanValue(*this));	
-} // BooleanValue::Clone
-
 bool
-BooleanValue::operator ==
-	(const BaseValue &	other)
+CompareWithoutCase::operator()
+	(const std::string &  lhs,
+	 const std::string &  rhs)
 	const
 {
-	bool	result = false;
+	// true if lhs < rhs, false otherwise.
+	const size_t  lhs_max = lhs.size();
+	const size_t  rhs_max = rhs.size();
+	const size_t  max_i = std::min(lhs_max, rhs_max);
+	bool          result = true;
+	bool          same = true;
 
-	ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-	if (&other == this)
+	for (size_t ii = 0; ii < max_i; ++ii)
 	{
-		result = true;
-	}
-	else
-	{
-		const BooleanValue *	asValue = other.AsBoolean();
+		const char  left = tolower(lhs[ii]);
+		const char  right = tolower(rhs[ii]);
 
-		if (asValue)
+		if (left > right)
 		{
-			result = (fValue == asValue->GetValue());
+			result = same = false;
+			break;
+
+		}
+		if (left < right)
+		{
+			same = false;
+			break;
+
 		}
 	}
-	ODL_OBJEXIT_B(result); //####
+	if (result && same)
+	{
+		// All the characters matched, up to the smaller of the two strings.
+		result = (lhs_max < rhs_max);
+	}
 	return result;
-} // BooleanValue::operator ==
-
-std::ostream &
-BooleanValue::Print
-	(std::ostream &	output,
-	 const size_t	/*indentStep*/,
-	 const char		/*indentChar*/,
-	 const size_t	/*indentLevel*/,
-	 const bool		/*squished*/)
-	const
-{
-	return (output << (fValue ? "true" : "false"));
-} // BaseValue::Print
+} // CompareWithoutCase::operator()
 
 #if defined(__APPLE__)
 # pragma mark Global functions

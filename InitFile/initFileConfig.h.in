@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifConfig.h
+//  File:       InitFile/initFileConfig.h
 //
 //  Project:    IF
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifConfig_H_))
-# define ifConfig_H_ /* Header guard */
+#if (! defined(initFileConfig_H_))
+# define initFileConfig_H_ /* Header guard */
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -66,4 +66,4 @@
 
 #cmakedefine IF_DoExplicitCheckForOK /* Check OK responses for validity */
 
-#endif // ! defined(ifConfig_H_)
+#endif // ! defined(initFileConfig_H_)

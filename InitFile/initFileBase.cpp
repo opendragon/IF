@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifBase.cpp
+//  File:       InitFile/initFileBase.cpp
 //
 //  Project:    IF
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifBase.h>
+#include <initFileBase.h>
 
 #include <fstream>
 #include <iostream>

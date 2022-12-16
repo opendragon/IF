@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifObject.h
+//  File:       InitFile/initFileAddress.h
 //
 //  Project:    IF
 //
-//  Contains:   The class declaration for InitFile Object values.
+//  Contains:   The class declaration for InitFile Address values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,14 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifObject_H_))
-# define ifObject_H_ /* Header guard */
+#if (! defined(initFileAddress_H_))
+# define initFileAddress_H_ /* Header guard */
 
-# include <ifBase.h>
-# include <ifCompareWithoutCase.h>
-
-# include <map>
-# include <set>
+# include <initFileBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -51,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %InitFile Object values. */
+ @brief The class declaration for %InitFile Address values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace InitFile
 {
-    /*! @brief A class to provide the base type for Object values. */
-    class ObjectValue : public BaseValue
+    /*! @brief A class to provide the base type for Address values. */
+    class AddressValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -73,70 +69,40 @@ namespace InitFile
         /*! @brief The class that this class is derived from. */
         using inherited = BaseValue;
 
-        /*! @brief The internal storage structure for Object values. */
-        using ValueMap = std::map<std::string, SpBase, CompareWithoutCase>;
-
-        /*! @brief A shortcut name for a constant iterator over the Object contents. */
-        using const_iterator = ValueMap::const_iterator;
-
-        /*! @brief A shortcut name for an iterator over the Object contents. */
-        using iterator = ValueMap::iterator;
-
-        /*! @brief A shortcut name for the size of the Object contents. */
-        using size_type = ValueMap::size_type;
-
-        /*! @brief A shortcut name for the keys used to access the Object contents. */
-        using key_type = ValueMap::key_type;
-
-        /*! @brief A shortcut name for the values stored in the Object contents. */
-        using value_type = ValueMap::value_type;
-
-        /*! @brief A shortcut name for the result of an insert into the Object contents. */
-        using insert_type = std::pair<iterator, bool>;
-
     public :
         // Public methods.
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline explicit ObjectValue
-			(SpBase    parent) :
-				inherited(parent)
+		inline AddressValue
+			(SpBase	        parent,
+             const uint32_t value) :
+				inherited(parent), fValue(value)
 			{
 			} /* constructor */
 
         /*! @brief The move constructor.
          @param[in] other The object to be moved. */
-        ObjectValue
-            (ObjectValue &&	other)
+        AddressValue
+            (AddressValue &&	other)
             noexcept;
 
         /*! @brief The destructor. */
         virtual
-        ~ObjectValue
+        ~AddressValue
             (void);
 
-        /*! @brief Add a value to the Object contents.
-         @param[in] key The tag for the value being added.
-         @param[in] aValue The value to be added.
-         Only non-@c nullptr values will be added and only if the key is non-empty.
-         @return The Object that was modified. */
-        ObjectValue &
-        AddValue
-            (const std::string &    key,
-             SpBase                 aValue);
-
-        /*! @brief Return @c this if this is an object.
-         @return @c this if this is an object. */
-		virtual ObjectValue *
-		AsObject
+        /*! @brief Return @c this if this is an IPv4 address.
+         @return @c this if this is an IPv4 address. */
+		virtual AddressValue *
+		AsAddress
 			(void)
             override;
 
-        /*! @brief Return @c this if this is an object.
-         @return @c this if this is an object. */
-		virtual const ObjectValue *
-		AsObject
+        /*! @brief Return @c this if this is an IPv4 address.
+         @return @c this if this is an IPv4 address. */
+		virtual const AddressValue *
+		AsAddress
 			(void)
             const
             override;
@@ -149,51 +115,29 @@ namespace InitFile
 			const
             override;
 
-        /*! @brief Return the set of tags for this object.
-        @return The tags for this object. */
-        std::set<std::string>
-        GetTags
-            (void)
-            const;
-
-        /*! @brief Return a value from the Object contents.
-         @param[in] tag The tag for the desired value.
-         @return The value in the contents corresponding to the tag.
-         @c nullptr is returned if the tag is empty or not found in the contents. */
-        SpBase
-        GetValue
-            (const std::string &    tag)
-            const;
-
-        /*! @brief Return the number of values in the Object contents.
-         @return The number of values in the Object contents. */
-        size_t
-        HowManyValues
-            (void)
-            const;
-
-        /*! @brief Return @c true if the Object contents includes a value with the given tag.
-         @param[in] key The tag to be checked.
-         @return @c true if there is a value in the contents with the given tag.
-         @c false is returned if the tag is empty or not found in the contents. */
-        bool
-        IsTagPresent
-            (const std::string &    tag)
-            const;
+        /*! @brief Return the content of this value.
+         @return The content of this value. */
+		inline uint32_t
+		GetValue
+			(void)
+			const
+		{
+			return fValue;
+		} // GetValue
 
         /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
-        ObjectValue &
+        AddressValue &
         operator =
-            (const ObjectValue &  other) = delete;
+            (const AddressValue &  other) = delete;
 
         /*! @brief The move assignment operator.
          @param[in] other The object to be moved.
          @return The updated object. */
-        ObjectValue &
+        AddressValue &
         operator =
-            (ObjectValue &&  other)
+            (AddressValue &&  other)
             noexcept;
 
         /*! @brief Return @c true if the two values are equal.
@@ -231,8 +175,8 @@ namespace InitFile
 
         /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
-        ObjectValue
-            (const ObjectValue &	other);
+        AddressValue
+            (const AddressValue &	other);
 
     public :
         // Public fields.
@@ -244,10 +188,10 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		ValueMap  fValue;
+		uint32_t    fValue;
 
-    }; // ObjectValue
+    }; // AddressValue
 
 } // InitFile
 
-#endif /* not ifObject_H_ */
+#endif /* not initFileAddress_H_ */

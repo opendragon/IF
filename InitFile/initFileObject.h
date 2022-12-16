@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifArray.h
+//  File:       InitFile/initFileObject.h
 //
 //  Project:    IF
 //
-//  Contains:   The class declaration for InitFile Array values.
+//  Contains:   The class declaration for InitFile Object values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,12 +36,14 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifArray_H_))
-# define ifArray_H_ /* Header guard */
+#if (! defined(initFileObject_H_))
+# define initFileObject_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
+# include <initFileCompareWithoutCase.h>
 
-# include <deque>
+# include <map>
+# include <set>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -49,15 +51,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %InitFile Array values. */
+ @brief The class declaration for %InitFile Object values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace InitFile
 {
-    /*! @brief A class to provide the base type for Array values. */
-    class ArrayValue final : public BaseValue
+    /*! @brief A class to provide the base type for Object values. */
+    class ObjectValue : public BaseValue
     {
     public :
         // Public type definitions.
@@ -71,27 +73,33 @@ namespace InitFile
         /*! @brief The class that this class is derived from. */
         using inherited = BaseValue;
 
-        /*! @brief The internal storage structure for Array values. */
-        using ValueQueue = std::deque<SpBase>;
+        /*! @brief The internal storage structure for Object values. */
+        using ValueMap = std::map<std::string, SpBase, CompareWithoutCase>;
 
-        /*! @brief A shortcut name for a constant iterator over the Array contents. */
-        using const_iterator = ValueQueue::const_iterator;
+        /*! @brief A shortcut name for a constant iterator over the Object contents. */
+        using const_iterator = ValueMap::const_iterator;
 
-        /*! @brief A shortcut name for an iterator over the Array contents. */
-        using iterator = ValueQueue::iterator;
+        /*! @brief A shortcut name for an iterator over the Object contents. */
+        using iterator = ValueMap::iterator;
 
-        /*! @brief A shortcut name for a reverse iterator over the Array contents. */
-        using const_reverse_iterator = ValueQueue::const_reverse_iterator;
+        /*! @brief A shortcut name for the size of the Object contents. */
+        using size_type = ValueMap::size_type;
 
-        /*! @brief A shortcut name for the size of the Array contents. */
-        using size_type = ValueQueue::size_type;
+        /*! @brief A shortcut name for the keys used to access the Object contents. */
+        using key_type = ValueMap::key_type;
+
+        /*! @brief A shortcut name for the values stored in the Object contents. */
+        using value_type = ValueMap::value_type;
+
+        /*! @brief A shortcut name for the result of an insert into the Object contents. */
+        using insert_type = std::pair<iterator, bool>;
 
     public :
         // Public methods.
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline explicit ArrayValue
+		inline explicit ObjectValue
 			(SpBase    parent) :
 				inherited(parent)
 			{
@@ -99,44 +107,36 @@ namespace InitFile
 
         /*! @brief The move constructor.
          @param[in] other The object to be moved. */
-        ArrayValue
-            (ArrayValue &&	other)
+        ObjectValue
+            (ObjectValue &&	other)
             noexcept;
 
         /*! @brief The destructor. */
         virtual
-        ~ArrayValue
+        ~ObjectValue
             (void);
 
-        /*! @brief Add a value to the Array contents.
+        /*! @brief Add a value to the Object contents.
+         @param[in] key The tag for the value being added.
          @param[in] aValue The value to be added.
-         Values are added to the end of the contents.
-         Only non-@c nullptr values will be added.
-         @return The Array that was modified. */
-        ArrayValue &
-        AddValueAtBack
-            (SpBase aValue);
+         Only non-@c nullptr values will be added and only if the key is non-empty.
+         @return The Object that was modified. */
+        ObjectValue &
+        AddValue
+            (const std::string &    key,
+             SpBase                 aValue);
 
-        /*! @brief Add a value to the Array contents.
-         @param[in] aValue The value to be added.
-         Values are added to the beginning of the contents.
-         Only non-@c nullptr values will be added.
-         @return The Array that was modified. */
-        ArrayValue &
-        AddValueAtFront
-            (SpBase aValue);
-
-        /*! @brief Return @c this if this is an array.
-         @return @c this if this is an array. */
-		virtual ArrayValue *
-		AsArray
+        /*! @brief Return @c this if this is an object.
+         @return @c this if this is an object. */
+		virtual ObjectValue *
+		AsObject
 			(void)
             override;
 
-        /*! @brief Return @c this if this is an array.
-         @return @c this if this is an array. */
-		virtual const ArrayValue *
-		AsArray
+        /*! @brief Return @c this if this is an object.
+         @return @c this if this is an object. */
+		virtual const ObjectValue *
+		AsObject
 			(void)
             const
             override;
@@ -149,34 +149,51 @@ namespace InitFile
 			const
             override;
 
-        /*! @brief Return a value from the Array contents.
-         @param[in] index The index (zero-origin) of the desired value.
-         @return The value in the contents corresponding to the index. */
-        SpBase
-        GetValue
-            (const size_t   index)
+        /*! @brief Return the set of tags for this object.
+        @return The tags for this object. */
+        std::set<std::string>
+        GetTags
+            (void)
             const;
 
-        /*! @brief Return the number of values in the Array contents.
-         @return The number of values in the Array contents. */
+        /*! @brief Return a value from the Object contents.
+         @param[in] tag The tag for the desired value.
+         @return The value in the contents corresponding to the tag.
+         @c nullptr is returned if the tag is empty or not found in the contents. */
+        SpBase
+        GetValue
+            (const std::string &    tag)
+            const;
+
+        /*! @brief Return the number of values in the Object contents.
+         @return The number of values in the Object contents. */
         size_t
         HowManyValues
             (void)
             const;
 
+        /*! @brief Return @c true if the Object contents includes a value with the given tag.
+         @param[in] key The tag to be checked.
+         @return @c true if there is a value in the contents with the given tag.
+         @c false is returned if the tag is empty or not found in the contents. */
+        bool
+        IsTagPresent
+            (const std::string &    tag)
+            const;
+
         /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
-        ArrayValue &
+        ObjectValue &
         operator =
-            (const ArrayValue &  other) = delete;
+            (const ObjectValue &  other) = delete;
 
         /*! @brief The move assignment operator.
          @param[in] other The object to be moved.
          @return The updated object. */
-        ArrayValue &
+        ObjectValue &
         operator =
-            (ArrayValue &&  other)
+            (ObjectValue &&  other)
             noexcept;
 
         /*! @brief Return @c true if the two values are equal.
@@ -214,8 +231,8 @@ namespace InitFile
 
         /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
-        ArrayValue
-            (const ArrayValue &	other);
+        ObjectValue
+            (const ObjectValue &	other);
 
     public :
         // Public fields.
@@ -227,10 +244,10 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		ValueQueue fValue;
+		ValueMap  fValue;
 
-    }; // ArrayValue
+    }; // ObjectValue
 
 } // InitFile
 
-#endif /* not ifArray_H_ */
+#endif /* not initFileObject_H_ */

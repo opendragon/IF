@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifAddress.h
+//  File:       InitFile/initFileArray.h
 //
 //  Project:    IF
 //
-//  Contains:   The class declaration for InitFile Address values.
+//  Contains:   The class declaration for InitFile Array values.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,10 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifAddress_H_))
-# define ifAddress_H_ /* Header guard */
+#if (! defined(initFileArray_H_))
+# define initFileArray_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
+
+# include <deque>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %InitFile Address values. */
+ @brief The class declaration for %InitFile Array values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace InitFile
 {
-    /*! @brief A class to provide the base type for Address values. */
-    class AddressValue final : public BaseValue
+    /*! @brief A class to provide the base type for Array values. */
+    class ArrayValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -69,40 +71,72 @@ namespace InitFile
         /*! @brief The class that this class is derived from. */
         using inherited = BaseValue;
 
+        /*! @brief The internal storage structure for Array values. */
+        using ValueQueue = std::deque<SpBase>;
+
+        /*! @brief A shortcut name for a constant iterator over the Array contents. */
+        using const_iterator = ValueQueue::const_iterator;
+
+        /*! @brief A shortcut name for an iterator over the Array contents. */
+        using iterator = ValueQueue::iterator;
+
+        /*! @brief A shortcut name for a reverse iterator over the Array contents. */
+        using const_reverse_iterator = ValueQueue::const_reverse_iterator;
+
+        /*! @brief A shortcut name for the size of the Array contents. */
+        using size_type = ValueQueue::size_type;
+
     public :
         // Public methods.
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline AddressValue
-			(SpBase	        parent,
-             const uint32_t value) :
-				inherited(parent), fValue(value)
+		inline explicit ArrayValue
+			(SpBase    parent) :
+				inherited(parent)
 			{
 			} /* constructor */
 
         /*! @brief The move constructor.
          @param[in] other The object to be moved. */
-        AddressValue
-            (AddressValue &&	other)
+        ArrayValue
+            (ArrayValue &&	other)
             noexcept;
 
         /*! @brief The destructor. */
         virtual
-        ~AddressValue
+        ~ArrayValue
             (void);
 
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
-		virtual AddressValue *
-		AsAddress
+        /*! @brief Add a value to the Array contents.
+         @param[in] aValue The value to be added.
+         Values are added to the end of the contents.
+         Only non-@c nullptr values will be added.
+         @return The Array that was modified. */
+        ArrayValue &
+        AddValueAtBack
+            (SpBase aValue);
+
+        /*! @brief Add a value to the Array contents.
+         @param[in] aValue The value to be added.
+         Values are added to the beginning of the contents.
+         Only non-@c nullptr values will be added.
+         @return The Array that was modified. */
+        ArrayValue &
+        AddValueAtFront
+            (SpBase aValue);
+
+        /*! @brief Return @c this if this is an array.
+         @return @c this if this is an array. */
+		virtual ArrayValue *
+		AsArray
 			(void)
             override;
 
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
-		virtual const AddressValue *
-		AsAddress
+        /*! @brief Return @c this if this is an array.
+         @return @c this if this is an array. */
+		virtual const ArrayValue *
+		AsArray
 			(void)
             const
             override;
@@ -115,29 +149,34 @@ namespace InitFile
 			const
             override;
 
-        /*! @brief Return the content of this value.
-         @return The content of this value. */
-		inline uint32_t
-		GetValue
-			(void)
-			const
-		{
-			return fValue;
-		} // GetValue
+        /*! @brief Return a value from the Array contents.
+         @param[in] index The index (zero-origin) of the desired value.
+         @return The value in the contents corresponding to the index. */
+        SpBase
+        GetValue
+            (const size_t   index)
+            const;
+
+        /*! @brief Return the number of values in the Array contents.
+         @return The number of values in the Array contents. */
+        size_t
+        HowManyValues
+            (void)
+            const;
 
         /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
-        AddressValue &
+        ArrayValue &
         operator =
-            (const AddressValue &  other) = delete;
+            (const ArrayValue &  other) = delete;
 
         /*! @brief The move assignment operator.
          @param[in] other The object to be moved.
          @return The updated object. */
-        AddressValue &
+        ArrayValue &
         operator =
-            (AddressValue &&  other)
+            (ArrayValue &&  other)
             noexcept;
 
         /*! @brief Return @c true if the two values are equal.
@@ -175,8 +214,8 @@ namespace InitFile
 
         /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
-        AddressValue
-            (const AddressValue &	other);
+        ArrayValue
+            (const ArrayValue &	other);
 
     public :
         // Public fields.
@@ -188,10 +227,10 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		uint32_t    fValue;
+		ValueQueue fValue;
 
-    }; // AddressValue
+    }; // ArrayValue
 
 } // InitFile
 
-#endif /* not ifAddress_H_ */
+#endif /* not initFileArray_H_ */

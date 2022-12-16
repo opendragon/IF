@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifBase.h
+//  File:       InitFile/initFileBase.h
 //
 //  Project:    IF
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifBase_H_))
-# define ifBase_H_ /* Header guard */
+#if (! defined(initFileBase_H_))
+# define initFileBase_H_ /* Header guard */
 
-# include <ifConfig.h>
+# include <initFileConfig.h>
 
 # include <istream>
 # include <ostream>
@@ -371,4 +371,4 @@ namespace InitFile
 
 } // InitFile
 
-#endif /* not ifBase_H_ */
+#endif /* not initFileBase_H_ */

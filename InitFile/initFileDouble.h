@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifInteger.h
+//  File:       InitFile/initFileDouble.h
 //
 //  Project:    IF
 //
-//  Contains:   The class declaration for InitFile Integer values.
+//  Contains:   The class declaration for InitFile Double values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-09-23
+//  Created:    2020-09-22
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifInteger_H_))
-# define ifInteger_H_ /* Header guard */
+#if (! defined(initFileDouble_H_))
+# define initFileDouble_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %InitFile Integer values. */
+ @brief The class declaration for %InitFile Double values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace InitFile
 {
-    /*! @brief A class to provide the base type for Integer values. */
-    class IntegerValue final : public BaseValue
+    /*! @brief A class to provide the base type for Double values. */
+    class DoubleValue final : public BaseValue
     {
     public :
         // Public type definitions.
@@ -74,35 +74,35 @@ namespace InitFile
 
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
-		inline IntegerValue
+		inline DoubleValue
 			(SpBase         parent,
-             const int64_t  value) :
+             const double   value) :
 				inherited(parent), fValue(value)
 			{
 			} /* constructor */
 
         /*! @brief The move constructor.
          @param[in] other The object to be moved. */
-        IntegerValue
-            (IntegerValue &&	other)
+        DoubleValue
+            (DoubleValue &&	other)
             noexcept;
 
         /*! @brief The destructor. */
         virtual
-        ~IntegerValue
+        ~DoubleValue
             (void);
 
-        /*! @brief Return @c this if this is an integer value.
-         @return @c this if this is an integer value. */
-		virtual IntegerValue *
-		AsInteger
+        /*! @brief Return @c this if this is a double value.
+         @return @c this if this is a double value. */
+		virtual DoubleValue *
+		AsDouble
 			(void)
             override;
 
-        /*! @brief Return @c this if this is an integer value.
-         @return @c this if this is an integer value. */
-		virtual const IntegerValue *
-		AsInteger
+        /*! @brief Return @c this if this is a double value.
+         @return @c this if this is a double value. */
+		virtual const DoubleValue *
+		AsDouble
 			(void)
             const
             override;
@@ -117,7 +117,7 @@ namespace InitFile
 
         /*! @brief Return the content of this value.
          @return The content of this value. */
-		inline int64_t
+		inline double
 		GetValue
 			(void)
 			const
@@ -128,16 +128,16 @@ namespace InitFile
         /*! @brief The copy assignment operator.
          @param[in] other The object to be copied.
          @return The updated object. */
-        IntegerValue &
+        DoubleValue &
         operator =
-            (const IntegerValue &  other) = delete;
+            (const DoubleValue &  other) = delete;
 
         /*! @brief The move assignment operator.
          @param[in] other The object to be moved.
          @return The updated object. */
-        IntegerValue &
+        DoubleValue &
         operator =
-            (IntegerValue &&  other)
+            (DoubleValue &&  other)
             noexcept;
 
         /*! @brief Return @c true if the two values are equal.
@@ -175,8 +175,8 @@ namespace InitFile
 
         /*! @brief The copy constructor. Used by Clone().
          @param[in] other The object to be copied. */
-        IntegerValue
-            (const IntegerValue &	other);
+        DoubleValue
+            (const DoubleValue &	other);
 
     public :
         // Public fields.
@@ -188,10 +188,10 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		int64_t  fValue;
+		double  fValue;
 
-    }; // IntegerValue
+    }; // DoubleValue
 
 } // InitFile
 
-#endif /* not ifInteger_H_ */
+#endif /* not initFileDouble_H_ */

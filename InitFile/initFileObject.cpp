@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifInteger.cpp
+//  File:       InitFile/initFileObject.cpp
 //
 //  Project:    IF
 //
-//  Contains:   The class definition for InitFile Integer values.
+//  Contains:   The class definition for InitFile Object values.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,16 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-09-23
+//  Created:    2020-09-22
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ifInteger.h>
+#include <initFileObject.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
+
+#include <iostream>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -47,7 +49,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %InitFile Integer values. */
+ @brief The class definition for %InitFile Object values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,53 +80,131 @@ using namespace InitFile;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-IntegerValue::IntegerValue
-    (const IntegerValue &    other) :
-        inherited(other), fValue(other.fValue)
+ObjectValue::ObjectValue
+    (const ObjectValue &    other) :
+        inherited(other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
+	// copy elements
     ODL_EXIT_P(this); //####
-} // IntegerValue::IntegerValue
+} // ObjectValue::ObjectValue
 
-IntegerValue::~IntegerValue
+ObjectValue::~ObjectValue
     (void)
 {
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // IntegerValue::~IntegerValue
+	ODL_OBJENTER(); //####
+	fValue.clear();
+	ODL_OBJEXIT(); //####
+} // ObjectValue::~ObjectValue
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-IntegerValue *
-IntegerValue::AsInteger
+ObjectValue &
+ObjectValue::AddValue
+	(const std::string &	key,
+	 SpBase            		aValue)
+{
+	fValue.insert({key, aValue});
+	return *this;
+} // ObjectValue::AddValue
+
+ObjectValue *
+ObjectValue::AsObject
 	(void)
 {
 	return this;
-} // IntegerValue::AsInteger
+} // ObjectValue::AsObject
 
-const IntegerValue *
-IntegerValue::AsInteger
+const ObjectValue *
+ObjectValue::AsObject
 	(void)
 	const
 {
 	return this;
-} // IntegerValue::AsInteger
+} // ObjectValue::AsObject
 
 SpBase
-IntegerValue::Clone
+ObjectValue::Clone
 	(void)
 	const
 {
+	SpBase	result;
+
     ODL_OBJENTER(); //####
+	result.reset(new ObjectValue(*this));
+	for (auto & walker : fValue)
+	{
+		result->AsObject()->AddValue(walker.first, walker.second);
+	}
     ODL_OBJEXIT(); //####
-	return SpBase(new IntegerValue(*this));	
-} // IntegerValue::Clone
+	return result;
+} // ObjectValue::Clone
+
+std::set<std::string>
+ObjectValue::GetTags
+	(void)
+	const
+{
+	std::set<std::string>	result;
+	
+	for (auto & walker : fValue)
+	{
+		result.insert(walker.first);
+	}
+	return result;
+} // ObjectValue::GetTags
+
+SpBase
+ObjectValue::GetValue
+	(const std::string &    tag)
+	const
+{
+	SpBase	result;
+	auto	match{fValue.find(tag)};
+
+	if (fValue.end() == match)
+	{
+		result = nullptr;
+	}
+	else
+	{
+		result = match->second;
+	}
+	return result;
+} // ObjectValue::GetValue
+
+size_t
+ObjectValue::HowManyValues
+	(void)
+	const
+{
+	return fValue.size();
+} // ObjectValue::HowManyValues
 
 bool
-IntegerValue::operator ==
+ObjectValue::IsTagPresent
+	(const std::string &    tag)
+	const
+{
+	bool	result;
+	auto	match{fValue.find(tag)};
+
+	if (fValue.end() == match)
+	{
+		result = false;
+	}
+	else
+	{
+		result = true;
+	}
+	return result;
+} // ObjectValue::IsTagPresent
+
+bool
+ObjectValue::operator ==
 	(const BaseValue &	other)
 	const
 {
@@ -138,27 +218,79 @@ IntegerValue::operator ==
 	}
 	else
 	{
-		const IntegerValue *	asValue = other.AsInteger();
+		const ObjectValue *	asValue = other.AsObject();
 
 		if (asValue)
 		{
-			result = (fValue == asValue->GetValue());
+			size_t	otherSize = asValue->HowManyValues();
+
+			if (HowManyValues() == otherSize)
+			{
+				result = true;
+				for (auto & walker : fValue)
+				{
+					std::string	key{walker.first};
+					SpBase		thisValue{walker.second};
+					SpBase		otherValue{asValue->GetValue(key)};
+
+					if (otherValue)
+					{
+						result = (*thisValue == *otherValue);
+					}
+					else
+					{
+						result = false;
+					}
+				}
+			}
 		}
 	}
 	ODL_OBJEXIT_B(result); //####
 	return result;
-} // IntegerValue::operator ==
+} // ObjectValue::operator ==
 
 std::ostream &
-IntegerValue::Print
+ObjectValue::Print
 	(std::ostream &	output,
-	 const size_t	/*indentStep*/,
-	 const char		/*indentChar*/,
-	 const size_t	/*indentLevel*/,
-	 const bool		/*squished*/)
+	 const size_t	indentStep,
+	 const char		indentChar,
+	 const size_t	indentLevel,
+	 const bool		squished)
 	const
 {
-	return (output << fValue);
+	auto	walker{fValue.begin()};
+
+	output << '{';
+	if (squished)
+	{
+		if (fValue.end() != walker)
+		{
+			outputEscapedString(output, walker->first);
+			walker->second->Print(output << ':', indentStep, indentChar, indentLevel + indentStep, squished);
+			for (++walker; fValue.end() != walker; ++walker)
+			{
+				outputEscapedString(output << ',', walker->first);
+				walker->second->Print(output << ':', indentStep, indentChar, indentLevel + indentStep, squished);
+			}
+		}
+	}
+	else
+	{
+		if (fValue.end() != walker)
+		{
+			outputEscapedString(output << ' ', walker->first);
+			walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
+			for (++walker; fValue.end() != walker; ++walker)
+			{
+				outputChars(output << ',' << std::endl, indentChar, indentLevel);
+				outputEscapedString(output, walker->first);
+				walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
+			}
+		}
+		output << ' ';
+	}
+	output << '}';
+	return output;
 } // BaseValue::Print
 
 #if defined(__APPLE__)

@@ -41,7 +41,7 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-#include <ifBase.h>
+#include <initFileBase.h>
 #include <csignal>
 #include <sstream>
 

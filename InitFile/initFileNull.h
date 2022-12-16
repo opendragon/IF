@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       InitFile/ifNull.h
+//  File:       InitFile/initFileNull.h
 //
 //  Project:    IF
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(ifNull_H_))
-# define ifNull_H_ /* Header guard */
+#if (! defined(initFileNull_H_))
+# define initFileNull_H_ /* Header guard */
 
-# include <ifBase.h>
+# include <initFileBase.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -180,4 +180,4 @@ namespace InitFile
 
 } // InitFile
 
-#endif /* not ifNull_H_ */
+#endif /* not initFileNull_H_ */
