@@ -130,7 +130,7 @@ doTestNullValue
 
     try
     {
-        SpNull  aValue;
+        SpNullValue  aValue;
         bool    okSoFar;
 
         // 1) test that NULL values are distinct.
@@ -172,7 +172,7 @@ doTestNullValue
                 okSoFar = (aValue && aValue->AsNull());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsNull());
                 }
@@ -188,7 +188,7 @@ doTestNullValue
                 okSoFar = (aValue && aValue->AsNull());
                 if (okSoFar)
                 {
-                    SpNull  otherValue{new InitFile::NullValue(nullptr)};
+                    SpNullValue  otherValue{new InitFile::NullValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -199,7 +199,7 @@ doTestNullValue
                 okSoFar = (aValue && aValue->AsNull());
                 if (okSoFar)
                 {
-                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
+                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -210,7 +210,7 @@ doTestNullValue
                 okSoFar = (aValue && aValue->AsNull());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsNull() && (*aValue == *otherValue));
                 }
@@ -259,7 +259,7 @@ doTestBooleanValue
 
     try
     {
-        SpBoolean   aValue;
+        SpBooleanValue   aValue;
         bool        okSoFar;
 
         // 1) test that boolean values are distinct.
@@ -320,7 +320,7 @@ doTestBooleanValue
                 okSoFar = (aValue && aValue->AsBoolean());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsBoolean() &&
                                 (aValue->GetValue() == otherValue->AsBoolean()->GetValue()));
@@ -337,7 +337,7 @@ doTestBooleanValue
                 okSoFar = (aValue && aValue->AsBoolean());
                 if (okSoFar)
                 {
-                    SpBase  otherValue{new InitFile::BooleanValue(nullptr, aValue->GetValue())};
+                    SpBaseValue  otherValue{new InitFile::BooleanValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
                 }
@@ -348,7 +348,7 @@ doTestBooleanValue
                 okSoFar = (aValue && aValue->AsBoolean());
                 if (okSoFar)
                 {
-                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
+                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -359,7 +359,7 @@ doTestBooleanValue
                 okSoFar = (aValue && aValue->AsBoolean());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
                 }
@@ -408,7 +408,7 @@ doTestIntegerValue
 
     try
     {
-        SpInteger   aValue;
+        SpIntegerValue   aValue;
         bool        okSoFar;
 
         // 1) test that integer values are distinct.
@@ -476,7 +476,7 @@ doTestIntegerValue
                 okSoFar = (aValue && aValue->AsInteger());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsInteger() && (aValue->GetValue() == otherValue->AsInteger()->GetValue()));
                 }
@@ -492,7 +492,7 @@ doTestIntegerValue
                 okSoFar = (aValue && aValue->AsInteger());
                 if (okSoFar)
                 {
-                    SpBase  otherValue{new InitFile::IntegerValue(nullptr, aValue->GetValue())};
+                    SpBaseValue  otherValue{new InitFile::IntegerValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
                 }
@@ -503,7 +503,7 @@ doTestIntegerValue
                 okSoFar = (aValue && aValue->AsInteger());
                 if (okSoFar)
                 {
-                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
+                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -514,7 +514,7 @@ doTestIntegerValue
                 okSoFar = (aValue && aValue->AsInteger());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
                 }
@@ -563,7 +563,7 @@ doTestDoubleValue
 
     try
     {
-        SpDouble        aValue;
+        SpDoubleValue        aValue;
         bool            okSoFar;
 
         // 1) test that double values are distinct.
@@ -631,7 +631,7 @@ doTestDoubleValue
                 okSoFar = (aValue && aValue->AsDouble());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsDouble() && (aValue->GetValue() == otherValue->AsDouble()->GetValue()));
                 }
@@ -647,7 +647,7 @@ doTestDoubleValue
                 okSoFar = (aValue && aValue->AsDouble());
                 if (okSoFar)
                 {
-                    SpBase  otherValue{new InitFile::DoubleValue(nullptr, aValue->GetValue())};
+                    SpBaseValue  otherValue{new InitFile::DoubleValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
                 }
@@ -658,7 +658,7 @@ doTestDoubleValue
                 okSoFar = (aValue && aValue->AsDouble());
                 if (okSoFar)
                 {
-                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
+                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -669,7 +669,7 @@ doTestDoubleValue
                 okSoFar = (aValue && aValue->AsDouble());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
                 }
@@ -718,7 +718,7 @@ doTestStringValue
 
     try
     {
-        SpString    aValue;
+        SpStringValue    aValue;
         bool        okSoFar;
 
         // 1) test that string values are distinct.
@@ -782,7 +782,7 @@ doTestStringValue
                 okSoFar = (aValue && aValue->AsString());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsString() && (aValue->GetValue() == otherValue->AsString()->GetValue()));
                 }
@@ -798,7 +798,7 @@ doTestStringValue
                 okSoFar = (aValue && aValue->AsString());
                 if (okSoFar)
                 {
-                    SpBase  otherValue{new InitFile::StringValue(nullptr, aValue->GetValue())};
+                    SpBaseValue  otherValue{new InitFile::StringValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
                 }
@@ -809,7 +809,7 @@ doTestStringValue
                 okSoFar = (aValue && aValue->AsString());
                 if (okSoFar)
                 {
-                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
+                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -820,7 +820,7 @@ doTestStringValue
                 okSoFar = (aValue && aValue->AsString());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
                 }
@@ -869,7 +869,7 @@ doTestAddressValue
 
     try
     {
-        SpAddress   aValue;
+        SpAddressValue   aValue;
         bool        okSoFar;
         uint32_t    byte0;
         uint32_t    byte1;
@@ -953,7 +953,7 @@ doTestAddressValue
                 okSoFar = (aValue && aValue->AsAddress());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsAddress() && (aValue->GetValue() == otherValue->AsAddress()->GetValue()));
                 }
@@ -979,7 +979,7 @@ doTestAddressValue
                 okSoFar = (aValue && aValue->AsAddress());
                 if (okSoFar)
                 {
-                    SpBase  otherValue{new InitFile::AddressValue(nullptr, aValue->GetValue())};
+                    SpBaseValue  otherValue{new InitFile::AddressValue(nullptr, aValue->GetValue())};
 
                     okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
                 }
@@ -995,7 +995,7 @@ doTestAddressValue
                 okSoFar = (aValue && aValue->AsAddress());
                 if (okSoFar)
                 {
-                    SpArray otherValue{new InitFile::ArrayValue(nullptr)};
+                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -1011,7 +1011,7 @@ doTestAddressValue
                 okSoFar = (aValue && aValue->AsAddress());
                 if (okSoFar)
                 {
-                    SpBase  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue(aValue->Clone());
 
                     okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
                 }

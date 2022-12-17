@@ -102,7 +102,7 @@ ArrayValue::~ArrayValue
 
 ArrayValue &
 ArrayValue::AddValueAtBack
-	(SpBase	aValue)
+	(SpBaseValue	aValue)
 {
 	if (aValue)
 	{
@@ -113,7 +113,7 @@ ArrayValue::AddValueAtBack
 
 ArrayValue &
 ArrayValue::AddValueAtFront
-	(SpBase	aValue)
+	(SpBaseValue	aValue)
 {
 	if (aValue)
 	{
@@ -137,18 +137,18 @@ ArrayValue::AsArray
 	return this;
 } // ArrayValue::AsArray
 
-SpBase
+SpBaseValue
 ArrayValue::Clone
 	(void)
 	const
 {
-	SpBase	result;
+	SpBaseValue	result;
 
     ODL_OBJENTER(); //####
 	result.reset(new ArrayValue(*this));
 	for (size_t ii = 0; ii < fValue.size(); ++ii)
 	{
-		SpBase	thisValue{GetValue(ii)};
+		SpBaseValue	thisValue{GetValue(ii)};
 
 		result->AsArray()->AddValueAtBack(thisValue);
 	}
@@ -156,12 +156,12 @@ ArrayValue::Clone
 	return result;
 } // ArrayValue::Clone
 
-SpBase
+SpBaseValue
 ArrayValue::GetValue
 	(const size_t   index)
 	const
 {
-	SpBase	result;
+	SpBaseValue	result;
 
 	if (index < fValue.size())
 	{
@@ -208,8 +208,8 @@ ArrayValue::operator ==
 				result = true;
 				for (size_t ii = 0; result && (ii < otherSize); ++ii)
 				{
-					SpBase	thisValue{GetValue(ii)};
-					SpBase	otherValue{asValue->GetValue(ii)};
+					SpBaseValue	thisValue{GetValue(ii)};
+					SpBaseValue	otherValue{asValue->GetValue(ii)};
 
 					result = (*thisValue == *otherValue);
 				}

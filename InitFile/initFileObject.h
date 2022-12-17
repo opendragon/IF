@@ -74,7 +74,7 @@ namespace InitFile
         using inherited = BaseValue;
 
         /*! @brief The internal storage structure for Object values. */
-        using ValueMap = std::map<std::string, SpBase, CompareWithoutCase>;
+        using ValueMap = std::map<std::string, SpBaseValue, CompareWithoutCase>;
 
         /*! @brief A shortcut name for a constant iterator over the Object contents. */
         using const_iterator = ValueMap::const_iterator;
@@ -100,7 +100,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline explicit ObjectValue
-			(SpBase    parent) :
+			(SpBaseValue    parent) :
 				inherited(parent)
 			{
 			} /* constructor */
@@ -124,7 +124,7 @@ namespace InitFile
         ObjectValue &
         AddValue
             (const std::string &    key,
-             SpBase                 aValue);
+             SpBaseValue                 aValue);
 
         /*! @brief Return @c this if this is an object.
          @return @c this if this is an object. */
@@ -143,7 +143,7 @@ namespace InitFile
 
 		/*! @brief Return a copy of this value.
 		@return A newly allocated copy of this value. */
-		virtual SpBase
+		virtual SpBaseValue
 		Clone
 			(void)
 			const
@@ -160,7 +160,7 @@ namespace InitFile
          @param[in] tag The tag for the desired value.
          @return The value in the contents corresponding to the tag.
          @c nullptr is returned if the tag is empty or not found in the contents. */
-        SpBase
+        SpBaseValue
         GetValue
             (const std::string &    tag)
             const;

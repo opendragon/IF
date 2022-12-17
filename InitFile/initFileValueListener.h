@@ -199,14 +199,14 @@ namespace InitFile
         /*! @brief Extract the values from a string.
             @param[in] input The string to be analyzed.
             @return The top-level value found in the string. */
-        SpBase
+        SpBaseValue
         GetValue
             (const std::string &	input);
 
         /*! @brief Extract the values from a stream.
             @param[in] input The stream to be analyzed.
             @return The top-level value found in the stream. */
-        SpBase
+        SpBaseValue
         GetValue
             (std::istream &	input);
 
@@ -218,7 +218,7 @@ namespace InitFile
 
         /*! @brief Remove the top container from the container stack and return it.
         @return The top of the container stack. */
-        SpBase
+        SpBaseValue
         popContainer
             (void);
 
@@ -230,7 +230,7 @@ namespace InitFile
 
         /*! @brief Remove the top value from the value stack and return it.
         @return The top of the value stack. */
-        SpBase
+        SpBaseValue
         popValue
             (void);
 
@@ -238,7 +238,7 @@ namespace InitFile
         @return The active listener. */
         BaseValueListener &
         pushContainer
-            (SpBase  value);
+            (SpBaseValue  value);
 
         /*! @brief Push a tag onto the tag stack.
         @return The active listener. */
@@ -250,7 +250,7 @@ namespace InitFile
         @return The active listener. */
         BaseValueListener &
         pushValue
-            (SpBase  value);
+            (SpBaseValue  value);
 
     public :
         // Public fields.
@@ -265,16 +265,16 @@ namespace InitFile
         std::deque<std::string> fTagStack;
 
         /*! @brief The stack of values to be stored. */
-        std::deque<SpBase> fValueStack;
+        std::deque<SpBaseValue> fValueStack;
 
         /*! @brief The stack of open containers. */
-        std::deque<SpBase> fContainerStack;
+        std::deque<SpBaseValue> fContainerStack;
 
         /*! @brief The container currently being filled. */
-        SpBase fCurrentContainer;
+        SpBaseValue fCurrentContainer;
 
         /*! @brief The outermost container. */
-        SpBase fRootObject;
+        SpBaseValue fRootObject;
 
     }; // BaseValueListener
 

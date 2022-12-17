@@ -200,6 +200,7 @@ include_directories(${ANTLR4_INCLUDE_DIR}
 
 add_library(${TARGET}
             ${DO_SHARED}
+            ${IF_SOURCE_DIR}/initFile.cpp
             ${IF_SOURCE_DIR}/initFileAddress.cpp
             ${IF_SOURCE_DIR}/initFileArray.cpp
             ${IF_SOURCE_DIR}/initFileBase.cpp
@@ -231,6 +232,7 @@ install(TARGETS ${TARGET}
         COMPONENT libraries)
 
 install(FILES
+        ${IF_SOURCE_DIR}/initFile.h
         ${IF_SOURCE_DIR}/initFileAddress.h
         ${IF_SOURCE_DIR}/initFileArray.h
         ${IF_SOURCE_DIR}/initFileBase.h

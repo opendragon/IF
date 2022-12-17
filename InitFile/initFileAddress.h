@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline AddressValue
-			(SpBase	        parent,
+			(SpBaseValue	        parent,
              const uint32_t value) :
 				inherited(parent), fValue(value)
 			{
@@ -109,7 +109,7 @@ namespace InitFile
 
 		/*! @brief Return a copy of this value.
 		@return A newly allocated copy of this value. */
-		virtual SpBase
+		virtual SpBaseValue
 		Clone
 			(void)
 			const

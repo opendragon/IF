@@ -72,31 +72,31 @@ namespace InitFile
 	class StringValue;
 
     /*! @brief A holder for a shared pointer to an IPv4 address value. */
-    using SpAddress = std::shared_ptr<AddressValue>;
+    using SpAddressValue = std::shared_ptr<AddressValue>;
 
     /*! @brief A holder for a shared pointer to an array value. */
-    using SpArray = std::shared_ptr<ArrayValue>;
+    using SpArrayValue = std::shared_ptr<ArrayValue>;
 
     /*! @brief A holder for a shared pointer to a general value. */
-    using SpBase = std::shared_ptr<BaseValue>;
+    using SpBaseValue = std::shared_ptr<BaseValue>;
 
     /*! @brief A holder for a shared pointer to a boolean value. */
-    using SpBoolean = std::shared_ptr<BooleanValue>;
+    using SpBooleanValue = std::shared_ptr<BooleanValue>;
 
     /*! @brief A holder for a shared pointer to a double value. */
-    using SpDouble = std::shared_ptr<DoubleValue>;
+    using SpDoubleValue = std::shared_ptr<DoubleValue>;
 
     /*! @brief A holder for a shared pointer to an integer value. */
-    using SpInteger = std::shared_ptr<IntegerValue>;
+    using SpIntegerValue = std::shared_ptr<IntegerValue>;
 
     /*! @brief A holder for a shared pointer to a null value. */
-    using SpNull = std::shared_ptr<NullValue>;
+    using SpNullValue = std::shared_ptr<NullValue>;
 
     /*! @brief A holder for a shared pointer to an object value. */
-    using SpObject = std::shared_ptr<ObjectValue>;
+    using SpObjectValue = std::shared_ptr<ObjectValue>;
 
     /*! @brief A holder for a shared pointer to a string value. */
-    using SpString = std::shared_ptr<StringValue>;
+    using SpStringValue = std::shared_ptr<StringValue>;
 
     /*! @brief A class to provide the base type for values. */
     class BaseValue
@@ -224,14 +224,14 @@ namespace InitFile
 
 		/*! @brief Return a copy of this value.
 		@return A newly allocated copy of this value. */
-		virtual SpBase
+		virtual SpBaseValue
 		Clone
 			(void)
 			const = 0;
 
         /*! @brief Return the parent of this value.
          @return The parent of this value. */
-		inline SpBase
+		inline SpBaseValue
 		GetParent
 			(void)
 			const
@@ -296,7 +296,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline explicit BaseValue
-			(SpBase	parent) :
+			(SpBaseValue	parent) :
 				fParent(parent)
 			{
 			} /* constructor */
@@ -339,7 +339,7 @@ namespace InitFile
          @return The Value that was modified. */
 		inline BaseValue &
 		SetParent
-			(SpBase	newParent)
+			(SpBaseValue	newParent)
 		{
 			fParent = newParent;
 			return *this;
@@ -355,7 +355,7 @@ namespace InitFile
         // Protected fields.
 
         /*! @brief The parent of this value. */
-		SpBase	fParent;
+		SpBaseValue	fParent;
 
     private :
         // Private fields.

@@ -72,7 +72,7 @@ namespace InitFile
         using inherited = BaseValue;
 
         /*! @brief The internal storage structure for Array values. */
-        using ValueQueue = std::deque<SpBase>;
+        using ValueQueue = std::deque<SpBaseValue>;
 
         /*! @brief A shortcut name for a constant iterator over the Array contents. */
         using const_iterator = ValueQueue::const_iterator;
@@ -92,7 +92,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline explicit ArrayValue
-			(SpBase    parent) :
+			(SpBaseValue    parent) :
 				inherited(parent)
 			{
 			} /* constructor */
@@ -115,7 +115,7 @@ namespace InitFile
          @return The Array that was modified. */
         ArrayValue &
         AddValueAtBack
-            (SpBase aValue);
+            (SpBaseValue aValue);
 
         /*! @brief Add a value to the Array contents.
          @param[in] aValue The value to be added.
@@ -124,7 +124,7 @@ namespace InitFile
          @return The Array that was modified. */
         ArrayValue &
         AddValueAtFront
-            (SpBase aValue);
+            (SpBaseValue aValue);
 
         /*! @brief Return @c this if this is an array.
          @return @c this if this is an array. */
@@ -143,7 +143,7 @@ namespace InitFile
 
 		/*! @brief Return a copy of this value.
 		@return A newly allocated copy of this value. */
-		virtual SpBase
+		virtual SpBaseValue
 		Clone
 			(void)
 			const
@@ -152,7 +152,7 @@ namespace InitFile
         /*! @brief Return a value from the Array contents.
          @param[in] index The index (zero-origin) of the desired value.
          @return The value in the contents corresponding to the index. */
-        SpBase
+        SpBaseValue
         GetValue
             (const size_t   index)
             const;

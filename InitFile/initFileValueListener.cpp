@@ -206,7 +206,7 @@ BaseValueListener::exitAddressValue
         std::cerr.fill(oldFill);
 #endif // defined(TRACE_PARSING_)
     }
-    pushValue(SpBase(new AddressValue(fCurrentContainer, address)));
+    pushValue(SpBaseValue(new AddressValue(fCurrentContainer, address)));
     ODL_OBJEXIT(); //####
 } /// BaseValueListener::exitAddressValue
 
@@ -233,7 +233,7 @@ BaseValueListener::exitDoubleValue
 #if defined(TRACE_PARSING_)
     std::cerr << "number=" << ctx->nu->getText() << std::endl;
 #endif // defined(TRACE_PARSING_)
-    pushValue(SpBase(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr))));
+    pushValue(SpBaseValue(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr))));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitDoubleValue
 
@@ -245,7 +245,7 @@ BaseValueListener::exitEmptyArray
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
-    pushValue(SpBase(new ArrayValue(fCurrentContainer)));
+    pushValue(SpBaseValue(new ArrayValue(fCurrentContainer)));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitEmptyArray
 
@@ -270,7 +270,7 @@ BaseValueListener::exitIntegerValue
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
-    pushValue(SpBase(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), nullptr))));
+    pushValue(SpBaseValue(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), nullptr))));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitIntegerValue
 
@@ -284,15 +284,15 @@ BaseValueListener::exitLiteralValue
     ODL_OBJENTER(); //####
     if (ctx->tv)
     {
-        pushValue(SpBase(new BooleanValue(fCurrentContainer, true)));
+        pushValue(SpBaseValue(new BooleanValue(fCurrentContainer, true)));
     }
     else if (ctx->fv)
     {
-        pushValue(SpBase(new BooleanValue(fCurrentContainer, false)));
+        pushValue(SpBaseValue(new BooleanValue(fCurrentContainer, false)));
     }
     else if (ctx->nv)
     {
-        pushValue(SpBase(new NullValue(fCurrentContainer)));
+        pushValue(SpBaseValue(new NullValue(fCurrentContainer)));
     }
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitLiteralValue
@@ -312,7 +312,7 @@ BaseValueListener::exitNonEmptyArray
     // Pull the number of values that were pushed and put them in the correct order.
     for (size_t ii = 0; ii < numValues; ++ii)
     {
-        SpBase aValue{popValue()};
+        SpBaseValue aValue{popValue()};
 
         currentArray->AddValueAtFront(aValue);
     }
@@ -347,7 +347,7 @@ BaseValueListener::exitPair
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
     std::string     tag{popTag()};
-    SpBase          value{popValue()};
+    SpBaseValue          value{popValue()};
 #if defined(TRACE_PARSING_)
     std::cerr << "tag=" << tag << " : value=";
     if (value)
@@ -392,7 +392,7 @@ BaseValueListener::exitStringValue
         actualValue = ctx->na->getText();
     }
     //std::cout << "value -> " << actualValue << std::endl;
-    pushValue(SpBase(new StringValue(fCurrentContainer, actualValue)));
+    pushValue(SpBaseValue(new StringValue(fCurrentContainer, actualValue)));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitStringValue
 
@@ -424,7 +424,7 @@ BaseValueListener::exitTag
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitTag
 
-SpBase
+SpBaseValue
 BaseValueListener::GetValue
 	(const std::string &    input)
 {
@@ -453,7 +453,7 @@ BaseValueListener::GetValue
 	return fRootObject;
 } // BaseValueListener::GetValue
 
-SpBase
+SpBaseValue
 BaseValueListener::GetValue
 	(std::istream & input)
 {
@@ -482,11 +482,11 @@ BaseValueListener::GetValue
 	return fRootObject;
 } // BaseValueListener::GetValue
 
-SpBase
+SpBaseValue
 BaseValueListener::popContainer
     (void)
 {
-    SpBase result;
+    SpBaseValue result;
 
     if (fContainerStack.empty())
     {
@@ -514,11 +514,11 @@ BaseValueListener::popTag
   return result;
 } // BaseValueListener::popTag
 
-SpBase
+SpBaseValue
 BaseValueListener::popValue
     (void)
 {
-    SpBase result;
+    SpBaseValue result;
 
     if (fValueStack.empty())
     {
@@ -534,7 +534,7 @@ BaseValueListener::popValue
 
 BaseValueListener &
 BaseValueListener::pushContainer
-    (SpBase  value)
+    (SpBaseValue  value)
 {
     fContainerStack.push_back(value);
     return *this;
@@ -550,7 +550,7 @@ BaseValueListener::pushTag
 
 BaseValueListener &
 BaseValueListener::pushValue
-    (SpBase  value)
+    (SpBaseValue  value)
 {
     fValueStack.push_back(value);
     return *this;

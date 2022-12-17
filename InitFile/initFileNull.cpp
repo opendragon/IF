@@ -115,14 +115,14 @@ NullValue::AsNull
 	return this;
 } // NullValue::AsNull
 
-SpBase
+SpBaseValue
 NullValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBase(new NullValue(*this));	
+	return SpBaseValue(new NullValue(*this));	
 } // NullValue::Clone
 
 bool

@@ -113,14 +113,14 @@ StringValue::AsString
 	return this;
 } // StringValue::AsString
 
-SpBase
+SpBaseValue
 StringValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBase(new StringValue(*this));	
+	return SpBaseValue(new StringValue(*this));	
 } // StringValue::Clone
 
 bool

@@ -113,14 +113,14 @@ IntegerValue::AsInteger
 	return this;
 } // IntegerValue::AsInteger
 
-SpBase
+SpBaseValue
 IntegerValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBase(new IntegerValue(*this));	
+	return SpBaseValue(new IntegerValue(*this));	
 } // IntegerValue::Clone
 
 bool
