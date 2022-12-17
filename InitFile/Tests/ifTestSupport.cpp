@@ -99,17 +99,6 @@ localCatcher
 {
     ODL_ENTER(); //####
     //ODL_I1("signal = ", signal); //####
-#if 0
-    if (lLogger)
-    {
-        std::string message{"Exiting due to signal "};
-
-        message += std::to_string(signal);
-        message += " = ";
-        message += NameOfSignal(signal);
-        lLogger->error(message.c_str());
-    }
-#endif//0
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // localCatcher
@@ -248,7 +237,6 @@ InitFile::Initialize
 #else // ! defined(__APPLE__)
         srand(static_cast<unsigned int>(time(nullptr)));
 #endif // ! defined(__APPLE__)
-        //Value::initialize();
     }
     catch (...)
     {
