@@ -15,3 +15,7 @@ As a JSON extension, the following additions have been made:
   * C++-style comments are supported (`//` and `/* */`)
   * A semicolon comment (`;`) extends from the semicolon to the end-of-line
 * IPv4 values are in the form (`@###.###.###.###`) where `#` indicates a decimal digit; fewer than three digits can appear in each segment of the address
+
+## Build notes
+
+Note that an installed copy of ANTRL4 version 4.9.3 is required to build InitFile.
