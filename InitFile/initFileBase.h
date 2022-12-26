@@ -42,6 +42,7 @@
 # include <initFileConfig.h>
 
 # include <istream>
+# include <memory>
 # include <ostream>
 
 # if defined(__APPLE__)
