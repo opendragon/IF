@@ -143,19 +143,19 @@ doTestNullValue
         {
             case 1 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                okSoFar = ((nullptr != aValue) && aValue->AsNull() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
                         (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsInteger()) &&
                         (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
 
             case 2 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull());
+                okSoFar = ((nullptr != aValue) && aValue->AsNull());
                 break;
 
             case 3 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull());
+                okSoFar = ((nullptr != aValue) && aValue->AsNull());
                 if (okSoFar)
                 {
                     std::ostringstream  buffer;
@@ -167,23 +167,23 @@ doTestNullValue
 
             case 4 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull());
+                okSoFar = ((nullptr != aValue) && aValue->AsNull());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsNull());
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsNull());
                 }
                 break;
 
             case 5 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && aValue->AsNull() && (*aValue == *aValue));
                 break;
 
             case 6 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull());
+                okSoFar = ((nullptr != aValue) && aValue->AsNull());
                 if (okSoFar)
                 {
                     SpNullValue  otherValue{new InitFile::NullValue(nullptr)};
@@ -194,7 +194,7 @@ doTestNullValue
 
             case 7 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull());
+                okSoFar = ((nullptr != aValue) && aValue->AsNull());
                 if (okSoFar)
                 {
                     SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
@@ -205,12 +205,12 @@ doTestNullValue
 
             case 8 :
                 aValue.reset(new InitFile::NullValue(nullptr));
-                okSoFar = (aValue && aValue->AsNull());
+                okSoFar = ((nullptr != aValue) && aValue->AsNull());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsNull() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsNull() && (*aValue == *otherValue));
                 }
                 break;
 
@@ -274,24 +274,24 @@ doTestBooleanValue
         {
             case 1 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, false));
-                okSoFar = (aValue && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
                             (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
                             (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
 
             case 2 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, false));
-                okSoFar = (aValue && aValue->AsBoolean() && (! aValue->GetValue()));
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean() && (! aValue->GetValue()));
                 break;
 
             case 3 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, true));
-                okSoFar = (aValue && aValue->AsBoolean() && aValue->GetValue());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean() && aValue->GetValue());
                 break;
 
             case 4 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, false));
-                okSoFar = (aValue && aValue->AsBoolean());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean());
                 if (okSoFar)
                 {
                     std::ostringstream  buffer;
@@ -303,7 +303,7 @@ doTestBooleanValue
 
             case 5 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, true));
-                okSoFar = (aValue && aValue->AsBoolean());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean());
                 if (okSoFar)
                 {
                     std::ostringstream  buffer;
@@ -315,35 +315,35 @@ doTestBooleanValue
 
             case 6 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
-                okSoFar = (aValue && aValue->AsBoolean());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsBoolean() &&
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsBoolean() &&
                                 (aValue->GetValue() == otherValue->AsBoolean()->GetValue()));
                 }
                 break;
 
             case 7 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
-                okSoFar = (aValue && aValue->AsBoolean() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean() && (*aValue == *aValue));
                 break;
 
             case 8 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
-                okSoFar = (aValue && aValue->AsBoolean());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue{new InitFile::BooleanValue(nullptr, aValue->GetValue())};
 
-                    okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsBoolean() && (*aValue == *otherValue));
                 }
                 break;
 
             case 9 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
-                okSoFar = (aValue && aValue->AsBoolean());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean());
                 if (okSoFar)
                 {
                     SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
@@ -354,12 +354,12 @@ doTestBooleanValue
 
             case 10 :
                 aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
-                okSoFar = (aValue && aValue->AsBoolean());
+                okSoFar = ((nullptr != aValue) && aValue->AsBoolean());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsBoolean() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsBoolean() && (*aValue == *otherValue));
                 }
                 break;
 
@@ -421,7 +421,7 @@ doTestIntegerValue
         {
             case 1 :
                 aValue.reset(new InitFile::IntegerValue(nullptr, 42));
-                okSoFar = (aValue && aValue->AsInteger() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                okSoFar = ((nullptr != aValue) && aValue->AsInteger() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
                             (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsNull()) &&
                             (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
@@ -432,7 +432,7 @@ doTestIntegerValue
                     const int64_t   inValue = strtol(*argv, nullptr, 10);
 
                     aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
-                    okSoFar = (aValue && aValue->AsInteger());
+                    okSoFar = ((nullptr != aValue) && aValue->AsInteger());
                     if (okSoFar)
                     {
                         int64_t fetched = aValue->GetValue();
@@ -453,7 +453,7 @@ doTestIntegerValue
                     const int64_t   inValue = strtol(*argv, nullptr, 10);
 
                     aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
-                    okSoFar = (aValue && aValue->AsInteger());
+                    okSoFar = ((nullptr != aValue) && aValue->AsInteger());
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
@@ -471,34 +471,34 @@ doTestIntegerValue
 
             case 4 :
                 aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsInteger());
+                okSoFar = ((nullptr != aValue) && aValue->AsInteger());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsInteger() && (aValue->GetValue() == otherValue->AsInteger()->GetValue()));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsInteger() && (aValue->GetValue() == otherValue->AsInteger()->GetValue()));
                 }
                 break;
 
             case 5 :
                 aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsInteger() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && aValue->AsInteger() && (*aValue == *aValue));
                 break;
 
             case 6 :
                 aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsInteger());
+                okSoFar = ((nullptr != aValue) && aValue->AsInteger());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue{new InitFile::IntegerValue(nullptr, aValue->GetValue())};
 
-                    okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsInteger() && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
                 aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsInteger());
+                okSoFar = ((nullptr != aValue) && aValue->AsInteger());
                 if (okSoFar)
                 {
                     SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
@@ -509,12 +509,12 @@ doTestIntegerValue
 
             case 8 :
                 aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsInteger());
+                okSoFar = ((nullptr != aValue) && aValue->AsInteger());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsInteger() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsInteger() && (*aValue == *otherValue));
                 }
                 break;
 
@@ -576,7 +576,7 @@ doTestDoubleValue
         {
             case 1 :
                 aValue.reset(new InitFile::DoubleValue(nullptr, 42));
-                okSoFar = (aValue && aValue->AsDouble() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                okSoFar = ((nullptr != aValue) && aValue->AsDouble() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
                             (! aValue->AsBoolean()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
                             (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
@@ -587,7 +587,7 @@ doTestDoubleValue
                     const double    dblValue = strtod(*argv, nullptr);
 
                     aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
-                    okSoFar = (aValue && aValue->AsDouble());
+                    okSoFar = ((nullptr != aValue) && aValue->AsDouble());
                     if (okSoFar)
                     {
                         double  fetched = aValue->GetValue();
@@ -608,7 +608,7 @@ doTestDoubleValue
                     const double    dblValue = strtod(*argv, nullptr);
 
                     aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
-                    okSoFar = (aValue && aValue->AsDouble());
+                    okSoFar = ((nullptr != aValue) && aValue->AsDouble());
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
@@ -626,34 +626,34 @@ doTestDoubleValue
 
             case 4 :
                 aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
-                okSoFar = (aValue && aValue->AsDouble());
+                okSoFar = ((nullptr != aValue) && aValue->AsDouble());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsDouble() && (aValue->GetValue() == otherValue->AsDouble()->GetValue()));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsDouble() && (aValue->GetValue() == otherValue->AsDouble()->GetValue()));
                 }
                 break;
 
             case 5 :
                 aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
-                okSoFar = (aValue && aValue->AsDouble() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && aValue->AsDouble() && (*aValue == *aValue));
                 break;
 
             case 6 :
                 aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
-                okSoFar = (aValue && aValue->AsDouble());
+                okSoFar = ((nullptr != aValue) && aValue->AsDouble());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue{new InitFile::DoubleValue(nullptr, aValue->GetValue())};
 
-                    okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsDouble() && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
                 aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
-                okSoFar = (aValue && aValue->AsDouble());
+                okSoFar = ((nullptr != aValue) && aValue->AsDouble());
                 if (okSoFar)
                 {
                     SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
@@ -664,12 +664,12 @@ doTestDoubleValue
 
             case 8 :
                 aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
-                okSoFar = (aValue && aValue->AsDouble());
+                okSoFar = ((nullptr != aValue) && aValue->AsDouble());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsDouble() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsDouble() && (*aValue == *otherValue));
                 }
                 break;
 
@@ -731,7 +731,7 @@ doTestStringValue
         {
             case 1 :
                 aValue.reset(new InitFile::StringValue(nullptr, "chuckles"));
-                okSoFar = (aValue && aValue->AsString() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
+                okSoFar = ((nullptr != aValue) && aValue->AsString() && (! aValue->AsAddress()) && (! aValue->AsArray()) &&
                             (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsInteger()) &&
                             (! aValue->AsNull()) && (! aValue->AsObject()));
                 break;
@@ -740,7 +740,7 @@ doTestStringValue
                 if (1 <= argc)
                 {
                     aValue.reset(new InitFile::StringValue(nullptr, *argv));
-                    okSoFar = (aValue && aValue->AsString());
+                    okSoFar = ((nullptr != aValue) && aValue->AsString());
                     if (okSoFar)
                     {
                         std::string fetched{aValue->GetValue()};
@@ -759,7 +759,7 @@ doTestStringValue
                 if (2 <= argc)
                 {
                     aValue.reset(new InitFile::StringValue(nullptr, *argv));
-                    okSoFar = (aValue && aValue->AsString());
+                    okSoFar = ((nullptr != aValue) && aValue->AsString());
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
@@ -777,34 +777,34 @@ doTestStringValue
 
             case 4 :
                 aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsString());
+                okSoFar = ((nullptr != aValue) && aValue->AsString());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsString() && (aValue->GetValue() == otherValue->AsString()->GetValue()));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsString() && (aValue->GetValue() == otherValue->AsString()->GetValue()));
                 }
                 break;
 
             case 5 :
                 aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsString() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && aValue->AsString() && (*aValue == *aValue));
                 break;
 
             case 6 :
                 aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsString());
+                okSoFar = ((nullptr != aValue) && aValue->AsString());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue{new InitFile::StringValue(nullptr, aValue->GetValue())};
 
-                    okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsString() && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
                 aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsString());
+                okSoFar = ((nullptr != aValue) && aValue->AsString());
                 if (okSoFar)
                 {
                     SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
@@ -815,12 +815,12 @@ doTestStringValue
 
             case 8 :
                 aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
-                okSoFar = (aValue && aValue->AsString());
+                okSoFar = ((nullptr != aValue) && aValue->AsString());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsString() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsString() && (*aValue == *otherValue));
                 }
                 break;
 
@@ -887,7 +887,7 @@ doTestAddressValue
         {
             case 1 :
                 aValue.reset(new InitFile::AddressValue(nullptr, 1234567));
-                okSoFar = (aValue && aValue->AsAddress() && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
+                okSoFar = ((nullptr != aValue) && aValue->AsAddress() && (! aValue->AsArray()) && (! aValue->AsBoolean()) &&
                             (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
                             (! aValue->AsObject()) && (! aValue->AsString()));
                 break;
@@ -901,7 +901,7 @@ doTestAddressValue
                     byte3 = strtol(argv[3], nullptr, 10);
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                     aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                    okSoFar = (aValue && aValue->AsAddress());
+                    okSoFar = ((nullptr != aValue) && aValue->AsAddress());
                     if (okSoFar)
                     {
                         uint32_t    fetched = aValue->GetValue();
@@ -925,7 +925,7 @@ doTestAddressValue
                     byte3 = strtol(argv[3], nullptr, 10);
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                     aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                    okSoFar = (aValue && aValue->AsAddress());
+                    okSoFar = ((nullptr != aValue) && aValue->AsAddress());
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
@@ -948,12 +948,12 @@ doTestAddressValue
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                 aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                okSoFar = (aValue && aValue->AsAddress());
+                okSoFar = ((nullptr != aValue) && aValue->AsAddress());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsAddress() && (aValue->GetValue() == otherValue->AsAddress()->GetValue()));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsAddress() && (aValue->GetValue() == otherValue->AsAddress()->GetValue()));
                 }
                 break;
 
@@ -964,7 +964,7 @@ doTestAddressValue
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                 aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                okSoFar = (aValue && aValue->AsAddress() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && aValue->AsAddress() && (*aValue == *aValue));
                 break;
 
             case 6 :
@@ -974,12 +974,12 @@ doTestAddressValue
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                 aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                okSoFar = (aValue && aValue->AsAddress());
+                okSoFar = ((nullptr != aValue) && aValue->AsAddress());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue{new InitFile::AddressValue(nullptr, aValue->GetValue())};
 
-                    okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsAddress() && (*aValue == *otherValue));
                 }
                 break;
 
@@ -990,7 +990,7 @@ doTestAddressValue
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                 aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                okSoFar = (aValue && aValue->AsAddress());
+                okSoFar = ((nullptr != aValue) && aValue->AsAddress());
                 if (okSoFar)
                 {
                     SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
@@ -1006,12 +1006,12 @@ doTestAddressValue
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
                 aValue.reset(new InitFile::AddressValue(nullptr, inValue));
-                okSoFar = (aValue && aValue->AsAddress());
+                okSoFar = ((nullptr != aValue) && aValue->AsAddress());
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue(aValue->Clone());
 
-                    okSoFar = (otherValue && otherValue->AsAddress() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && otherValue->AsAddress() && (*aValue == *otherValue));
                 }
                 break;
 
