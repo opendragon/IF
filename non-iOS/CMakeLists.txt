@@ -218,6 +218,11 @@ add_library(${TARGET}
 target_link_libraries(${TARGET}
                         ${ANTLR4_RUNTIME})
 
+if(LINUX)
+    target_link_libraries(${TARGET}
+                            pthread)
+endif()
+                    
 add_dependencies(${TARGET}
                     antlr4_static)
 

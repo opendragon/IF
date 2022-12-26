@@ -51,6 +51,10 @@
 # include <Windows.h>
 #endif // ! MAC_OR_LINUX_
 
+#if LINUX_
+# include <signal.h>
+#endif // LINUX_
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
