@@ -124,8 +124,8 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 find_package(antlr4-generator REQUIRED)
 find_package(antlr4-runtime REQUIRED)
 
-configure_file(${IF_CONFIG_DIR}/ifConfigVersion.cmake.in
-               ${CMAKE_CURRENT_BINARY_DIR}/ifConfigVersion.cmake @ONLY)
+configure_file(${IF_CONFIG_DIR}/IFConfigVersion.cmake.in
+               ${CMAKE_CURRENT_BINARY_DIR}/IFConfigVersion.cmake @ONLY)
 configure_file("${IF_SOURCE_DIR}/initFileConfig.h.in" "${IF_SOURCE_DIR}/initFileConfig.h")
 
 # The following is to help CMake find ODL...
@@ -271,8 +271,8 @@ else()
 endif()
 
 install(FILES
-        ${IF_CONFIG_DIR}/ifConfig.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/ifConfigVersion.cmake
+        ${IF_CONFIG_DIR}/IFConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/IFConfigVersion.cmake
         DESTINATION ${LIB_DEST}
         COMPONENT scripts)
 
