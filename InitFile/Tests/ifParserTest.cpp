@@ -113,15 +113,7 @@ getTempFileName
 #define ROOT_NAME_  "/tmp/IF_PARSER_.XXXXX"
     static char newName[] = ROOT_NAME_;
 
-#if defined(__APPLE__)
-# pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wunknown-warning-option"
-# pragma clang diagnostic ignored "-Wdeprecated_declarations"
-#endif // defined(__APPLE__)
     return std::string(mktemp(newName));
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
 } // getTempFileName
 
 /*! @brief Construct a string for an Array and parse it.

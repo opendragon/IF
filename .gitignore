@@ -4,3 +4,4 @@ ifContainersTest
 ifContainersTest.rc
 ifParserTest
 ifParserTest.rc
+initFileConfig.h
