@@ -104,16 +104,20 @@ catchSignal
 } // catchSignal
 
 /*! @brief Return a temporary file name.
+Note that mktemp() is considered dangerous and mkstemp() only returns a file descriptor, but there is no portable
+way to connect a file descriptor to a standard file stream.
  @return A temporary file name.
 */
 static std::string
 getTempFileName
     (void)
 {
-#define ROOT_NAME_  "/tmp/IF_PARSER_.XXXXX"
-    static char newName[] = ROOT_NAME_;
+    std::stringstream   aStream;
+    std::string         newName;
 
-    return std::string(mktemp(newName));
+    aStream << "/tmp/IF_PARSER_." << std::hex << rand() << std::dec << std::ends;
+    aStream >> newName;
+    return newName;
 } // getTempFileName
 
 /*! @brief Construct a string for an Array and parse it.
@@ -699,14 +703,14 @@ doTestFileInputArray
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
+    int         result = 1;
+    std::string fileName{getTempFileName()};
 
     try
     {
         std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
-        SpBaseValue                                          aValue;
+        SpBaseValue                                     aValue;
         bool                                            okSoFar;
-        std::string                                     fileName{getTempFileName()};
         std::fstream                                    inputOutput;
 
         // 1) test that an empty file fails.
@@ -1101,6 +1105,7 @@ doTestFileInputArray
         ODL_LOG("Exception caught"); //####
         throw;
     }
+    remove(fileName.c_str());
     ODL_EXIT_I(result); //####
     return result;
 } // doTestFileInputArray
@@ -1533,14 +1538,14 @@ doTestFileInputObject
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
+    int         result = 1;
+    std::string fileName{getTempFileName()};
 
     try
     {
         std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
-        SpBaseValue                                          aValue;
+        SpBaseValue                                     aValue;
         bool                                            okSoFar;
-        std::string                                     fileName{getTempFileName()};
         std::fstream                                    inputOutput;
         std::string                                     key1;
         std::string                                     key2;
@@ -1924,6 +1929,7 @@ doTestFileInputObject
         ODL_LOG("Exception caught"); //####
         throw;
     }
+    remove(fileName.c_str());
     ODL_EXIT_I(result); //####
     return result;
 } // doTestFileInputObject
