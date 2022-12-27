@@ -47,7 +47,7 @@ elseif(APPLE)
     set(IF_LIBRARY "${SELF_DIR}/libinitfile.dylib")
     set(IF_LIBRARY_ROOT "libinitfile.dylib")
 else()
-    set(IF_LIBRARY "${SELF_DIR}/libinitfile.so")
+    set(IF_LIBRARY "${SELF_DIR}/libinitfile.a")
 endif()
 
 message(STATUS "IF version: ${IF_VERSION}")
