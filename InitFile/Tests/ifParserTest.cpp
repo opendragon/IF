@@ -92,10 +92,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -287,13 +287,13 @@ doTestStringInputArray
      const int      argc,
      char **        argv)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
@@ -698,14 +698,14 @@ doTestFileInputArray
      const int      argc,
      char **        argv)
 {
+    int         result = 1;
+    std::string fileName{getTempFileName()};
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int         result = 1;
-    std::string fileName{getTempFileName()};
-
     try
     {
         std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
@@ -1128,13 +1128,13 @@ doTestStringInputObject
      const int      argc,
      char **        argv)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
@@ -1533,14 +1533,14 @@ doTestFileInputObject
      const int      argc,
      char **        argv)
 {
+    int         result = 1;
+    std::string fileName{getTempFileName()};
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int         result = 1;
-    std::string fileName{getTempFileName()};
-
     try
     {
         std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
@@ -1951,13 +1951,12 @@ main
      char **    argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
         Initialize(progName);

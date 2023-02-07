@@ -90,10 +90,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -119,13 +119,13 @@ doTestNullValue
      const int      NOT_USED_(argc),
      char **        NOT_USED_(argv))
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpNullValue  aValue;
@@ -248,13 +248,13 @@ doTestBooleanValue
      const int      NOT_USED_(argc),
      char **        NOT_USED_(argv))
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBooleanValue   aValue;
@@ -397,13 +397,13 @@ doTestIntegerValue
      const int      argc,
      char **        argv)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpIntegerValue   aValue;
@@ -552,13 +552,13 @@ doTestDoubleValue
      const int      argc,
      char **        argv)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpDoubleValue        aValue;
@@ -707,13 +707,13 @@ doTestStringValue
      const int      argc,
      char **        argv)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpStringValue    aValue;
@@ -858,13 +858,13 @@ doTestAddressValue
      const int      argc,
      char **        argv)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpAddressValue   aValue;
@@ -1048,13 +1048,12 @@ main
      char **    argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
         Initialize(progName);

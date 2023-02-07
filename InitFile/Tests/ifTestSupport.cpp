@@ -128,7 +128,6 @@ bool
 InitFile::CanReadFromStandardInput
     (void)
 {
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     pid_t   fg = tcgetpgrp(STDIN_FILENO);
 #else // ! MAC_OR_LINUX_
@@ -136,6 +135,7 @@ InitFile::CanReadFromStandardInput
 #endif // ! MAC_OR_LINUX_
     bool    result = false;
 
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     if (-1 == fg)
     {
@@ -163,12 +163,12 @@ std::string
 InitFile::ConvertDoubleToString
     (const double   value)
 {
-    ODL_ENTER(); //####
-    ODL_D1("value = ", value); //####
     // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
     // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
     std::ostringstream  holder;
 
+    ODL_ENTER(); //####
+    ODL_D1("value = ", value); //####
     holder << std::defaultfloat << value;
     std::string result{holder.str()};
 
@@ -181,13 +181,13 @@ InitFile::ConvertToDouble
     (const char *   startPtr,
      double &       result)
 {
-    ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
     bool    okSoFar;
     char *  endPtr;
     double  value = strtod(startPtr, &endPtr);
 
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -207,13 +207,13 @@ InitFile::ConvertToInt64
     (const char *   startPtr,
      int64_t &      result)
 {
-    ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
     bool    okSoFar;
     char *  endPtr;
     int64_t value = strtoll(startPtr, &endPtr, 10);
 
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
