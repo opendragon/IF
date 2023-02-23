@@ -1,12 +1,12 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
 {\colortbl;\red255\green255\blue255;\red157\green0\blue3;\red255\green255\blue255;\red59\green35\blue34;
 }
 {\*\expandedcolortbl;;\cssrgb\c68627\c0\c0;\cssrgb\c100000\c100000\c100000;\csgenericrgb\c23317\c13541\c13291;
 }
 {\info
 {\author Norman Jaffe}
-{\*\company OpenDragon}}\margl1440\margr1440\vieww11440\viewh10080\viewkind0
+{\*\company OpenDragon}}\margl1440\margr1440\vieww11440\viewh9920\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 In order to build a useable and linkable version of the InitFile library, it's necessary to build and install an older version of ANTLR4 - version 4.9.3, specifically.\
@@ -14,14 +14,14 @@
 1. Download the antlr4-cpp-runtime-4.9.3-source.zip file from the GitHub repository.\
 2. Expand the archive.\
 3. 'cd' to the new folder.\
-4. Execute 'ccmake -DANTLR4_INSTALL=yes .'.\
+4. Execute 'ccmake -DANTLR4_INSTALL=yes .'. [Note the period at the end]\
 5. Specify the architecture of the build machine, to avoid library mismatches.\
 6. Specify the CMAKE_INSTALL_PREFIX as /opt/antlr4.\
 7. Specify the CMAKE_BUILD_TYPE as Release.\
 8. Specify the ANTLR4_CMAKE_DIR as lib/cmake.\
 9. Specify the ANTLR4_LIB_DIR as lib.\
 10. Do 'configure' and 'generate'.\
-11. Execute 'cmake .'.\
+11. Execute 'cmake .'. [Note the period at the end]\
 12. Execute 'make'.\
 13. Execute 'sudo make install'.\
 \
