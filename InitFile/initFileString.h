@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline StringValue
-			(SpBaseValue	                parent,
+			(SpBaseValue            parent,
              const std::string &    value) :
 				inherited(parent), fValue(value)
 			{

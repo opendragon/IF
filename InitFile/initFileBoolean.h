@@ -75,8 +75,8 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline BooleanValue
-			(SpBaseValue     parent,
-             const bool value) :
+			(SpBaseValue    parent,
+             const bool     value) :
 				inherited(parent), fValue(value)
 			{
 			} /* constructor */

@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline AddressValue
-			(SpBaseValue	        parent,
+			(SpBaseValue    parent,
              const uint32_t value) :
 				inherited(parent), fValue(value)
 			{

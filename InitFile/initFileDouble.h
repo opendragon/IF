@@ -75,7 +75,7 @@ namespace InitFile
         /*! @brief The constructor.
          @param[in] parent The parent of this value. */
 		inline DoubleValue
-			(SpBaseValue         parent,
+			(SpBaseValue    parent,
              const double   value) :
 				inherited(parent), fValue(value)
 			{
