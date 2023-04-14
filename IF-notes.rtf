@@ -1,15 +1,13 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2639
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;}
-{\colortbl;\red255\green255\blue255;\red157\green0\blue3;\red255\green255\blue255;\red59\green35\blue34;
-}
-{\*\expandedcolortbl;;\cssrgb\c68627\c0\c0;\cssrgb\c100000\c100000\c100000;\csgenericrgb\c23317\c13541\c13291;
-}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgray\c0\c0;}
 {\info
 {\author Norman Jaffe}
 {\*\company OpenDragon}}\margl1440\margr1440\vieww12180\viewh14020\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 In order to build a useable and linkable version of the InitFile library, it's necessary to build and install an older version of ANTLR4 - version 4.9.3, specifically.\
+\f0\fs24 \cf2 \cb3 In order to build a useable and linkable version of the InitFile library, it's necessary to build and install an older version of ANTLR4 - version 4.9.3, specifically.\
 \
 1. Download the antlr4-cpp-runtime-4.9.3-source.zip file from the GitHub repository.\
 2. Expand the archive.\
@@ -33,21 +31,24 @@
 At this point the ANTLR4 runtime is in a known location, but certain environment variables need to be set.\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f1 \cf2 \cb3 \CocoaLigature0 export ANTLR4_JAR_LOCATION="$HOME/antlr-4.9.3-complete.jar"\
+\cf2 \CocoaLigature0 export ANTLR4_JAR_LOCATION="$HOME/antlr-4.9.3-complete.jar"\
 export CLASSPATH=".:$ANTLR4_JAR_LOCATION:$CLASSPATH"\
 alias antlr4="java -jar $ANTLR4_JAR_LOCATION"\
 alias grun='java org.antlr.v4.gui.TestRig'\
 export ANTLR4_INC=/opt/antlr4/include/antlr4-runtime\
 export ANTLR4_LIB=/opt/antlr4/lib\
 export CMAKE_PREFIX_PATH="$ANTLR4_LIB/cmake;$CMAKE_PREFIX_PATH"\
-\cf4 \
+\
 Important - for Linux:\
 set CC=clang\
 set CXX=clang++\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-
-\f0 \cf0 \cb1 \CocoaLigature1 Note: need to add /opt/nImO/bin to PATH\'85 and Java needs to be installed as well as made known to CMake by adding its directory to PATH \{/use/local/jdk-11/bin, for example).\
+\cf2 \CocoaLigature1 Note: need to add /opt/nImO/bin to PATH\'85 and Java needs to be installed as well as made known to CMake by adding its directory to PATH \{/use/local/jdk-11/bin, for example).\
 \
+As well, the DYLD_LIBRARY_PATH on macOS needs to include the ANTLR4 directory:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \CocoaLigature0 export DYLD_LIBRARY_PATH=$ANTLR4_LIB:$DYLD_LIBRARY_PATH\CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
 Note: the target directories for builds must be in lower-case - /opt/odl, /opt/if, /opt/antlr4, et cetera.}
