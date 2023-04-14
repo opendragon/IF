@@ -18,6 +18,7 @@
 4a. Go to line 121, which has 'CMAKE_SYSTEM_NAME MATCHES "FreeBSD"'.\
 4b. Add the phrase 'OR CMAKE_SYSTEM_NAME MATCHES "OpenBSD"' between '"FreeBSD"' and the two closing brackets.\
 4c. Save the changed file.\
+4d. Execute the command 'CMAKE_CXX_FLAGS=-fPIC'.\
 5. Execute 'ccmake -DANTLR4_INSTALL=yes .'. [Note the period at the end]\
 6. Specify the architecture of the build machine, to avoid library mismatches.\
 7. Specify the CMAKE_INSTALL_PREFIX as /opt/antlr4.\
