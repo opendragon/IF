@@ -123,6 +123,12 @@ namespace InitFile
         (const double   minValue = 0,
          const double   maxValue = 1);
 
+    /*! @brief Return a random number in the interval 0..RANDMAX.
+     @return A value in the range 0..RANDMAX. */
+    uint32_t
+    RandomUnsigned
+        (void);
+
     /*! @brief Connect the standard signals to a handler.
      @param[in] theHandler The new handler for the signals. */
     void

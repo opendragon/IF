@@ -43,6 +43,7 @@
 
 #include <initFileBase.h>
 #include <csignal>
+#include <random>
 #include <sstream>
 
 #if MAC_OR_LINUX_
@@ -75,6 +76,12 @@ using namespace InitFile;
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
+
+/*! @brief Seed for random number generator. */
+static std::random_device   lRd;
+
+/*! @brief Mersenne Twister random number engine. */
+static std::mt19937         lMt(lRd());
 
 /*! @brief The signal to use for internally-detected timeouts. */
 #if MAC_OR_LINUX_
@@ -236,11 +243,7 @@ InitFile::Initialize
     //ODL_S1s("progName = ", progName); //####
     try
     {
-#if defined(__APPLE__)
-        sranddev();
-#else // ! defined(__APPLE__)
-        srand(static_cast<unsigned int>(time(nullptr)));
-#endif // ! defined(__APPLE__)
+
     }
     catch (...)
     {
@@ -425,10 +428,19 @@ InitFile::RandomDouble
     (const double   minValue,
      const double   maxValue)
 {
-    double  zeroOne = (static_cast<double>(rand()) / RAND_MAX);
+    std::uniform_real_distribution<double>  dist(minValue, maxValue);
 
-    return (zeroOne * (maxValue - minValue)) + minValue;
+    return dist(lMt);
 } // InitFile::RandomDouble
+
+uint32_t
+InitFile::RandomUnsigned
+    (void)
+{
+    std::uniform_int_distribution<> dist(0, RAND_MAX);
+
+    return dist(lMt);
+} // InitFile::RandomUnsigned
 
 void
 InitFile::SetSignalHandlers

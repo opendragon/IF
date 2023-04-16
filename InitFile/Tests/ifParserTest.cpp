@@ -53,6 +53,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <random>
 #include <sstream>
 #include <unistd.h>
 
@@ -115,7 +116,7 @@ getTempFileName
     std::stringstream   aStream;
     std::string         newName;
 
-    aStream << "/tmp/IF_PARSER_." << std::hex << rand() << std::dec << std::ends;
+    aStream << "/tmp/IF_PARSER_." << std::hex << InitFile::RandomUnsigned() << std::dec << std::ends;
     aStream >> newName;
     return newName;
 } // getTempFileName
