@@ -87,14 +87,30 @@ endif()
 if(APPLE)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for InitFile" FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/if" CACHE STRING "Fixes install path for InitFile" FORCE)
+    set(CMAKE_INSTALL_RPATH
+"${E_PATH}/../lib;${E_PATH}/../odl;${E_PATH}/../antlr4;${E_PATH}/../../odl;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
+        CACHE STRING "Fixes rpath" FORCE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 # 'rpath' warning
 #    cmake_policy(SET CMP0042 OLD)
 elseif(LINUX)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for InitFile" FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/if" CACHE STRING "Fixes install path for InitFile" FORCE)
+    set(CMAKE_INSTALL_RPATH
+"${E_PATH}/../lib;${E_PATH}/../odl;${E_PATH}/../antlr4;${E_PATH}/../../odl;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
+        CACHE STRING "Fixes rpath" FORCE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
+# 'rpath' warning
+#    cmake_policy(SET CMP0042 OLD)
 elseif(UNIX)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for InitFile" FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/if" CACHE STRING "Fixes install path for InitFile" FORCE)
+    set(CMAKE_INSTALL_RPATH
+"${E_PATH}/../lib;${E_PATH}/../odl;${E_PATH}/../antlr4;${E_PATH}/../../odl;${E_PATH}/../../antlr4;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../antlr4/lib"
+        CACHE STRING "Fixes rpath" FORCE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
+# 'rpath' warning
+#    cmake_policy(SET CMP0042 OLD)
 endif()
 
 set(CMAKE_USE_RELATIVE_PATHS ON CACHE BOOL "Always set file paths as relative")
