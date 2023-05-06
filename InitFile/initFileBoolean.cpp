@@ -128,7 +128,7 @@ BooleanValue::operator ==
 	(const BaseValue &	other)
 	const
 {
-	bool	result = false;
+    bool	result{false};
 
 	ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -138,9 +138,9 @@ BooleanValue::operator ==
 	}
 	else
 	{
-		const BooleanValue *	asValue = other.AsBoolean();
+        auto    asValue{other.AsBoolean()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
 			result = (fValue == asValue->GetValue());
 		}

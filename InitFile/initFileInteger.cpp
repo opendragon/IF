@@ -128,7 +128,7 @@ IntegerValue::operator ==
 	(const BaseValue &	other)
 	const
 {
-	bool	result = false;
+    bool	result{false};
 
 	ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -138,9 +138,9 @@ IntegerValue::operator ==
 	}
 	else
 	{
-		const IntegerValue *	asValue = other.AsInteger();
+        auto	asValue{other.AsInteger()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
 			result = (fValue == asValue->GetValue());
 		}

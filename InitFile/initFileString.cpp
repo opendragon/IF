@@ -128,7 +128,7 @@ StringValue::operator ==
 	(const BaseValue &	other)
 	const
 {
-	bool	result = false;
+    bool	result{false};
 
 	ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -138,9 +138,9 @@ StringValue::operator ==
 	}
 	else
 	{
-		const StringValue *	asValue = other.AsString();
+        auto	asValue{other.AsString()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
 			result = (fValue == asValue->GetValue());
 		}

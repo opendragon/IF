@@ -130,7 +130,7 @@ NullValue::operator ==
 	(const BaseValue &	other)
 	const
 {
-	bool	result = false;
+    bool	result{false};
 
 	ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -140,9 +140,9 @@ NullValue::operator ==
 	}
 	else
 	{
-		const NullValue *	asValue = other.AsNull();
+        auto	asValue{other.AsNull()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
 			result = true;
 		}

@@ -104,7 +104,7 @@ ArrayValue &
 ArrayValue::AddValueAtBack
 	(SpBaseValue	aValue)
 {
-	if (aValue)
+	if (nullptr != aValue)
 	{
 		fValue.push_back(aValue);
 	}
@@ -115,7 +115,7 @@ ArrayValue &
 ArrayValue::AddValueAtFront
 	(SpBaseValue	aValue)
 {
-	if (aValue)
+	if (nullptr != aValue)
 	{
 		fValue.push_front(aValue);
 	}
@@ -148,7 +148,7 @@ ArrayValue::Clone
 	result.reset(new ArrayValue(*this));
 	for (size_t ii = 0; ii < fValue.size(); ++ii)
 	{
-		SpBaseValue	thisValue{GetValue(ii)};
+		auto    thisValue{GetValue(ii)};
 
 		result->AsArray()->AddValueAtBack(thisValue);
 	}
@@ -187,7 +187,7 @@ ArrayValue::operator ==
 	(const BaseValue &	other)
 	const
 {
-	bool	result = false;
+    bool	result{false};
 
 	ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -197,9 +197,9 @@ ArrayValue::operator ==
 	}
 	else
 	{
-		const ArrayValue *	asValue = other.AsArray();
+        auto    asValue{other.AsArray()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
 			size_t	otherSize = asValue->HowManyValues();
 
@@ -229,7 +229,7 @@ ArrayValue::Print
 	 const bool		squished)
 	const
 {
-	size_t	count = fValue.size();
+    size_t	count{fValue.size()};
 
 	output << '[';
 	if (squished)

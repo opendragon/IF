@@ -128,7 +128,7 @@ DoubleValue::operator ==
 	(const BaseValue &	other)
 	const
 {
-	bool	result = false;
+    bool	result{false};
 
 	ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -138,9 +138,9 @@ DoubleValue::operator ==
 	}
 	else
 	{
-		const DoubleValue *	asValue = other.AsDouble();
+        auto    asValue{other.AsDouble()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
 			result = (fValue == asValue->GetValue());
 		}

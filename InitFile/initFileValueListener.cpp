@@ -159,10 +159,10 @@ BaseValueListener::exitAddressValue
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
     std::string addressString;
-    uint32_t    address = 0;
+    uint32_t    address{0};
 
     ODL_OBJENTER(); //####
-    if (ctx->add)
+    if (nullptr != ctx->add)
     {
         addressString = ctx->add->getText();
         if ('@' == addressString[0])
@@ -174,7 +174,7 @@ BaseValueListener::exitAddressValue
 #endif // defined(TRACE_PARSING_)
         for (size_t ii = 0, lastPos = 0; ii < 4; ++ii)
         {
-            size_t      jj = addressString.find_first_of('.', lastPos);
+            size_t      jj{addressString.find_first_of('.', lastPos)};
             std::string segment;
 
             address <<= 8;
@@ -188,7 +188,7 @@ BaseValueListener::exitAddressValue
                 lastPos = jj + 1;
             }
             size_t  nextPos;
-            size_t  segmentValue = std::stoul(segment, &nextPos);
+            size_t  segmentValue{std::stoul(segment, &nextPos)};
 
             if ((255 < segmentValue) || (nextPos < segment.length()))
             {
@@ -198,7 +198,7 @@ BaseValueListener::exitAddressValue
             address += segmentValue;
         }
 #if defined(TRACE_PARSING_)
-        char oldFill = std::cout.fill('0');
+        char oldFill{std::cout.fill('0')};
 
         std::cerr << std::hex << "0x";
         std::cerr.width(8);
@@ -306,8 +306,8 @@ BaseValueListener::exitNonEmptyArray
     std::cerr << "#values=" << ctx->value().size() << std::endl;
 #endif // defined(TRACE_PARSING_)
     ODL_OBJENTER(); //####
-    ArrayValue *    currentArray = fCurrentContainer->AsArray();
-    size_t          numValues = ctx->value().size();
+    auto    currentArray{fCurrentContainer->AsArray()};
+    size_t  numValues{ctx->value().size()};
 
     // Pull the number of values that were pushed and put them in the correct order.
     for (size_t ii = 0; ii < numValues; ++ii)
@@ -347,10 +347,10 @@ BaseValueListener::exitPair
     std::cerr << __FUNCTION__ << std::endl;
 #endif // defined(TRACE_PARSING_)
     std::string     tag{popTag()};
-    SpBaseValue          value{popValue()};
+    SpBaseValue     value{popValue()};
 #if defined(TRACE_PARSING_)
     std::cerr << "tag=" << tag << " : value=";
-    if (value)
+    if (nullptr != value)
     {
         value->Print(std::cerr);
     }
@@ -360,7 +360,7 @@ BaseValueListener::exitPair
     }
     std::cerr << std::endl;
 #endif // defined(TRACE_PARSING_)
-    ObjectValue *   currentObject = fCurrentContainer->AsObject();
+    auto   currentObject{fCurrentContainer->AsObject()};
 
     ODL_OBJENTER(); //####
     currentObject->AddValue(tag, value);
@@ -431,12 +431,12 @@ BaseValueListener::GetValue
     try
     {
         fRootObject.reset();
-        antlr4::ANTLRInputStream                            inStream(input);
-        InitParser::InitFileLexer                           lexer(&inStream);
-        antlr4::CommonTokenStream                           tokens(&lexer);
-        InitParser::InitFileParser                          parser(&tokens);
-        InitParser::InitFileParser::ConfigurationContext *  tree = parser.configuration();
-        antlr4::tree::ParseTreeWalker                       walker;
+        antlr4::ANTLRInputStream        inStream{input};
+        InitParser::InitFileLexer       lexer{&inStream};
+        antlr4::CommonTokenStream       tokens{&lexer};
+        InitParser::InitFileParser      parser{&tokens};
+        auto                            tree{parser.configuration()};
+        antlr4::tree::ParseTreeWalker   walker;
 
         walker.walk(this, tree);
     }
@@ -460,12 +460,12 @@ BaseValueListener::GetValue
     try
     {
         fRootObject.reset();
-        antlr4::ANTLRInputStream                            inStream(input);
-        InitParser::InitFileLexer                           lexer(&inStream);
-        antlr4::CommonTokenStream                           tokens(&lexer);
-        InitParser::InitFileParser                          parser(&tokens);
-        InitParser::InitFileParser::ConfigurationContext *  tree = parser.configuration();
-        antlr4::tree::ParseTreeWalker                       walker;
+        antlr4::ANTLRInputStream        inStream{input};
+        InitParser::InitFileLexer       lexer{&inStream};
+        antlr4::CommonTokenStream       tokens{&lexer};
+        InitParser::InitFileParser      parser{&tokens};
+        auto                            tree{parser.configuration()};
+        antlr4::tree::ParseTreeWalker   walker;
 
         walker.walk(this, tree);
     }

@@ -257,10 +257,10 @@ InitFile::MakeWrappedString
     (const std::string &    inString)
 {
     std::string result;
-	size_t		foundDouble = inString.find('"');
-	size_t		foundSingle = inString.find('\'');
+    size_t		foundDouble{inString.find('"')};
+    size_t		foundSingle{inString.find('\'')};
 	char		quoteChar;
-	const char	escape = '\\';
+    const char	escape{'\\'};
 
 	if (inString.npos == foundDouble)
 	{
@@ -284,7 +284,7 @@ InitFile::MakeWrappedString
     result = quoteChar;
 	for (auto & walker : inString)
 	{
-		const char	aChar = walker;
+        const char	aChar{walker};
 
 		if (aChar == quoteChar)
 		{

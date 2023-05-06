@@ -105,7 +105,7 @@ ObjectValue::~ObjectValue
 ObjectValue &
 ObjectValue::AddValue
 	(const std::string &	key,
-	 SpBaseValue            		aValue)
+	 SpBaseValue       		aValue)
 {
 	fValue.insert({key, aValue});
 	return *this;
@@ -163,7 +163,7 @@ ObjectValue::GetValue
 	const
 {
 	SpBaseValue	result;
-	auto	match{fValue.find(tag)};
+	auto	    match{fValue.find(tag)};
 
 	if (fValue.end() == match)
 	{
@@ -218,11 +218,11 @@ ObjectValue::operator ==
 	}
 	else
 	{
-		const ObjectValue *	asValue = other.AsObject();
+        auto	asValue{other.AsObject()};
 
-		if (asValue)
+		if (nullptr != asValue)
 		{
-			size_t	otherSize = asValue->HowManyValues();
+            size_t	otherSize{asValue->HowManyValues()};
 
 			if (HowManyValues() == otherSize)
 			{
@@ -230,10 +230,10 @@ ObjectValue::operator ==
 				for (auto & walker : fValue)
 				{
 					std::string	key{walker.first};
-					SpBaseValue		thisValue{walker.second};
-					SpBaseValue		otherValue{asValue->GetValue(key)};
+					SpBaseValue	thisValue{walker.second};
+					SpBaseValue	otherValue{asValue->GetValue(key)};
 
-					if (otherValue)
+					if (nullptr != otherValue)
 					{
 						result = (*thisValue == *otherValue);
 					}

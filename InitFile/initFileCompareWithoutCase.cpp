@@ -89,16 +89,16 @@ CompareWithoutCase::operator()
 	const
 {
 	// true if lhs < rhs, false otherwise.
-	const size_t  lhs_max = lhs.size();
-	const size_t  rhs_max = rhs.size();
-	const size_t  max_i = std::min(lhs_max, rhs_max);
-	bool          result = true;
-	bool          same = true;
+    const size_t  lhs_max{lhs.size()};
+    const size_t  rhs_max{rhs.size()};
+    const size_t  max_i{std::min(lhs_max, rhs_max)};
+    bool          result{true};
+    bool          same{true};
 
 	for (size_t ii = 0; ii < max_i; ++ii)
 	{
-		const char  left = tolower(lhs[ii]);
-		const char  right = tolower(rhs[ii]);
+        const char  left{static_cast<char>(tolower(lhs[ii]))};
+        const char  right{static_cast<char>(tolower(rhs[ii]))};
 
 		if (left > right)
 		{
