@@ -119,7 +119,7 @@ doTestArrayValue
      const int      NOT_USED_(argc),
      char **        NOT_USED_(argv))
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
@@ -128,8 +128,8 @@ doTestArrayValue
     ODL_P1("argv = ", argv); //####
     try
     {
-        SpArrayValue aValue;
-        bool    okSoFar;
+        SpArrayValue    aValue;
+        bool            okSoFar;
 
         // 1) test that array values are distinct.
         // 2) test that an empty array value can be created.
@@ -187,9 +187,9 @@ doTestArrayValue
         {
             case 1 :
                 aValue.reset(new InitFile::ArrayValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsArray() && (! aValue->AsAddress()) && (! aValue->AsBoolean()) &&
-                            (! aValue->AsDouble()) && (! aValue->AsInteger()) && (! aValue->AsNull()) &&
-                            (! aValue->AsObject()) && (! aValue->AsString()));
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsArray()) && (nullptr == aValue->AsAddress()) && (nullptr == aValue->AsBoolean()) &&
+                            (nullptr == aValue->AsDouble()) && (nullptr == aValue->AsInteger()) && (nullptr == aValue->AsNull()) &&
+                            (nullptr == aValue->AsObject()) && (nullptr == aValue->AsString()));
                 break;
 
             case 2 :
@@ -214,7 +214,7 @@ doTestArrayValue
                 okSoFar = ((nullptr != aValue) && aValue->AsArray());
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && otherValue->AsArray() && (0 == otherValue->AsArray()->HowManyValues()));
                 }
@@ -252,7 +252,7 @@ doTestArrayValue
                 okSoFar = ((nullptr != aValue) && aValue->AsArray());
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && otherValue->AsArray() && (*aValue == *otherValue));
                 }
@@ -486,7 +486,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::NullValue(nullptr)};
                     SpBaseValue  otherValue2{new InitFile::NullValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsNull() && (nullptr != otherValue2) &&  otherValue2->AsNull());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsNull() && (nullptr != otherValue2) && otherValue2->AsNull());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -514,7 +514,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::BooleanValue(nullptr, value1)};
                     SpBaseValue  otherValue2{new InitFile::BooleanValue(nullptr, value2)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsBoolean() && (nullptr != otherValue2) &&  otherValue2->AsBoolean());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsBoolean() && (nullptr != otherValue2) && otherValue2->AsBoolean());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -526,8 +526,8 @@ doTestArrayValue
                         SpBaseValue  gotValue1{aValue->GetValue(0)};
                         SpBaseValue  gotValue2{aValue->GetValue(1)};
 
-                        okSoFar = ((nullptr != gotValue1) &&  gotValue1->AsBoolean() && (value1 == gotValue1->AsBoolean()->GetValue()) &&
-                                    (nullptr != gotValue2) &&  gotValue2->AsBoolean() && (value2 == gotValue2->AsBoolean()->GetValue()));
+                        okSoFar = ((nullptr != gotValue1) && gotValue1->AsBoolean() && (value1 == gotValue1->AsBoolean()->GetValue()) &&
+                                    (nullptr != gotValue2) && gotValue2->AsBoolean() && (value2 == gotValue2->AsBoolean()->GetValue()));
                     }
                 }
                 break;
@@ -542,7 +542,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::BooleanValue(nullptr, value1)};
                     SpBaseValue  otherValue2{new InitFile::BooleanValue(nullptr, value2)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsBoolean() && (nullptr != otherValue2) &&  otherValue2->AsBoolean());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsBoolean() && (nullptr != otherValue2) && otherValue2->AsBoolean());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -574,7 +574,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::IntegerValue(nullptr, number1)};
                     SpBaseValue  otherValue2{new InitFile::IntegerValue(nullptr, number2)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsInteger() && (nullptr != otherValue2) &&  otherValue2->AsInteger());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsInteger() && (nullptr != otherValue2) && otherValue2->AsInteger());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -586,8 +586,8 @@ doTestArrayValue
                         SpBaseValue  gotValue1{aValue->GetValue(0)};
                         SpBaseValue  gotValue2{aValue->GetValue(1)};
 
-                        okSoFar = ((nullptr != gotValue1) &&  gotValue1->AsInteger() && (number1 == gotValue1->AsInteger()->GetValue()) &&
-                                    (nullptr != gotValue2) &&  gotValue2->AsInteger() && (number2 == gotValue2->AsInteger()->GetValue()));
+                        okSoFar = ((nullptr != gotValue1) && gotValue1->AsInteger() && (number1 == gotValue1->AsInteger()->GetValue()) &&
+                                    (nullptr != gotValue2) && gotValue2->AsInteger() && (number2 == gotValue2->AsInteger()->GetValue()));
                     }
                 }
                 break;
@@ -597,12 +597,12 @@ doTestArrayValue
                 okSoFar = ((nullptr != aValue) && aValue->AsArray());
                 if (okSoFar)
                 {
-                    int64_t number1 = static_cast<int64_t>(RandomDouble(-1000, 1000));
-                    int64_t number2 = static_cast<int64_t>(RandomDouble(-1000, 1000));
-                    SpBaseValue  otherValue1{new InitFile::IntegerValue(nullptr, number1)};
-                    SpBaseValue  otherValue2{new InitFile::IntegerValue(nullptr, number2)};
+                    int64_t     number1 = static_cast<int64_t>(RandomDouble(-1000, 1000));
+                    int64_t     number2 = static_cast<int64_t>(RandomDouble(-1000, 1000));
+                    SpBaseValue otherValue1{new InitFile::IntegerValue(nullptr, number1)};
+                    SpBaseValue otherValue2{new InitFile::IntegerValue(nullptr, number2)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsInteger() && (nullptr != otherValue2) &&  otherValue2->AsInteger());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsInteger() && (nullptr != otherValue2) && otherValue2->AsInteger());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -634,7 +634,7 @@ doTestArrayValue
                     SpBaseValue      otherValue1{new InitFile::StringValue(nullptr, testString1)};
                     SpBaseValue      otherValue2{new InitFile::StringValue(nullptr, testString2)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsString() && (nullptr != otherValue2) &&  otherValue2->AsString());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsString() && (nullptr != otherValue2) && otherValue2->AsString());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -646,8 +646,8 @@ doTestArrayValue
                         SpBaseValue  gotValue1{aValue->GetValue(0)};
                         SpBaseValue  gotValue2{aValue->GetValue(1)};
 
-                        okSoFar = ((nullptr != gotValue1) &&  gotValue1->AsString() && (testString1 == gotValue1->AsString()->GetValue()) &&
-                                    (nullptr != gotValue2) &&  gotValue2->AsString() && (testString2 == gotValue2->AsString()->GetValue()));
+                        okSoFar = ((nullptr != gotValue1) && gotValue1->AsString() && (testString1 == gotValue1->AsString()->GetValue()) &&
+                                    (nullptr != gotValue2) && gotValue2->AsString() && (testString2 == gotValue2->AsString()->GetValue()));
                     }
                 }
                 break;
@@ -662,7 +662,7 @@ doTestArrayValue
                     SpBaseValue      otherValue1{new InitFile::StringValue(nullptr, testString1)};
                     SpBaseValue      otherValue2{new InitFile::StringValue(nullptr, testString2)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsString() && (nullptr != otherValue2) &&  otherValue2->AsString());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsString() && (nullptr != otherValue2) && otherValue2->AsString());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -700,7 +700,7 @@ doTestArrayValue
                     SpArrayValue     otherArray{new InitFile::ArrayValue(nullptr)};
                     SpBooleanValue   otherValue{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
-                    okSoFar = ((nullptr != otherArray) &&  otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsBoolean());
+                    okSoFar = ((nullptr != otherArray) && otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsBoolean());
                     if (okSoFar)
                     {
                         otherArray->AddValueAtBack(otherValue);
@@ -733,7 +733,7 @@ doTestArrayValue
                     SpArrayValue     otherArray{new InitFile::ArrayValue(nullptr)};
                     SpIntegerValue   otherValue{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
-                    okSoFar = ((nullptr != otherArray) &&  otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsInteger());
+                    okSoFar = ((nullptr != otherArray) && otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsInteger());
                     if (okSoFar)
                     {
                         otherArray->AddValueAtBack(otherValue);
@@ -765,7 +765,7 @@ doTestArrayValue
                     SpArrayValue     otherArray{new InitFile::ArrayValue(nullptr)};
                     SpDoubleValue    otherValue{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
-                    okSoFar = ((nullptr != otherArray) &&  otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsDouble());
+                    okSoFar = ((nullptr != otherArray) && otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsDouble());
                     if (okSoFar)
                     {
                         otherArray->AddValueAtBack(otherValue);
@@ -797,7 +797,7 @@ doTestArrayValue
                     SpArrayValue     otherArray{new InitFile::ArrayValue(nullptr)};
                     SpStringValue    otherValue{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
-                    okSoFar = ((nullptr != otherArray) &&  otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsString());
+                    okSoFar = ((nullptr != otherArray) && otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsString());
                     if (okSoFar)
                     {
                         otherArray->AddValueAtBack(otherValue);
@@ -834,7 +834,7 @@ doTestArrayValue
                     SpArrayValue     otherArray{new InitFile::ArrayValue(nullptr)};
                     SpAddressValue   otherValue{new InitFile::AddressValue(nullptr, inValue)};
 
-                    okSoFar = ((nullptr != otherArray) &&  otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsAddress());
+                    okSoFar = ((nullptr != otherArray) && otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsAddress());
                     if (okSoFar)
                     {
                         otherArray->AddValueAtBack(otherValue);
@@ -871,7 +871,7 @@ doTestArrayValue
                     SpArrayValue otherArray{new InitFile::ArrayValue(nullptr)};
                     SpNullValue  otherValue{new InitFile::NullValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherArray) &&  otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsNull());
+                    okSoFar = ((nullptr != otherArray) && otherArray->AsArray() && (nullptr != otherValue) && otherValue->AsNull());
                     if (okSoFar)
                     {
                         otherArray->AddValueAtBack(otherValue);
@@ -1073,7 +1073,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::NullValue(nullptr)};
                     SpBaseValue  otherValue2{new InitFile::NullValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsNull() && (nullptr != otherValue2) &&  otherValue2->AsNull());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsNull() && (nullptr != otherValue2) && otherValue2->AsNull());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1097,7 +1097,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
                     SpBaseValue  otherValue2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsBoolean() && (nullptr != otherValue2) &&  otherValue2->AsBoolean());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsBoolean() && (nullptr != otherValue2) && otherValue2->AsBoolean());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1121,7 +1121,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
                     SpBaseValue  otherValue2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsInteger() && (nullptr != otherValue2) &&  otherValue2->AsInteger());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsInteger() && (nullptr != otherValue2) && otherValue2->AsInteger());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1145,7 +1145,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
                     SpBaseValue  otherValue2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsString() && (nullptr != otherValue2) &&  otherValue2->AsString());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsString() && (nullptr != otherValue2) && otherValue2->AsString());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1169,7 +1169,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
                     SpBaseValue  otherValue2{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsDouble() && (nullptr != otherValue2) &&  otherValue2->AsDouble());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsDouble() && (nullptr != otherValue2) && otherValue2->AsDouble());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1202,7 +1202,7 @@ doTestArrayValue
                     byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                     SpBaseValue      otherValue2{new InitFile::AddressValue(nullptr, inValue)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsAddress() && (nullptr != otherValue2) &&  otherValue2->AsAddress());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsAddress() && (nullptr != otherValue2) && otherValue2->AsAddress());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1226,7 +1226,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::ArrayValue(nullptr)};
                     SpBaseValue  otherValue2{new InitFile::ArrayValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsArray() && (nullptr != otherValue2) &&  otherValue2->AsArray());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsArray() && (nullptr != otherValue2) && otherValue2->AsArray());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1250,7 +1250,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::ObjectValue(nullptr)};
                     SpBaseValue  otherValue2{new InitFile::ObjectValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsObject() && (nullptr != otherValue2) &&  otherValue2->AsObject());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsObject() && (nullptr != otherValue2) && otherValue2->AsObject());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1274,7 +1274,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::NullValue(nullptr)};
                     SpBaseValue  otherValue2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsNull() && (nullptr != otherValue2) &&  otherValue2->AsBoolean());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsNull() && (nullptr != otherValue2) && otherValue2->AsBoolean());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1298,7 +1298,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
                     SpBaseValue  otherValue2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsBoolean() && (nullptr != otherValue2) &&  otherValue2->AsInteger());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsBoolean() && (nullptr != otherValue2) && otherValue2->AsInteger());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1322,7 +1322,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
                     SpBaseValue  otherValue2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsInteger() && (nullptr != otherValue2) &&  otherValue2->AsString());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsInteger() && (nullptr != otherValue2) && otherValue2->AsString());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1351,7 +1351,7 @@ doTestArrayValue
                     SpBaseValue      otherValue1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
                     SpBaseValue      otherValue2{new InitFile::AddressValue(nullptr, inValue)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsString() && (nullptr != otherValue2) &&  otherValue2->AsAddress());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsString() && (nullptr != otherValue2) && otherValue2->AsAddress());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1380,7 +1380,7 @@ doTestArrayValue
                     SpBaseValue      otherValue1{new InitFile::AddressValue(nullptr, inValue)};
                     SpBaseValue      otherValue2{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsAddress() && (nullptr != otherValue2) &&  otherValue2->AsDouble());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsAddress() && (nullptr != otherValue2) && otherValue2->AsDouble());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1404,7 +1404,7 @@ doTestArrayValue
                     SpBaseValue  otherValue1{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
                     SpBaseValue  otherValue2{new InitFile::NullValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherValue1) &&  otherValue1->AsDouble() && (nullptr != otherValue2) &&  otherValue2->AsNull());
+                    okSoFar = ((nullptr != otherValue1) && otherValue1->AsDouble() && (nullptr != otherValue2) && otherValue2->AsNull());
                     if (okSoFar)
                     {
                         aValue->AddValueAtBack(otherValue1);
@@ -1524,19 +1524,19 @@ doTestObjectValue
         {
             case 1 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject() && (! aValue->AsArray()) && (! aValue->AsAddress()) &&
-                            (! aValue->AsBoolean()) && (! aValue->AsDouble()) && (! aValue->AsInteger()) &&
-                            (! aValue->AsNull()) && (! aValue->AsString()));
+                okSoFar = ((nullptr != aValue) && aValue->AsObject() && (nullptr == aValue->AsArray()) && (nullptr == aValue->AsAddress()) &&
+                            (nullptr == aValue->AsBoolean()) && (nullptr == aValue->AsDouble()) && (nullptr == aValue->AsInteger()) &&
+                            (nullptr == aValue->AsNull()) && (nullptr == aValue->AsString()));
                 break;
 
             case 2 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject() && (0 == aValue->HowManyValues()));
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()) && (0 == aValue->HowManyValues()));
                 break;
 
             case 3 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::ostringstream  buffer;
@@ -1548,34 +1548,34 @@ doTestObjectValue
 
             case 4 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue{aValue->Clone()};
 
-                    okSoFar = ((nullptr != otherValue) && otherValue->AsObject() && (0 == otherValue->AsObject()->HowManyValues()));
+                    okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsObject()) && (0 == otherValue->AsObject()->HowManyValues()));
                 }
                 break;
 
             case 5 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject() && (*aValue == *aValue));
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()) && (*aValue == *aValue));
                 break;
 
             case 6 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     SpBaseValue  otherValue{new InitFile::ObjectValue(nullptr)};
 
-                    okSoFar = ((nullptr != otherValue) && otherValue->AsObject() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsObject()) && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     SpNullValue  otherValue{new InitFile::NullValue(nullptr)};
@@ -1586,22 +1586,22 @@ doTestObjectValue
 
             case 8 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue(aValue->Clone());
+                    SpBaseValue  otherValue{aValue->Clone()};
 
-                    okSoFar = ((nullptr != otherValue) && otherValue->AsObject() && (*aValue == *otherValue));
+                    okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsObject()) && (*aValue == *otherValue));
                 }
                 break;
 
             case 9 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1609,18 +1609,18 @@ doTestObjectValue
                     {
                         SpBaseValue  valueRetrieved{aValue->GetValue(tagForAdd)};
 
-                        okSoFar = ((nullptr != valueRetrieved) && valueRetrieved->AsNull() && (*valueToAdd == *valueRetrieved));
+                        okSoFar = ((nullptr != valueRetrieved) && (nullptr != valueRetrieved->AsNull()) && (*valueToAdd == *valueRetrieved));
                     }
                 }
                 break;
 
             case 10 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1638,11 +1638,11 @@ doTestObjectValue
 
             case 11 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1660,11 +1660,11 @@ doTestObjectValue
 
             case 12 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1672,18 +1672,18 @@ doTestObjectValue
                     {
                         SpBaseValue  valueRetrieved(aValue->GetValue(tagForAdd));
 
-                        okSoFar = ((nullptr != valueRetrieved) &&  valueRetrieved->AsBoolean() && (*valueToAdd == *valueRetrieved));
+                        okSoFar = ((nullptr != valueRetrieved) && (nullptr != valueRetrieved->AsBoolean()) && (*valueToAdd == *valueRetrieved));
                     }
                 }
                 break;
 
             case 13 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1701,11 +1701,11 @@ doTestObjectValue
 
             case 14 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1713,18 +1713,18 @@ doTestObjectValue
                     {
                         SpBaseValue  valueRetrieved(aValue->GetValue(tagForAdd));
 
-                        okSoFar = ((nullptr != valueRetrieved) &&  valueRetrieved->AsInteger() && (*valueToAdd == *valueRetrieved));
+                        okSoFar = ((nullptr != valueRetrieved) && (nullptr != valueRetrieved->AsInteger()) && (*valueToAdd == *valueRetrieved));
                     }
                 }
                 break;
 
             case 15 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1742,11 +1742,11 @@ doTestObjectValue
 
             case 16 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1754,18 +1754,18 @@ doTestObjectValue
                     {
                         SpBaseValue  valueRetrieved(aValue->GetValue(tagForAdd));
 
-                        okSoFar = ((nullptr != valueRetrieved) &&  valueRetrieved->AsString() && (*valueToAdd == *valueRetrieved));
+                        okSoFar = ((nullptr != valueRetrieved) && (nullptr != valueRetrieved->AsString()) && (*valueToAdd == *valueRetrieved));
                     }
                 }
                 break;
 
             case 17 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
@@ -1783,27 +1783,27 @@ doTestObjectValue
 
             case 18 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd1{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd1{new InitFile::NullValue(nullptr)};
                     std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd2{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd2{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  valueRetrieved1(aValue->GetValue(tagForAdd1));
+                        SpBaseValue  valueRetrieved1{aValue->GetValue(tagForAdd1)};
 
-                        okSoFar = ((nullptr != valueRetrieved1) && valueRetrieved1->AsNull() && (*valueToAdd1 == *valueRetrieved1));
+                        okSoFar = ((nullptr != valueRetrieved1) && (nullptr != valueRetrieved1->AsNull()) && (*valueToAdd1 == *valueRetrieved1));
                         if (okSoFar)
                         {
-                            SpBaseValue  valueRetrieved2(aValue->GetValue(tagForAdd2));
+                            SpBaseValue  valueRetrieved2{aValue->GetValue(tagForAdd2)};
 
-                            okSoFar = ((nullptr != valueRetrieved2) && valueRetrieved2->AsNull() && (*valueToAdd2 == *valueRetrieved2));
+                            okSoFar = ((nullptr != valueRetrieved2) && (nullptr != valueRetrieved2->AsNull()) && (*valueToAdd2 == *valueRetrieved2));
                         }
                     }
                 }
@@ -1811,13 +1811,13 @@ doTestObjectValue
 
             case 19 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd1{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd1{new InitFile::NullValue(nullptr)};
                     std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd2{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd2{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
@@ -1836,13 +1836,13 @@ doTestObjectValue
 
             case 20 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd1{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd1{new InitFile::NullValue(nullptr)};
                     std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd2{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd2{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
@@ -1866,27 +1866,28 @@ doTestObjectValue
 
             case 21 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  valueRetrieved1(aValue->GetValue(tagForAdd1));
+                        SpBaseValue  valueRetrieved1{aValue->GetValue(tagForAdd1)};
 
-                        okSoFar = ((nullptr != valueRetrieved1) &&  valueRetrieved1->AsBoolean() && (*valueToAdd1 == *valueRetrieved1));
+                        okSoFar = ((nullptr != valueRetrieved1) && (nullptr != valueRetrieved1->AsBoolean()) && (*valueToAdd1 == *valueRetrieved1));
                         if (okSoFar)
                         {
-                            SpBaseValue  valueRetrieved2(aValue->GetValue(tagForAdd2));
+                            SpBaseValue  valueRetrieved2{aValue->GetValue(tagForAdd2)};
 
-                            okSoFar = ((nullptr != valueRetrieved2) &&  valueRetrieved2->AsBoolean() && (*valueToAdd2 == *valueRetrieved2));
+                            okSoFar = ((nullptr != valueRetrieved2) && (nullptr != valueRetrieved2->AsBoolean()) &&
+                                       (*valueToAdd2 == *valueRetrieved2));
                         }
                     }
                 }
@@ -1894,13 +1895,13 @@ doTestObjectValue
 
             case 22 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
@@ -1926,27 +1927,27 @@ doTestObjectValue
 
             case 23 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  valueRetrieved1(aValue->GetValue(tagForAdd1));
+                        SpBaseValue  valueRetrieved1{aValue->GetValue(tagForAdd1)};
 
-                        okSoFar = ((nullptr != valueRetrieved1) &&  valueRetrieved1->AsInteger() && (*valueToAdd1 == *valueRetrieved1));
+                        okSoFar = ((nullptr != valueRetrieved1) && (nullptr != valueRetrieved1->AsInteger()) && (*valueToAdd1 == *valueRetrieved1));
                         if (okSoFar)
                         {
-                            SpBaseValue  valueRetrieved2(aValue->GetValue(tagForAdd2));
+                            SpBaseValue  valueRetrieved2{aValue->GetValue(tagForAdd2)};
 
-                            okSoFar = ((nullptr != valueRetrieved2) &&  valueRetrieved2->AsInteger() && (*valueToAdd2 == *valueRetrieved2));
+                            okSoFar = ((nullptr != valueRetrieved2) && (nullptr != valueRetrieved2->AsInteger()) && (*valueToAdd2 == *valueRetrieved2));
                         }
                     }
                 }
@@ -1954,13 +1955,13 @@ doTestObjectValue
 
             case 24 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
@@ -1986,27 +1987,28 @@ doTestObjectValue
 
             case 25 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  valueRetrieved1(aValue->GetValue(tagForAdd1));
+                        SpBaseValue  valueRetrieved1{aValue->GetValue(tagForAdd1)};
 
-                        okSoFar = ((nullptr != valueRetrieved1) &&  valueRetrieved1->AsString() && (*valueToAdd1 == *valueRetrieved1));
+                        okSoFar = ((nullptr != valueRetrieved1) && (nullptr != valueRetrieved1->AsString()) && (*valueToAdd1 == *valueRetrieved1));
                         if (okSoFar)
                         {
-                            SpBaseValue  valueRetrieved2(aValue->GetValue(tagForAdd2));
+                            SpBaseValue  valueRetrieved2{aValue->GetValue(tagForAdd2)};
 
-                            okSoFar = ((nullptr != valueRetrieved2) &&  valueRetrieved2->AsString() && (*valueToAdd2 == *valueRetrieved2));
+                            okSoFar = ((nullptr != valueRetrieved2) && (nullptr != valueRetrieved2->AsString()) &&
+                                       (*valueToAdd2 == *valueRetrieved2));
                         }
                     }
                 }
@@ -2014,13 +2016,13 @@ doTestObjectValue
 
             case 26 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
@@ -2046,22 +2048,22 @@ doTestObjectValue
 
             case 27 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpObjectValue    anotherValue{new InitFile::ObjectValue(nullptr)};
+                        SpObjectValue   anotherValue{new InitFile::ObjectValue(nullptr)};
 
-                        if ((nullptr != anotherValue) && anotherValue->AsObject())
+                        if ((nullptr != anotherValue) && (nullptr != anotherValue->AsObject()))
                         {
-                            std::string anotherTag{std::to_string(RandomDouble(-1000, 1000))};
-                            SpBooleanValue   anotherValueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                            std::string     anotherTag{std::to_string(RandomDouble(-1000, 1000))};
+                            SpBooleanValue  anotherValueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                             anotherValue->AddValue(anotherTag, anotherValueToAdd);
                             if (1 == anotherValue->HowManyValues())
@@ -2075,22 +2077,22 @@ doTestObjectValue
 
             case 28 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpObjectValue    anotherValue{new InitFile::ObjectValue(nullptr)};
+                        SpObjectValue   anotherValue{new InitFile::ObjectValue(nullptr)};
 
-                        if ((nullptr != anotherValue) && anotherValue->AsObject())
+                        if ((nullptr != anotherValue) && (nullptr != anotherValue->AsObject()))
                         {
-                            std::string anotherTag{std::to_string(RandomDouble(-1000, 1000))};
-                            SpIntegerValue   anotherValueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                            std::string     anotherTag{std::to_string(RandomDouble(-1000, 1000))};
+                            SpIntegerValue  anotherValueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                             anotherValue->AddValue(anotherTag, anotherValueToAdd);
                             if (1 == anotherValue->HowManyValues())
@@ -2104,22 +2106,22 @@ doTestObjectValue
 
             case 29 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpObjectValue    anotherValue{new InitFile::ObjectValue(nullptr)};
+                        SpObjectValue   anotherValue{new InitFile::ObjectValue(nullptr)};
 
-                        if ((nullptr != anotherValue) && anotherValue->AsObject())
+                        if ((nullptr != anotherValue) && (nullptr != anotherValue->AsObject()))
                         {
-                            std::string anotherTag{std::to_string(RandomDouble(-1000, 1000))};
-                            SpDoubleValue    anotherValueToAdd{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                            std::string     anotherTag{std::to_string(RandomDouble(-1000, 1000))};
+                            SpDoubleValue   anotherValueToAdd{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
                             anotherValue->AddValue(anotherTag, anotherValueToAdd);
                             if (1 == anotherValue->HowManyValues())
@@ -2133,22 +2135,22 @@ doTestObjectValue
 
             case 30 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpDoubleValue    valueToAdd{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpDoubleValue   valueToAdd{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpObjectValue    anotherValue{new InitFile::ObjectValue(nullptr)};
+                        SpObjectValue   anotherValue{new InitFile::ObjectValue(nullptr)};
 
-                        if ((nullptr != anotherValue) && anotherValue->AsObject())
+                        if ((nullptr != anotherValue) && (nullptr != anotherValue->AsObject()))
                         {
-                            std::string anotherTag{std::to_string(RandomDouble(-1000, 1000))};
-                            SpStringValue    anotherValueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                            std::string     anotherTag{std::to_string(RandomDouble(-1000, 1000))};
+                            SpStringValue   anotherValueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                             anotherValue->AddValue(anotherTag, anotherValueToAdd);
                             if (1 == anotherValue->HowManyValues())
@@ -2162,27 +2164,27 @@ doTestObjectValue
 
             case 31 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpObjectValue    anotherValue{new InitFile::ObjectValue(nullptr)};
+                        SpObjectValue   anotherValue{new InitFile::ObjectValue(nullptr)};
 
-                        if ((nullptr != anotherValue) && anotherValue->AsObject())
+                        if ((nullptr != anotherValue) && (nullptr != anotherValue->AsObject()))
                         {
-                            uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
-                            uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
-                            uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
-                            uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
-                            uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                            std::string anotherTag{std::to_string(RandomDouble(-1000, 1000))};
-                            SpAddressValue   anotherValueToAdd{new InitFile::AddressValue(nullptr, inValue)};
+                            uint32_t        byte0{static_cast<uint32_t>(RandomDouble(0, 255))};
+                            uint32_t        byte1{static_cast<uint32_t>(RandomDouble(0, 255))};
+                            uint32_t        byte2{static_cast<uint32_t>(RandomDouble(0, 255))};
+                            uint32_t        byte3{static_cast<uint32_t>(RandomDouble(0, 255))};
+                            uint32_t        inValue{(((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3};
+                            std::string     anotherTag{std::to_string(RandomDouble(-1000, 1000))};
+                            SpAddressValue  anotherValueToAdd{new InitFile::AddressValue(nullptr, inValue)};
 
                             anotherValue->AddValue(anotherTag, anotherValueToAdd);
                             if (1 == anotherValue->HowManyValues())
@@ -2196,27 +2198,27 @@ doTestObjectValue
 
             case 32 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpAddressValue   valueToAdd{new InitFile::AddressValue(nullptr, inValue)};
+                    uint32_t        byte0{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte1{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte2{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte3{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        inValue{(((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpAddressValue  valueToAdd{new InitFile::AddressValue(nullptr, inValue)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpObjectValue    anotherValue{new InitFile::ObjectValue(nullptr)};
+                        SpObjectValue   anotherValue{new InitFile::ObjectValue(nullptr)};
 
-                        if ((nullptr != anotherValue) && anotherValue->AsObject())
+                        if ((nullptr != anotherValue) && (nullptr != anotherValue->AsObject()))
                         {
                             std::string anotherTag{std::to_string(RandomDouble(-1000, 1000))};
-                            SpNullValue      anotherValueToAdd{new InitFile::NullValue(nullptr)};
+                            SpNullValue anotherValueToAdd{new InitFile::NullValue(nullptr)};
 
                             anotherValue->AddValue(anotherTag, anotherValueToAdd);
                             if (1 == anotherValue->HowManyValues())
@@ -2230,17 +2232,17 @@ doTestObjectValue
 
             case 33 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2249,17 +2251,17 @@ doTestObjectValue
 
             case 34 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2268,17 +2270,17 @@ doTestObjectValue
 
             case 35 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2287,17 +2289,17 @@ doTestObjectValue
 
             case 36 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2306,17 +2308,17 @@ doTestObjectValue
 
             case 37 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpDoubleValue    valueToAdd{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpDoubleValue   valueToAdd{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2325,22 +2327,22 @@ doTestObjectValue
 
             case 38 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    SpAddressValue   valueToAdd{new InitFile::AddressValue(nullptr, inValue)};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    uint32_t        byte0{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte1{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte2{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte3{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        inValue{(((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3};
+                    SpAddressValue  valueToAdd{new InitFile::AddressValue(nullptr, inValue)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2349,17 +2351,17 @@ doTestObjectValue
 
             case 39 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpArrayValue     valueToAdd{new InitFile::ArrayValue(nullptr)};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpArrayValue    valueToAdd{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2368,17 +2370,17 @@ doTestObjectValue
 
             case 40 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
-                    SpObjectValue    valueToAdd{new InitFile::ObjectValue(nullptr)};
+                    std::string     tagForAdd{std::to_string(RandomDouble(-1000, 1000))};
+                    SpObjectValue   valueToAdd{new InitFile::ObjectValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2387,20 +2389,20 @@ doTestObjectValue
 
             case 41 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
                     std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd1{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd1{new InitFile::NullValue(nullptr)};
                     std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd2{new InitFile::NullValue(nullptr)};
+                    SpNullValue valueToAdd2{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2409,20 +2411,20 @@ doTestObjectValue
 
             case 42 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2431,20 +2433,20 @@ doTestObjectValue
 
             case 43 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2453,20 +2455,20 @@ doTestObjectValue
 
             case 44 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2475,20 +2477,20 @@ doTestObjectValue
 
             case 45 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpDoubleValue    valueToAdd1{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpDoubleValue    valueToAdd2{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpDoubleValue   valueToAdd1{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpDoubleValue   valueToAdd2{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2497,30 +2499,31 @@ doTestObjectValue
 
             case 46 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpAddressValue   valueToAdd1{new InitFile::AddressValue(nullptr, inValue)};
+                    uint32_t        byte0{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte1{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte2{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte3{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        inValue{(((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpAddressValue  valueToAdd1{new InitFile::AddressValue(nullptr, inValue)};
+
                     byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
                     byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
                     byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
                     byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpAddressValue   valueToAdd2{new InitFile::AddressValue(nullptr, inValue)};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpAddressValue  valueToAdd2{new InitFile::AddressValue(nullptr, inValue)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2529,20 +2532,20 @@ doTestObjectValue
 
             case 47 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpArrayValue     valueToAdd1{new InitFile::ArrayValue(nullptr)};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpArrayValue     valueToAdd2{new InitFile::ArrayValue(nullptr)};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpArrayValue    valueToAdd1{new InitFile::ArrayValue(nullptr)};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpArrayValue    valueToAdd2{new InitFile::ArrayValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2551,20 +2554,20 @@ doTestObjectValue
 
             case 48 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpObjectValue    valueToAdd1{new InitFile::ObjectValue(nullptr)};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpObjectValue    valueToAdd2{new InitFile::ObjectValue(nullptr)};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpObjectValue   valueToAdd1{new InitFile::ObjectValue(nullptr)};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpObjectValue   valueToAdd2{new InitFile::ObjectValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2573,20 +2576,20 @@ doTestObjectValue
 
             case 49 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd1{new InitFile::NullValue(nullptr)};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpNullValue     valueToAdd1{new InitFile::NullValue(nullptr)};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd2{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2595,20 +2598,20 @@ doTestObjectValue
 
             case 50 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpBooleanValue   valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpBooleanValue  valueToAdd1{new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble())};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd2{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2617,20 +2620,20 @@ doTestObjectValue
 
             case 51 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpIntegerValue   valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpIntegerValue  valueToAdd1{new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd2{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2639,25 +2642,25 @@ doTestObjectValue
 
             case 52 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpStringValue    valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpAddressValue   valueToAdd2{new InitFile::AddressValue(nullptr, inValue)};
+                    uint32_t        byte0{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte1{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte2{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte3{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        inValue{(((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpStringValue   valueToAdd1{new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000)))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpAddressValue  valueToAdd2{new InitFile::AddressValue(nullptr, inValue)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2666,25 +2669,25 @@ doTestObjectValue
 
             case 53 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    uint32_t    byte0 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte1 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
-                    uint32_t    inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpAddressValue   valueToAdd1{new InitFile::AddressValue(nullptr, inValue)};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpDoubleValue    valueToAdd2{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                    uint32_t        byte0{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte1{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte2{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        byte3{static_cast<uint32_t>(RandomDouble(0, 255))};
+                    uint32_t        inValue{(((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpAddressValue  valueToAdd1{new InitFile::AddressValue(nullptr, inValue)};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpDoubleValue   valueToAdd2{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2693,20 +2696,20 @@ doTestObjectValue
 
             case 54 :
                 aValue.reset(new InitFile::ObjectValue(nullptr));
-                okSoFar = ((nullptr != aValue) && aValue->AsObject());
+                okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    std::string tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
-                    SpDoubleValue    valueToAdd1{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
-                    std::string tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
-                    SpNullValue      valueToAdd2{new InitFile::NullValue(nullptr)};
+                    std::string     tagForAdd1{std::to_string(RandomDouble(-1000, 1000))};
+                    SpDoubleValue   valueToAdd1{new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000))};
+                    std::string     tagForAdd2{std::to_string(RandomDouble(-1000, 1000))};
+                    SpNullValue     valueToAdd2{new InitFile::NullValue(nullptr)};
 
                     okSoFar = false;
                     aValue->AddValue(tagForAdd1, valueToAdd1);
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue  clonedValue{aValue->Clone()};
+                        SpBaseValue clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2746,7 +2749,7 @@ main
      char **    argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -2759,7 +2762,7 @@ main
         {
             int64_t selector;
             int64_t subSelector;
-            bool    expected = (('t' == *argv[2]) || ('T' == *argv[2]));
+            bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
             ODL_B1("expected <- ", expected); //####
             if (ConvertToInt64(argv[1], selector) && (0 < selector) &&

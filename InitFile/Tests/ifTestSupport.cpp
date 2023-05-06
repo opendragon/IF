@@ -136,11 +136,11 @@ InitFile::CanReadFromStandardInput
     (void)
 {
 #if MAC_OR_LINUX_
-    pid_t   fg = tcgetpgrp(STDIN_FILENO);
+    pid_t   fg{tcgetpgrp(STDIN_FILENO)};
 #else // ! MAC_OR_LINUX_
-    HWND    wind = GetConsoleWindow();
+    HWND    wind{GetConsoleWindow()};
 #endif // ! MAC_OR_LINUX_
-    bool    result = false;
+    bool    result{false};
 
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
@@ -190,7 +190,7 @@ InitFile::ConvertToDouble
 {
     bool    okSoFar;
     char *  endPtr;
-    double  value = strtod(startPtr, &endPtr);
+    double  value{strtod(startPtr, &endPtr)};
 
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -216,7 +216,7 @@ InitFile::ConvertToInt64
 {
     bool    okSoFar;
     char *  endPtr;
-    int64_t value = strtoll(startPtr, &endPtr, 10);
+    int64_t value{strtoll(startPtr, &endPtr, 10)};
 
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -428,7 +428,7 @@ InitFile::RandomDouble
     (const double   minValue,
      const double   maxValue)
 {
-    std::uniform_real_distribution<double>  dist(minValue, maxValue);
+    std::uniform_real_distribution<double>  dist{minValue, maxValue};
 
     return dist(lMt);
 } // InitFile::RandomDouble
@@ -437,7 +437,7 @@ uint32_t
 InitFile::RandomUnsigned
     (void)
 {
-    std::uniform_int_distribution<> dist(0, RAND_MAX);
+    std::uniform_int_distribution<> dist{0, RAND_MAX};
 
     return dist(lMt);
 } // InitFile::RandomUnsigned
