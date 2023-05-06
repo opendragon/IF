@@ -113,14 +113,17 @@ catchSignal
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNullValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
-     const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv))
+     const int      argc,
+     char **        argv)
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
+    INITFILE_UNUSED_VAR_(argc);
+    INITFILE_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -242,14 +245,17 @@ doTestNullValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestBooleanValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
-     const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv))
+     const int      argc,
+     char **        argv)
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
+    INITFILE_UNUSED_VAR_(argc);
+    INITFILE_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -391,7 +397,7 @@ doTestBooleanValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestIntegerValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -399,6 +405,7 @@ doTestIntegerValue
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -547,7 +554,7 @@ doTestIntegerValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestDoubleValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -555,6 +562,7 @@ doTestDoubleValue
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -703,7 +711,7 @@ doTestDoubleValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -711,6 +719,7 @@ doTestStringValue
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -855,7 +864,7 @@ doTestStringValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddressValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -863,6 +872,7 @@ doTestAddressValue
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####

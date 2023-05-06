@@ -82,9 +82,10 @@ using namespace InitFile;
 #endif // defined(__APPLE__)
 
 BaseValue::BaseValue
-    (const BaseValue &	NOT_USED_(other)) :
+    (const BaseValue &	other) :
         fParent(nullptr)
 {
+    INITFILE_UNUSED_VAR_(other);
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####

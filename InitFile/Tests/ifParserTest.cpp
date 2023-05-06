@@ -282,7 +282,7 @@ convertStringToIp4Value
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringInputArray
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -290,6 +290,7 @@ doTestStringInputArray
 {
     int result = 1;
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -705,7 +706,7 @@ doTestStringInputArray
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFileInputArray
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -714,6 +715,7 @@ doTestFileInputArray
     int         result = 1;
     std::string fileName{getTempFileName()};
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -1146,7 +1148,7 @@ doTestFileInputArray
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestStringInputObject
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -1154,6 +1156,7 @@ doTestStringInputObject
 {
     int result = 1;
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -1562,7 +1565,7 @@ doTestStringInputObject
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFileInputObject
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
      const int      argc,
@@ -1571,6 +1574,7 @@ doTestFileInputObject
     int         result = 1;
     std::string fileName{getTempFileName()};
 
+    INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####

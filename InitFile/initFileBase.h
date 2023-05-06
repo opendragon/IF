@@ -56,9 +56,6 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief A simple macro to hide unused parameters for a function. */
-# define NOT_USED_(var_)    /* var_ */
-
 namespace InitFile
 {
 	// Forward references:
@@ -363,7 +360,24 @@ namespace InitFile
 
     }; // BaseValue
 
-	/*! @brief Convert an arbitrary string into a correctly formatted string.
+    namespace internal_
+    {
+        /*! @brief A function used to suppress 'unused variable' warnings.
+         @tparam Type_ The type of value being ignored. */
+        template
+            <typename Type_>
+        void
+        ignore_unused_variable_
+            (const Type_ &)
+        {
+        }
+
+    }; // internal_
+
+/*! @brief Suppress warnings about unused variables. */
+# define INITFILE_UNUSED_VAR_(var_)  InitFile::internal_::ignore_unused_variable_(var_)
+
+/*! @brief Convert an arbitrary string into a correctly formatted string.
 	@param[in] inString The string to be formatted.
 	@result A string with correctly escaped characters and delimiters. */
 	std::string

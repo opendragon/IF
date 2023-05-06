@@ -113,14 +113,17 @@ catchSignal
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestArrayValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
-     const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv))
+     const int      argc,
+     char **        argv)
 {
     int result{1};
 
+    INITFILE_UNUSED_VAR_(launchPath);
+    INITFILE_UNUSED_VAR_(argc);
+    INITFILE_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -1448,14 +1451,17 @@ doTestArrayValue
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestObjectValue
-    (const char *   NOT_USED_(launchPath),
+    (const char *   launchPath,
      const int      subSelector,
      const bool     expected,
-     const int      NOT_USED_(argc),
-     char **        NOT_USED_(argv))
+     const int      argc,
+     char **        argv)
 {
     int result = 1;
 
+    INITFILE_UNUSED_VAR_(launchPath);
+    INITFILE_UNUSED_VAR_(argc);
+    INITFILE_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####

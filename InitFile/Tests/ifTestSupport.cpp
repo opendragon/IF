@@ -106,8 +106,9 @@ std::string  InitFile::kDQ{"\""};
 [[noreturn]]
 static void
 localCatcher
-    (int    NOT_USED_(signal))
+    (int    signal)
 {
+    INITFILE_UNUSED_VAR_(signal);
     ODL_ENTER(); //####
     //ODL_I1("signal = ", signal); //####
     ODL_EXIT_EXIT(1); //####
@@ -237,8 +238,9 @@ InitFile::ConvertToInt64
 
 void
 InitFile::Initialize
-    (const std::string &    NOT_USED_(progName))
+    (const std::string &    progName)
 {
+    INITFILE_UNUSED_VAR_(progName);
     ODL_ENTER(); //####
     //ODL_S1s("progName = ", progName); //####
     try

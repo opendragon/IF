@@ -37,7 +37,7 @@
 #--------------------------------------------------------------------------------------------------
 
 set(IF_VERSION_MAJOR 1)
-set(IF_VERSION_MINOR 1)
+set(IF_VERSION_MINOR 2)
 set(IF_VERSION_PATCH 0)
 set(IF_VERSION "${IF_VERSION_MAJOR}.${IF_VERSION_MINOR}.${IF_VERSION_PATCH}")
 set(IF_COMPANY "OpenDragon")
