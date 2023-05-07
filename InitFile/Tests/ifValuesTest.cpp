@@ -90,10 +90,10 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"Exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"Exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -119,8 +119,6 @@ doTestNullValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     INITFILE_UNUSED_VAR_(argc);
     INITFILE_UNUSED_VAR_(argv);
@@ -129,6 +127,8 @@ doTestNullValue
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpNullValue aValue;
@@ -251,8 +251,6 @@ doTestBooleanValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     INITFILE_UNUSED_VAR_(argc);
     INITFILE_UNUSED_VAR_(argv);
@@ -261,6 +259,8 @@ doTestBooleanValue
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpBooleanValue  aValue;
@@ -403,14 +403,14 @@ doTestIntegerValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpIntegerValue  aValue;
@@ -560,14 +560,14 @@ doTestDoubleValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpDoubleValue   aValue;
@@ -717,14 +717,14 @@ doTestStringValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpStringValue   aValue;
@@ -870,14 +870,14 @@ doTestAddressValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpAddressValue  aValue;

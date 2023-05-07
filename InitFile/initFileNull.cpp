@@ -130,10 +130,10 @@ NullValue::operator ==
 	(const BaseValue &	other)
 	const
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     bool	result{false};
 
-	ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
 	if (&other == this)
 	{
 		result = true;

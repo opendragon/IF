@@ -90,10 +90,10 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"Exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"Exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -119,8 +119,6 @@ doTestArrayValue
      const int      argc,
      char **        argv)
 {
-    int result{1};
-
     INITFILE_UNUSED_VAR_(launchPath);
     INITFILE_UNUSED_VAR_(argc);
     INITFILE_UNUSED_VAR_(argv);
@@ -129,6 +127,8 @@ doTestArrayValue
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         SpArrayValue    aValue;
@@ -1457,8 +1457,6 @@ doTestObjectValue
      const int      argc,
      char **        argv)
 {
-    int result = 1;
-
     INITFILE_UNUSED_VAR_(launchPath);
     INITFILE_UNUSED_VAR_(argc);
     INITFILE_UNUSED_VAR_(argv);
@@ -1467,10 +1465,12 @@ doTestObjectValue
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
-        SpObjectValue    aValue;
-        bool        okSoFar;
+        SpObjectValue   aValue;
+        bool            okSoFar;
 
         // 1) test that object values are distinct.
         // 2) test that an empty object value can be created.

@@ -142,10 +142,9 @@ ArrayValue::Clone
 	(void)
 	const
 {
-	SpBaseValue	result;
-
     ODL_OBJENTER(); //####
-	result.reset(new ArrayValue(*this));
+    SpBaseValue	result{new ArrayValue(*this)};
+
 	for (size_t ii = 0; ii < fValue.size(); ++ii)
 	{
 		auto    thisValue{GetValue(ii)};
@@ -187,10 +186,10 @@ ArrayValue::operator ==
 	(const BaseValue &	other)
 	const
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     bool	result{false};
 
-	ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
 	if (&other == this)
 	{
 		result = true;

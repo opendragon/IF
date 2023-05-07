@@ -131,10 +131,9 @@ ObjectValue::Clone
 	(void)
 	const
 {
-	SpBaseValue	result;
-
     ODL_OBJENTER(); //####
-	result.reset(new ObjectValue(*this));
+    SpBaseValue	result{new ObjectValue(*this)};
+
 	for (auto & walker : fValue)
 	{
 		result->AsObject()->AddValue(walker.first, walker.second);
@@ -208,10 +207,10 @@ ObjectValue::operator ==
 	(const BaseValue &	other)
 	const
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
 	bool	result = false;
 
-	ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
 	if (&other == this)
 	{
 		result = true;
