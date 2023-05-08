@@ -92,11 +92,9 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"Exiting due to signal "};
+    std::string message{"Exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
 
-    message += std::to_string(signal);
-    message += " = ";
-    message += NameOfSignal(signal);
+    INITFILE_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // catchSignal
@@ -397,10 +395,8 @@ doTestArrayValue
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
-                        std::string         expectedString{"[ "};
+                        std::string         expectedString{"[ " + std::to_string(number) + " ]"};
 
-                        expectedString += std::to_string(number);
-                        expectedString += " ]";
                         aValue->Print(buffer);
                         okSoFar = (expectedString == buffer.str());
                     }
@@ -615,12 +611,8 @@ doTestArrayValue
                     if (okSoFar)
                     {
                         std::ostringstream  buffer;
-                        std::string         expectedString{"[ "};
+                        std::string         expectedString{"[ " + std::to_string(number1) + ",\n" + std::to_string(number2) + " ]"};
 
-                        expectedString += std::to_string(number1);
-                        expectedString += ",\n";
-                        expectedString += std::to_string(number2);
-                        expectedString += " ]";
                         aValue->Print(buffer);
                         okSoFar = (expectedString == buffer.str());
                     }
