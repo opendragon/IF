@@ -114,7 +114,8 @@ namespace InitFile
         /*! @brief The destructor. */
         virtual
         ~ObjectValue
-            (void);
+            (void)
+            override;
 
         /*! @brief Add a value to the Object contents.
          @param[in] key The tag for the value being added.

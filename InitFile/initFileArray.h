@@ -106,7 +106,8 @@ namespace InitFile
         /*! @brief The destructor. */
         virtual
         ~ArrayValue
-            (void);
+            (void)
+            override;
 
         /*! @brief Add a value to the Array contents.
          @param[in] aValue The value to be added.

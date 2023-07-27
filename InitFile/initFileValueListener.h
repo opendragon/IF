@@ -89,7 +89,8 @@ namespace InitFile
         /*! @brief The destructor. */
         virtual
         ~BaseValueListener
-            (void);
+            (void)
+            override;
 
         /*! @brief Handle the beginning of an empty object description.
         @param[in] ctx The parser context. */

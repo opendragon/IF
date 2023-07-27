@@ -90,7 +90,8 @@ namespace InitFile
         /*! @brief The destructor. */
         virtual
         ~AddressValue
-            (void);
+            (void)
+            override;
 
         /*! @brief Return @c this if this is an IPv4 address.
          @return @c this if this is an IPv4 address. */
