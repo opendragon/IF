@@ -77,7 +77,7 @@ namespace InitFile
 		inline BooleanValue
 			(SpBaseValue    parent,
              const bool     value) :
-				inherited(parent), fValue(value)
+                inherited{parent}, fValue{value}
 			{
 			} /* constructor */
 

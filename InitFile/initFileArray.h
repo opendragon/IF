@@ -93,7 +93,7 @@ namespace InitFile
          @param[in] parent The parent of this value. */
 		inline explicit ArrayValue
 			(SpBaseValue    parent) :
-				inherited(parent)
+                inherited{parent}
 			{
 			} /* constructor */
 

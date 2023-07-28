@@ -83,7 +83,7 @@ using namespace InitFile;
 
 BaseValue::BaseValue
     (const BaseValue &	other) :
-        fParent(nullptr)
+        fParent{nullptr}
 {
     INITFILE_UNUSED_VAR_(other);
     ODL_ENTER(); //####

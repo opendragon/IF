@@ -82,7 +82,7 @@ using namespace InitFile;
 
 NullValue::NullValue
     (const NullValue &    other) :
-        inherited(other)
+        inherited{other}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

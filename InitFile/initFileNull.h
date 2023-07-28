@@ -76,7 +76,7 @@ namespace InitFile
          @param[in] parent The parent of this value. */
 		inline explicit NullValue
 			(SpBaseValue	parent) :
-				inherited(parent)
+                inherited{parent}
 			{
 			} /* constructor */
 

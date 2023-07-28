@@ -80,7 +80,7 @@ using namespace InitFile;
 
 BooleanValue::BooleanValue
     (const BooleanValue &    other) :
-        inherited(other), fValue(other.fValue)
+        inherited{other}, fValue{other.fValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

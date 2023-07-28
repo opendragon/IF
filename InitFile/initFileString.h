@@ -77,7 +77,7 @@ namespace InitFile
 		inline StringValue
 			(SpBaseValue            parent,
              const std::string &    value) :
-				inherited(parent), fValue(value)
+                inherited{parent}, fValue{value}
 			{
 			} /* constructor */
 

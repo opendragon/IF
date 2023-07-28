@@ -77,7 +77,7 @@ namespace InitFile
 		inline AddressValue
 			(SpBaseValue    parent,
              const uint32_t value) :
-				inherited(parent), fValue(value)
+                inherited{parent}, fValue{value}
 			{
 			} /* constructor */
 

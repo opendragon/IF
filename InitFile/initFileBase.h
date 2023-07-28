@@ -295,7 +295,7 @@ namespace InitFile
          @param[in] parent The parent of this value. */
 		inline explicit BaseValue
 			(SpBaseValue	parent) :
-				fParent(parent)
+                fParent{parent}
 			{
 			} /* constructor */
 

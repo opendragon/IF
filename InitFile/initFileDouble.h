@@ -77,7 +77,7 @@ namespace InitFile
 		inline DoubleValue
 			(SpBaseValue    parent,
              const double   value) :
-				inherited(parent), fValue(value)
+                inherited{parent}, fValue{value}
 			{
 			} /* constructor */
 

@@ -77,7 +77,7 @@ namespace InitFile
 		inline IntegerValue
 			(SpBaseValue    parent,
              const int64_t  value) :
-				inherited(parent), fValue(value)
+                inherited{parent}, fValue{value}
 			{
 			} /* constructor */
 
