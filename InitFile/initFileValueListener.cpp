@@ -118,7 +118,7 @@ BaseValueListener::enterEmptyObject
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     pushContainer(fCurrentContainer);
     fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
@@ -131,7 +131,7 @@ BaseValueListener::enterNonEmptyArray
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     pushContainer(fCurrentContainer);
     fCurrentContainer.reset(new ArrayValue(fCurrentContainer));
@@ -144,7 +144,7 @@ BaseValueListener::enterNonEmptyObject
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     pushContainer(fCurrentContainer);
     fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
@@ -157,7 +157,7 @@ BaseValueListener::exitAddressValue
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     std::string addressString;
     uint32_t    address{0};
@@ -170,7 +170,7 @@ BaseValueListener::exitAddressValue
             addressString = addressString.substr(1, addressString.length());
         }
 #if defined(TRACE_PARSING_)
-        std::cerr << "address=" << addressString << std::endl;
+        std::cerr << "address=" << addressString << '\n';
 #endif // defined(TRACE_PARSING_)
         for (size_t ii = 0, lastPos = 0; ii < 4; ++ii)
         {
@@ -202,7 +202,7 @@ BaseValueListener::exitAddressValue
 
         std::cerr << std::hex << "0x";
         std::cerr.width(8);
-        std::cerr << address << std::dec << "<" << address << ">" << std::endl;
+        std::cerr << address << std::dec << "<" << address << ">\n";
         std::cerr.fill(oldFill);
 #endif // defined(TRACE_PARSING_)
     }
@@ -216,7 +216,7 @@ BaseValueListener::exitConfiguration
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     fRootObject = popValue();
     ODL_OBJEXIT(); //####
@@ -228,10 +228,10 @@ BaseValueListener::exitDoubleValue
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
 #if defined(TRACE_PARSING_)
-    std::cerr << "number=" << ctx->nu->getText() << std::endl;
+    std::cerr << "number=" << ctx->nu->getText() << '\n';
 #endif // defined(TRACE_PARSING_)
     pushValue(SpBaseValue(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr))));
     ODL_OBJEXIT(); //####
@@ -243,7 +243,7 @@ BaseValueListener::exitEmptyArray
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     pushValue(SpBaseValue(new ArrayValue(fCurrentContainer)));
     ODL_OBJEXIT(); //####
@@ -255,7 +255,7 @@ BaseValueListener::exitEmptyObject
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
@@ -268,7 +268,7 @@ BaseValueListener::exitIntegerValue
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     pushValue(SpBaseValue(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), nullptr))));
     ODL_OBJEXIT(); //####
@@ -280,7 +280,7 @@ BaseValueListener::exitLiteralValue
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     if (ctx->tv)
     {
@@ -303,8 +303,8 @@ BaseValueListener::exitNonEmptyArray
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
-    std::cerr << "#values=" << ctx->value().size() << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
+    std::cerr << "#values=" << ctx->value().size() << '\n';
 #endif // defined(TRACE_PARSING_)
     auto    currentArray{fCurrentContainer->AsArray()};
     size_t  numValues{ctx->value().size()};
@@ -331,8 +331,8 @@ BaseValueListener::exitNonEmptyObject
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
-    std::cerr << "#pairs=" << ctx->pair().size() << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
+    std::cerr << "#pairs=" << ctx->pair().size() << '\n';
 #endif // defined(TRACE_PARSING_)
     pushValue(fCurrentContainer);
     fCurrentContainer = popContainer();
@@ -345,21 +345,21 @@ BaseValueListener::exitPair
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     std::string     tag{popTag()};
     SpBaseValue     value{popValue()};
 #if defined(TRACE_PARSING_)
     std::cerr << "tag=" << tag << " : value=";
-    if (nullptr != value)
-    {
-        value->Print(std::cerr);
-    }
-    else
+    if (nullptr == value)
     {
         std::cerr << "<<broken>>";
     }
-    std::cerr << std::endl;
+    else
+    {
+        value->Print(std::cerr);
+    }
+    std::cerr << '\n';
 #endif // defined(TRACE_PARSING_)
     auto   currentObject{fCurrentContainer->AsObject()};
 
@@ -373,25 +373,25 @@ BaseValueListener::exitStringValue
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     std::string actualValue;
 
-    if (ctx->dq)
+    if (nullptr != ctx->dq)
     {
         actualValue = ctx->dq->getText();
         actualValue = actualValue.substr(1, actualValue.length() - 2);
     }
-    else if (ctx->sq)
+    else if (nullptr != ctx->sq)
     {
         actualValue = ctx->sq->getText();
         actualValue = actualValue.substr(1, actualValue.length() - 2);
     }
-    else if (ctx->na)
+    else if (nullptr != ctx->na)
     {
         actualValue = ctx->na->getText();
     }
-    //std::cout << "value -> " << actualValue << std::endl;
+    //std::cout << "value -> " << actualValue << '\n';
     pushValue(SpBaseValue(new StringValue(fCurrentContainer, actualValue)));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitStringValue
@@ -402,7 +402,7 @@ BaseValueListener::exitTag
 {
     ODL_OBJENTER(); //####
 #if defined(TRACE_PARSING_)
-    std::cerr << __FUNCTION__ << std::endl;
+    std::cerr << __FUNCTION__ << '\n';
 #endif // defined(TRACE_PARSING_)
     std::string actualTag;
 
@@ -442,12 +442,12 @@ BaseValueListener::GetValue
     }
     catch (const antlr4::RuntimeException & ee)
     {
-        std::cerr << "ANTLR4 RuntimeException: " << ee.what() << std::endl;
+        std::cerr << "ANTLR4 RuntimeException: " << ee.what() << '\n';
         fRootObject.reset();
     }
     catch (const std::exception & ee)
     {
-        std::cerr << ee.what() << std::endl;
+        std::cerr << ee.what() << '\n';
         fRootObject.reset();
     }
 	return fRootObject;
@@ -471,12 +471,12 @@ BaseValueListener::GetValue
     }
     catch (const antlr4::RuntimeException & ee)
     {
-        std::cerr << "ANTLR4 RuntimeException: " << ee.what() << std::endl;
+        std::cerr << "ANTLR4 RuntimeException: " << ee.what() << '\n';
         fRootObject.reset();
     }
     catch (const std::exception & ee)
     {
-        std::cerr << ee.what() << std::endl;
+        std::cerr << ee.what() << '\n';
         fRootObject.reset();
     }
 	return fRootObject;

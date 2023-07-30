@@ -249,7 +249,7 @@ ArrayValue::Print
 			fValue[0]->Print(output << ' ', indentStep, indentChar, indentLevel + indentStep, squished);
 			for (size_t ii = 1; ii < count; ++ii)
 			{
-				outputChars(output << ',' << std::endl, indentChar, indentLevel);
+				outputChars(output << ",\n", indentChar, indentLevel);
 				fValue[ii]->Print(output, indentStep, indentChar, indentLevel + indentStep, squished);
 			}
 		}

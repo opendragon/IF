@@ -232,13 +232,13 @@ ObjectValue::operator ==
 					SpBaseValue	thisValue{walker.second};
 					SpBaseValue	otherValue{asValue->GetValue(key)};
 
-					if (nullptr != otherValue)
+					if (nullptr == otherValue)
+                    {
+                        result = false;
+                    }
+                    else
 					{
 						result = (*thisValue == *otherValue);
-					}
-					else
-					{
-						result = false;
 					}
 				}
 			}
@@ -281,7 +281,7 @@ ObjectValue::Print
 			walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
 			for (++walker; fValue.end() != walker; ++walker)
 			{
-				outputChars(output << ',' << std::endl, indentChar, indentLevel);
+				outputChars(output << ",\n", indentChar, indentLevel);
 				outputEscapedString(output, walker->first);
 				walker->second->Print(output << " : ", indentStep, indentChar, indentLevel + indentStep, squished);
 			}
