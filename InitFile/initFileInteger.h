@@ -189,7 +189,7 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		int64_t  fValue;
+        int64_t  fValue{0};
 
     }; // IntegerValue
 

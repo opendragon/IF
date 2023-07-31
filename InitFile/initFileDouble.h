@@ -189,7 +189,7 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		double  fValue;
+        double  fValue{0};
 
     }; // DoubleValue
 

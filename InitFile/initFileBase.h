@@ -353,7 +353,7 @@ namespace InitFile
         // Protected fields.
 
         /*! @brief The parent of this value. */
-		SpBaseValue	fParent;
+        SpBaseValue	fParent{};
 
     private :
         // Private fields.

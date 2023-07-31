@@ -263,19 +263,19 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The stack of active tags. */
-        std::deque<std::string> fTagStack;
+        std::deque<std::string> fTagStack{};
 
         /*! @brief The stack of values to be stored. */
-        std::deque<SpBaseValue> fValueStack;
+        std::deque<SpBaseValue> fValueStack{};
 
         /*! @brief The stack of open containers. */
-        std::deque<SpBaseValue> fContainerStack;
+        std::deque<SpBaseValue> fContainerStack{};
 
         /*! @brief The container currently being filled. */
-        SpBaseValue fCurrentContainer;
+        SpBaseValue fCurrentContainer{};
 
         /*! @brief The outermost container. */
-        SpBaseValue fRootObject;
+        SpBaseValue fRootObject{};
 
     }; // BaseValueListener
 

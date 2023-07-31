@@ -189,7 +189,7 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		uint32_t    fValue;
+        uint32_t    fValue{0};
 
     }; // AddressValue
 

@@ -189,7 +189,7 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		std::string fValue;
+        std::string fValue{};
 
     }; // StringValue
 

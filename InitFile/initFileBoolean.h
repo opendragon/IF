@@ -189,7 +189,7 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		bool    fValue;
+        bool    fValue{false};
 
     }; // BooleanValue
 

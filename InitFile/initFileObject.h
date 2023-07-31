@@ -245,7 +245,7 @@ namespace InitFile
         // Private fields.
 
         /*! @brief The content of this value. */
-		ValueMap  fValue;
+        ValueMap  fValue{};
 
     }; // ObjectValue
 
