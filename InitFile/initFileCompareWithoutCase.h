@@ -57,40 +57,40 @@ namespace InitFile
     /*! @brief A class to provide a string comparison without regard to case. */
     class CompareWithoutCase final
     {
-    public :
-        // Public type definitions.
+        public :
+            // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        protected :
+            // Protected type definitions.
 
-    private :
-        // Private type definitions.
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+        public :
+            // Public methods.
 
-        /*! @brief Return @c true if the left hand string is less, lexicographically, than the right hand string.
-         @return @c true if the left string is less than the right string. */
-		bool
-		operator()
-			(const std::string &  lhs,
-             const std::string &  rhs)
-			const;
+            /*! @brief Return @c true if the left hand string is less, lexicographically, than the right hand string.
+             @return @c true if the left string is less than the right string. */
+            bool
+            operator()
+                (const std::string &  lhs,
+                 const std::string &  rhs)
+                const;
 
-    protected :
-        // Protected methods.
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+        private :
+            // Private methods.
 
-    public :
-        // Public fields.
+        public :
+            // Public fields.
 
-    protected :
-        // Protected fields.
+        protected :
+            // Protected fields.
 
-    private :
-        // Private fields.
+        private :
+            // Private fields.
 
     }; // CompareWithoutCase
 

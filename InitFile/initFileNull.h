@@ -57,125 +57,125 @@ namespace InitFile
     /*! @brief A class to provide the base type for NULL values. */
     class NullValue final : public BaseValue
     {
-    public :
-        // Public type definitions.
+        public :
+            // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        protected :
+            // Protected type definitions.
 
-    private :
-        // Private type definitions.
+        private :
+            // Private type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = BaseValue;
+            /*! @brief The class that this class is derived from. */
+            using inherited = BaseValue;
 
-    public :
-        // Public methods.
+        public :
+            // Public methods.
 
-        /*! @brief The constructor.
-         @param[in] parent The parent of this value. */
-		inline explicit NullValue
-			(SpBaseValue	parent) :
-                inherited{parent}
-			{
-			} /* constructor */
+            /*! @brief The constructor.
+             @param[in] parent The parent of this value. */
+            inline explicit NullValue
+                (SpBaseValue	parent) :
+                    inherited{parent}
+                {
+                } /* constructor */
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        NullValue
-            (NullValue &&	other)
-            noexcept;
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            NullValue
+                (NullValue &&	other)
+                noexcept;
 
-        /*! @brief The destructor. */
-        virtual
-        ~NullValue
-            (void)
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~NullValue
+                (void)
+                override;
 
-        /*! @brief Return @c this if this is NULL.
-         @return @c this if this is NULL. */
-		virtual NullValue *
-		AsNull
-			(void)
-            override;
+            /*! @brief Return @c this if this is NULL.
+             @return @c this if this is NULL. */
+            virtual NullValue *
+            AsNull
+                (void)
+                override;
 
-        /*! @brief Return @c this if this is NULL.
-         @return @c this if this is NULL. */
-		virtual const NullValue *
-		AsNull
-			(void)
-            const
-            override;
+            /*! @brief Return @c this if this is NULL.
+             @return @c this if this is NULL. */
+            virtual const NullValue *
+            AsNull
+                (void)
+                const
+                override;
 
-		/*! @brief Return a copy of this value.
-		@return A newly allocated copy of this value. */
-		virtual SpBaseValue
-		Clone
-			(void)
-			const
-            override;
+            /*! @brief Return a copy of this value.
+            @return A newly allocated copy of this value. */
+            virtual SpBaseValue
+            Clone
+                (void)
+                const
+                override;
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        NullValue &
-        operator =
-            (const NullValue &  other) = delete;
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            NullValue &
+            operator =
+                (const NullValue &  other) = delete;
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        NullValue &
-        operator =
-            (NullValue &&  other)
-            noexcept;
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            NullValue &
+            operator =
+                (NullValue &&  other)
+                noexcept;
 
-        /*! @brief Return @c true if the two values are equal.
-         @param[in] other The value to be compared with.
-         @return @c true if the two values are comparable and equal. */
-        virtual bool
-        operator ==
-            (const BaseValue &	other)
-			const
-            override;
+            /*! @brief Return @c true if the two values are equal.
+             @param[in] other The value to be compared with.
+             @return @c true if the two values are comparable and equal. */
+            virtual bool
+            operator ==
+                (const BaseValue &	other)
+                const
+                override;
 
-        /*! @brief Write a human-readable representation of the value to a stream.
-         @param[in,out] output The stream to be written to.
-		 @param[in] indentStep How many characters to insert at each level
-		 @param[in] indentChar The character to be used for indentation
-		 @param[in] indentLevel The amount of indentation to apply
-         @param[in] squished @c true if the output has no unnecessary characters and @c false if it
-         is as readable as possible.
-		 @return The stream being written to. */
-		virtual std::ostream &
-		Print
-			(std::ostream &	output,
-			 const size_t	indentStep = 2,
-			 const char		indentChar = ' ',
-			 const size_t	indentLevel = 0,
-			 const bool		squished = false)
-			const
-            override;
+            /*! @brief Write a human-readable representation of the value to a stream.
+             @param[in,out] output The stream to be written to.
+             @param[in] indentStep How many characters to insert at each level
+             @param[in] indentChar The character to be used for indentation
+             @param[in] indentLevel The amount of indentation to apply
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible.
+             @return The stream being written to. */
+            virtual std::ostream &
+            Print
+                (std::ostream &	output,
+                 const size_t	indentStep = 2,
+                 const char		indentChar = ' ',
+                 const size_t	indentLevel = 0,
+                 const bool		squished = false)
+                const
+                override;
 
-    protected :
-        // Protected methods.
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+        private :
+            // Private methods.
 
-        /*! @brief The copy constructor. Used by Clone().
-         @param[in] other The object to be copied. */
-        NullValue
-            (const NullValue &	other);
+            /*! @brief The copy constructor. Used by Clone().
+             @param[in] other The object to be copied. */
+            NullValue
+                (const NullValue &	other);
 
-    public :
-        // Public fields.
+        public :
+            // Public fields.
 
-    protected :
-        // Protected fields.
+        protected :
+            // Protected fields.
 
-    private :
-        // Private fields.
+        private :
+            // Private fields.
 
     }; // NullValue
 

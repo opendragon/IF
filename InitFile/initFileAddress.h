@@ -57,139 +57,139 @@ namespace InitFile
     /*! @brief A class to provide the base type for Address values. */
     class AddressValue final : public BaseValue
     {
-    public :
-        // Public type definitions.
+        public :
+            // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        protected :
+            // Protected type definitions.
 
-    private :
-        // Private type definitions.
+        private :
+            // Private type definitions.
 
-        /*! @brief The class that this class is derived from. */
-        using inherited = BaseValue;
+            /*! @brief The class that this class is derived from. */
+            using inherited = BaseValue;
 
-    public :
-        // Public methods.
+        public :
+            // Public methods.
 
-        /*! @brief The constructor.
-         @param[in] parent The parent of this value. */
-		inline AddressValue
-			(SpBaseValue    parent,
-             const uint32_t value) :
-                inherited{parent}, fValue{value}
-			{
-			} /* constructor */
+            /*! @brief The constructor.
+             @param[in] parent The parent of this value. */
+            inline AddressValue
+                (SpBaseValue    parent,
+                 const uint32_t value) :
+                    inherited{parent}, fValue{value}
+                {
+                } /* constructor */
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        AddressValue
-            (AddressValue &&	other)
-            noexcept;
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            AddressValue
+                (AddressValue &&	other)
+                noexcept;
 
-        /*! @brief The destructor. */
-        virtual
-        ~AddressValue
-            (void)
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~AddressValue
+                (void)
+                override;
 
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
-		virtual AddressValue *
-		AsAddress
-			(void)
-            override;
+            /*! @brief Return @c this if this is an IPv4 address.
+             @return @c this if this is an IPv4 address. */
+            virtual AddressValue *
+            AsAddress
+                (void)
+                override;
 
-        /*! @brief Return @c this if this is an IPv4 address.
-         @return @c this if this is an IPv4 address. */
-		virtual const AddressValue *
-		AsAddress
-			(void)
-            const
-            override;
+            /*! @brief Return @c this if this is an IPv4 address.
+             @return @c this if this is an IPv4 address. */
+            virtual const AddressValue *
+            AsAddress
+                (void)
+                const
+                override;
 
-		/*! @brief Return a copy of this value.
-		@return A newly allocated copy of this value. */
-		virtual SpBaseValue
-		Clone
-			(void)
-			const
-            override;
+            /*! @brief Return a copy of this value.
+            @return A newly allocated copy of this value. */
+            virtual SpBaseValue
+            Clone
+                (void)
+                const
+                override;
 
-        /*! @brief Return the content of this value.
-         @return The content of this value. */
-		inline uint32_t
-		GetValue
-			(void)
-			const
-		{
-			return fValue;
-		} // GetValue
+            /*! @brief Return the content of this value.
+             @return The content of this value. */
+            inline uint32_t
+            GetValue
+                (void)
+                const
+            {
+                return fValue;
+            } // GetValue
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        AddressValue &
-        operator =
-            (const AddressValue &  other) = delete;
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            AddressValue &
+            operator =
+                (const AddressValue &  other) = delete;
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        AddressValue &
-        operator =
-            (AddressValue &&  other)
-            noexcept;
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            AddressValue &
+            operator =
+                (AddressValue &&  other)
+                noexcept;
 
-        /*! @brief Return @c true if the two values are equal.
-         @param[in] other The value to be compared with.
-         @return @c true if the two values are comparable and equal. */
-        virtual bool
-        operator ==
-            (const BaseValue &	other)
-			const
-            override;
+            /*! @brief Return @c true if the two values are equal.
+             @param[in] other The value to be compared with.
+             @return @c true if the two values are comparable and equal. */
+            virtual bool
+            operator ==
+                (const BaseValue &	other)
+                const
+                override;
 
-        /*! @brief Write a human-readable representation of the value to a stream.
-         @param[in,out] output The stream to be written to.
-		 @param[in] indentStep How many characters to insert at each level
-		 @param[in] indentChar The character to be used for indentation
-		 @param[in] indentLevel The amount of indentation to apply
-         @param[in] squished @c true if the output has no unnecessary characters and @c false if it
-         is as readable as possible.
-		 @return The stream being written to. */
-		virtual std::ostream &
-		Print
-			(std::ostream &	output,
-			 const size_t	indentStep = 2,
-			 const char		indentChar = ' ',
-			 const size_t	indentLevel = 0,
-			 const bool		squished = false)
-			const
-            override;
+            /*! @brief Write a human-readable representation of the value to a stream.
+             @param[in,out] output The stream to be written to.
+             @param[in] indentStep How many characters to insert at each level
+             @param[in] indentChar The character to be used for indentation
+             @param[in] indentLevel The amount of indentation to apply
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible.
+             @return The stream being written to. */
+            virtual std::ostream &
+            Print
+                (std::ostream &	output,
+                 const size_t	indentStep = 2,
+                 const char		indentChar = ' ',
+                 const size_t	indentLevel = 0,
+                 const bool		squished = false)
+                const
+                override;
 
-    protected :
-        // Protected methods.
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+        private :
+            // Private methods.
 
-        /*! @brief The copy constructor. Used by Clone().
-         @param[in] other The object to be copied. */
-        AddressValue
-            (const AddressValue &	other);
+            /*! @brief The copy constructor. Used by Clone().
+             @param[in] other The object to be copied. */
+            AddressValue
+                (const AddressValue &	other);
 
-    public :
-        // Public fields.
+        public :
+            // Public fields.
 
-    protected :
-        // Protected fields.
+        protected :
+            // Protected fields.
 
-    private :
-        // Private fields.
+        private :
+            // Private fields.
 
-        /*! @brief The content of this value. */
-        uint32_t    fValue{0};
+            /*! @brief The content of this value. */
+            uint32_t    fValue{0};
 
     }; // AddressValue
 

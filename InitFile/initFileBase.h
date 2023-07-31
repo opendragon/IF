@@ -99,264 +99,264 @@ namespace InitFile
     /*! @brief A class to provide the base type for values. */
     class BaseValue
     {
-    public :
-        // Public type definitions.
+        public :
+            // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        protected :
+            // Protected type definitions.
 
-    private :
-        // Private type definitions.
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+        public :
+            // Public methods.
 
-        /*! @brief Return @c this if this is an IPv4 address value.
-         @return @c this if this is an IPv4 address value. */
-		virtual AddressValue *
-		AsAddress
-			(void);
+            /*! @brief Return @c this if this is an IPv4 address value.
+             @return @c this if this is an IPv4 address value. */
+            virtual AddressValue *
+            AsAddress
+                (void);
 
-        /*! @brief Return @c this if this is an IPv4 address value.
-         @return @c this if this is an IPv4 address value. */
-		virtual const AddressValue *
-		AsAddress
-			(void)
-			const;
+            /*! @brief Return @c this if this is an IPv4 address value.
+             @return @c this if this is an IPv4 address value. */
+            virtual const AddressValue *
+            AsAddress
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is an array value.
-         @return @c this if this is an array value. */
-		virtual ArrayValue *
-		AsArray
-			(void);
+            /*! @brief Return @c this if this is an array value.
+             @return @c this if this is an array value. */
+            virtual ArrayValue *
+            AsArray
+                (void);
 
-        /*! @brief Return @c this if this is an array value.
-         @return @c this if this is an array value. */
-		virtual const ArrayValue *
-		AsArray
-			(void)
-			const;
+            /*! @brief Return @c this if this is an array value.
+             @return @c this if this is an array value. */
+            virtual const ArrayValue *
+            AsArray
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is a boolean value.
-         @return @c this if this is a boolean value. */
-		virtual BooleanValue *
-		AsBoolean
-			(void);
+            /*! @brief Return @c this if this is a boolean value.
+             @return @c this if this is a boolean value. */
+            virtual BooleanValue *
+            AsBoolean
+                (void);
 
-        /*! @brief Return @c this if this is a boolean value.
-         @return @c this if this is a boolean value. */
-		virtual const BooleanValue *
-		AsBoolean
-			(void)
-			const;
+            /*! @brief Return @c this if this is a boolean value.
+             @return @c this if this is a boolean value. */
+            virtual const BooleanValue *
+            AsBoolean
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is a double value.
-         @return @c this if this is a double value. */
-		virtual DoubleValue *
-		AsDouble
-			(void);
+            /*! @brief Return @c this if this is a double value.
+             @return @c this if this is a double value. */
+            virtual DoubleValue *
+            AsDouble
+                (void);
 
-        /*! @brief Return @c this if this is a double value.
-         @return @c this if this is a double value. */
-		virtual const DoubleValue *
-		AsDouble
-			(void)
-			const;
+            /*! @brief Return @c this if this is a double value.
+             @return @c this if this is a double value. */
+            virtual const DoubleValue *
+            AsDouble
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is an integer value.
-         @return @c this if this is an integer value. */
-		virtual IntegerValue *
-		AsInteger
-			(void);
+            /*! @brief Return @c this if this is an integer value.
+             @return @c this if this is an integer value. */
+            virtual IntegerValue *
+            AsInteger
+                (void);
 
-        /*! @brief Return @c this if this is an integer value.
-         @return @c this if this is an integer value. */
-		virtual const IntegerValue *
-		AsInteger
-			(void)
-			const;
+            /*! @brief Return @c this if this is an integer value.
+             @return @c this if this is an integer value. */
+            virtual const IntegerValue *
+            AsInteger
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is NULL.
-         @return @c this if this is NULL. */
-		virtual NullValue *
-		AsNull
-			(void);
+            /*! @brief Return @c this if this is NULL.
+             @return @c this if this is NULL. */
+            virtual NullValue *
+            AsNull
+                (void);
 
-        /*! @brief Return @c this if this is NULL.
-         @return @c this if this is NULL. */
-		virtual const NullValue *
-		AsNull
-			(void)
-			const;
+            /*! @brief Return @c this if this is NULL.
+             @return @c this if this is NULL. */
+            virtual const NullValue *
+            AsNull
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is an object.
-         @return @c this if this is an object. */
-		virtual ObjectValue *
-		AsObject
-			(void);
+            /*! @brief Return @c this if this is an object.
+             @return @c this if this is an object. */
+            virtual ObjectValue *
+            AsObject
+                (void);
 
-        /*! @brief Return @c this if this is an object.
-         @return @c this if this is an object. */
-		virtual const ObjectValue *
-		AsObject
-			(void)
-			const;
+            /*! @brief Return @c this if this is an object.
+             @return @c this if this is an object. */
+            virtual const ObjectValue *
+            AsObject
+                (void)
+                const;
 
-        /*! @brief Return @c this if this is a string.
-         @return @c this if this is a string. */
-		virtual StringValue *
-		AsString
-			(void);
+            /*! @brief Return @c this if this is a string.
+             @return @c this if this is a string. */
+            virtual StringValue *
+            AsString
+                (void);
 
-        /*! @brief Return @c this if this is a string.
-         @return @c this if this is a string. */
-		virtual const StringValue *
-		AsString
-			(void)
-			const;
+            /*! @brief Return @c this if this is a string.
+             @return @c this if this is a string. */
+            virtual const StringValue *
+            AsString
+                (void)
+                const;
 
-        /*! @brief The destructor. */
-        virtual
-        ~BaseValue
-            (void);
+            /*! @brief The destructor. */
+            virtual
+            ~BaseValue
+                (void);
 
-		/*! @brief Return a copy of this value.
-		@return A newly allocated copy of this value. */
-		virtual SpBaseValue
-		Clone
-			(void)
-			const = 0;
+            /*! @brief Return a copy of this value.
+            @return A newly allocated copy of this value. */
+            virtual SpBaseValue
+            Clone
+                (void)
+                const = 0;
 
-        /*! @brief Return the parent of this value.
-         @return The parent of this value. */
-		inline SpBaseValue
-		GetParent
-			(void)
-			const
-		{
-			return fParent;
-		} // GetParent
+            /*! @brief Return the parent of this value.
+             @return The parent of this value. */
+            inline SpBaseValue
+            GetParent
+                (void)
+                const
+            {
+                return fParent;
+            } // GetParent
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        BaseValue &
-        operator =
-            (const BaseValue &  other) = delete;
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            BaseValue &
+            operator =
+                (const BaseValue &  other) = delete;
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        BaseValue &
-        operator =
-            (BaseValue &&  other)
-            noexcept;
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            BaseValue &
+            operator =
+                (BaseValue &&  other)
+                noexcept;
 
-        /*! @brief Return @c true if the two values are equal.
-         @param[in] other The value to be compared with.
-         @return @c true if the two values are comparable and equal. */
-        virtual bool
-        operator ==
-            (const BaseValue &	other)
-			const = 0;
+            /*! @brief Return @c true if the two values are equal.
+             @param[in] other The value to be compared with.
+             @return @c true if the two values are comparable and equal. */
+            virtual bool
+            operator ==
+                (const BaseValue &	other)
+                const = 0;
 
-        /*! @brief Return @c true if the two values are equal.
-         @param[in] other The value to be compared with.
-         @return @c true if the two values are comparable and equal. */
-        inline bool
-        operator !=
-            (const BaseValue &	other)
-			const
-		{
-			return (! operator ==(other));
-		} // operator !=
+            /*! @brief Return @c true if the two values are equal.
+             @param[in] other The value to be compared with.
+             @return @c true if the two values are comparable and equal. */
+            inline bool
+            operator !=
+                (const BaseValue &	other)
+                const
+            {
+                return (! operator ==(other));
+            } // operator !=
 
-        /*! @brief Write a human-readable representation of the value to a stream.
-         @param[in,out] output The stream to be written to.
-		 @param[in] indentStep How many characters to insert at each level
-		 @param[in] indentChar The character to be used for indentation
-		 @param[in] indentLevel The amount of indentation to apply
-         @param[in] squished @c true if the output has no unnecessary characters and @c false if it
-         is as readable as possible.
-		 @return The stream being written to. */
-		virtual std::ostream &
-		Print
-			(std::ostream &	output,
-			 const size_t	indentStep = 2,
-			 const char		indentChar = ' ',
-			 const size_t	indentLevel = 0,
-			 const bool		squished = false)
-			const = 0;
+            /*! @brief Write a human-readable representation of the value to a stream.
+             @param[in,out] output The stream to be written to.
+             @param[in] indentStep How many characters to insert at each level
+             @param[in] indentChar The character to be used for indentation
+             @param[in] indentLevel The amount of indentation to apply
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible.
+             @return The stream being written to. */
+            virtual std::ostream &
+            Print
+                (std::ostream &	output,
+                 const size_t	indentStep = 2,
+                 const char		indentChar = ' ',
+                 const size_t	indentLevel = 0,
+                 const bool		squished = false)
+                const = 0;
 
-    protected :
-        // Protected methods.
+        protected :
+            // Protected methods.
 
-        /*! @brief The constructor.
-         @param[in] parent The parent of this value. */
-		inline explicit BaseValue
-			(SpBaseValue	parent) :
-                fParent{parent}
-			{
-			} /* constructor */
+            /*! @brief The constructor.
+             @param[in] parent The parent of this value. */
+            inline explicit BaseValue
+                (SpBaseValue	parent) :
+                    fParent{parent}
+                {
+                } /* constructor */
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        BaseValue
-            (const BaseValue &	other);
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            BaseValue
+                (const BaseValue &	other);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        BaseValue
-            (BaseValue &&	other)
-            noexcept;
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            BaseValue
+                (BaseValue &&	other)
+                noexcept;
 
-		/*! @brief Add multiple characters to a stream.
-         @param[in,out] output The stream to be written to.
-		 @param[in] aChar The character to write.
-		 @param[in] howMany The number of characters to write.
-		 @return The stream being written to. */
-		std::ostream &
-		outputChars
-			(std::ostream &	output,
-			 const char		aChar,
-			 const size_t	howMany)
-			const;
+            /*! @brief Add multiple characters to a stream.
+             @param[in,out] output The stream to be written to.
+             @param[in] aChar The character to write.
+             @param[in] howMany The number of characters to write.
+             @return The stream being written to. */
+            std::ostream &
+            outputChars
+                (std::ostream &	output,
+                 const char		aChar,
+                 const size_t	howMany)
+                const;
 
-		/*! @brief Add a string to a stream, with special characters escaped.
-         @param[in,out] output The stream to be written to.
-		 @param[in] aString The string to write.
-		 @return The stream being written to. */
-		std::ostream &
-		outputEscapedString
-			(std::ostream &			output,
-			 const std::string &	aString)
-			const;
+            /*! @brief Add a string to a stream, with special characters escaped.
+             @param[in,out] output The stream to be written to.
+             @param[in] aString The string to write.
+             @return The stream being written to. */
+            std::ostream &
+            outputEscapedString
+                (std::ostream &			output,
+                 const std::string &	aString)
+                const;
 
-        /*! @brief Set the parent of this value.
-		@param[in] newParent The new parent of this value.
-         @return The Value that was modified. */
-		inline BaseValue &
-		SetParent
-			(SpBaseValue	newParent)
-		{
-			fParent = newParent;
-			return *this;
-		} // SetParent
+            /*! @brief Set the parent of this value.
+            @param[in] newParent The new parent of this value.
+             @return The Value that was modified. */
+            inline BaseValue &
+            SetParent
+                (SpBaseValue	newParent)
+            {
+                fParent = newParent;
+                return *this;
+            } // SetParent
 
-    private :
-        // Private methods.
+        private :
+            // Private methods.
 
-    public :
-        // Public fields.
+        public :
+            // Public fields.
 
-    protected :
-        // Protected fields.
+        protected :
+            // Protected fields.
 
-        /*! @brief The parent of this value. */
-        SpBaseValue	fParent{};
+            /*! @brief The parent of this value. */
+            SpBaseValue	fParent{};
 
-    private :
-        // Private fields.
+        private :
+            // Private fields.
 
     }; // BaseValue
 

@@ -64,218 +64,218 @@ namespace InitFile
 
     class BaseValueListener final : public InitParser::InitFileParserBaseListener
     {
-    public :
-        // Public type definitions.
+        public :
+            // Public type definitions.
 
-    protected :
-        // Protected type definitions.
+        protected :
+            // Protected type definitions.
 
-    private :
-        // Private type definitions.
+        private :
+            // Private type definitions.
 
-    public :
-        // Public methods.
+        public :
+            // Public methods.
 
-        /*! @brief The constructor. */
-        BaseValueListener
-            (void);
+            /*! @brief The constructor. */
+            BaseValueListener
+                (void);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        BaseValueListener
-            (BaseValueListener &&	other)
-            noexcept;
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            BaseValueListener
+                (BaseValueListener &&	other)
+                noexcept;
 
-        /*! @brief The destructor. */
-        virtual
-        ~BaseValueListener
-            (void)
-            override;
+            /*! @brief The destructor. */
+            virtual
+            ~BaseValueListener
+                (void)
+                override;
 
-        /*! @brief Handle the beginning of an empty object description.
-        @param[in] ctx The parser context. */
-        virtual void
-        enterEmptyObject
-            (InitParser::InitFileParser::EmptyObjectContext * ctx)
-            override;
+            /*! @brief Handle the beginning of an empty object description.
+            @param[in] ctx The parser context. */
+            virtual void
+            enterEmptyObject
+                (InitParser::InitFileParser::EmptyObjectContext * ctx)
+                override;
 
-        /*! @brief Handle the beginning of a non-empty array description.
-        @param[in] ctx The parser context. */
-        virtual void
-        enterNonEmptyArray
-            (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
-            override;
+            /*! @brief Handle the beginning of a non-empty array description.
+            @param[in] ctx The parser context. */
+            virtual void
+            enterNonEmptyArray
+                (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
+                override;
 
-        /*! @brief Handle the beginning of a non-empty object description.
-        @param[in] ctx The parser context. */
-        virtual void
-        enterNonEmptyObject
-            (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
-            override;
+            /*! @brief Handle the beginning of a non-empty object description.
+            @param[in] ctx The parser context. */
+            virtual void
+            enterNonEmptyObject
+                (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
+                override;
 
-        /*! @brief Handle a complete address value.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitAddressValue
-            (InitParser::InitFileParser::AddressValueContext *  ctx)
-            override;
+            /*! @brief Handle a complete address value.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitAddressValue
+                (InitParser::InitFileParser::AddressValueContext *  ctx)
+                override;
 
-        /*! @brief Handle a complete configuration.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitConfiguration
-            (InitParser::InitFileParser::ConfigurationContext * ctx)
-            override;
+            /*! @brief Handle a complete configuration.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitConfiguration
+                (InitParser::InitFileParser::ConfigurationContext * ctx)
+                override;
 
-        /*! @brief Handle a complete double value.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitDoubleValue
-            (InitParser::InitFileParser::DoubleValueContext * ctx)
-            override;
+            /*! @brief Handle a complete double value.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitDoubleValue
+                (InitParser::InitFileParser::DoubleValueContext * ctx)
+                override;
 
-        /*! @brief Handle a complete empty array.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitEmptyArray
-            (InitParser::InitFileParser::EmptyArrayContext * ctx)
-            override;
+            /*! @brief Handle a complete empty array.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitEmptyArray
+                (InitParser::InitFileParser::EmptyArrayContext * ctx)
+                override;
 
-        /*! @brief Handle a complete empty object.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitEmptyObject
-            (InitParser::InitFileParser::EmptyObjectContext * ctx)
-            override;
+            /*! @brief Handle a complete empty object.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitEmptyObject
+                (InitParser::InitFileParser::EmptyObjectContext * ctx)
+                override;
 
-        /*! @brief Handle a complete integer value.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitIntegerValue
-            (InitParser::InitFileParser::IntegerValueContext *  ctx)
-            override;
+            /*! @brief Handle a complete integer value.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitIntegerValue
+                (InitParser::InitFileParser::IntegerValueContext *  ctx)
+                override;
 
-        /*! @brief Handle a complete literal value.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitLiteralValue
-            (InitParser::InitFileParser::LiteralValueContext * ctx)
-            override;
+            /*! @brief Handle a complete literal value.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitLiteralValue
+                (InitParser::InitFileParser::LiteralValueContext * ctx)
+                override;
 
-        /*! @brief Handle a complete non-empty array.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitNonEmptyArray
-            (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
-            override;
+            /*! @brief Handle a complete non-empty array.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitNonEmptyArray
+                (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
+                override;
 
-        /*! @brief Handle a complete non-empty object.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitNonEmptyObject
-            (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
-            override;
+            /*! @brief Handle a complete non-empty object.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitNonEmptyObject
+                (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
+                override;
 
-        /*! @brief Handle a complete tag / value pair.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitPair
-            (InitParser::InitFileParser::PairContext * ctx)
-            override;
+            /*! @brief Handle a complete tag / value pair.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitPair
+                (InitParser::InitFileParser::PairContext * ctx)
+                override;
 
-        /*! @brief Handle a complete string value.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitStringValue
-            (InitParser::InitFileParser::StringValueContext * ctx)
-            override;
+            /*! @brief Handle a complete string value.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitStringValue
+                (InitParser::InitFileParser::StringValueContext * ctx)
+                override;
 
-        /*! @brief Handle a complete tag.
-        @param[in] ctx The parser context. */
-        virtual void
-        exitTag
-            (InitParser::InitFileParser::TagContext * ctx)
-            override;
+            /*! @brief Handle a complete tag.
+            @param[in] ctx The parser context. */
+            virtual void
+            exitTag
+                (InitParser::InitFileParser::TagContext * ctx)
+                override;
 
-        /*! @brief Extract the values from a string.
-            @param[in] input The string to be analyzed.
-            @return The top-level value found in the string. */
-        SpBaseValue
-        GetValue
-            (const std::string &	input);
+            /*! @brief Extract the values from a string.
+                @param[in] input The string to be analyzed.
+                @return The top-level value found in the string. */
+            SpBaseValue
+            GetValue
+                (const std::string &	input);
 
-        /*! @brief Extract the values from a stream.
-            @param[in] input The stream to be analyzed.
-            @return The top-level value found in the stream. */
-        SpBaseValue
-        GetValue
-            (std::istream &	input);
+            /*! @brief Extract the values from a stream.
+                @param[in] input The stream to be analyzed.
+                @return The top-level value found in the stream. */
+            SpBaseValue
+            GetValue
+                (std::istream &	input);
 
-    protected :
-        // Protected methods.
+        protected :
+            // Protected methods.
 
-    private :
-        // Private methods.
+        private :
+            // Private methods.
 
-        /*! @brief Remove the top container from the container stack and return it.
-        @return The top of the container stack. */
-        SpBaseValue
-        popContainer
-            (void);
+            /*! @brief Remove the top container from the container stack and return it.
+            @return The top of the container stack. */
+            SpBaseValue
+            popContainer
+                (void);
 
-        /*! @brief Remove the top tag from the tag stack and return it.
-        @return The top of the tag stack. */
-        std::string
-        popTag
-            (void);
+            /*! @brief Remove the top tag from the tag stack and return it.
+            @return The top of the tag stack. */
+            std::string
+            popTag
+                (void);
 
-        /*! @brief Remove the top value from the value stack and return it.
-        @return The top of the value stack. */
-        SpBaseValue
-        popValue
-            (void);
+            /*! @brief Remove the top value from the value stack and return it.
+            @return The top of the value stack. */
+            SpBaseValue
+            popValue
+                (void);
 
-        /*! @brief Push a container onto the container stack.
-        @return The active listener. */
-        BaseValueListener &
-        pushContainer
-            (SpBaseValue  value);
+            /*! @brief Push a container onto the container stack.
+            @return The active listener. */
+            BaseValueListener &
+            pushContainer
+                (SpBaseValue  value);
 
-        /*! @brief Push a tag onto the tag stack.
-        @return The active listener. */
-        BaseValueListener &
-        pushTag
-            (const std::string  tag);
+            /*! @brief Push a tag onto the tag stack.
+            @return The active listener. */
+            BaseValueListener &
+            pushTag
+                (const std::string  tag);
 
-        /*! @brief Push a value onto the value stack.
-        @return The active listener. */
-        BaseValueListener &
-        pushValue
-            (SpBaseValue  value);
+            /*! @brief Push a value onto the value stack.
+            @return The active listener. */
+            BaseValueListener &
+            pushValue
+                (SpBaseValue  value);
 
-    public :
-        // Public fields.
+        public :
+            // Public fields.
 
-    protected :
-        // Protected fields.
+        protected :
+            // Protected fields.
 
-    private :
-        // Private fields.
+        private :
+            // Private fields.
 
-        /*! @brief The stack of active tags. */
-        std::deque<std::string> fTagStack{};
+            /*! @brief The stack of active tags. */
+            std::deque<std::string> fTagStack{};
 
-        /*! @brief The stack of values to be stored. */
-        std::deque<SpBaseValue> fValueStack{};
+            /*! @brief The stack of values to be stored. */
+            std::deque<SpBaseValue> fValueStack{};
 
-        /*! @brief The stack of open containers. */
-        std::deque<SpBaseValue> fContainerStack{};
+            /*! @brief The stack of open containers. */
+            std::deque<SpBaseValue> fContainerStack{};
 
-        /*! @brief The container currently being filled. */
-        SpBaseValue fCurrentContainer{};
+            /*! @brief The container currently being filled. */
+            SpBaseValue fCurrentContainer{};
 
-        /*! @brief The outermost container. */
-        SpBaseValue fRootObject{};
+            /*! @brief The outermost container. */
+            SpBaseValue fRootObject{};
 
     }; // BaseValueListener
 
