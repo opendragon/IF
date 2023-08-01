@@ -87,13 +87,6 @@ IntegerValue::IntegerValue
     ODL_EXIT_P(this); //####
 } // IntegerValue::IntegerValue
 
-IntegerValue::~IntegerValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // IntegerValue::~IntegerValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

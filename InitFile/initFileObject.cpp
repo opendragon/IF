@@ -90,14 +90,6 @@ ObjectValue::ObjectValue
     ODL_EXIT_P(this); //####
 } // ObjectValue::ObjectValue
 
-ObjectValue::~ObjectValue
-    (void)
-{
-	ODL_OBJENTER(); //####
-	fValue.clear();
-	ODL_OBJEXIT(); //####
-} // ObjectValue::~ObjectValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

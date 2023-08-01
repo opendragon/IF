@@ -87,12 +87,6 @@ namespace InitFile
                 (IntegerValue &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~IntegerValue
-                (void)
-                override;
-
             /*! @brief Return @c this if this is an integer value.
              @return @c this if this is an integer value. */
             virtual IntegerValue *

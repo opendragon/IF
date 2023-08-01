@@ -87,13 +87,6 @@ BooleanValue::BooleanValue
     ODL_EXIT_P(this); //####
 } // BooleanValue::BooleanValue
 
-BooleanValue::~BooleanValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // BooleanValue::~BooleanValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

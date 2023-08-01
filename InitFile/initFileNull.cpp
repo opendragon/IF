@@ -89,13 +89,6 @@ NullValue::NullValue
     ODL_EXIT_P(this); //####
 } // NullValue::NullValue
 
-NullValue::~NullValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // NullValue::~NullValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

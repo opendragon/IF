@@ -87,13 +87,6 @@ AddressValue::AddressValue
     ODL_EXIT_P(this); //####
 } // AddressValue::AddressValue
 
-AddressValue::~AddressValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // AddressValue::~AddressValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -86,12 +86,6 @@ namespace InitFile
                 (NullValue &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~NullValue
-                (void)
-                override;
-
             /*! @brief Return @c this if this is NULL.
              @return @c this if this is NULL. */
             virtual NullValue *

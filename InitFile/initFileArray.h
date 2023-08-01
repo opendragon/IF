@@ -103,12 +103,6 @@ namespace InitFile
                 (ArrayValue &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~ArrayValue
-                (void)
-                override;
-
             /*! @brief Add a value to the Array contents.
              @param[in] aValue The value to be added.
              Values are added to the end of the contents.

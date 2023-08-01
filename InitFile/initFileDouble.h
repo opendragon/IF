@@ -87,12 +87,6 @@ namespace InitFile
                 (DoubleValue &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~DoubleValue
-                (void)
-                override;
-
             /*! @brief Return @c this if this is a double value.
              @return @c this if this is a double value. */
             virtual DoubleValue *

@@ -87,12 +87,6 @@ namespace InitFile
                 (StringValue &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~StringValue
-                (void)
-                override;
-
             /*! @brief Return @c this if this is a string.
              @return @c this if this is a string. */
             virtual StringValue *

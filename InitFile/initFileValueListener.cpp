@@ -101,13 +101,6 @@ BaseValueListener::BaseValueListener
     ODL_OBJEXIT(); //####
 } // BaseValueListener::BaseValueListener
 
-BaseValueListener::~BaseValueListener
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // BaseValueListener::~BaseValueListener
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

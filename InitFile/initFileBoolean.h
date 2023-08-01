@@ -87,12 +87,6 @@ namespace InitFile
                 (BooleanValue &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~BooleanValue
-                (void)
-                override;
-
             /*! @brief Return @c this if this is a boolean value.
              @return @c this if this is a boolean value. */
             virtual BooleanValue *

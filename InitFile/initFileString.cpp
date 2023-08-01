@@ -87,13 +87,6 @@ StringValue::StringValue
     ODL_EXIT_P(this); //####
 } // StringValue::StringValue
 
-StringValue::~StringValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // StringValue::~StringValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -88,14 +88,6 @@ ArrayValue::ArrayValue
     ODL_EXIT_P(this); //####
 } // ArrayValue::ArrayValue
 
-ArrayValue::~ArrayValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-	fValue.clear();
-    ODL_OBJEXIT(); //####
-} // ArrayValue::~ArrayValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -87,13 +87,6 @@ DoubleValue::DoubleValue
     ODL_EXIT_P(this); //####
 } // DoubleValue::DoubleValue
 
-DoubleValue::~DoubleValue
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // DoubleValue::~DoubleValue
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
