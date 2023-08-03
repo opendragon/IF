@@ -123,14 +123,14 @@ namespace InitFile
 
             /*! @brief Return @c this if this is an array.
              @return @c this if this is an array. */
-            virtual ArrayValue *
+            ArrayValue *
             AsArray
                 (void)
                 override;
 
             /*! @brief Return @c this if this is an array.
              @return @c this if this is an array. */
-            virtual const ArrayValue *
+            const ArrayValue *
             AsArray
                 (void)
                 const
@@ -138,7 +138,7 @@ namespace InitFile
 
             /*! @brief Return a copy of this value.
             @return A newly allocated copy of this value. */
-            virtual SpBaseValue
+            SpBaseValue
             Clone
                 (void)
                 const
@@ -177,7 +177,7 @@ namespace InitFile
             /*! @brief Return @c true if the two values are equal.
              @param[in] other The value to be compared with.
              @return @c true if the two values are comparable and equal. */
-            virtual bool
+            bool
             operator ==
                 (const BaseValue &	other)
                 const
@@ -191,7 +191,7 @@ namespace InitFile
              @param[in] squished @c true if the output has no unnecessary characters and @c false if it
              is as readable as possible.
              @return The stream being written to. */
-            virtual std::ostream &
+            std::ostream &
             Print
                 (std::ostream &	output,
                  const size_t	indentStep = 2,

@@ -88,105 +88,105 @@ namespace InitFile
 
             /*! @brief Handle the beginning of an empty object description.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             enterEmptyObject
                 (InitParser::InitFileParser::EmptyObjectContext * ctx)
                 override;
 
             /*! @brief Handle the beginning of a non-empty array description.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             enterNonEmptyArray
                 (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
                 override;
 
             /*! @brief Handle the beginning of a non-empty object description.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             enterNonEmptyObject
                 (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
                 override;
 
             /*! @brief Handle a complete address value.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitAddressValue
                 (InitParser::InitFileParser::AddressValueContext *  ctx)
                 override;
 
             /*! @brief Handle a complete configuration.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitConfiguration
                 (InitParser::InitFileParser::ConfigurationContext * ctx)
                 override;
 
             /*! @brief Handle a complete double value.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitDoubleValue
                 (InitParser::InitFileParser::DoubleValueContext * ctx)
                 override;
 
             /*! @brief Handle a complete empty array.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitEmptyArray
                 (InitParser::InitFileParser::EmptyArrayContext * ctx)
                 override;
 
             /*! @brief Handle a complete empty object.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitEmptyObject
                 (InitParser::InitFileParser::EmptyObjectContext * ctx)
                 override;
 
             /*! @brief Handle a complete integer value.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitIntegerValue
                 (InitParser::InitFileParser::IntegerValueContext *  ctx)
                 override;
 
             /*! @brief Handle a complete literal value.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitLiteralValue
                 (InitParser::InitFileParser::LiteralValueContext * ctx)
                 override;
 
             /*! @brief Handle a complete non-empty array.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitNonEmptyArray
                 (InitParser::InitFileParser::NonEmptyArrayContext * ctx)
                 override;
 
             /*! @brief Handle a complete non-empty object.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitNonEmptyObject
                 (InitParser::InitFileParser::NonEmptyObjectContext * ctx)
                 override;
 
             /*! @brief Handle a complete tag / value pair.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitPair
                 (InitParser::InitFileParser::PairContext * ctx)
                 override;
 
             /*! @brief Handle a complete string value.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitStringValue
                 (InitParser::InitFileParser::StringValueContext * ctx)
                 override;
 
             /*! @brief Handle a complete tag.
             @param[in] ctx The parser context. */
-            virtual void
+            void
             exitTag
                 (InitParser::InitFileParser::TagContext * ctx)
                 override;
