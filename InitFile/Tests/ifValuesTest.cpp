@@ -143,19 +143,19 @@ doTestNullValue
         switch (subSelector)
         {
             case 1 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()) && (nullptr == aValue->AsAddress()) &&
                            (nullptr == aValue->AsArray()) && (nullptr == aValue->AsBoolean()) && (nullptr == aValue->AsDouble()) &&
                            (nullptr == aValue->AsInteger()) && (nullptr == aValue->AsObject()) && (nullptr == aValue->AsString()));
                 break;
 
             case 2 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 break;
 
             case 3 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
@@ -167,7 +167,7 @@ doTestNullValue
                 break;
 
             case 4 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
@@ -178,34 +178,34 @@ doTestNullValue
                 break;
 
             case 5 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()) && (*aValue == *aValue));
                 break;
 
             case 6 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
-                    SpNullValue  otherValue{new InitFile::NullValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::NullValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
                 break;
 
             case 7 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
-                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::ArrayValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
                 break;
 
             case 8 :
-                aValue.reset(new InitFile::NullValue(nullptr));
+                aValue = std::make_shared<InitFile::NullValue>(nullptr);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
@@ -277,24 +277,24 @@ doTestBooleanValue
         switch (subSelector)
         {
             case 1 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, false));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, false);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()) && (nullptr == aValue->AsAddress()) &&
                            (nullptr == aValue->AsArray()) && (nullptr == aValue->AsDouble()) && (nullptr == aValue->AsInteger()) &&
                            (nullptr == aValue->AsNull()) && (nullptr == aValue->AsObject()) && (nullptr == aValue->AsString()));
                 break;
 
             case 2 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, false));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, false);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()) && (! aValue->GetValue()));
                 break;
 
             case 3 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, true));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, true);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()) && aValue->GetValue());
                 break;
 
             case 4 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, false));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, false);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
@@ -306,7 +306,7 @@ doTestBooleanValue
                 break;
 
             case 5 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, true));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, true);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
@@ -318,7 +318,7 @@ doTestBooleanValue
                 break;
 
             case 6 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, 0.5 <= RandomDouble());
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
@@ -330,34 +330,34 @@ doTestBooleanValue
                 break;
 
             case 7 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, 0.5 <= RandomDouble());
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()) && (*aValue == *aValue));
                 break;
 
             case 8 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, 0.5 <= RandomDouble());
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{new InitFile::BooleanValue(nullptr, aValue->GetValue())};
+                    auto    otherValue{std::make_shared<InitFile::BooleanValue>(nullptr, aValue->GetValue())};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsBoolean()) && (*aValue == *otherValue));
                 }
                 break;
 
             case 9 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, 0.5 <= RandomDouble());
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
-                    SpArrayValue otherValue{new InitFile::ArrayValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::ArrayValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
                 break;
 
             case 10 :
-                aValue.reset(new InitFile::BooleanValue(nullptr, 0.5 <= RandomDouble()));
+                aValue = std::make_shared<InitFile::BooleanValue>(nullptr, 0.5 <= RandomDouble());
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
@@ -425,7 +425,7 @@ doTestIntegerValue
         switch (subSelector)
         {
             case 1 :
-                aValue.reset(new InitFile::IntegerValue(nullptr, 42));
+                aValue = std::make_shared<InitFile::IntegerValue>(nullptr, 42);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()) && (nullptr == aValue->AsAddress()) &&
                            (nullptr == aValue->AsArray()) && (nullptr == aValue->AsBoolean()) && (nullptr == aValue->AsDouble()) &&
                            (nullptr == aValue->AsNull()) && (nullptr == aValue->AsObject()) && (nullptr == aValue->AsString()));
@@ -436,7 +436,7 @@ doTestIntegerValue
                 {
                     const int64_t   inValue{strtol(*argv, nullptr, 10)};
 
-                    aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
+                    aValue = std::make_shared<InitFile::IntegerValue>(nullptr, inValue);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                     if (okSoFar)
                     {
@@ -457,7 +457,7 @@ doTestIntegerValue
                 {
                     const int64_t   inValue{strtol(*argv, nullptr, 10)};
 
-                    aValue.reset(new InitFile::IntegerValue(nullptr, inValue));
+                    aValue = std::make_shared<InitFile::IntegerValue>(nullptr, inValue);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                     if (okSoFar)
                     {
@@ -475,7 +475,7 @@ doTestIntegerValue
                 break;
 
             case 4 :
-                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::IntegerValue>(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                 if (okSoFar)
                 {
@@ -487,34 +487,34 @@ doTestIntegerValue
                 break;
 
             case 5 :
-                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::IntegerValue>(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()) && (*aValue == *aValue));
                 break;
 
             case 6 :
-                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::IntegerValue>(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{new InitFile::IntegerValue(nullptr, aValue->GetValue())};
+                    auto    otherValue{std::make_shared<InitFile::IntegerValue>(nullptr, aValue->GetValue())};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsInteger()) && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
-                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::IntegerValue>(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                 if (okSoFar)
                 {
-                    SpArrayValue    otherValue{new InitFile::ArrayValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::ArrayValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
                 break;
 
             case 8 :
-                aValue.reset(new InitFile::IntegerValue(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::IntegerValue>(nullptr, static_cast<int64_t>(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                 if (okSoFar)
                 {
@@ -582,7 +582,7 @@ doTestDoubleValue
         switch (subSelector)
         {
             case 1 :
-                aValue.reset(new InitFile::DoubleValue(nullptr, 42));
+                aValue = std::make_shared<InitFile::DoubleValue>(nullptr, 42);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()) && (nullptr == aValue->AsAddress()) &&
                            (nullptr == aValue->AsArray()) && (nullptr == aValue->AsBoolean()) && (nullptr == aValue->AsInteger()) &&
                            (nullptr == aValue->AsNull()) && (nullptr == aValue->AsObject()) && (nullptr == aValue->AsString()));
@@ -593,7 +593,7 @@ doTestDoubleValue
                 {
                     const double    dblValue{strtod(*argv, nullptr)};
 
-                    aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
+                    aValue = std::make_shared<InitFile::DoubleValue>(nullptr, dblValue);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                     if (okSoFar)
                     {
@@ -614,7 +614,7 @@ doTestDoubleValue
                 {
                     const double    dblValue = strtod(*argv, nullptr);
 
-                    aValue.reset(new InitFile::DoubleValue(nullptr, dblValue));
+                    aValue = std::make_shared<InitFile::DoubleValue>(nullptr, dblValue);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                     if (okSoFar)
                     {
@@ -632,7 +632,7 @@ doTestDoubleValue
                 break;
 
             case 4 :
-                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                aValue = std::make_shared<InitFile::DoubleValue>(nullptr, RandomDouble(-1000, 1000));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                 if (okSoFar)
                 {
@@ -644,34 +644,34 @@ doTestDoubleValue
                 break;
 
             case 5 :
-                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                aValue = std::make_shared<InitFile::DoubleValue>(nullptr, RandomDouble(-1000, 1000));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()) && (*aValue == *aValue));
                 break;
 
             case 6 :
-                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                aValue = std::make_shared<InitFile::DoubleValue>(nullptr, RandomDouble(-1000, 1000));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{new InitFile::DoubleValue(nullptr, aValue->GetValue())};
+                    auto    otherValue{std::make_shared<InitFile::DoubleValue>(nullptr, aValue->GetValue())};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsDouble()) && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
-                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                aValue = std::make_shared<InitFile::DoubleValue>(nullptr, RandomDouble(-1000, 1000));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                 if (okSoFar)
                 {
-                    SpArrayValue    otherValue{new InitFile::ArrayValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::ArrayValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
                 break;
 
             case 8 :
-                aValue.reset(new InitFile::DoubleValue(nullptr, RandomDouble(-1000, 1000)));
+                aValue = std::make_shared<InitFile::DoubleValue>(nullptr, RandomDouble(-1000, 1000));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                 if (okSoFar)
                 {
@@ -739,7 +739,7 @@ doTestStringValue
         switch (subSelector)
         {
             case 1 :
-                aValue.reset(new InitFile::StringValue(nullptr, "chuckles"));
+                aValue = std::make_shared<InitFile::StringValue>(nullptr, "chuckles");
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()) && (nullptr == aValue->AsAddress()) &&
                            (nullptr == aValue->AsArray()) && (nullptr == aValue->AsBoolean()) && (nullptr == aValue->AsDouble()) &&
                            (nullptr == aValue->AsInteger()) && (nullptr == aValue->AsNull()) && (nullptr == aValue->AsObject()));
@@ -748,7 +748,7 @@ doTestStringValue
             case 2 :
                 if (1 <= argc)
                 {
-                    aValue.reset(new InitFile::StringValue(nullptr, *argv));
+                    aValue = std::make_shared<InitFile::StringValue>(nullptr, *argv);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                     if (okSoFar)
                     {
@@ -767,7 +767,7 @@ doTestStringValue
             case 3 :
                 if (2 <= argc)
                 {
-                    aValue.reset(new InitFile::StringValue(nullptr, *argv));
+                    aValue = std::make_shared<InitFile::StringValue>(nullptr, *argv);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                     if (okSoFar)
                     {
@@ -785,7 +785,7 @@ doTestStringValue
                 break;
 
             case 4 :
-                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::StringValue>(nullptr, std::to_string(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                 if (okSoFar)
                 {
@@ -797,34 +797,34 @@ doTestStringValue
                 break;
 
             case 5 :
-                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::StringValue>(nullptr, std::to_string(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()) && (*aValue == *aValue));
                 break;
 
             case 6 :
-                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::StringValue>(nullptr, std::to_string(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{new InitFile::StringValue(nullptr, aValue->GetValue())};
+                    auto    otherValue{std::make_shared<InitFile::StringValue>(nullptr, aValue->GetValue())};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsString()) && (*aValue == *otherValue));
                 }
                 break;
 
             case 7 :
-                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::StringValue>(nullptr, std::to_string(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                 if (okSoFar)
                 {
-                    SpArrayValue    otherValue{new InitFile::ArrayValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::ArrayValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
                 break;
 
             case 8 :
-                aValue.reset(new InitFile::StringValue(nullptr, std::to_string(RandomDouble(-1000, 1000))));
+                aValue = std::make_shared<InitFile::StringValue>(nullptr, std::to_string(RandomDouble(-1000, 1000)));
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                 if (okSoFar)
                 {
@@ -897,7 +897,7 @@ doTestAddressValue
         switch (subSelector)
         {
             case 1 :
-                aValue.reset(new InitFile::AddressValue(nullptr, 1234567));
+                aValue = std::make_shared<InitFile::AddressValue>(nullptr, 1234567);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()) && (nullptr == aValue->AsArray()) &&
                            (nullptr == aValue->AsBoolean()) && (nullptr == aValue->AsDouble()) && (nullptr == aValue->AsInteger()) &&
                            (nullptr == aValue->AsNull()) && (nullptr == aValue->AsObject()) && (nullptr == aValue->AsString()));
@@ -911,7 +911,7 @@ doTestAddressValue
                     byte2 = strtol(argv[2], nullptr, 10);
                     byte3 = strtol(argv[3], nullptr, 10);
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                    aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                     if (okSoFar)
                     {
@@ -935,7 +935,7 @@ doTestAddressValue
                     byte2 = strtol(argv[2], nullptr, 10);
                     byte3 = strtol(argv[3], nullptr, 10);
                     inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                    aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                    aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                     okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                     if (okSoFar)
                     {
@@ -958,7 +958,7 @@ doTestAddressValue
                 byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                 if (okSoFar)
                 {
@@ -975,7 +975,7 @@ doTestAddressValue
                 byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()) && (*aValue == *aValue));
                 break;
 
@@ -985,11 +985,11 @@ doTestAddressValue
                 byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{new InitFile::AddressValue(nullptr, aValue->GetValue())};
+                    auto    otherValue{std::make_shared<InitFile::AddressValue>(nullptr, aValue->GetValue())};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsAddress()) && (*aValue == *otherValue));
                 }
@@ -1001,11 +1001,11 @@ doTestAddressValue
                 byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                 if (okSoFar)
                 {
-                    SpArrayValue    otherValue{new InitFile::ArrayValue(nullptr)};
+                    auto    otherValue{std::make_shared<InitFile::ArrayValue>(nullptr)};
 
                     okSoFar = (*aValue == *otherValue);
                 }
@@ -1017,7 +1017,7 @@ doTestAddressValue
                 byte2 = static_cast<uint32_t>(RandomDouble(0, 255));
                 byte3 = static_cast<uint32_t>(RandomDouble(0, 255));
                 inValue = (((((byte0 << 8) + byte1) << 8) + byte2) << 8) + byte3;
-                aValue.reset(new InitFile::AddressValue(nullptr, inValue));
+                aValue = std::make_shared<InitFile::AddressValue>(nullptr, inValue);
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                 if (okSoFar)
                 {

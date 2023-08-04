@@ -114,7 +114,7 @@ BaseValueListener::enterEmptyObject
     std::cerr << __FUNCTION__ << "\n";
 #endif // defined(TRACE_PARSING_)
     pushContainer(fCurrentContainer);
-    fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
+    fCurrentContainer = std::make_shared<ObjectValue>(fCurrentContainer);
     ODL_OBJEXIT(); //####
 } // BaseValueListener::enterEmptyObject
 
@@ -127,7 +127,7 @@ BaseValueListener::enterNonEmptyArray
     std::cerr << __FUNCTION__ << "\n";
 #endif // defined(TRACE_PARSING_)
     pushContainer(fCurrentContainer);
-    fCurrentContainer.reset(new ArrayValue(fCurrentContainer));
+    fCurrentContainer = std::make_shared<ArrayValue>(fCurrentContainer);
     ODL_OBJEXIT(); //####
 } // BaseValueListener::enterNonEmptyArray
 
@@ -140,7 +140,7 @@ BaseValueListener::enterNonEmptyObject
     std::cerr << __FUNCTION__ << "\n";
 #endif // defined(TRACE_PARSING_)
     pushContainer(fCurrentContainer);
-    fCurrentContainer.reset(new ObjectValue(fCurrentContainer));
+    fCurrentContainer = std::make_shared<ObjectValue>(fCurrentContainer);
     ODL_OBJEXIT(); //####
 } // BaseValueListener::enterNonEmptyObject
 
@@ -199,7 +199,7 @@ BaseValueListener::exitAddressValue
         std::cerr.fill(oldFill);
 #endif // defined(TRACE_PARSING_)
     }
-    pushValue(SpBaseValue(new AddressValue(fCurrentContainer, address)));
+    pushValue(std::make_shared<AddressValue>(fCurrentContainer, address));
     ODL_OBJEXIT(); //####
 } /// BaseValueListener::exitAddressValue
 
@@ -226,7 +226,7 @@ BaseValueListener::exitDoubleValue
 #if defined(TRACE_PARSING_)
     std::cerr << "number=" << ctx->nu->getText() << "\n";
 #endif // defined(TRACE_PARSING_)
-    pushValue(SpBaseValue(new DoubleValue(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr))));
+    pushValue(std::make_shared<DoubleValue>(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr)));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitDoubleValue
 
@@ -238,7 +238,7 @@ BaseValueListener::exitEmptyArray
 #if defined(TRACE_PARSING_)
     std::cerr << __FUNCTION__ << "\n";
 #endif // defined(TRACE_PARSING_)
-    pushValue(SpBaseValue(new ArrayValue(fCurrentContainer)));
+    pushValue(std::make_shared<ArrayValue>(fCurrentContainer));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitEmptyArray
 
@@ -263,7 +263,7 @@ BaseValueListener::exitIntegerValue
 #if defined(TRACE_PARSING_)
     std::cerr << __FUNCTION__ << "\n";
 #endif // defined(TRACE_PARSING_)
-    pushValue(SpBaseValue(new IntegerValue(fCurrentContainer, std::stol(ctx->nu->getText(), nullptr))));
+    pushValue(std::make_shared<IntegerValue>(fCurrentContainer, std::stod(ctx->nu->getText(), nullptr)));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitIntegerValue
 
@@ -277,15 +277,15 @@ BaseValueListener::exitLiteralValue
 #endif // defined(TRACE_PARSING_)
     if (ctx->tv)
     {
-        pushValue(SpBaseValue(new BooleanValue(fCurrentContainer, true)));
+        pushValue(std::make_shared<BooleanValue>(fCurrentContainer, true));
     }
     else if (ctx->fv)
     {
-        pushValue(SpBaseValue(new BooleanValue(fCurrentContainer, false)));
+        pushValue(std::make_shared<BooleanValue>(fCurrentContainer, false));
     }
     else if (ctx->nv)
     {
-        pushValue(SpBaseValue(new NullValue(fCurrentContainer)));
+        pushValue(std::make_shared<NullValue>(fCurrentContainer));
     }
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitLiteralValue
@@ -384,8 +384,7 @@ BaseValueListener::exitStringValue
     {
         actualValue = ctx->na->getText();
     }
-    //std::cout << "value -> " << actualValue << "\n";
-    pushValue(SpBaseValue(new StringValue(fCurrentContainer, actualValue)));
+    pushValue(std::make_shared<StringValue>(fCurrentContainer, actualValue));
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitStringValue
 

@@ -296,9 +296,9 @@ doTestStringInputArray
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
-        SpBaseValue                                     aValue;
-        bool                                            okSoFar;
+        auto        listener{std::make_unique<InitFile::BaseValueListener>()};
+        SpBaseValue aValue;
+        bool        okSoFar;
 
         // 1) test that an empty string fails.
         // 2) test that a string with a non-container fails.
@@ -721,10 +721,10 @@ doTestFileInputArray
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
-        SpBaseValue                                     aValue;
-        bool                                            okSoFar;
-        std::fstream                                    inputOutput;
+        auto            listener{std::make_unique<InitFile::BaseValueListener>()};
+        SpBaseValue     aValue;
+        bool            okSoFar;
+        std::fstream    inputOutput;
 
         // 1) test that an empty file fails.
         // 2) test that file with a non-container fails.
@@ -1162,11 +1162,11 @@ doTestStringInputObject
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
-        SpBaseValue                                     aValue;
-        bool                                            okSoFar;
-        std::string                                     key1;
-        std::string                                     key2;
+        auto        listener{std::make_unique<InitFile::BaseValueListener>()};
+        SpBaseValue aValue;
+        bool        okSoFar;
+        std::string key1;
+        std::string key2;
 
         // 1) test that a string with an empty object is accepted.
         // 2) test that a string with an unterminated object fails.
@@ -1580,12 +1580,12 @@ doTestFileInputObject
 
     try
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
-        SpBaseValue                                     aValue;
-        bool                                            okSoFar;
-        std::fstream                                    inputOutput;
-        std::string                                     key1;
-        std::string                                     key2;
+        auto            listener{std::make_unique<InitFile::BaseValueListener>()};
+        SpBaseValue     aValue;
+        bool            okSoFar;
+        std::fstream    inputOutput;
+        std::string     key1;
+        std::string     key2;
 
         // 1) test that a file with an empty object is accepted.
         // 2) test that a file with an unterminated object fails.
