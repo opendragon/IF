@@ -95,7 +95,7 @@ InitFile::GetValue
 
     if (0 < input.length())
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
+        auto    listener{std::make_unique<InitFile::BaseValueListener>()};
 
         result = listener->GetValue(input);
     }
@@ -110,7 +110,7 @@ InitFile::GetValue
 
     if (input)
     {
-        std::unique_ptr<InitFile::BaseValueListener>    listener{new InitFile::BaseValueListener};
+        auto    listener{std::make_unique<InitFile::BaseValueListener>()};
 
         result = listener->GetValue(input);
     }

@@ -115,7 +115,7 @@ NullValue::Clone
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return UpBaseValue(new NullValue(*this));	
+	return UpBaseValue(new NullValue(*this)); // We can't use std::make_unique() because the copy constructor is private
 } // NullValue::Clone
 
 bool

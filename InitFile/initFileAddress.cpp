@@ -113,7 +113,7 @@ AddressValue::Clone
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return UpBaseValue(new AddressValue(*this));	
+	return UpBaseValue(new AddressValue(*this)); // We can't use std::make_unique() because the copy constructor is private
 } // AddressValue::Clone
 
 bool

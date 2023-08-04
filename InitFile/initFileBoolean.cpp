@@ -113,7 +113,7 @@ BooleanValue::Clone
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return UpBaseValue(new BooleanValue(*this));	
+	return UpBaseValue(new BooleanValue(*this)); // We can't use std::make_unique() because the copy constructor is private
 } // BooleanValue::Clone
 
 bool

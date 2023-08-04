@@ -87,6 +87,10 @@ ObjectValue::ObjectValue
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
 	// copy elements
+    for (auto & walker : other.fValue)
+    {
+        AddValue(walker.first, walker.second);
+    }
     ODL_EXIT_P(this); //####
 } // ObjectValue::ObjectValue
 
@@ -124,12 +128,8 @@ ObjectValue::Clone
 	const
 {
     ODL_OBJENTER(); //####
-    UpBaseValue	result{new ObjectValue(*this)};
+    UpBaseValue	result{new ObjectValue(*this)}; // We can't use std::make_unique() because the copy constructor is private
 
-	for (auto & walker : fValue)
-	{
-		result->AsObject()->AddValue(walker.first, walker.second);
-	}
     ODL_OBJEXIT(); //####
 	return result;
 } // ObjectValue::Clone

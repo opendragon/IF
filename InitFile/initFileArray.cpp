@@ -85,6 +85,12 @@ ArrayValue::ArrayValue
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
 	// copy elements
+    for (size_t ii = 0; ii < other.fValue.size(); ++ii)
+    {
+        auto    thisValue{other.GetValue(ii)};
+
+        AddValueAtBack(thisValue);
+    }
     ODL_EXIT_P(this); //####
 } // ArrayValue::ArrayValue
 
@@ -135,14 +141,8 @@ ArrayValue::Clone
 	const
 {
     ODL_OBJENTER(); //####
-    UpBaseValue	result{new ArrayValue(*this)};
+    UpBaseValue	result{new ArrayValue(*this)}; // We can't use std::make_unique() because the copy constructor is private
 
-	for (size_t ii = 0; ii < fValue.size(); ++ii)
-	{
-		auto    thisValue{GetValue(ii)};
-
-		result->AsArray()->AddValueAtBack(thisValue);
-	}
     ODL_OBJEXIT(); //####
 	return result;
 } // ArrayValue::Clone
