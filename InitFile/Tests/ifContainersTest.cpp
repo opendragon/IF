@@ -215,7 +215,7 @@ doTestArrayValue
                 okSoFar = ((nullptr != aValue) && aValue->AsArray());
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && otherValue->AsArray() && (0 == otherValue->AsArray()->HowManyValues()));
                 }
@@ -253,7 +253,7 @@ doTestArrayValue
                 okSoFar = ((nullptr != aValue) && aValue->AsArray());
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && otherValue->AsArray() && (*aValue == *otherValue));
                 }
@@ -895,7 +895,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -917,7 +917,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -939,7 +939,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -961,7 +961,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -983,7 +983,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1010,7 +1010,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1032,7 +1032,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1054,7 +1054,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1078,7 +1078,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1102,7 +1102,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1126,7 +1126,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1150,7 +1150,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1174,7 +1174,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1207,7 +1207,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1231,7 +1231,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1255,7 +1255,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1279,7 +1279,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1303,7 +1303,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1327,7 +1327,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1356,7 +1356,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1385,7 +1385,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1409,7 +1409,7 @@ doTestArrayValue
                 }
                 if (okSoFar)
                 {
-                    SpBaseValue  clonedValue{aValue->Clone()};
+                    UpBaseValue  clonedValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                 }
@@ -1549,7 +1549,7 @@ doTestObjectValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsObject()) && (0 == otherValue->AsObject()->HowManyValues()));
                 }
@@ -1587,7 +1587,7 @@ doTestObjectValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsObject()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsObject()) && (*aValue == *otherValue));
                 }
@@ -2240,7 +2240,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2259,7 +2259,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2278,7 +2278,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2297,7 +2297,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2316,7 +2316,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2340,7 +2340,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2359,7 +2359,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2378,7 +2378,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd, valueToAdd);
                     if (1 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2400,7 +2400,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2422,7 +2422,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2444,7 +2444,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2466,7 +2466,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2488,7 +2488,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2521,7 +2521,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2543,7 +2543,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2565,7 +2565,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2587,7 +2587,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2609,7 +2609,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2631,7 +2631,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2658,7 +2658,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2685,7 +2685,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }
@@ -2707,7 +2707,7 @@ doTestObjectValue
                     aValue->AddValue(tagForAdd2, valueToAdd2);
                     if (2 == aValue->HowManyValues())
                     {
-                        SpBaseValue clonedValue{aValue->Clone()};
+                        UpBaseValue  clonedValue{aValue->Clone()};
 
                         okSoFar = ((nullptr != clonedValue) && (*clonedValue == *aValue));
                     }

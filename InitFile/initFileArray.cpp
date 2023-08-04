@@ -129,13 +129,13 @@ ArrayValue::AsArray
 	return this;
 } // ArrayValue::AsArray
 
-SpBaseValue
+UpBaseValue
 ArrayValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
-    SpBaseValue	result{new ArrayValue(*this)};
+    UpBaseValue	result{new ArrayValue(*this)};
 
 	for (size_t ii = 0; ii < fValue.size(); ++ii)
 	{

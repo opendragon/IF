@@ -96,6 +96,9 @@ namespace InitFile
     /*! @brief A holder for a shared pointer to a string value. */
     using SpStringValue = std::shared_ptr<StringValue>;
 
+    /*! @brief A holder for a unique pointer to a general value. */
+    using UpBaseValue = std::unique_ptr<BaseValue>;
+
     /*! @brief A class to provide the base type for values. */
     class BaseValue
     {
@@ -222,7 +225,7 @@ namespace InitFile
 
             /*! @brief Return a copy of this value.
             @return A newly allocated copy of this value. */
-            virtual SpBaseValue
+            virtual UpBaseValue
             Clone
                 (void)
                 const = 0;

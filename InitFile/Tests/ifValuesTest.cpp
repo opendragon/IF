@@ -171,7 +171,7 @@ doTestNullValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsNull()));
                 }
@@ -209,7 +209,7 @@ doTestNullValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsNull()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsNull()) && (*aValue == *otherValue));
                 }
@@ -322,7 +322,7 @@ doTestBooleanValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsBoolean()) &&
                                (aValue->GetValue() == otherValue->AsBoolean()->GetValue()));
@@ -361,7 +361,7 @@ doTestBooleanValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsBoolean()));
                 if (okSoFar)
                 {
-                    SpBaseValue  otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsBoolean()) && (*aValue == *otherValue));
                 }
@@ -479,7 +479,7 @@ doTestIntegerValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsInteger()) &&
                                (aValue->GetValue() == otherValue->AsInteger()->GetValue()));
@@ -518,7 +518,7 @@ doTestIntegerValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsInteger()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsInteger()) && (*aValue == *otherValue));
                 }
@@ -636,7 +636,7 @@ doTestDoubleValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsDouble()) &&
                                (aValue->GetValue() == otherValue->AsDouble()->GetValue()));
@@ -675,7 +675,7 @@ doTestDoubleValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsDouble()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsDouble()) && (*aValue == *otherValue));
                 }
@@ -789,7 +789,7 @@ doTestStringValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsString()) &&
                                (aValue->GetValue() == otherValue->AsString()->GetValue()));
@@ -828,7 +828,7 @@ doTestStringValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsString()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsString()) && (*aValue == *otherValue));
                 }
@@ -962,7 +962,7 @@ doTestAddressValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsAddress()) &&
                                (aValue->GetValue() == otherValue->AsAddress()->GetValue()));
@@ -1021,7 +1021,7 @@ doTestAddressValue
                 okSoFar = ((nullptr != aValue) && (nullptr != aValue->AsAddress()));
                 if (okSoFar)
                 {
-                    SpBaseValue otherValue{aValue->Clone()};
+                    UpBaseValue  otherValue{aValue->Clone()};
 
                     okSoFar = ((nullptr != otherValue) && (nullptr != otherValue->AsAddress()) && (*aValue == *otherValue));
                 }

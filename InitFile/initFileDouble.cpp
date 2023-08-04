@@ -106,14 +106,14 @@ DoubleValue::AsDouble
 	return this;
 } // DoubleValue::AsDouble
 
-SpBaseValue
+UpBaseValue
 DoubleValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBaseValue(new DoubleValue(*this));	
+	return UpBaseValue(new DoubleValue(*this));	
 } // DoubleValue::Clone
 
 bool

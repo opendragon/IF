@@ -106,14 +106,14 @@ BooleanValue::AsBoolean
 	return this;
 } // BooleanValue::AsBoolean
 
-SpBaseValue
+UpBaseValue
 BooleanValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBaseValue(new BooleanValue(*this));	
+	return UpBaseValue(new BooleanValue(*this));	
 } // BooleanValue::Clone
 
 bool

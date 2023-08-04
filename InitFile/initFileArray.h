@@ -138,7 +138,7 @@ namespace InitFile
 
             /*! @brief Return a copy of this value.
             @return A newly allocated copy of this value. */
-            SpBaseValue
+            UpBaseValue
             Clone
                 (void)
                 const

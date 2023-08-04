@@ -106,14 +106,14 @@ AddressValue::AsAddress
 	return this;
 } // AddressValue::AsAddress
 
-SpBaseValue
+UpBaseValue
 AddressValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return SpBaseValue(new AddressValue(*this));	
+	return UpBaseValue(new AddressValue(*this));	
 } // AddressValue::Clone
 
 bool

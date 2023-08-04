@@ -118,13 +118,13 @@ ObjectValue::AsObject
 	return this;
 } // ObjectValue::AsObject
 
-SpBaseValue
+UpBaseValue
 ObjectValue::Clone
 	(void)
 	const
 {
     ODL_OBJENTER(); //####
-    SpBaseValue	result{new ObjectValue(*this)};
+    UpBaseValue	result{new ObjectValue(*this)};
 
 	for (auto & walker : fValue)
 	{
