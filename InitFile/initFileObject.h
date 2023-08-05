@@ -103,7 +103,12 @@ namespace InitFile
                 (SpBaseValue    parent) :
                     inherited{parent}
                 {
-                } /* constructor */
+                }
+
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            ObjectValue
+                (const ObjectValue &    other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
@@ -168,7 +173,7 @@ namespace InitFile
                 const;
 
             /*! @brief Return @c true if the Object contents includes a value with the given tag.
-             @param[in] key The tag to be checked.
+             @param[in] tag The tag to be checked.
              @return @c true if there is a value in the contents with the given tag.
              @c false is returned if the tag is empty or not found in the contents. */
             bool
@@ -223,11 +228,6 @@ namespace InitFile
 
         private :
             // Private methods.
-
-            /*! @brief The copy constructor. Used by Clone().
-             @param[in] other The object to be copied. */
-            ObjectValue
-                (const ObjectValue &	other);
 
         public :
             // Public fields.

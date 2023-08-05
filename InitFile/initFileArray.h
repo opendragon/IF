@@ -95,7 +95,12 @@ namespace InitFile
                 (SpBaseValue    parent) :
                     inherited{parent}
                 {
-                } /* constructor */
+                }
+
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            ArrayValue
+                (const ArrayValue &    other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
@@ -206,11 +211,6 @@ namespace InitFile
 
         private :
             // Private methods.
-
-            /*! @brief The copy constructor. Used by Clone().
-             @param[in] other The object to be copied. */
-            ArrayValue
-                (const ArrayValue &	other);
 
         public :
             // Public fields.

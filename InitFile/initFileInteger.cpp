@@ -113,7 +113,7 @@ IntegerValue::Clone
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return UpBaseValue(new IntegerValue(*this)); // We can't use std::make_unique() because the copy constructor is private
+    return std::make_unique<IntegerValue>(*this);
 } // IntegerValue::Clone
 
 bool

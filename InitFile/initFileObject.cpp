@@ -128,10 +128,8 @@ ObjectValue::Clone
 	const
 {
     ODL_OBJENTER(); //####
-    UpBaseValue	result{new ObjectValue(*this)}; // We can't use std::make_unique() because the copy constructor is private
-
     ODL_OBJEXIT(); //####
-	return result;
+    return std::make_unique<ObjectValue>(*this);
 } // ObjectValue::Clone
 
 std::set<std::string>

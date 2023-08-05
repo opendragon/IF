@@ -79,7 +79,12 @@ namespace InitFile
                  const double   value) :
                     inherited{parent}, fValue{value}
                 {
-                } /* constructor */
+                }
+
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            DoubleValue
+                (const DoubleValue &    other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
@@ -118,7 +123,7 @@ namespace InitFile
                 const
             {
                 return fValue;
-            } // GetValue
+            }
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
@@ -167,11 +172,6 @@ namespace InitFile
 
         private :
             // Private methods.
-
-            /*! @brief The copy constructor. Used by Clone().
-             @param[in] other The object to be copied. */
-            DoubleValue
-                (const DoubleValue &	other);
 
         public :
             // Public fields.

@@ -113,7 +113,7 @@ DoubleValue::Clone
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return UpBaseValue(new DoubleValue(*this)); // We can't use std::make_unique() because the copy constructor is private
+    return std::make_unique<DoubleValue>(*this);
 } // DoubleValue::Clone
 
 bool

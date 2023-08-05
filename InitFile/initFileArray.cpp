@@ -141,10 +141,8 @@ ArrayValue::Clone
 	const
 {
     ODL_OBJENTER(); //####
-    UpBaseValue	result{new ArrayValue(*this)}; // We can't use std::make_unique() because the copy constructor is private
-
     ODL_OBJEXIT(); //####
-	return result;
+	return std::make_unique<ArrayValue>(*this);
 } // ArrayValue::Clone
 
 SpBaseValue

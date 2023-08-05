@@ -238,7 +238,7 @@ namespace InitFile
                 const
             {
                 return fParent;
-            } // GetParent
+            }
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
@@ -272,7 +272,7 @@ namespace InitFile
                 const
             {
                 return (! operator ==(other));
-            } // operator !=
+            }
 
             /*! @brief Write a human-readable representation of the value to a stream.
              @param[in,out] output The stream to be written to.
@@ -300,7 +300,7 @@ namespace InitFile
                 (SpBaseValue	parent) :
                     fParent{parent}
                 {
-                } /* constructor */
+                }
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
@@ -344,7 +344,7 @@ namespace InitFile
             {
                 fParent = newParent;
                 return *this;
-            } // SetParent
+            }
 
         private :
             // Private methods.

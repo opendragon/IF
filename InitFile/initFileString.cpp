@@ -113,7 +113,7 @@ StringValue::Clone
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-	return UpBaseValue(new StringValue(*this));	// We can't use std::make_unique() because the copy constructor is private
+    return std::make_unique<StringValue>(*this);
 } // StringValue::Clone
 
 bool
