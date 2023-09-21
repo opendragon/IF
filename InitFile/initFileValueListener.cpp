@@ -340,8 +340,9 @@ BaseValueListener::exitPair
 #if defined(TRACE_PARSING_)
     std::cerr << __FUNCTION__ << "\n";
 #endif // defined(TRACE_PARSING_)
-    std::string     tag{popTag()};
-    SpBaseValue     value{popValue()};
+    std::string tag{popTag()};
+    SpBaseValue value{popValue()};
+
 #if defined(TRACE_PARSING_)
     std::cerr << "tag=" << tag << " : value=";
     if (nullptr == value)

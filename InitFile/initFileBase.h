@@ -380,9 +380,9 @@ namespace InitFile
 /*! @brief Suppress warnings about unused variables. */
 # define INITFILE_UNUSED_VAR_(var_)  InitFile::internal_::ignore_unused_variable_(var_)
 
-/*! @brief Convert an arbitrary string into a correctly formatted string.
-	@param[in] inString The string to be formatted.
-	@result A string with correctly escaped characters and delimiters. */
+    /*! @brief Convert an arbitrary string into a correctly formatted string.
+     @param[in] inString The string to be formatted.
+     @result A string with correctly escaped characters and delimiters. */
 	std::string
 	MakeWrappedString
 		(const std::string &    inString);

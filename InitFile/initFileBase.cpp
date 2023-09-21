@@ -250,9 +250,6 @@ BaseValue::outputEscapedString
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief Convert an arbitrary string into a correctly formatted string.
- @param[in] inString The string to be formatted.
- @result A string with correctly escaped characters and delimiters. */
 std::string
 InitFile::MakeWrappedString
     (const std::string &    inString)
