@@ -55,6 +55,7 @@
 #include <iostream>
 #include <random>
 #include <sstream>
+#include <string>
 #include <unistd.h>
 
 #if defined(__APPLE__)
@@ -73,6 +74,7 @@
 #endif // defined(__APPLE__)
 
 using namespace InitFile;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -95,7 +97,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"Exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
+    std::string message{"Exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     INITFILE_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -130,13 +132,13 @@ addArrayToStringAndParse
      const std::string &            stringToAdd1,
      const std::string &            stringToAdd2 = "")
 {
-    std::string stringToBuild{"[ " + stringToAdd1};
+    std::string stringToBuild{"[ "s + stringToAdd1};
 
     if (0 < stringToAdd2.length())
     {
-        stringToBuild += ", " + stringToAdd2;
+        stringToBuild += ", "s + stringToAdd2;
     }
-    stringToBuild += " ]";
+    stringToBuild += " ]"s;
     return listener->GetValue(stringToBuild);
 } // addArrayToStringAndParse
 
@@ -155,13 +157,13 @@ addObjectToStringAndParse
      const std::string &            tagToUse2 = "",
      const std::string &            stringToAdd2 = "")
 {
-    std::string stringToBuild{"{ " + MakeWrappedString(tagToUse1) + " : " + stringToAdd1};
+    std::string stringToBuild{"{ "s + MakeWrappedString(tagToUse1) + " : "s + stringToAdd1};
 
     if ((0 < tagToUse2.length()) && (0 < stringToAdd2.length()))
     {
-        stringToBuild += ", " + MakeWrappedString(tagToUse2) + " : " + stringToAdd2;
+        stringToBuild += ", "s + MakeWrappedString(tagToUse2) + " : "s + stringToAdd2;
     }
-    stringToBuild += " }";
+    stringToBuild += " }"s;
     return listener->GetValue(stringToBuild);
 } // addObjectToStringAndParse
 

@@ -45,6 +45,7 @@
 #include <csignal>
 #include <random>
 #include <sstream>
+#include <string>
 
 #if MAC_OR_LINUX_
 # include <unistd.h>
@@ -72,6 +73,7 @@
 #endif // defined(__APPLE__)
 
 using namespace InitFile;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -110,7 +112,7 @@ localCatcher
 {
     INITFILE_UNUSED_VAR_(signal);
     ODL_ENTER(); //####
-    //ODL_I1("signal = ", signal); //####
+    //ODL_I1("ignal = ", signal); //####
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // localCatcher
@@ -190,7 +192,7 @@ InitFile::ConvertToDouble
      double &       result)
 {
     ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
+    ODL_S1("tartPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
     bool    okSoFar;
     char *  endPtr;
@@ -216,7 +218,7 @@ InitFile::ConvertToInt64
      int64_t &      result)
 {
     ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
+    ODL_S1("tartPtr = ", startPtr); //####
     ODL_P1("result = ", &result); //####
     bool    okSoFar;
     char *  endPtr;

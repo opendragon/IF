@@ -53,6 +53,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -70,6 +71,7 @@
 #endif // defined(__APPLE__)
 
 using namespace InitFile;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -92,7 +94,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"Exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
+    std::string message{"Exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     INITFILE_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
