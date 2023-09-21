@@ -48,6 +48,7 @@
 #include <initFileString.h>
 #include <initFileBase.h>
 #include <iostream>
+#include <string>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -71,6 +72,7 @@
 #endif // defined(__APPLE__)
 
 using namespace InitFile;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -185,7 +187,7 @@ BaseValueListener::exitAddressValue
 
             if ((255 < segmentValue) || (nextPos < segment.length()))
             {
-                throw antlr4::RuntimeException("address contains invalid byte (" + segment + ")");
+                throw antlr4::RuntimeException("address contains invalid byte ("s + segment + ")"s);
 
             }
             address += segmentValue;
