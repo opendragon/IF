@@ -47,14 +47,14 @@
 #include <initFileObject.h>
 #include <initFileString.h>
 #include <initFileBase.h>
+#include "InitFileLexer.h"
+#include "InitFileParser.h"
+
 #include <iostream>
 #include <string>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
-
-#include "InitFileLexer.h"
-#include "InitFileParser.h"
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

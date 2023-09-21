@@ -38,10 +38,10 @@
 
 #include <initFileObject.h>
 
+#include <iostream>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
-
-#include <iostream>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
