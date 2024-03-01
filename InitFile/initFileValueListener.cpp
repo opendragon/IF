@@ -281,13 +281,19 @@ BaseValueListener::exitLiteralValue
     {
         pushValue(std::make_shared<BooleanValue>(fCurrentContainer, true));
     }
-    else if (ctx->fv)
+    else
     {
-        pushValue(std::make_shared<BooleanValue>(fCurrentContainer, false));
-    }
-    else if (ctx->nv)
-    {
-        pushValue(std::make_shared<NullValue>(fCurrentContainer));
+        if (ctx->fv)
+        {
+            pushValue(std::make_shared<BooleanValue>(fCurrentContainer, false));
+        }
+        else
+        {
+            if (ctx->nv)
+            {
+                pushValue(std::make_shared<NullValue>(fCurrentContainer));
+            }
+        }
     }
     ODL_OBJEXIT(); //####
 } // BaseValueListener::exitLiteralValue
@@ -378,14 +384,20 @@ BaseValueListener::exitStringValue
         actualValue = ctx->dq->getText();
         actualValue = actualValue.substr(1, actualValue.length() - 2);
     }
-    else if (nullptr != ctx->sq)
+    else
     {
-        actualValue = ctx->sq->getText();
-        actualValue = actualValue.substr(1, actualValue.length() - 2);
-    }
-    else if (nullptr != ctx->na)
-    {
-        actualValue = ctx->na->getText();
+        if (nullptr != ctx->sq)
+        {
+            actualValue = ctx->sq->getText();
+            actualValue = actualValue.substr(1, actualValue.length() - 2);
+        }
+        else
+        {
+            if (nullptr != ctx->na)
+            {
+                actualValue = ctx->na->getText();
+            }
+        }
     }
     pushValue(std::make_shared<StringValue>(fCurrentContainer, actualValue));
     ODL_OBJEXIT(); //####
@@ -401,19 +413,25 @@ BaseValueListener::exitTag
 #endif // defined(TRACE_PARSING_)
     std::string actualTag;
 
-    if (ctx->dq)
+    if (nullptr != ctx->dq)
     {
         actualTag = ctx->dq->getText();
         actualTag = actualTag.substr(1, actualTag.length() - 2);
     }
-    else if (ctx->sq)
+    else
     {
-        actualTag = ctx->sq->getText();
-        actualTag = actualTag.substr(1, actualTag.length() - 2);
-    }
-    else if (ctx->na)
-    {
-        actualTag = ctx->na->getText();
+        if (nullptr != ctx->sq)
+        {
+            actualTag = ctx->sq->getText();
+            actualTag = actualTag.substr(1, actualTag.length() - 2);
+        }
+        else
+        {
+            if (nullptr != ctx->na)
+            {
+                actualTag = ctx->na->getText();
+            }
+        }
     }
     pushTag(actualTag);
     ODL_OBJEXIT(); //####

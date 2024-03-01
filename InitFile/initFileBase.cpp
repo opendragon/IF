@@ -266,19 +266,22 @@ InitFile::MakeWrappedString
 		// Use double quotes.
 		quoteChar = '"';
 	}
-	else if (inString.npos == foundSingle)
-	{
-		// No single quotes present in the string.
-		// Double quotes present in the string.
-		// Use single quotes.
-		quoteChar = '\'';
-	}
-	else
-	{
-		// Both single quotes and double quotes present in the string.
-		// Use double quotes.
-		quoteChar = '"';
-	}
+    else
+    {
+        if (inString.npos == foundSingle)
+        {
+            // No single quotes present in the string.
+            // Double quotes present in the string.
+            // Use single quotes.
+            quoteChar = '\'';
+        }
+        else
+        {
+            // Both single quotes and double quotes present in the string.
+            // Use double quotes.
+            quoteChar = '"';
+        }
+    }
     result = quoteChar;
 	for (auto & walker : inString)
 	{

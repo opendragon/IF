@@ -153,15 +153,18 @@ InitFile::CanReadFromStandardInput
         // Piped
         result = true;
     }
-    else if (getpgrp() == fg)
-    {
-        // Foreground
-        result = true;
-    }
     else
     {
-        // Background
-        result = false;
+        if (getpgrp() == fg)
+        {
+            // Foreground
+            result = true;
+        }
+        else
+        {
+            // Background
+            result = false;
+        }
     }
 #else // ! MAC_OR_LINUX_
     result = (nullptr != wind);

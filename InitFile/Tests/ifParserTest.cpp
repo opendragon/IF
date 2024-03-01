@@ -243,17 +243,20 @@ convertStringToIp4Value
         {
             segment = inString.substr(lastPos, inString.length());
         }
-        else if (ii < 3)
-        {
-            segment = inString.substr(lastPos, jj - lastPos);
-            lastPos = jj + 1;
-        }
         else
         {
-            // Extra dot after a valid IPv4 address, which makes it invalid.
-            result = static_cast<uint32_t>(-1);
-            break;
+            if (ii < 3)
+            {
+                segment = inString.substr(lastPos, jj - lastPos);
+                lastPos = jj + 1;
+            }
+            else
+            {
+                // Extra dot after a valid IPv4 address, which makes it invalid.
+                result = static_cast<uint32_t>(-1);
+                break;
 
+            }
         }
         size_t  nextPos;
         size_t  segmentValue{std::stoul(segment, &nextPos)};
