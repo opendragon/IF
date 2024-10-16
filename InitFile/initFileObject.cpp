@@ -85,7 +85,7 @@ ObjectValue::ObjectValue
         inherited{other}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
 	// copy elements
     for (auto & walker : other.fValue)
     {
@@ -198,7 +198,7 @@ ObjectValue::operator ==
 	const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
 	bool	result = false;
 
 	if (&other == this)

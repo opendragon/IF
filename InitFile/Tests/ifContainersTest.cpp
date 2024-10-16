@@ -93,7 +93,7 @@ catchSignal
     (int signal)
 {
     ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
+    ODL_I1(signal); //####
     std::string message{"Exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     INITFILE_UNUSED_VAR_(message);
@@ -123,10 +123,10 @@ doTestArrayValue
     INITFILE_UNUSED_VAR_(argc);
     INITFILE_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -1455,10 +1455,10 @@ doTestObjectValue
     INITFILE_UNUSED_VAR_(argc);
     INITFILE_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_P1("argv = ", argv); //####
+    //ODL_S1(launchPath); //####
+    ODL_I2(subSelector, argc); //####
+    ODL_B1(expected); //####
+    ODL_P1(argv); //####
     int result{1};
 
     try
@@ -2766,7 +2766,7 @@ main
             int64_t subSelector;
             bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
-            ODL_B1("expected <- ", expected); //####
+            ODL_B1(expected); //####
             if (ConvertToInt64(argv[1], selector) && (0 < selector) &&
                 ConvertToInt64(argv[3], subSelector) && (0 < subSelector))
             {
@@ -2790,7 +2790,7 @@ main
                 }
                 if (result)
                 {
-                    ODL_I1("%%%%%%% unit test failure = ", result); //####
+                    ODL_I1(result); //####
                 }
             }
             else

@@ -113,7 +113,7 @@ localCatcher
 {
     INITFILE_UNUSED_VAR_(signal);
     ODL_ENTER(); //####
-    //ODL_I1("ignal = ", signal); //####
+    //ODL_I1(signal); //####
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // localCatcher
@@ -178,7 +178,7 @@ InitFile::ConvertDoubleToString
     (const double   value)
 {
     ODL_ENTER(); //####
-    ODL_D1("value = ", value); //####
+    ODL_D1(value); //####
     // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
     // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
     std::ostringstream  holder;
@@ -196,8 +196,8 @@ InitFile::ConvertToDouble
      double &       result)
 {
     ODL_ENTER(); //####
-    ODL_S1("tartPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
+    ODL_S1(startPtr); //####
+    ODL_P1(&result); //####
     bool    okSoFar;
     char *  endPtr;
     double  value{strtod(startPtr, &endPtr)};
@@ -205,7 +205,7 @@ InitFile::ConvertToDouble
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
-        ODL_D1("result <- ", result); //####
+        ODL_D1(result); //####
         okSoFar = true;
     }
     else
@@ -222,8 +222,8 @@ InitFile::ConvertToInt64
      int64_t &      result)
 {
     ODL_ENTER(); //####
-    ODL_S1("tartPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
+    ODL_S1(startPtr); //####
+    ODL_P1(&result); //####
     bool    okSoFar;
     char *  endPtr;
     int64_t value{strtoll(startPtr, &endPtr, 10)};
@@ -231,7 +231,7 @@ InitFile::ConvertToInt64
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
-        ODL_I1("result <- ", result); //####
+        ODL_I1(result); //####
         okSoFar = true;
     }
     else
@@ -248,7 +248,7 @@ InitFile::Initialize
 {
     INITFILE_UNUSED_VAR_(progName);
     ODL_ENTER(); //####
-    //ODL_S1s("progName = ", progName); //####
+    //ODL_S1(progName); //####
     try
     {
 

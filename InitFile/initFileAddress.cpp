@@ -83,7 +83,7 @@ AddressValue::AddressValue
         inherited{other}, fValue{other.fValue}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // AddressValue::AddressValue
 
@@ -122,7 +122,7 @@ AddressValue::operator ==
 	const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool	result{false};
 
 	if (&other == this)

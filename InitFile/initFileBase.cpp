@@ -87,7 +87,7 @@ BaseValue::BaseValue
 {
     INITFILE_UNUSED_VAR_(other);
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     ODL_EXIT_P(this); //####
 } // BaseValue::BaseValue
 

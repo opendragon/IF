@@ -83,7 +83,7 @@ ArrayValue::ArrayValue
         inherited{other}
 {
     ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
 	// copy elements
     for (size_t ii = 0; ii < other.fValue.size(); ++ii)
     {
@@ -177,7 +177,7 @@ ArrayValue::operator ==
 	const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
+    ODL_P1(&other); //####
     bool	result{false};
 
 	if (&other == this)
